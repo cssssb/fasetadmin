@@ -76,6 +76,7 @@ class User extends Frontend
      */
     public function register()
     {
+            // var_dump($_GET);die;
         $url = $this->request->request('url', '', 'trim');
         if ($this->auth->id) {
             $this->success(__('You\'ve logged in, do not login again'), $url ? $url : url('user/index'));
@@ -113,16 +114,17 @@ class User extends Frontend
                 //'captcha'   => $captcha,
                 '__token__' => $token,
             ];
-            $ret = Sms::check($mobile, $captcha, 'register');
-            if (!$ret) {
-                $this->error(__('Captcha is incorrect'));
-            }
+            // $ret = Sms::check($mobile, $captcha, 'register');
+            // if (!$ret) {
+            //     $this->error(__('Captcha is incorrect'));
+            // }
             $validate = new Validate($rule, $msg);
             $result = $validate->check($data);
             if (!$result) {
                 $this->error(__($validate->getError()), null, ['token' => $this->request->token()]);
             }
-            if ($this->auth->register($username, $password, $email, $mobile)) {
+            if ($this->auth->register($username, $password, $email, $mobile,$_GET)) {
+                // die;
                 $this->success(__('Sign up successful'), $url ? $url : url('user/index'));
             } else {
                 $this->error($this->auth->getError(), null, ['token' => $this->request->token()]);
@@ -192,7 +194,6 @@ class User extends Frontend
         $this->view->assign('title', __('Login'));
         return $this->view->fetch();
     }
-
     /**
      * 注销登录
      */
@@ -257,6 +258,30 @@ class User extends Frontend
             }
         }
         $this->view->assign('title', __('Change password'));
+        return $this->view->fetch();
+    }
+
+    /**
+     * ================
+     * @Author:        css
+     * @Parameter:     
+     * @DataTime:      2019-10-14
+     * @Return:        
+     * @Notes:         邀请返利
+     * @ErrorReason:   
+     * ================
+     */
+    public function invite(){
+        $url = $this->request->request('url', '', 'trim');
+        $referer = $this->request->server('HTTP_REFERER');
+        if (!$url && (strtolower(parse_url($referer, PHP_URL_HOST)) == strtolower($this->request->host()))
+            && !preg_match("/(user\/login|user\/register|user\/logout)/i", $referer)) {
+            $url = $referer;
+        }
+        $a = '123';
+        $this->view->assign('url', $url);
+        $this->view->assign('title', '邀请返利');
+        $this->view->assign('data',$a);
         return $this->view->fetch();
     }
 }
