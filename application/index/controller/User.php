@@ -324,7 +324,9 @@ class User extends Frontend
      * ================
      */
     public function rechargeorder(){
+        $data = DB::name('rechargeablecard_log')->where('user_id='.$this->auth->id)->select();
         $this->view->assign('title', '充值订单');
+        $this->view->assign('data', $data);
         return $this->view->fetch();
     }
 
@@ -385,4 +387,5 @@ class User extends Frontend
         return DB::name('rechargeablecard')->where('has_pwd='.$haspwd)->update($update);
         // return $this->charlierecharge();
     }
+
 }
