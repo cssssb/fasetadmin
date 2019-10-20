@@ -306,9 +306,9 @@ class User extends Frontend
      * ================
      */
     public function charlierecharge(){
-        // $url = $this->request->request('url', '', 'trim');
-       
+        $data = DB::name('rechargeablecard')->where('user_id='.$this->auth->id)->select();
         $this->view->assign('title', '卡密充值');
+        $this->view->assign('data', $data);
         return $this->view->fetch();
 
     }
@@ -341,5 +341,48 @@ class User extends Frontend
     public function balancelog(){
         $this->view->assign('title', '余额日志');
         return $this->view->fetch();
+    }
+
+    /**
+     * ================
+     * @Author:        css
+     * @Parameter:     
+     * @DataTime:      2019-10-20
+     * @Return:        
+     * @Notes:         查询卡密
+     * @ErrorReason:   
+     * ================
+     */
+    public function findhaspwd(){
+        //获取卡密
+        if ($this->request->isPost()) {
+            $haspwd = $this->request->post("has_pwd");
+        }
+        // $haspwd = '123456';
+        $data = DB::name('rechargeablecard')->where('has_pwd='.$haspwd)->find();
+        $this->view->assign('title','卡密充值');
+        $this->view->assign('data',$data);
+        return $this->view->fetch();
+    }
+
+    /**
+     * ================
+     * @Author:        css
+     * @Parameter:     
+     * @DataTime:      2019-10-20
+     * @Return:        
+     * @Notes:         兑换卡密
+     * @ErrorReason:   
+     * ================
+     */
+    public function exchange(){
+        //获取卡密
+        if ($this->request->isPost()) {
+            // $haspwd = $this->request->post("has_pwd");
+        }
+        $haspwd = '123456789';
+        $update = ['user_id'=>$this->auth->id,'c_time'=>date('Y-M-D H:i:s',time())];
+        return DB::name('rechargeablecard')->where('has_pwd='.$haspwd)->update($update);
+        // return $this->charlierecharge();
     }
 }
