@@ -135,4 +135,18 @@ class User extends Model
         }
         return $level;
     }
+    /**
+     * ================
+     * @Author:        css
+     * @Parameter:     
+     * @DataTime:      2019-10-19
+     * @Return:        
+     * @Notes:         返回用户的被邀请人的列表
+     * @ErrorReason:   
+     * ================
+     */
+    public function getuserinvitelist($user_id){
+    //    return json_decode(self::where("inviter=$user_id")->find(),true);
+       var_dump(json_decode(self::where('id=1')->field('id,createtime')->find(),true));
+    }
 }

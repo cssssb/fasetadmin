@@ -251,6 +251,7 @@ class Auth
             return false;
         }
         //判断旧密码是否正确
+        $a = $this->_user->salt;
         if ($this->_user->password == $this->getEncryptPassword($oldpassword, $this->_user->salt) || $ignoreoldpassword) {
             Db::startTrans();
             try {
