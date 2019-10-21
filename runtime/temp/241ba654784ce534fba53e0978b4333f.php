@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:93:"C:\Users\Administrator\Desktop\fastAdmin\public/../application/admin\view\command\detail.html";i:1571658246;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\layout\default.html";i:1570347773;s:80:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\common\meta.html";i:1570347773;s:82:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\common\script.html";i:1570347773;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:88:"C:\Users\Administrator\Desktop\fastAdmin\public/../application/admin\view\addon\add.html";i:1570347773;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\layout\default.html";i:1570347773;s:80:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\common\meta.html";i:1570347773;s:82:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\common\script.html";i:1570347773;}*/ ?>
 <!DOCTYPE html>
 <html lang="<?php echo $config['language']; ?>">
     <head>
@@ -50,48 +50,7 @@
                             <!-- END RIBBON -->
                             <?php endif; ?>
                             <div class="content">
-                                <table class="table table-striped">
-    <thead>
-    <tr>
-        <th><?php echo __('Title'); ?></th>
-        <th><?php echo __('Content'); ?></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td><?php echo __('Type'); ?></td>
-        <td><?php echo $row['type']; ?>(<?php echo $row['type_text']; ?>)</td>
-    </tr>
-    <tr>
-        <td><?php echo __('Params'); ?></td>
-        <td><?php echo $row['params']; ?></td>
-    </tr>
-    <tr>
-        <td><?php echo __('Command'); ?></td>
-        <td><?php echo $row['command']; ?></td>
-    </tr>
-    <tr>
-        <td><?php echo __('Content'); ?></td>
-        <td>
-            <textarea class="form-control" name="" id="" cols="60" rows="10"><?php echo $row['content']; ?></textarea>
-        </td>
-    </tr>
-    <tr>
-        <td><?php echo __('Executetime'); ?></td>
-        <td><?php echo datetime($row['executetime']); ?></td>
-    </tr>
-    <tr>
-        <td><?php echo __('Status'); ?></td>
-        <td><?php echo $row['status_text']; ?></td>
-    </tr>
-    </tbody>
-</table>
-<div class="hide layer-footer">
-    <label class="control-label col-xs-12 col-sm-2"></label>
-    <div class="col-xs-12 col-sm-8">
-        <button type="reset" class="btn btn-primary btn-embossed btn-close" onclick="Layer.closeAll();"><?php echo __('Close'); ?></button>
-    </div>
-</div>
+                                
                             </div>
                         </div>
                     </div>

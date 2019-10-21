@@ -341,7 +341,11 @@ class User extends Frontend
      * ================
      */
     public function balancelog(){
+        $data = DB::name('rechargeablecard_log')->where('user_id='.$this->auth->id)->select();
+        $number = DB::name('rechargeablecard')->where('user_id='.$this->auth->id)->find()['number'];
         $this->view->assign('title', '余额日志');
+        $this->view->assign('data', $data);
+        $this->view->assign('number', $number);
         return $this->view->fetch();
     }
 
@@ -377,15 +381,22 @@ class User extends Frontend
      * @ErrorReason:   
      * ================
      */
-    public function exchange(){
+    public function hasexchange(){
         //获取卡密
         if ($this->request->isPost()) {
-            // $haspwd = $this->request->post("has_pwd");
+            $haspwd = $this->request->post("has_pwd");
         }
-        $haspwd = '123456789';
+        // $haspwd = '123456789';
         $update = ['user_id'=>$this->auth->id,'c_time'=>date('Y-M-D H:i:s',time())];
-        return DB::name('rechargeablecard')->where('has_pwd='.$haspwd)->update($update);
+         if(DB::name('rechargeablecard')->where('has_pwd='.$haspwd)->update($update)){
+             $msg['msg']='兑换成功';
+            echo json_encode($msg);die;
+        }else{
+            $msg['msg']='兑换失败';
+            echo json_encode($msg);die;
+        };
         // return $this->charlierecharge();
     }
+    
 
 }

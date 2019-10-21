@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:90:"C:\Users\Administrator\Desktop\fastAdmin\public/../application/index\view\user\invite.html";i:1571623571;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\layout\default.html";i:1571031854;s:80:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\meta.html";i:1570347773;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\sidenav.html";i:1571623571;s:82:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\script.html";i:1570347773;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:98:"C:\Users\Administrator\Desktop\fastAdmin\public/../application/index\view\user\exchangepoints.html";i:1571654022;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\layout\default.html";i:1571031854;s:80:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\meta.html";i:1570347773;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\sidenav.html";i:1571655994;s:82:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\script.html";i:1570347773;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -139,33 +139,69 @@
         <li class="list-group-item <?php echo $config['actionname']=='rechargeorder'?'active':''; ?>"> <a href="<?php echo url('user/rechargeorder'); ?>"><i class="fa fa-user-o fa-fw"></i> 充值订单</a> </li>
         <li class="list-group-item <?php echo $config['actionname']=='balancelog'?'active':''; ?>"> <a href="<?php echo url('user/balancelog'); ?>"><i class="fa fa-key fa-fw"></i> 余额日志</a> </li>
     </ul>
+    <ul class="list-group">
+            <li class="list-group-heading">交易中心</li>
+            <li class="list-group-item <?php echo $config['actionname']=='exchangepoints'?'active':''; ?>"> <a href="<?php echo url('user/exchangepoints'); ?>"><i class="fa fa-user-circle fa-fw"></i> 兑换点数</a> </li>
+            <li class="list-group-item <?php echo $config['actionname']=='transaction'?'active':''; ?>"> <a href="<?php echo url('user/transaction'); ?>"><i class="fa fa-user-o fa-fw"></i> 交易记录</a> </li>
+    </ul>
+    <ul class="list-group">
+            <li class="list-group-heading">连接服务器</li>
+            <li class="list-group-item <?php echo $config['actionname']=='mainaccountnumber'?'active':''; ?>"> <a href="<?php echo url('user/mainaccountnumber'); ?>"><i class="fa fa-user-circle fa-fw"></i> 主账号</a> </li>
+            <li class="list-group-item <?php echo $config['actionname']=='dynamic'?'active':''; ?>"> <a href="<?php echo url('user/dynamic'); ?>"><i class="fa fa-user-o fa-fw"></i> 申请动态</a> </li>
+            <li class="list-group-item <?php echo $config['actionname']=='dynamiclist'?'active':''; ?>"> <a href="<?php echo url('user/dynamiclist'); ?>"><i class="fa fa-user-o fa-fw"></i> 动态列表</a> </li>
+            <li class="list-group-item <?php echo $config['actionname']=='static'?'active':''; ?>"> <a href="<?php echo url('user/static'); ?>"><i class="fa fa-user-o fa-fw"></i> 申请静态</a> </li>
+            <li class="list-group-item <?php echo $config['actionname']=='staticlist'?'active':''; ?>"> <a href="<?php echo url('user/staticlist'); ?>"><i class="fa fa-user-o fa-fw"></i> 静态列表</a> </li>
+    </ul>
     <?php echo hook('user_sidenav_after'); ?>
 </div>
         </div>
         <div class="col-md-9">
-            <div class="panel-body">
-
-                <h2 class="page-header">邀请规则如下 A邀请B，B充值兑换100点A得10点返利 <span><small
-                            class="text-danger">邀请人数:<?php echo $data['user_number']; ?></small></span>
-                </h2>
-                邀请链接： <span id="link" name="link"><?php echo $user_id; ?> </span><a
-                    id="linkcopy" class="btn btn-info btn-embossed" data-clipboard-action="copy"
-                    data-clipboard-target="#link">复制链接</a>
-                <h4 class="page-header">
-
-                </h4>
-                <?php if(is_array($data['user_data']) || $data['user_data'] instanceof \think\Collection || $data['user_data'] instanceof \think\Paginator): if( count($data['user_data'])==0 ) : echo "" ;else: foreach($data['user_data'] as $key=>$v): ?>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4>
-                            <?php echo $v['nickname']; ?> </h4>
-                        <p class="text-muted">注册时间：<?php echo $v['createtime']; ?></p>
+                <div class="panel panel-default panel-recharge">
+                    <div class="panel-body">
+                        <h2 class="page-header">e服务器速度快--B服务器对联通移动支持更好--注：点数不通用                         <span><small class="text-danger">余额:2.52</small></span>
+                            <a href="/index/recharge/recharge.html" class="btn btn-info btn-recharge pull-right"><i class="fa fa-cny"></i> 充值余额</a>
+                        </h2>
+                        <div class="row">
+                                              <div class="col-xs-6 col-md-3" style="text-align:right">(b服务器)动态 : </div>
+                          <div class="col-xs-6 col-md-3" style="text-align:left">0</div>
+                                              <div class="col-xs-6 col-md-3" style="text-align:right">(b服务器)静态 : </div>
+                          <div class="col-xs-6 col-md-3" style="text-align:left">0</div>
+                                              <div class="col-xs-6 col-md-3" style="text-align:right">(e服务器)动态 : </div>
+                          <div class="col-xs-6 col-md-3" style="text-align:left">0</div>
+                                              <div class="col-xs-6 col-md-3" style="text-align:right">梦想 : </div>
+                          <div class="col-xs-6 col-md-3" style="text-align:left">0</div>
+                                              <div class="col-xs-6 col-md-3" style="text-align:right">理想 : </div>
+                          <div class="col-xs-6 col-md-3" style="text-align:left">0</div>
+                                            </div>
+                        <hr>
+                        <form id="add-form" class="form-horizontal nice-validator n-default n-bootstrap" role="form" data-toggle="validator" method="POST" action="" novalidate="novalidate">
+                            <input type="hidden" name="__token__" value="356f1d032dfc7d4b602658f25158587a">                        <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-4">选择兑换种类:</label>
+                                <div class="col-xs-12 col-sm-4">
+                                   <div class="btn-group bootstrap-select form-control dropup"><button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" role="button" title="请选择兑换种类" aria-expanded="false"><span class="filter-option pull-left">请选择兑换种类</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu open" role="combobox" style="max-height: 301px; overflow: hidden; min-height: 83px;"><ul class="dropdown-menu inner" role="listbox" aria-expanded="false" style="max-height: 289px; overflow-y: auto; min-height: 71px;"><li data-original-index="0" class="selected"><a tabindex="0" class="" style="" data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text">请选择兑换种类</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="1"><a tabindex="0" class="" style="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">(b服务器)动态</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="2"><a tabindex="0" class="" style="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">(b服务器)静态</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="3"><a tabindex="0" class="" style="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">(e服务器)动态</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="4"><a tabindex="0" class="" style="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">梦想</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="5"><a tabindex="0" class="" style="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">理想</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div><select class="selectpicker form-control" name="row[select]" tabindex="-98"><option value="0" selected="selected">请选择兑换种类</option><option value="3">(b服务器)动态</option><option value="4">(b服务器)静态</option><option value="5">(e服务器)动态</option><option value="8">梦想</option><option value="9">理想</option></select></div>                            </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-4">兑换数量:</label>
+                                <div class="col-xs-12 col-sm-4">
+                                    <input id="num" name="row[code]" class="form-control" type="text" value="">                            </div>
+                            </div>
+    
+    
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-4">总价:</label>
+                                <label class="control-label col-xs-12 col-sm-4" style="text-align:left"><span style="color:red" id="total"></span>元</label>
+                            </div>
+                            <div class="form-group layer-footer">
+                               <label class="control-label col-xs-12 col-sm-4"></label>
+                               <div class="col-xs-12 col-sm-8">
+                                   <button type="submit" class="btn btn-success btn-embossed">提交</button>
+                                   <button type="reset" class="btn btn-default btn-embossed">重置</button>
+                               </div>
+                           </div>
+                        </form>
                     </div>
                 </div>
-                <hr>
-                <?php endforeach; endif; else: echo "" ;endif; ?>
             </div>
-        </div>
     </div>
 </div>
 
