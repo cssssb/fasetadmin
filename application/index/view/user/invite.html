@@ -43,117 +43,26 @@
         </div>
         <div class="col-md-9">
             <div class="panel-body">
-                    <!-- {volist name="a.a" id="a"}
-                    <li><a target="_blank" href="{url('index/user/invite',['id'=>$a.a])}" title="{$a.a}">{$a.a}</a></li>
-                    {/volist} -->
 
-                    {$name}
-                <h2 class="page-header">{$a.a}邀请规则如下 A邀请B，B充值兑换100点A得10点返利 <span><small
-                            class="text-danger">邀请人数:234</small></span>
+                <h2 class="page-header">邀请规则如下 A邀请B，B充值兑换100点A得10点返利 <span><small
+                            class="text-danger">邀请人数:{$data.user_number}</small></span>
                 </h2>
-                邀请链接： <span id="link" name="link">http://www.saqqq.com/index/user/register/ids/7.html </span><a
+                邀请链接： <span id="link" name="link">{$user_id} </span><a
                     id="linkcopy" class="btn btn-info btn-embossed" data-clipboard-action="copy"
                     data-clipboard-target="#link">复制链接</a>
                 <h4 class="page-header">
 
                 </h4>
+                {foreach name="data.user_data" item="v"}
                 <div class="row">
                     <div class="col-md-12">
                         <h4>
-                            3938 </h4>
-                        <p class="text-muted">邀请时间：2019-07-18 15:45:09</p>
+                            {$v.nickname} </h4>
+                        <p class="text-muted">注册时间：{$v.createtime}</p>
                     </div>
                 </div>
                 <hr>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4>
-                            s18932507276 </h4>
-                        <p class="text-muted">邀请时间：2019-07-18 10:22:45</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4>
-                            hcy0909 </h4>
-                        <p class="text-muted">邀请时间：2019-07-11 13:56:39</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4>
-                            3360690732 </h4>
-                        <p class="text-muted">邀请时间：2019-07-11 10:26:45</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4>
-                            1271377879 </h4>
-                        <p class="text-muted">邀请时间：2019-07-09 12:43:46</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4>
-                            a1275052663 </h4>
-                        <p class="text-muted">邀请时间：2019-07-05 14:56:49</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4>
-                            l00001 </h4>
-                        <p class="text-muted">邀请时间：2019-07-04 16:06:03</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4>
-                            qq76531834 </h4>
-                        <p class="text-muted">邀请时间：2019-06-13 10:53:45</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4>
-                            168073969 </h4>
-                        <p class="text-muted">邀请时间：2019-06-13 00:14:27</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4>
-                            fenghuo123 </h4>
-                        <p class="text-muted">邀请时间：2019-06-12 12:38:45</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="pager">
-                    <ul class="pagination">
-                        <li class="disabled"><span>«</span></li>
-                        <li class="active"><span>1</span></li>
-                        <li><a href="/userext/invite.html?page=2">2</a></li>
-                        <li><a href="/userext/invite.html?page=3">3</a></li>
-                        <li><a href="/userext/invite.html?page=4">4</a></li>
-                        <li><a href="/userext/invite.html?page=5">5</a></li>
-                        <li><a href="/userext/invite.html?page=6">6</a></li>
-                        <li><a href="/userext/invite.html?page=7">7</a></li>
-                        <li><a href="/userext/invite.html?page=8">8</a></li>
-                        <li class="disabled"><span>...</span></li>
-                        <li><a href="/userext/invite.html?page=23">23</a></li>
-                        <li><a href="/userext/invite.html?page=24">24</a></li>
-                        <li><a href="/userext/invite.html?page=2">»</a></li>
-                    </ul>
-                </div>
+                {/foreach}
             </div>
         </div>
     </div>

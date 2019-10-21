@@ -69,12 +69,13 @@ class Frontend extends Controller
                 $this->error(__('Please login first'), 'index/user/login');
             }
             // 判断是否需要验证权限
-            if (!$this->auth->match($this->noNeedRight)) {
-                // 判断控制器和方法判断是否有对应权限
-                if (!$this->auth->check($path)) {
-                    $this->error(__('You have no permission'));
-                }
-            }
+            //todo权限删除
+            // if (!$this->auth->match($this->noNeedRight)) {
+            //     // 判断控制器和方法判断是否有对应权限
+            //     if (!$this->auth->check($path)) {
+            //         $this->error(__('You have no permission'));
+            //     }
+            // }
         } else {
             // 如果有传递token才验证是否登录状态
             if ($token) {

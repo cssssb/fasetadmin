@@ -9,6 +9,8 @@ use think\Cookie;
 use think\Hook;
 use think\Session;
 use think\Validate;
+use app\common\model\User as Usermodel;
+use think\Db;
 
 /**
  * 会员中心
@@ -18,7 +20,38 @@ class User extends Frontend
     protected $layout = 'default';
     protected $noNeedLogin = ['login', 'register', 'third'];
     protected $noNeedRight = ['*'];
-
+    
+    /**
+     * ================
+     * @Author:        css
+     * @Parameter:     
+     * @DataTime:      2019-10-14
+     * @Return:        
+     * @Notes:         邀请返利
+     * @ErrorReason:   
+     * ================
+     */
+    public function invite(){
+        $url = $this->request->request('url', '', 'trim');
+        $referer = $this->request->server('HTTP_REFERER');
+        if (!$url && (strtolower(parse_url($referer, PHP_URL_HOST)) == strtolower($this->request->host()))
+            && !preg_match("/(user\/login|user\/register|user\/logout)/i", $referer)) {
+            $url = $referer;
+        }
+        //获取被邀请人列表
+        // $data['user_data'] = DB::name('user')->where('inviter='.$this->auth->id)->field('id')->select();
+        $data['user_data'] = DB::name('user')->field('id,nickname,createtime')->select();
+        $data['user_number'] = count($data['user_data']);
+        // var_dump($data);die;
+        $this->view->assign('url', $url);
+        $this->view->assign('title', '邀请返利');
+        $this->view->assign('data',$data);
+        $this->view->assign('user_id',$this->auth->id);
+        
+        return $this->view->fetch();
+    }
+    
+    
     public function _initialize()
     {
         parent::_initialize();
@@ -218,6 +251,7 @@ class User extends Frontend
      */
     public function changepwd()
     {
+        // var_dump($this->request->isPost());die;
         if ($this->request->isPost()) {
             $oldpassword = $this->request->post("oldpassword");
             $newpassword = $this->request->post("newpassword");
@@ -265,23 +299,93 @@ class User extends Frontend
      * ================
      * @Author:        css
      * @Parameter:     
-     * @DataTime:      2019-10-14
+     * @DataTime:      2019-10-19
      * @Return:        
-     * @Notes:         邀请返利
+     * @Notes:         卡密充值view
      * @ErrorReason:   
      * ================
      */
-    public function invite(){
-        $url = $this->request->request('url', '', 'trim');
-        $referer = $this->request->server('HTTP_REFERER');
-        if (!$url && (strtolower(parse_url($referer, PHP_URL_HOST)) == strtolower($this->request->host()))
-            && !preg_match("/(user\/login|user\/register|user\/logout)/i", $referer)) {
-            $url = $referer;
-        }
-        $a = '123';
-        $this->view->assign('url', $url);
-        $this->view->assign('title', '邀请返利');
-        $this->view->assign('data',$a);
+    public function charlierecharge(){
+        $data = DB::name('rechargeablecard')->where('user_id='.$this->auth->id)->select();
+        $this->view->assign('title', '卡密充值');
+        $this->view->assign('data', $data);
+        return $this->view->fetch();
+
+    }
+    
+    /**
+     * ================
+     * @Author:        css
+     * @Parameter:     
+     * @DataTime:      2019-10-19
+     * @Return:        
+     * @Notes:         充值订单
+     * @ErrorReason:   
+     * ================
+     */
+    public function rechargeorder(){
+        $data = DB::name('rechargeablecard_log')->where('user_id='.$this->auth->id)->select();
+        $this->view->assign('title', '充值订单');
+        $this->view->assign('data', $data);
         return $this->view->fetch();
     }
+
+    /**
+     * ================
+     * @Author:        css
+     * @Parameter:     
+     * @DataTime:      2019-10-19
+     * @Return:        
+     * @Notes:         余额日志
+     * @ErrorReason:   
+     * ================
+     */
+    public function balancelog(){
+        $this->view->assign('title', '余额日志');
+        return $this->view->fetch();
+    }
+
+    /**
+     * ================
+     * @Author:        css
+     * @Parameter:     
+     * @DataTime:      2019-10-20
+     * @Return:        
+     * @Notes:         查询卡密
+     * @ErrorReason:   
+     * ================
+     */
+    public function findhaspwd(){
+        //获取卡密
+        if ($this->request->isPost()) {
+            $haspwd = $this->request->post("has_pwd");
+        }
+        // $haspwd = '123456';
+        $data = DB::name('rechargeablecard')->where('has_pwd='.$haspwd)->find();
+        $this->view->assign('title','卡密充值');
+        $this->view->assign('data',$data);
+        return $this->view->fetch();
+    }
+
+    /**
+     * ================
+     * @Author:        css
+     * @Parameter:     
+     * @DataTime:      2019-10-20
+     * @Return:        
+     * @Notes:         兑换卡密
+     * @ErrorReason:   
+     * ================
+     */
+    public function exchange(){
+        //获取卡密
+        if ($this->request->isPost()) {
+            // $haspwd = $this->request->post("has_pwd");
+        }
+        $haspwd = '123456789';
+        $update = ['user_id'=>$this->auth->id,'c_time'=>date('Y-M-D H:i:s',time())];
+        return DB::name('rechargeablecard')->where('has_pwd='.$haspwd)->update($update);
+        // return $this->charlierecharge();
+    }
+
 }

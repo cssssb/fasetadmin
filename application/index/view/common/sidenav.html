@@ -10,10 +10,9 @@
     </ul>
     <ul class="list-group">
         <li class="list-group-heading">充值中心</li>
-        <li class="list-group-item {:$config['actionname']=='test'?'active':''}"> <a href="{:url('user/test')}"><i class="fa fa-user-circle fa-fw"></i> 卡密充值</a> </li>
-        <li class="list-group-item {:$config['actionname']=='profile'?'active':''}"> <a href="{:url('user/profile')}"><i class="fa fa-user-o fa-fw"></i> 充值订单</a> </li>
-        <li class="list-group-item {:$config['actionname']=='changepwd'?'active':''}"> <a href="{:url('user/changepwd')}"><i class="fa fa-key fa-fw"></i> 余额日志</a> </li>
-        <li class="list-group-item {:$config['actionname']=='logout'?'active':''}"> <a href="{:url('user/logout')}"><i class="fa fa-sign-out fa-fw"></i> {:__('Sign out')}</a> </li>
+        <li class="list-group-item {:$config['actionname']=='charlierecharge'?'active':''}"> <a href="{:url('user/charlierecharge')}"><i class="fa fa-user-circle fa-fw"></i> 卡密充值</a> </li>
+        <li class="list-group-item {:$config['actionname']=='rechargeorder'?'active':''}"> <a href="{:url('user/rechargeorder')}"><i class="fa fa-user-o fa-fw"></i> 充值订单</a> </li>
+        <li class="list-group-item {:$config['actionname']=='balancelog'?'active':''}"> <a href="{:url('user/balancelog')}"><i class="fa fa-key fa-fw"></i> 余额日志</a> </li>
     </ul>
     {:hook('user_sidenav_after')}
 </div>

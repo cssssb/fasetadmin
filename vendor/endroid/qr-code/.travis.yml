@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 language: php
 
 php:
@@ -19,3 +20,26 @@ script: bin/phpunit
 
 notifications:
   email: info@endroid.nl
+=======
+language: php
+
+php:
+  - 5.4
+  - 5.5
+  - 5.6
+  - 7.0
+  - 7.1
+  - hhvm
+
+matrix:
+  fast_finish: true
+
+before_install:
+  - if [[ "$TRAVIS_PHP_VERSION" != "hhvm" ]]; then phpenv config-rm xdebug.ini; fi;
+  - composer self-update && composer install --no-interaction
+
+script: bin/phpunit
+
+notifications:
+  email: info@endroid.nl
+>>>>>>> 3767563b5d4b5e7dc37b71a5fcac12defa2d8d39
