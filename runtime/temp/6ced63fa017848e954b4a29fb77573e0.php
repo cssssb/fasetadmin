@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:95:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\rechargeorder.html";i:1571721881;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1571714014;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:95:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\rechargeorder.html";i:1571723127;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1571714014;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -339,12 +339,7 @@
                                                             <div class="fht-cell">
                                                             </div>
                                                         </th>
-                                                        <th style="text-align: center; vertical-align: middle; "
-                                                            data-field="paytype">
-                                                            <div class="th-inner ">支付方式</div>
-                                                            <div class="fht-cell">
-                                                            </div>
-                                                        </th>
+                                                       
                                                         <th style="text-align: center; vertical-align: middle; "
                                                             data-field="paytime">
                                                             <div class="th-inner ">付款时间</div>
@@ -363,70 +358,25 @@
                                                             <div class="fht-cell">
                                                             </div>
                                                         </th>
-                                                        <th style="text-align: center; vertical-align: middle; "
-                                                            data-field="operate">
-                                                            <div class="th-inner ">操作</div>
-                                                            <div class="fht-cell">
-                                                            </div>
-                                                        </th>
+                                                      
                                                     </tr>
                                                     <tr style="text-align: center; vertical-align: middle;">
                                                         <td>111111</td>
                                                         <td>390</td>
-                                                        <td>
-                                                            <select class="form-control" name="paytype"
-                                                                style="border: none">
-                                                                <option value="">选择</option>
-                                                                <option value="1">支付宝</option>
-                                                                <option value="2">QQ</option>
-                                                                <option value="3">微信</option>
-                                                            </select>
-                                                        </td>
+                                                        
                                                         <td>2019—2-10</td>
                                                         <td>2019—2-10</td>
-                                                        <td> <select class="form-control" name="status"
-                                                                style="border: none">
-                                                                <option value="">选择</option>
-                                                                <option value="0">关闭</option>
-                                                                <option value="1">未支付</option>
-                                                                <option value="2">已支付</option>
-                                                            </select></td>
-                                                        <td>
-                                                            <div class="col-sm-8 col-xs-offset-4" style="display: flex; justify-content: space-around;">
-                                                                <button type="submit" class="btn btn-success"
-                                                                    formnovalidate="" style="margin-left: -30px">提交</button> <button type="reset"
-                                                                    class="btn btn-default">重置</button> </div>
-                                                             </div>
-                                                         </td>
+                                                        <td>已支付</td>
+                                                       
                                                      </tr>
                                                      <tr style="text-align: center; vertical-align: middle;">
                                                         <td>22222</td>
                                                         <td>390</td>
-                                                        <td>
-                                                            <select class="form-control" name="paytype"
-                                                                style="border: none">
-                                                                <option value="">选择</option>
-                                                                <option value="1">支付宝</option>
-                                                                <option value="2">QQ</option>
-                                                                <option value="3">微信</option>
-                                                            </select>
-                                                        </td>
+                                                       
                                                         <td>2019—2-10</td>
                                                         <td>2019—2-10</td>
-                                                        <td> <select class="form-control" name="status"
-                                                                style="border: none">
-                                                                <option value="">选择</option>
-                                                                <option value="0">关闭</option>
-                                                                <option value="1">未支付</option>
-                                                                <option value="2">已支付</option>
-                                                            </select></td>
-                                                        <td>
-                                                            <div class="col-sm-8 col-xs-offset-4" style="display: flex; justify-content: space-around;">
-                                                                <button type="submit" class="btn btn-success"
-                                                                    formnovalidate="" style="margin-left: -30px">提交</button> <button type="reset"
-                                                                    class="btn btn-default">重置</button> </div>
-                                                             </div>
-                                                         </td>
+                                                        <td>未支付</td>
+                                                      
                                                      </tr>
                                         </thead>
                                         <tbody data-listidx="0">
@@ -435,7 +385,7 @@
                                         </tbody>
                                         </table>
                                     </div>
-                                    <div class="fixed-table-pagination">
+                                    <div class="fixed-table-pagination hidden" >
                                         <div class="pull-left pagination-detail">
                                             <span class="pagination-info">显示第 1 到第 0 条记录，总共 0 条记录</span>
                                             <span class="page-list" style="display: none;">每页显示 <span
@@ -452,7 +402,7 @@
                                                     </ul>
                                                 </span> 条记录</span>
                                         </div>
-                                        <div class="pull-right pagination">
+                                        <div class="pull-right pagination hidden">
                                             <ul class="pagination">
                                                 <li class="page-pre">
                                                     <a href="#">上一页</a>
