@@ -58,7 +58,26 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
         api: {
             bindevent: function () {
                 Form.api.bindevent($("form[role=form]"));
+                $(document).on("click", "#check", function () {
+                    $.ajax({
+                        url: "auth/group/roletree",
+                        type: 'post',
+                        dataType: 'json',
+                        data: {has_pwd:$("#card").val()},
+                        success: function (ret) {
+                            ret.forEach(function (item,index) {  
+                                var parenttr=$("<tr style='textaline:center'></tr>");
+                                var childtd=$("<td>"+item.卡密+"</td><td>"+item.单价+"</td><td>"+item.总点数+"</td><td>"+item.剩余点数+"</td><td>"+item.绑定时间+"</td>")
+                                childtd.appendto(parenttr); 
+                                parenttr.appendto($("#tabbox")) 
+                         })       
+                        }, error: function (e) {
+                            Backend.api.toastr.error(e.message);
+                        }
+                    });
+                });
             }
+           
         }
     };
     return Controller;

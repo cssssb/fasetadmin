@@ -43,7 +43,6 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'template'], function
                 $("#money").text(data.extend.money);
                 $("#price").text(data.extend.price);
             });
-
             // 初始化表格
             // 这里使用的是Bootstrap-table插件渲染表格
             // 相关文档：http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/
