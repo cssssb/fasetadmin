@@ -1,0 +1,194 @@
+<style>
+    .profile-avatar-container {
+        position: relative;
+        width: 100px;
+    }
+
+    .profile-avatar-container .profile-user-img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-avatar-container .profile-avatar-text {
+        display: none;
+    }
+
+    .profile-avatar-container:hover .profile-avatar-text {
+        display: block;
+        position: absolute;
+        height: 100px;
+        width: 100px;
+        background: #444;
+        opacity: .6;
+        color: #fff;
+        top: 0;
+        left: 0;
+        line-height: 100px;
+        text-align: center;
+    }
+
+    .profile-avatar-container button {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100px;
+        height: 100px;
+        opacity: 0;
+    }
+</style>
+<div id="content-container" class="container">
+    <div class="row">
+        <div class="col-md-3">
+            {include file="common/sidenav" /}
+        </div>
+        <div class="col-md-9">
+                <div class="panel panel-default panel-recharge">
+                    <div class="panel-body">
+                        <h2 class="page-header">e服务器速度快--B服务器对联通移动支持更好--注：点数不通用                         <span><small class="text-danger">余额:2.52</small></span>
+                            <a href="/index/recharge/recharge.html" class="btn btn-info btn-recharge pull-right"><i class="fa fa-cny"></i> 充值余额</a>
+                        </h2>
+                        <div class="row">
+                                              <div class="col-xs-6 col-md-3" style="text-align:right">(b服务器)动态 : </div>
+                          <div class="col-xs-6 col-md-3" style="text-align:left">0</div>
+                                              <div class="col-xs-6 col-md-3" style="text-align:right">(b服务器)静态 : </div>
+                          <div class="col-xs-6 col-md-3" style="text-align:left">0</div>
+                                              <div class="col-xs-6 col-md-3" style="text-align:right">(e服务器)动态 : </div>
+                          <div class="col-xs-6 col-md-3" style="text-align:left">0</div>
+                                              <div class="col-xs-6 col-md-3" style="text-align:right">梦想 : </div>
+                          <div class="col-xs-6 col-md-3" style="text-align:left">0</div>
+                                              <div class="col-xs-6 col-md-3" style="text-align:right">理想 : </div>
+                          <div class="col-xs-6 col-md-3" style="text-align:left">0</div>
+                                            </div>
+                        <hr>
+                        <form id="add-form" class="form-horizontal nice-validator n-default n-bootstrap" role="form" data-toggle="validator" method="POST" action="" novalidate="novalidate">
+                            <input type="hidden" name="__token__" value="356f1d032dfc7d4b602658f25158587a">                        <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-4">选择兑换种类:</label>
+                                <div class="col-xs-12 col-sm-4">
+                                   <div class="btn-group bootstrap-select form-control dropup"><button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" role="button" title="请选择兑换种类" aria-expanded="false"><span class="filter-option pull-left">请选择兑换种类</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu open" role="combobox" style="max-height: 301px; overflow: hidden; min-height: 83px;"><ul class="dropdown-menu inner" role="listbox" aria-expanded="false" style="max-height: 289px; overflow-y: auto; min-height: 71px;"><li data-original-index="0" class="selected"><a tabindex="0" class="" style="" data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text">请选择兑换种类</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="1"><a tabindex="0" class="" style="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">(b服务器)动态</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="2"><a tabindex="0" class="" style="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">(b服务器)静态</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="3"><a tabindex="0" class="" style="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">(e服务器)动态</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="4"><a tabindex="0" class="" style="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">梦想</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="5"><a tabindex="0" class="" style="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">理想</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div><select class="selectpicker form-control" name="row[select]" tabindex="-98"><option value="0" selected="selected">请选择兑换种类</option><option value="3">(b服务器)动态</option><option value="4">(b服务器)静态</option><option value="5">(e服务器)动态</option><option value="8">梦想</option><option value="9">理想</option></select></div>                            </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-4">兑换数量:</label>
+                                <div class="col-xs-12 col-sm-4">
+                                    <input id="num" name="row[code]" class="form-control" type="text" value="">                            </div>
+                            </div>
+    
+    
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-4">总价:</label>
+                                <label class="control-label col-xs-12 col-sm-4" style="text-align:left"><span style="color:red" id="total"></span>元</label>
+                            </div>
+                            <div class="form-group layer-footer">
+                               <label class="control-label col-xs-12 col-sm-4"></label>
+                               <div class="col-xs-12 col-sm-8">
+                                   <button type="submit" class="btn btn-success btn-embossed">提交</button>
+                                   <button type="reset" class="btn btn-default btn-embossed">重置</button>
+                               </div>
+                           </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+<script type="text/html" id="emailtpl">
+    <form id="email-form" class="form-horizontal form-layer" method="POST" action="{:url('api/user/changeemail')}">
+        <div class="form-body">
+            <input type="hidden" name="action" value="changeemail" />
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-3">{:__('New Email')}:</label>
+                <div class="col-xs-12 col-sm-8">
+                    <input type="text" class="form-control" id="email" name="email" value="" data-rule="required;email;remote({:url('api/validate/check_email_available')}, event=changeemail, id={$user.id})" placeholder="{:__('New email')}">
+                    <span class="msg-box"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-3">{:__('Captcha')}:</label>
+                <div class="col-xs-12 col-sm-8">
+                    <div class="input-group">
+                        <input type="text" name="captcha" id="email-captcha" class="form-control" data-rule="required;length(4);integer[+];remote({:url('api/validate/check_ems_correct')}, event=changeemail, email:#email)" />
+                        <span class="input-group-btn" style="padding:0;border:none;">
+                            <a href="javascript:;" class="btn btn-info btn-captcha" data-url="{:url('api/ems/send')}" data-type="email" data-event="changeemail">获取验证码</a>
+                        </span>
+                    </div>
+                    <span class="msg-box"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-footer">
+            <div class="form-group" style="margin-bottom:0;">
+                <label class="control-label col-xs-12 col-sm-3"></label>
+                <div class="col-xs-12 col-sm-8">
+                    <button type="submit" class="btn btn-md btn-info">{:__('Submit')}</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</script>
+<script type="text/html" id="mobiletpl">
+    <form id="mobile-form" class="form-horizontal form-layer" method="POST" action="{:url('api/user/changemobile')}">
+        <div class="form-body">
+            <input type="hidden" name="action" value="changemobile" />
+            <div class="form-group">
+                <label for="c-mobile" class="control-label col-xs-12 col-sm-3">{:__('New mobile')}:</label>
+                <div class="col-xs-12 col-sm-8">
+                    <input type="text" class="form-control" id="mobile" name="mobile" value="" data-rule="required;mobile;remote({:url('api/validate/check_mobile_available')}, event=changemobile, id={$user.id})" placeholder="{:__('New mobile')}">
+                    <span class="msg-box"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="mobile-captcha" class="control-label col-xs-12 col-sm-3">{:__('Captcha')}:</label>
+                <div class="col-xs-12 col-sm-8">
+                    <div class="input-group">
+                        <input type="text" name="captcha" id="mobile-captcha" class="form-control" data-rule="required;length(4);integer[+];remote({:url('api/validate/check_sms_correct')}, event=changemobile, mobile:#mobile)" />
+                        <span class="input-group-btn" style="padding:0;border:none;">
+                            <a href="javascript:;" class="btn btn-info btn-captcha" data-url="{:url('api/sms/send')}" data-type="mobile" data-event="changemobile">获取验证码</a>
+                        </span>
+                    </div>
+                    <span class="msg-box"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-footer">
+            <div class="form-group" style="margin-bottom:0;">
+                <label class="control-label col-xs-12 col-sm-3"></label>
+                <div class="col-xs-12 col-sm-8">
+                    <button type="submit" class="btn btn-md btn-info">{:__('Submit')}</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</script>
+<style>
+    .form-layer {
+        height: 100%;
+        min-height: 150px;
+        min-width: 300px;
+    }
+
+    .form-body {
+        width: 100%;
+        overflow: auto;
+        top: 0;
+        position: absolute;
+        z-index: 10;
+        bottom: 50px;
+        padding: 15px;
+    }
+
+    .form-layer .form-footer {
+        height: 50px;
+        line-height: 50px;
+        background-color: #ecf0f1;
+        width: 100%;
+        position: absolute;
+        z-index: 200;
+        bottom: 0;
+        margin: 0;
+    }
+
+    .form-footer .form-group {
+        margin-left: 0;
+        margin-right: 0;
+    }
+</style>

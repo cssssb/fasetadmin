@@ -1,8 +1,8 @@
-<<<<<<< HEAD:runtime/temp/bd7c57fd7e61f58a739be613fcd1c91e.php
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:97:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\charlierecharge.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1571646850;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
+<<<<<<< HEAD:runtime/temp/6ced63fa017848e954b4a29fb77573e0.php
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:95:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\rechargeorder.html";i:1571649280;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1571646850;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
 =======
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:99:"C:\Users\Administrator\Desktop\fastAdmin\public/../application/index\view\user\charlierecharge.html";i:1571651421;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\layout\default.html";i:1571031854;s:80:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\meta.html";i:1570347773;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\sidenav.html";i:1571655994;s:82:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\script.html";i:1570347773;}*/ ?>
->>>>>>> 793696cb8493da34b7aa1d0f3eb9bdf60971b0d7:runtime/temp/05949a6bdf2bba77012fe9c6aa8023e4.php
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:97:"C:\Users\Administrator\Desktop\fastAdmin\public/../application/index\view\user\rechargeorder.html";i:1571654503;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\layout\default.html";i:1571031854;s:80:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\meta.html";i:1570347773;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\sidenav.html";i:1571655994;s:82:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\script.html";i:1570347773;}*/ ?>
+>>>>>>> 793696cb8493da34b7aa1d0f3eb9bdf60971b0d7:runtime/temp/6f9466916ac7e6f955e29dd48618980e.php
 <!DOCTYPE html>
 <html>
     <head>
@@ -160,56 +160,297 @@
 </div>
         </div>
         <div class="col-md-9">
-            <div class="panel-body">
-                <!-- <h2 class="page-header">卡密充值                      <a href="http://www.bxfaka.com/links/20BF636CBE64306F" target="_blank" style="margin:1px;" class="btn btn-success btn-recharge pull-right"><i class="fa fa-random fa-fw"></i> 没有可点我购买卡密</a> -->
-                </h2>
-                <div class="panel-body" style="padding:0;">
-                  <div class="alert alert-warning-light">
-                      <div class="row">
-                          <div class="col-md-12">
-                              <p>卡密充值联系客服qq:</br>
-                                  温馨提示:24小时自动卡密充值,请先购充值卡密后在此页面使用！
+                <div class="panel panel-default">
 
-温馨提示:充值一般都是秒到帐的,如长时间不到联系客服QQ处理！
+                        <div class="panel-heading">
+                            <ul class="nav nav-tabs" data-field="status">
+                                <li class="active">
+</li>
+                                                  </ul>
+                        </div>
+          
+          
+                        <div class="panel-body">
+                            <div id="myTabContent" class="tab-content">
+                                <div class="tab-pane fade active in" id="one">
+                                    <div class="widget-body no-padding">
+                                      
+                                        <div class="bootstrap-table">
+<div class="commonsearch-table hidden">
+                                            <form class="form-horizontal form-commonsearch nice-validator n-default n-bootstrap" novalidate="" method="post" action="">
+<fieldset>
+<div class="row">
+<div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+<label for="orderid" class="control-label col-xs-4">订单ID</label>
+<div class="col-xs-8">
+<input type="hidden" class="form-control operate" name="orderid-operate" data-name="orderid" value="=" readonly="">
+<input type="text" class="form-control" name="orderid" value="" placeholder="订单ID" id="orderid" data-index="0">
+</div>
+</div>
+<div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+<label for="amount" class="control-label col-xs-4">原价</label>
+<div class="col-xs-8">
+<input type="hidden" class="form-control operate" name="amount-operate" data-name="amount" value="BETWEEN" readonly="">
+<div class="row row-between">
+<div class="col-xs-6">
+<input type="text" class="form-control" name="amount" value="" placeholder="原价" id="amount" data-index="1">
+</div>
+<div class="col-xs-6">
+<input type="text" class="form-control" name="amount" value="" placeholder="原价" id="amount" data-index="1">
+</div>
+</div>
+</div>
+</div>
+<div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+<label for="paytype" class="control-label col-xs-4">支付方式</label>
+<div class="col-xs-8">
+<input type="hidden" class="form-control operate" name="paytype-operate" data-name="paytype" value="=" readonly="">
+<select class="form-control" name="paytype">
+<option value="">选择</option>
+<option value="1">支付宝</option>
+<option value="2">QQ</option>
+<option value="3">微信</option>
+</select>
+</div>
+</div>
+<div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+<label for="paytime" class="control-label col-xs-4">付款时间</label>
+<div class="col-xs-8">
+<input type="hidden" class="form-control operate" name="paytime-operate" data-name="paytime" value="RANGE" readonly="">
+<input type="text" class="form-control datetimerange" name="paytime" value="" placeholder="付款时间" id="paytime" data-index="3">
+</div>
+</div>
+<div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+<label for="createtime" class="control-label col-xs-4">创建时间</label>
+<div class="col-xs-8">
+<input type="hidden" class="form-control operate" name="createtime-operate" data-name="createtime" value="RANGE" readonly="">
+<input type="text" class="form-control datetimerange" name="createtime" value="" placeholder="创建时间" id="createtime" data-index="4">
+</div>
+</div>
+<div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+<label for="status" class="control-label col-xs-4">状态</label>
+<div class="col-xs-8">
+<input type="hidden" class="form-control operate" name="status-operate" data-name="status" value="=" readonly="">
+<select class="form-control" name="status">
+<option value="">选择</option>
+<option value="0">关闭</option>
+<option value="1">未支付</option>
+<option value="2">已支付</option>
+</select>
+</div>
+</div>
+<div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+<div class="col-sm-8 col-xs-offset-4">
+<button type="submit" class="btn btn-success" formnovalidate="">提交</button> <button type="reset" class="btn btn-default">重置</button> </div>
+</div>
+</div>
+</fieldset>
+</form>
+</div>
+<div class="fixed-table-toolbar">
+<div class="bs-bars pull-left">
+<div id="toolbar" class="toolbar">
+<<<<<<< HEAD:runtime/temp/6ced63fa017848e954b4a29fb77573e0.php
+                                        <a href="javascript:;" class="btn btn-primary btn-refresh" title="刷新">
+<i class="fa fa-refresh">
+</i> </a>
+=======
+                                       
+>>>>>>> 793696cb8493da34b7aa1d0f3eb9bdf60971b0d7:runtime/temp/6f9466916ac7e6f955e29dd48618980e.php
+                                        <a href="javascript:;" class="btn btn-default" style="font-size:12px;color:dodgerblue;">
+                                          <i class="fa fa-cny">
+</i>
+                                          <span class="extend">
+                                              余额：<span id="money">2.52</span>
+                                          </span>
+                                        </a>
+                                        <a href="/index/recharge/recharge.html" class="btn btn-info btn-recharge">
+<i class="fa fa-cny">
+</i> 充值余额</a>
+                                        </div>
+</div>
+<<<<<<< HEAD:runtime/temp/6ced63fa017848e954b4a29fb77573e0.php
+<div class="columns-right pull-right" style="margin-top:10px;margin-bottom:10px;">
+                                            <button class="btn btn-default" type="button" name="commonSearch" title="Common search">
+<i class="glyphicon glyphicon-search">
+</i>
+</button>
+</div>
+<div class="columns columns-right btn-group pull-right">
+<button class="btn btn-default" type="button" name="toggle" aria-label="toggle" title="切换">
+<i class="glyphicon glyphicon-list-alt icon-list-alt">
+</i>
+</button>
+<div class="keep-open btn-group" title="列">
+<button type="button" aria-label="columns" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+<i class="glyphicon glyphicon-th icon-th">
+</i> <span class="caret">
+</span>
+</button>
+<ul class="dropdown-menu" role="menu">
+<li role="menuitem">
+<label>
+<input type="checkbox" data-field="orderid" value="0" checked="checked"> 订单ID</label>
+</li>
+<li role="menuitem">
+<label>
+<input type="checkbox" data-field="amount" value="1" checked="checked"> 原价</label>
+</li>
+<li role="menuitem">
+<label>
+<input type="checkbox" data-field="paytype" value="2" checked="checked"> 支付方式</label>
+</li>
+<li role="menuitem">
+<label>
+<input type="checkbox" data-field="paytime" value="3" checked="checked"> 付款时间</label>
+</li>
+<li role="menuitem">
+<label>
+<input type="checkbox" data-field="createtime" value="4" checked="checked"> 创建时间</label>
+</li>
+<li role="menuitem">
+<label>
+<input type="checkbox" data-field="status" value="5" checked="checked"> 状态</label>
+</li>
+<li role="menuitem">
+<label>
+<input type="checkbox" data-field="operate" value="6" checked="checked"> 操作</label>
+</li>
+</ul>
+</div>
+<div class="export btn-group">
+<button class="btn btn-default dropdown-toggle" aria-label="export type" title="导出数据" data-toggle="dropdown" type="button">
+<i class="glyphicon glyphicon-export icon-share">
+</i> <span class="caret">
+</span>
+</button>
+=======
 
-温馨提示:卡密为虚拟物品一但充值成功非平台原因不作退款处理!</p>
-                              <div class="input-group input-group-md">
-                                  <div class="icon-addon addon-md">
-                                      <input type="text" placeholder="卡密" onfocus="this.select();" value="" id="card" class="form-control input-md">
-                                  </div>
-                                  <span class="input-group-btn">
-                                      <button class="btn btn-success btn-invite" id="check" type="button">查询</button>
-                                      <button class="btn btn-info btn-invite" id="bind" type="button">兑换</button>
-                                  </span>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <table class="table table-striped table-invite">
-                      <thead>
-                      <tr>
-                          <th>卡密</th>
-                          <th>单价</th>
-                          <th>总点数</th>
-                          <th>剩余点数</th>
-                          <th>绑定时间</th>
-                      </tr>
-                      <?php if(is_array($data) || $data instanceof \think\Collection || $data instanceof \think\Paginator): if( count($data)==0 ) : echo "" ;else: foreach($data as $key=>$v): ?>
-                          <tr>
-                        <th><?php echo $v['has_pwd']; ?></th>
-                        <th><?php echo $v['price']; ?></th>
-                        <th><?php echo $v['number']; ?></th>
-                        <th><?php echo $v['now_number']; ?></th>
-                        <th><?php echo $v['c_time']; ?></th>
-                    </tr>
-                        <?php endforeach; endif; else: echo "" ;endif; ?>
-                      </thead>
-                      <tbody>
-                                                </tbody>
-                  </table>
-                  <div class="pager"></div>
-                </div>
-            </div>
+<div class="columns columns-right btn-group pull-right">
+<div class="export btn-group">
+>>>>>>> 793696cb8493da34b7aa1d0f3eb9bdf60971b0d7:runtime/temp/6f9466916ac7e6f955e29dd48618980e.php
+<ul class="dropdown-menu" role="menu">
+<li role="menuitem" data-type="json">
+<a href="javascript:void(0)">JSON</a>
+</li>
+<li role="menuitem" data-type="xml">
+<a href="javascript:void(0)">XML</a>
+</li>
+<li role="menuitem" data-type="csv">
+<a href="javascript:void(0)">CSV</a>
+</li>
+<li role="menuitem" data-type="txt">
+<a href="javascript:void(0)">TXT</a>
+</li>
+<li role="menuitem" data-type="doc">
+<a href="javascript:void(0)">MS-Word</a>
+</li>
+<li role="menuitem" data-type="excel">
+<a href="javascript:void(0)">MS-Excel</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="fixed-table-container" style="padding-bottom: 0px;">
+<div class="fixed-table-header" style="display: none;">
+<table>
+</table>
+</div>
+<div class="fixed-table-body">
+<div class="fixed-table-loading" style="top: 42px; display: none;">正在努力地加载数据中，请稍候……</div>
+<table id="table" class="table table-striped table-bordered table-hover table-nowrap" data-operate-edit="0" data-operate-del="" width="100%" data-show-columns="true">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center; vertical-align: middle; " data-field="orderid">
+                                            <div class="th-inner ">订单ID</div>
+<div class="fht-cell">
+</div>
+</th>
+<th style="text-align: center; vertical-align: middle; " data-field="amount">
+<div class="th-inner ">原价</div>
+<div class="fht-cell">
+</div>
+</th>
+<th style="text-align: center; vertical-align: middle; " data-field="paytype">
+<div class="th-inner ">支付方式</div>
+<div class="fht-cell">
+</div>
+</th>
+<th style="text-align: center; vertical-align: middle; " data-field="paytime">
+<div class="th-inner ">付款时间</div>
+<div class="fht-cell">
+</div>
+</th>
+<th style="text-align: center; vertical-align: middle; " data-field="createtime">
+<div class="th-inner ">创建时间</div>
+<div class="fht-cell">
+</div>
+</th>
+<th style="text-align: center; vertical-align: middle; " data-field="status">
+<div class="th-inner ">状态</div>
+<div class="fht-cell">
+</div>
+</th>
+<th style="text-align: center; vertical-align: middle; " data-field="operate">
+<div class="th-inner ">操作</div>
+<div class="fht-cell">
+</div>
+</th>
+</tr>
+</thead>
+<tbody data-listidx="0">
+<tr class="no-records-found">
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fixed-table-footer" style="display: none;">
+<table>
+<tbody>
+<tr>
+    
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fixed-table-pagination" style="display: none;">
+<div class="pull-left pagination-detail">
+<span class="pagination-info">显示第 1 到第 0 条记录，总共 0 条记录</span>
+<span class="page-list" style="display: none;">每页显示 <span class="btn-group dropup">
+<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+<span class="page-size">10</span> <span class="caret">
+</span>
+</button>
+<ul class="dropdown-menu" role="menu">
+<li role="menuitem" class="active">
+<a href="#">10</a>
+</li>
+</ul>
+</span> 条记录</span>
+</div>
+<div class="pull-right pagination" style="display: none;">
+<ul class="pagination">
+<li class="page-pre">
+<a href="#">上一页</a>
+</li>
+<li class="page-next">
+<a href="#">下一页</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="clearfix">
+    
+</div>
+                                    </div>
+                                </div>
+          
+                            </div>
+                        </div>
+                    </div>
         </div>
     </div>
 </div>
@@ -221,8 +462,9 @@
             <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3"><?php echo __('New Email'); ?>:</label>
                 <div class="col-xs-12 col-sm-8">
-                    <input type="text" class="form-control" id="email" name="email" value="" data-rule="required;email;remote(<?php echo url('api/validate/check_email_available'); ?>, event=changeemail, id=">
-                    <span class="msg-box"></span>
+                    <input type="text" class="form-control" id="email" name="email" value="" data-rule="required;email;remote(<?php echo url('api/validate/check_email_available'); ?>, event=changeemail, id=<?php echo $user['id']; ?>)" placeholder="<?php echo __('New email'); ?>">
+                    <span class="msg-box">
+</span>
                 </div>
             </div>
             <div class="form-group">
@@ -234,13 +476,15 @@
                             <a href="javascript:;" class="btn btn-info btn-captcha" data-url="<?php echo url('api/ems/send'); ?>" data-type="email" data-event="changeemail">获取验证码</a>
                         </span>
                     </div>
-                    <span class="msg-box"></span>
+                    <span class="msg-box">
+</span>
                 </div>
             </div>
         </div>
         <div class="form-footer">
             <div class="form-group" style="margin-bottom:0;">
-                <label class="control-label col-xs-12 col-sm-3"></label>
+                <label class="control-label col-xs-12 col-sm-3">
+</label>
                 <div class="col-xs-12 col-sm-8">
                     <button type="submit" class="btn btn-md btn-info"><?php echo __('Submit'); ?></button>
                 </div>
@@ -255,8 +499,9 @@
             <div class="form-group">
                 <label for="c-mobile" class="control-label col-xs-12 col-sm-3"><?php echo __('New mobile'); ?>:</label>
                 <div class="col-xs-12 col-sm-8">
-                    <input type="text" class="form-control" id="mobile" name="mobile" value="" data-rule="required;mobile;remote(<?php echo url('api/validate/check_mobile_available'); ?>, event=changemobile, id=">
-                    <span class="msg-box"></span>
+                    <input type="text" class="form-control" id="mobile" name="mobile" value="" data-rule="required;mobile;remote(<?php echo url('api/validate/check_mobile_available'); ?>, event=changemobile, id=<?php echo $user['id']; ?>)" placeholder="<?php echo __('New mobile'); ?>">
+                    <span class="msg-box">
+</span>
                 </div>
             </div>
             <div class="form-group">
@@ -268,13 +513,15 @@
                             <a href="javascript:;" class="btn btn-info btn-captcha" data-url="<?php echo url('api/sms/send'); ?>" data-type="mobile" data-event="changemobile">获取验证码</a>
                         </span>
                     </div>
-                    <span class="msg-box"></span>
+                    <span class="msg-box">
+</span>
                 </div>
             </div>
         </div>
         <div class="form-footer">
             <div class="form-group" style="margin-bottom:0;">
-                <label class="control-label col-xs-12 col-sm-3"></label>
+                <label class="control-label col-xs-12 col-sm-3">
+</label>
                 <div class="col-xs-12 col-sm-8">
                     <button type="submit" class="btn btn-md btn-info"><?php echo __('Submit'); ?></button>
                 </div>
@@ -315,8 +562,6 @@
         margin-right: 0;
     }
 </style>
-<script>
-</script>
         </main>
 
         <footer class="footer" style="clear:both">

@@ -76,15 +76,15 @@
                           <th>剩余点数</th>
                           <th>绑定时间</th>
                       </tr>
-                      <tr>
-                          {foreach name="data" item="v"}
+                      {foreach name="data" item="v"}
+                          <tr>
                         <th>{$v.has_pwd}</th>
                         <th>{$v.price}</th>
                         <th>{$v.number}</th>
                         <th>{$v.now_number}</th>
                         <th>{$v.c_time}</th>
-                        {/foreach}
                     </tr>
+                        {/foreach}
                       </thead>
                       <tbody>
                                                 </tbody>

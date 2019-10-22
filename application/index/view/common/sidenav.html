@@ -14,5 +14,18 @@
         <li class="list-group-item {:$config['actionname']=='rechargeorder'?'active':''}"> <a href="{:url('user/rechargeorder')}"><i class="fa fa-user-o fa-fw"></i> 充值订单</a> </li>
         <li class="list-group-item {:$config['actionname']=='balancelog'?'active':''}"> <a href="{:url('user/balancelog')}"><i class="fa fa-key fa-fw"></i> 余额日志</a> </li>
     </ul>
+    <ul class="list-group">
+            <li class="list-group-heading">交易中心</li>
+            <li class="list-group-item {:$config['actionname']=='exchangepoints'?'active':''}"> <a href="{:url('user/exchangepoints')}"><i class="fa fa-user-circle fa-fw"></i> 兑换点数</a> </li>
+            <li class="list-group-item {:$config['actionname']=='transaction'?'active':''}"> <a href="{:url('user/transaction')}"><i class="fa fa-user-o fa-fw"></i> 交易记录</a> </li>
+    </ul>
+    <ul class="list-group">
+            <li class="list-group-heading">连接服务器</li>
+            <li class="list-group-item {:$config['actionname']=='mainaccountnumber'?'active':''}"> <a href="{:url('user/mainaccountnumber')}"><i class="fa fa-user-circle fa-fw"></i> 主账号</a> </li>
+            <li class="list-group-item {:$config['actionname']=='dynamic'?'active':''}"> <a href="{:url('user/dynamic')}"><i class="fa fa-user-o fa-fw"></i> 申请动态</a> </li>
+            <li class="list-group-item {:$config['actionname']=='dynamiclist'?'active':''}"> <a href="{:url('user/dynamiclist')}"><i class="fa fa-user-o fa-fw"></i> 动态列表</a> </li>
+            <li class="list-group-item {:$config['actionname']=='static'?'active':''}"> <a href="{:url('user/static')}"><i class="fa fa-user-o fa-fw"></i> 申请静态</a> </li>
+            <li class="list-group-item {:$config['actionname']=='staticlist'?'active':''}"> <a href="{:url('user/staticlist')}"><i class="fa fa-user-o fa-fw"></i> 静态列表</a> </li>
+    </ul>
     {:hook('user_sidenav_after')}
 </div>

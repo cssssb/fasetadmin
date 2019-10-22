@@ -1,8 +1,4 @@
-<<<<<<< HEAD:runtime/temp/bd7c57fd7e61f58a739be613fcd1c91e.php
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:97:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\charlierecharge.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1571646850;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
-=======
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:99:"C:\Users\Administrator\Desktop\fastAdmin\public/../application/index\view\user\charlierecharge.html";i:1571651421;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\layout\default.html";i:1571031854;s:80:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\meta.html";i:1570347773;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\sidenav.html";i:1571655994;s:82:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\script.html";i:1570347773;}*/ ?>
->>>>>>> 793696cb8493da34b7aa1d0f3eb9bdf60971b0d7:runtime/temp/05949a6bdf2bba77012fe9c6aa8023e4.php
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:94:"C:\Users\Administrator\Desktop\fastAdmin\public/../application/index\view\user\balancelog.html";i:1571650781;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\layout\default.html";i:1571031854;s:80:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\meta.html";i:1570347773;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\sidenav.html";i:1571655994;s:82:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\script.html";i:1570347773;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -160,54 +156,23 @@
 </div>
         </div>
         <div class="col-md-9">
-            <div class="panel-body">
-                <!-- <h2 class="page-header">卡密充值                      <a href="http://www.bxfaka.com/links/20BF636CBE64306F" target="_blank" style="margin:1px;" class="btn btn-success btn-recharge pull-right"><i class="fa fa-random fa-fw"></i> 没有可点我购买卡密</a> -->
-                </h2>
-                <div class="panel-body" style="padding:0;">
-                  <div class="alert alert-warning-light">
-                      <div class="row">
-                          <div class="col-md-12">
-                              <p>卡密充值联系客服qq:</br>
-                                  温馨提示:24小时自动卡密充值,请先购充值卡密后在此页面使用！
-
-温馨提示:充值一般都是秒到帐的,如长时间不到联系客服QQ处理！
-
-温馨提示:卡密为虚拟物品一但充值成功非平台原因不作退款处理!</p>
-                              <div class="input-group input-group-md">
-                                  <div class="icon-addon addon-md">
-                                      <input type="text" placeholder="卡密" onfocus="this.select();" value="" id="card" class="form-control input-md">
-                                  </div>
-                                  <span class="input-group-btn">
-                                      <button class="btn btn-success btn-invite" id="check" type="button">查询</button>
-                                      <button class="btn btn-info btn-invite" id="bind" type="button">兑换</button>
-                                  </span>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <table class="table table-striped table-invite">
-                      <thead>
-                      <tr>
-                          <th>卡密</th>
-                          <th>单价</th>
-                          <th>总点数</th>
-                          <th>剩余点数</th>
-                          <th>绑定时间</th>
-                      </tr>
-                      <?php if(is_array($data) || $data instanceof \think\Collection || $data instanceof \think\Paginator): if( count($data)==0 ) : echo "" ;else: foreach($data as $key=>$v): ?>
-                          <tr>
-                        <th><?php echo $v['has_pwd']; ?></th>
-                        <th><?php echo $v['price']; ?></th>
-                        <th><?php echo $v['number']; ?></th>
-                        <th><?php echo $v['now_number']; ?></th>
-                        <th><?php echo $v['c_time']; ?></th>
-                    </tr>
+                <div class="panel panel-default panel-recharge">
+                    <div class="panel-body">
+                        <h2 class="page-header">余额日志                        <span><small class="text-danger">余额:<?php echo $number; ?></small></span>
+                            <a href="/index/recharge/recharge.html" class="btn btn-info btn-recharge pull-right"><i class="fa fa-cny"></i> 充值余额</a>
+                        </h2>
+                        <?php if(is_array($data) || $data instanceof \think\Collection || $data instanceof \think\Paginator): if( count($data)==0 ) : echo "" ;else: foreach($data as $key=>$v): ?>
+                                            <div class="row">
+                            <div class="col-md-12">
+                                <h4>
+                                    <?php echo $v['describe']; ?>                            </h4>
+                                    <?php echo $v['type']==1?'<p class="text-success">':'<p class="text-danger">'; ?>余额：<?php echo $v['type']==0?'-'.$v['number']:'+'.$v['number']; ?></p>
+                                <p class="text-muted">操作时间：<?php echo $v['c_time']; ?></p>
+                            </div>
+                        </div>
+                        <hr>
                         <?php endforeach; endif; else: echo "" ;endif; ?>
-                      </thead>
-                      <tbody>
-                                                </tbody>
-                  </table>
-                  <div class="pager"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -315,8 +280,6 @@
         margin-right: 0;
     }
 </style>
-<script>
-</script>
         </main>
 
         <footer class="footer" style="clear:both">
