@@ -48,7 +48,6 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 
                     //方式一,直接返回class带有addtabsit的链接,这可以方便自定义显示内容
                     return '<a href="' + url + '" class="label label-success addtabsit" title="' + __("Search %s", value) + '">' + __('Search %s', value) + '</a>';
-
                     //方式二,直接调用Table.api.formatter.addtabs
                     return Table.api.formatter.addtabs(value, row, index, url);
                 }
