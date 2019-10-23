@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:89:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\profile.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1571714014;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:99:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\mainaccountnumber.html";i:1571831307;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1571714014;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -84,33 +84,47 @@
         <main class="content">
             <style>
     .profile-avatar-container {
-        position:relative;
-        width:100px;
+        position: relative;
+        width: 100px;
     }
-    .profile-avatar-container .profile-user-img{
-        width:100px;
-        height:100px;
+
+    .profile-avatar-container .profile-user-img {
+        width: 100px;
+        height: 100px;
     }
+
     .profile-avatar-container .profile-avatar-text {
-        display:none;
+        display: none;
     }
+
     .profile-avatar-container:hover .profile-avatar-text {
-        display:block;
-        position:absolute;
-        height:100px;
-        width:100px;
-        background:#444;
+        display: block;
+        position: absolute;
+        height: 100px;
+        width: 100px;
+        background: #444;
         opacity: .6;
         color: #fff;
-        top:0;
-        left:0;
+        top: 0;
+        left: 0;
         line-height: 100px;
         text-align: center;
     }
-    .profile-avatar-container button{
-        position:absolute;
-        top:0;left:0;width:100px;height:100px;opacity: 0;
+
+    .profile-avatar-container button {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100px;
+        height: 100px;
+        opacity: 0;
     }
+option:hover{
+    background: #ccc
+}
+    /* .panel-default{
+        height: 600px;
+    } */
 </style>
 <div id="content-container" class="container">
     <div class="row">
@@ -150,63 +164,62 @@
         <div class="col-md-9">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h2 class="page-header"><?php echo __('Profile'); ?></h2>
-                    <form id="profile-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="<?php echo url('api/user/profile'); ?>">
-                        <?php echo token(); ?>
-                        <input type="hidden" name="avatar" id="c-avatar" value="<?php echo $user->getData('avatar'); ?>" />
+                    <h2 class="page-header">主账号----------配置连接服务器为 b.vpn.cn</h2>
+                    <form id="profile-form" class="form-horizontal" role="form" data-toggle="validator" method="POST"
+                        action="<?php echo url('api/user/profile'); ?>">
+                        <div class="row">
+                            <div class="col-xs-6 col-md-3" style="text-align:right">id : </div>
+                            <div class="col-xs-6 col-md-3" style="text-align:left">123570</div>
+                            <div class="col-xs-6 col-md-3" style="text-align:right">主账号名字 : </div>
+                            <div class="col-xs-6 col-md-3" style="text-align:left">test2</div>
+                        </div>
+                        <hr>
+
                         <div class="form-group">
-                            <label class="control-label col-xs-12 col-sm-2"></label>
-                            <div class="col-xs-12 col-sm-4">
-                                <div class="profile-avatar-container">
-                                    <img class="profile-user-img img-responsive img-circle plupload" src="<?php echo cdnurl($user['avatar']); ?>" alt="">
-                                    <div class="profile-avatar-text img-circle"><?php echo __('Click to edit'); ?></div>
-                                    <button id="plupload-avatar" class="plupload" data-mimetype="png,jpg,jpeg,gif" data-input-id="c-avatar"><i class="fa fa-upload"></i> <?php echo __('Upload'); ?></button>
-                                </div>
+                            <p style="font-weight: 900;font-size:13px;margin-left:20px">黑名单自动解封 </p>
+                            <label class="control-label col-xs-12 col-sm-2">请输入ip地址:</label>
+                            <div class="col-xs-12 col-sm-6">
+                                <input type="text" class="form-control" id="ipaddress" name="ipaddress" placeholder="">
+                            </div>
+                            <div class="col-xs-12 col-sm-6" style="text-align: right; margin-top:20px;">
+                                <button type="submit" class="btn btn-success btn-embossed disabled">查询</button>
+                                <button type="reset" class="btn btn-default btn-embossed">解除</button>
                             </div>
                         </div>
+                        <hr>
                         <div class="form-group">
-                            <label class="control-label col-xs-12 col-sm-2"><?php echo __('Username'); ?>:</label>
-                            <div class="col-xs-12 col-sm-4">
-                                <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlentities($user['username']); ?>" data-rule="required;username;remote(<?php echo url('api/validate/check_username_available'); ?>, id=<?php echo $user['id']; ?>)" placeholder="">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-xs-12 col-sm-2"><?php echo __('Nickname'); ?>:</label>
-                            <div class="col-xs-12 col-sm-4">
-                                <input type="text" class="form-control" id="nickname" name="nickname" value="<?php echo htmlentities($user['nickname']); ?>" data-rule="required" placeholder="">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="c-bio" class="control-label col-xs-12 col-sm-2"><?php echo __('Intro'); ?>:</label>
-                            <div class="col-xs-12 col-sm-8">
-                                <input id="c-bio" data-rule="" data-tip="一句话介绍一下你自己" class="form-control" name="bio" type="text" value="<?php echo htmlentities($user['bio']); ?>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="c-email" class="control-label col-xs-12 col-sm-2"><?php echo __('Email'); ?>:</label>
-                            <div class="col-xs-12 col-sm-4">
+                            <p style="font-weight: 900;font-size:13px;margin-left:20px">密钥是调用接口时使用的</p>
+                            <label class="control-label col-xs-12 col-sm-2">密钥:</label>
+                            <div class="col-xs-12 col-sm-6">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="c-email" name="email" value="<?php echo htmlentities($user['email']); ?>" disabled placeholder="">
+                                    <input type="text" class="form-control" id="passKey" name="passKey" value="1234"
+                                        data-rule="required" placeholder="" style="background: #eee">
                                     <span class="input-group-btn" style="padding:0;border:none;">
-                                        <a href="javascript:;" class="btn btn-info btn-change" data-type="email"><?php echo __('Change'); ?></a>
+                                        <a href="javascript:;" class="btn btn-info btn-change"
+                                            data-type="email">随机生成</a>
                                     </span>
                                 </div>
-
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="c-mobile" class="control-label col-xs-12 col-sm-2"><?php echo __('Mobile'); ?>:</label>
-                            <div class="col-xs-12 col-sm-4">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="c-mobile" name="mobile" value="<?php echo htmlentities($user['mobile']); ?>" disabled placeholder="">
-                                    <span class="input-group-btn" style="padding:0;border:none;">
-                                        <a href="javascript:;" class="btn btn-info btn-change" data-type="mobile"><?php echo __('Change'); ?></a>
-                                    </span>
-                                </div>
-
+                        <br>
+                        <hr>
+                        <div class="form-group" style="margin-left:120px">
+                            <label for="c-bio" class="control-label col-xs-12 col-sm-2">查询类型:</label>
+                            <div class="col-xs-12 col-sm-5">
+                                <select class="form-control" name="status">
+                                    <option value="">共享点数</option>
+                                    <option value="0">动态VPN</option>
+                                    <option value="1">静态VPN</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="form-group normal-footer">
+                        <div class="form-group" style="margin-left:120px">
+                            <label for="c-email" class="control-label col-xs-12 col-sm-2">用户账号:</label>
+                            <div class="col-xs-12 col-sm-5">
+                                    <input type="text" class="form-control" id="account" name="account" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group normal-footer" style="margin-left:150px">
                             <label class="control-label col-xs-12 col-sm-2"></label>
                             <div class="col-xs-12 col-sm-8">
                                 <button type="submit" class="btn btn-success btn-embossed disabled"><?php echo __('Ok'); ?></button>
@@ -227,7 +240,9 @@
             <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3"><?php echo __('New Email'); ?>:</label>
                 <div class="col-xs-12 col-sm-8">
-                    <input type="text" class="form-control" id="email" name="email" value="" data-rule="required;email;remote(<?php echo url('api/validate/check_email_available'); ?>, event=changeemail, id=<?php echo $user['id']; ?>)" placeholder="<?php echo __('New email'); ?>">
+                    <input type="text" class="form-control" id="email" name="email" value=""
+                        data-rule="required;email;remote(<?php echo url('api/validate/check_email_available'); ?>, event=changeemail, id=<?php echo $user['id']; ?>)"
+                        placeholder="<?php echo __('New email'); ?>">
                     <span class="msg-box"></span>
                 </div>
             </div>
@@ -235,9 +250,11 @@
                 <label class="control-label col-xs-12 col-sm-3"><?php echo __('Captcha'); ?>:</label>
                 <div class="col-xs-12 col-sm-8">
                     <div class="input-group">
-                        <input type="text" name="captcha" id="email-captcha" class="form-control" data-rule="required;length(4);integer[+];remote(<?php echo url('api/validate/check_ems_correct'); ?>, event=changeemail, email:#email)" />
+                        <input type="text" name="captcha" id="email-captcha" class="form-control"
+                            data-rule="required;length(4);integer[+];remote(<?php echo url('api/validate/check_ems_correct'); ?>, event=changeemail, email:#email)" />
                         <span class="input-group-btn" style="padding:0;border:none;">
-                            <a href="javascript:;" class="btn btn-info btn-captcha" data-url="<?php echo url('api/ems/send'); ?>" data-type="email" data-event="changeemail">获取验证码</a>
+                            <a href="javascript:;" class="btn btn-info btn-captcha" data-url="<?php echo url('api/ems/send'); ?>"
+                                data-type="email" data-event="changeemail">获取验证码</a>
                         </span>
                     </div>
                     <span class="msg-box"></span>
@@ -261,7 +278,9 @@
             <div class="form-group">
                 <label for="c-mobile" class="control-label col-xs-12 col-sm-3"><?php echo __('New mobile'); ?>:</label>
                 <div class="col-xs-12 col-sm-8">
-                    <input type="text" class="form-control" id="mobile" name="mobile" value="" data-rule="required;mobile;remote(<?php echo url('api/validate/check_mobile_available'); ?>, event=changemobile, id=<?php echo $user['id']; ?>)" placeholder="<?php echo __('New mobile'); ?>">
+                    <input type="text" class="form-control" id="mobile" name="mobile" value=""
+                        data-rule="required;mobile;remote(<?php echo url('api/validate/check_mobile_available'); ?>, event=changemobile, id=<?php echo $user['id']; ?>)"
+                        placeholder="<?php echo __('New mobile'); ?>">
                     <span class="msg-box"></span>
                 </div>
             </div>
@@ -269,9 +288,11 @@
                 <label for="mobile-captcha" class="control-label col-xs-12 col-sm-3"><?php echo __('Captcha'); ?>:</label>
                 <div class="col-xs-12 col-sm-8">
                     <div class="input-group">
-                        <input type="text" name="captcha" id="mobile-captcha" class="form-control" data-rule="required;length(4);integer[+];remote(<?php echo url('api/validate/check_sms_correct'); ?>, event=changemobile, mobile:#mobile)" />
+                        <input type="text" name="captcha" id="mobile-captcha" class="form-control"
+                            data-rule="required;length(4);integer[+];remote(<?php echo url('api/validate/check_sms_correct'); ?>, event=changemobile, mobile:#mobile)" />
                         <span class="input-group-btn" style="padding:0;border:none;">
-                            <a href="javascript:;" class="btn btn-info btn-captcha" data-url="<?php echo url('api/sms/send'); ?>" data-type="mobile" data-event="changemobile">获取验证码</a>
+                            <a href="javascript:;" class="btn btn-info btn-captcha" data-url="<?php echo url('api/sms/send'); ?>"
+                                data-type="mobile" data-event="changemobile">获取验证码</a>
                         </span>
                     </div>
                     <span class="msg-box"></span>
@@ -289,29 +310,36 @@
     </form>
 </script>
 <style>
-    .form-layer {height:100%;min-height:150px;min-width:300px;}
+    .form-layer {
+        height: 100%;
+        min-height: 150px;
+        min-width: 300px;
+    }
+
     .form-body {
-        width:100%;
-        overflow:auto;
-        top:0;
-        position:absolute;
-        z-index:10;
-        bottom:50px;
-        padding:15px;
+        width: 100%;
+        overflow: auto;
+        top: 0;
+        position: absolute;
+        z-index: 10;
+        bottom: 50px;
+        padding: 15px;
     }
+
     .form-layer .form-footer {
-        height:50px;
-        line-height:50px;
+        height: 50px;
+        line-height: 50px;
         background-color: #ecf0f1;
-        width:100%;
-        position:absolute;
-        z-index:200;
-        bottom:0;
-        margin:0;
+        width: 100%;
+        position: absolute;
+        z-index: 200;
+        bottom: 0;
+        margin: 0;
     }
-    .form-footer .form-group{
-        margin-left:0;
-        margin-right:0;
+
+    .form-footer .form-group {
+        margin-left: 0;
+        margin-right: 0;
     }
 </style>
         </main>

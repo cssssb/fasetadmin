@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:89:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\profile.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1571714014;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:88:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\invite.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1571714014;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -84,32 +84,40 @@
         <main class="content">
             <style>
     .profile-avatar-container {
-        position:relative;
-        width:100px;
+        position: relative;
+        width: 100px;
     }
-    .profile-avatar-container .profile-user-img{
-        width:100px;
-        height:100px;
+
+    .profile-avatar-container .profile-user-img {
+        width: 100px;
+        height: 100px;
     }
+
     .profile-avatar-container .profile-avatar-text {
-        display:none;
+        display: none;
     }
+
     .profile-avatar-container:hover .profile-avatar-text {
-        display:block;
-        position:absolute;
-        height:100px;
-        width:100px;
-        background:#444;
+        display: block;
+        position: absolute;
+        height: 100px;
+        width: 100px;
+        background: #444;
         opacity: .6;
         color: #fff;
-        top:0;
-        left:0;
+        top: 0;
+        left: 0;
         line-height: 100px;
         text-align: center;
     }
-    .profile-avatar-container button{
-        position:absolute;
-        top:0;left:0;width:100px;height:100px;opacity: 0;
+
+    .profile-avatar-container button {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100px;
+        height: 100px;
+        opacity: 0;
     }
 </style>
 <div id="content-container" class="container">
@@ -148,73 +156,27 @@
 </div>
         </div>
         <div class="col-md-9">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h2 class="page-header"><?php echo __('Profile'); ?></h2>
-                    <form id="profile-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="<?php echo url('api/user/profile'); ?>">
-                        <?php echo token(); ?>
-                        <input type="hidden" name="avatar" id="c-avatar" value="<?php echo $user->getData('avatar'); ?>" />
-                        <div class="form-group">
-                            <label class="control-label col-xs-12 col-sm-2"></label>
-                            <div class="col-xs-12 col-sm-4">
-                                <div class="profile-avatar-container">
-                                    <img class="profile-user-img img-responsive img-circle plupload" src="<?php echo cdnurl($user['avatar']); ?>" alt="">
-                                    <div class="profile-avatar-text img-circle"><?php echo __('Click to edit'); ?></div>
-                                    <button id="plupload-avatar" class="plupload" data-mimetype="png,jpg,jpeg,gif" data-input-id="c-avatar"><i class="fa fa-upload"></i> <?php echo __('Upload'); ?></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-xs-12 col-sm-2"><?php echo __('Username'); ?>:</label>
-                            <div class="col-xs-12 col-sm-4">
-                                <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlentities($user['username']); ?>" data-rule="required;username;remote(<?php echo url('api/validate/check_username_available'); ?>, id=<?php echo $user['id']; ?>)" placeholder="">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-xs-12 col-sm-2"><?php echo __('Nickname'); ?>:</label>
-                            <div class="col-xs-12 col-sm-4">
-                                <input type="text" class="form-control" id="nickname" name="nickname" value="<?php echo htmlentities($user['nickname']); ?>" data-rule="required" placeholder="">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="c-bio" class="control-label col-xs-12 col-sm-2"><?php echo __('Intro'); ?>:</label>
-                            <div class="col-xs-12 col-sm-8">
-                                <input id="c-bio" data-rule="" data-tip="一句话介绍一下你自己" class="form-control" name="bio" type="text" value="<?php echo htmlentities($user['bio']); ?>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="c-email" class="control-label col-xs-12 col-sm-2"><?php echo __('Email'); ?>:</label>
-                            <div class="col-xs-12 col-sm-4">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="c-email" name="email" value="<?php echo htmlentities($user['email']); ?>" disabled placeholder="">
-                                    <span class="input-group-btn" style="padding:0;border:none;">
-                                        <a href="javascript:;" class="btn btn-info btn-change" data-type="email"><?php echo __('Change'); ?></a>
-                                    </span>
-                                </div>
+            <div class="panel-body">
 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="c-mobile" class="control-label col-xs-12 col-sm-2"><?php echo __('Mobile'); ?>:</label>
-                            <div class="col-xs-12 col-sm-4">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="c-mobile" name="mobile" value="<?php echo htmlentities($user['mobile']); ?>" disabled placeholder="">
-                                    <span class="input-group-btn" style="padding:0;border:none;">
-                                        <a href="javascript:;" class="btn btn-info btn-change" data-type="mobile"><?php echo __('Change'); ?></a>
-                                    </span>
-                                </div>
+                <h2 class="page-header">邀请规则如下 A邀请B，B充值兑换100点A得10点返利 <span><small
+                            class="text-danger">邀请人数:<?php echo $data['user_number']; ?></small></span>
+                </h2>
+                邀请链接： <span id="link" name="link"><?php echo $user_id; ?> </span><a
+                    id="linkcopy" class="btn btn-info btn-embossed" data-clipboard-action="copy"
+                    data-clipboard-target="#link">复制链接</a>
+                <h4 class="page-header">
 
-                            </div>
-                        </div>
-                        <div class="form-group normal-footer">
-                            <label class="control-label col-xs-12 col-sm-2"></label>
-                            <div class="col-xs-12 col-sm-8">
-                                <button type="submit" class="btn btn-success btn-embossed disabled"><?php echo __('Ok'); ?></button>
-                                <button type="reset" class="btn btn-default btn-embossed"><?php echo __('Reset'); ?></button>
-                            </div>
-                        </div>
-                    </form>
+                </h4>
+                <?php if(is_array($data['user_data']) || $data['user_data'] instanceof \think\Collection || $data['user_data'] instanceof \think\Paginator): if( count($data['user_data'])==0 ) : echo "" ;else: foreach($data['user_data'] as $key=>$v): ?>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>
+                            <?php echo $v['nickname']; ?> </h4>
+                        <p class="text-muted">注册时间：<?php echo $v['createtime']; ?></p>
+                    </div>
                 </div>
+                <hr>
+                <?php endforeach; endif; else: echo "" ;endif; ?>
             </div>
         </div>
     </div>
@@ -289,29 +251,36 @@
     </form>
 </script>
 <style>
-    .form-layer {height:100%;min-height:150px;min-width:300px;}
+    .form-layer {
+        height: 100%;
+        min-height: 150px;
+        min-width: 300px;
+    }
+
     .form-body {
-        width:100%;
-        overflow:auto;
-        top:0;
-        position:absolute;
-        z-index:10;
-        bottom:50px;
-        padding:15px;
+        width: 100%;
+        overflow: auto;
+        top: 0;
+        position: absolute;
+        z-index: 10;
+        bottom: 50px;
+        padding: 15px;
     }
+
     .form-layer .form-footer {
-        height:50px;
-        line-height:50px;
+        height: 50px;
+        line-height: 50px;
         background-color: #ecf0f1;
-        width:100%;
-        position:absolute;
-        z-index:200;
-        bottom:0;
-        margin:0;
+        width: 100%;
+        position: absolute;
+        z-index: 200;
+        bottom: 0;
+        margin: 0;
     }
-    .form-footer .form-group{
-        margin-left:0;
-        margin-right:0;
+
+    .form-footer .form-group {
+        margin-left: 0;
+        margin-right: 0;
     }
 </style>
         </main>
