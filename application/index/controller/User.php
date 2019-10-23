@@ -324,9 +324,10 @@ class User extends Frontend
      * ================
      */
     public function rechargeorder(){
-        $data = DB::name('rechargeablecard_log')->where('user_id='.$this->auth->id)->select();
+        $data = DB::name('rechargeablecard')->where('user_id='.$this->auth->id)->select();
         $this->view->assign('title', '充值订单');
         $this->view->assign('data', $data);
+        // var_dump($data);
         return $this->view->fetch();
     }
 
@@ -364,8 +365,7 @@ class User extends Frontend
         if ($this->request->isPost()) {
             $haspwd = $this->request->post("has_pwd");
         }
-        // $haspwd = '123456';
-        $data = DB::name('rechargeablecard')->where('has_pwd='.$haspwd)->find();
+        $data = $this->_findhaspwd($haspwd);
         $this->view->assign('title','卡密充值');
         $this->view->assign('data',$data);
         return $this->view->fetch();
@@ -383,20 +383,38 @@ class User extends Frontend
      */
     public function hasexchange(){
         //获取卡密
-        if ($this->request->isPost()) {
-            $haspwd = $this->request->post("has_pwd");
+        if(!$_GET['has_pwd']){
+            echo json_encode('缺少参数',JSON_UNESCAPED_UNICODE);die;
+        }else{
+            $haspwd = $_GET['has_pwd'];
         }
-        // $haspwd = '123456789';
         $update = ['user_id'=>$this->auth->id,'c_time'=>date('Y-M-D H:i:s',time())];
-         if(DB::name('rechargeablecard')->where('has_pwd='.$haspwd)->update($update)){
+        if(DB::name('rechargeablecard')->where('has_pwd='.$haspwd)->update($update)){
+            $has_data = $this->_findhaspwd($haspwd);
+            //添加到余额日志 
+            $data=['describe' => '充值',
+                    'user_id'=>$this->auth->id,
+                    'user_name'=>$this->auth->username,
+                    'number'=>$has_data['number'],
+                    'remainder'=>$has_data['number']+$this->auth->money,
+                    'type'=>1
+                ];
+            DB::name('rechargeablecard_log')->insert($data);
              $msg['msg']='兑换成功';
-            echo json_encode($msg);die;
+            echo json_encode($msg,JSON_UNESCAPED_UNICODE);die;
         }else{
             $msg['msg']='兑换失败';
-            echo json_encode($msg);die;
+            echo json_encode($msg,JSON_UNESCAPED_UNICODE);die;
         };
-        // return $this->charlierecharge();
     }
-    
+
+    //输入卡密查找指定卡
+    private function _findhaspwd($has_pwd){
+        return DB::name('rechargeablecard')->where('has_pwd='.$has_pwd)->find();
+    }
+    //修改用户余额
+    private function _updateusermoney($param){
+        return DB::name('user')->where('id='.$this->auth->id)->update($param);
+    }
 
 }

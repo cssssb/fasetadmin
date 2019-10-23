@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:96:"C:\Users\Administrator\Desktop\fastAdmin\public/../application/admin\view\rechargeorder\add.html";i:1571660117;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\layout\default.html";i:1570347773;s:80:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\common\meta.html";i:1570347773;s:82:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\common\script.html";i:1570347773;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:96:"C:\Users\Administrator\Desktop\fastAdmin\public/../application/admin\view\rechargeorder\add.html";i:1571818168;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\layout\default.html";i:1570347773;s:80:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\common\meta.html";i:1570347773;s:82:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\common\script.html";i:1570347773;}*/ ?>
 <!DOCTYPE html>
 <html lang="<?php echo $config['language']; ?>">
     <head>
@@ -55,37 +55,13 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><?php echo __('Has_pwd'); ?>:</label>
         <div class="col-xs-12 col-sm-8">
-            <input id="c-has_pwd" data-rule="required" class="form-control" name="row[has_pwd]" type="text">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('C_time'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-c_time" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[c_time]" type="text" value="<?php echo date('Y-m-d H:i:s'); ?>">
+            <input id="c-has_pwd" data-rule="required" class="form-control" name="row[has_pwd]" type="text" value="<?php echo $has_pwd; ?>">
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><?php echo __('Number'); ?>:</label>
         <div class="col-xs-12 col-sm-8">
             <input id="c-number" class="form-control" name="row[number]" type="number">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('User_id'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-user_id" data-rule="required" data-source="user/user/index" data-field="nickname" class="form-control selectpage" name="row[user_id]" type="text" value="">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Now_number'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-now_number" class="form-control" name="row[now_number]" type="number">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Cadmin_time'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-cadmin_time" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[cadmin_time]" type="text" value="<?php echo date('Y-m-d H:i:s'); ?>">
         </div>
     </div>
     <div class="form-group">

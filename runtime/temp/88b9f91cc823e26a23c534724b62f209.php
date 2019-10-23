@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:88:"C:\Users\Administrator\Desktop\fastAdmin\public/../application/admin\view\addon\add.html";i:1570347773;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\layout\default.html";i:1570347773;s:80:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\common\meta.html";i:1570347773;s:82:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\common\script.html";i:1570347773;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:97:"C:\Users\Administrator\Desktop\fastAdmin\public/../application/admin\view\rechargeorder\edit.html";i:1571817098;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\layout\default.html";i:1570347773;s:80:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\common\meta.html";i:1570347773;s:82:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\common\script.html";i:1570347773;}*/ ?>
 <!DOCTYPE html>
 <html lang="<?php echo $config['language']; ?>">
     <head>
@@ -50,7 +50,41 @@
                             <!-- END RIBBON -->
                             <?php endif; ?>
                             <div class="content">
-                                
+                                <form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Has_pwd'); ?>:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-has_pwd" data-rule="required" class="form-control" name="row[has_pwd]" type="text" value="<?php echo htmlentities($row['has_pwd']); ?>">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Number'); ?>:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-number" class="form-control" name="row[number]" type="number" value="<?php echo htmlentities($row['number']); ?>">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2"><?php echo __('User_id'); ?>:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-user_id" data-rule="required" data-source="user/user/index" data-field="nickname" class="form-control selectpage" name="row[user_id]" type="text" value="<?php echo htmlentities($row['user_id']); ?>">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Price'); ?>:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-price" class="form-control" name="row[price]" type="number" value="<?php echo htmlentities($row['price']); ?>">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled"><?php echo __('OK'); ?></button>
+            <button type="reset" class="btn btn-default btn-embossed"><?php echo __('Reset'); ?></button>
+        </div>
+    </div>
+</form>
+
                             </div>
                         </div>
                     </div>
