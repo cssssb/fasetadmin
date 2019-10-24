@@ -407,7 +407,70 @@ class User extends Frontend
             echo json_encode($msg,JSON_UNESCAPED_UNICODE);die;
         };
     }
+    /**
+     * ================
+     * @Author:        css
+     * @Parameter:     
+     * @DataTime:      2019-10-24
+     * @Return:        
+     * @Notes:         兑换点数
+     * @ErrorReason:   
+     * ================
+     */
 
+
+     /**
+      * ================
+      * @Author:        css
+      * @Parameter:     
+      * @DataTime:      2019-10-24
+      * @Return:        
+      * @Notes:         交易记录
+      * @ErrorReason:   
+      * ================
+      */
+
+      public function transaction(){
+        $server_list = $this->_getServerList();
+        $logger = DB::name('exchange_log')->where('user_id='.$this->auth->id)->select();
+        $user_server_number = $this->_getuserServernumber();
+        foreach($server_list as &$k){
+            if(count($user_server_number)>=1){
+                foreach($user_server_number as $key){
+                    if($key['type']==$k['id']){
+                        $k['user_number'] = $key['number'];
+                    }else{
+                        $k['user_number'] =0;
+                    }
+                }
+            }else{
+                $k['user_number'] = 0;
+            }
+        }
+        foreach ($logger as &$key) {
+            foreach ($server_list as $k){
+                if($k['id'] = $key['amount_id']){
+                    $key['amount_name'] = $k['name'];
+                }
+            }
+            if($key['manage']==0){
+                $key['manage']='兑换';
+            }else{
+                $key['manage']='消费';
+            }
+            if($key['state']==0){
+                $key['state'] = '减少';
+            }else{
+                $key['state'] = '增加';
+            }
+        }
+        $user_money = $this->auth->money;
+        $this->view->assign('title','交易记录');
+        $this->view->assign('server_list',$server_list);
+        $this->view->assign('logger',$logger);
+        $this->view->assign('user_money',$user_money);
+        return $this->view->fetch();
+      }
     //输入卡密查找指定卡
     private function _findhaspwd($has_pwd){
         return DB::name('rechargeablecard')->where('has_pwd='.$has_pwd)->find();
@@ -415,6 +478,14 @@ class User extends Frontend
     //修改用户余额
     private function _updateusermoney($param){
         return DB::name('user')->where('id='.$this->auth->id)->update($param);
+    }
+    //获取服务器列表
+    private function _getServerList(){
+        return DB::name('exchange_amount')->select();
+    }
+    //获取用户各服务器点数
+    private function _getuserServernumber(){
+        return DB::name('exchange_points')->alias('p')->join('exchange_amount a','p.type=a.id','left')->where('user_id='.$this->auth->id)->select();
     }
 
 }

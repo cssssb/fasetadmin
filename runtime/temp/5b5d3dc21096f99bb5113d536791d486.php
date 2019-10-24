@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:97:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\charlierecharge.html";i:1571714014;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1571714014;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:89:"C:\Users\Administrator\Desktop\fastAdmin\public/../application/index\view\user\index.html";i:1570347773;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\layout\default.html";i:1571031854;s:80:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\meta.html";i:1570347773;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\sidenav.html";i:1571655994;s:82:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\script.html";i:1570347773;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -83,41 +83,16 @@
 
         <main class="content">
             <style>
-    .profile-avatar-container {
-        position: relative;
-        width: 100px;
+    .basicinfo {
+        margin: 15px 0;
     }
 
-    .profile-avatar-container .profile-user-img {
-        width: 100px;
-        height: 100px;
+    .basicinfo .row > .col-xs-4 {
+        padding-right: 0;
     }
 
-    .profile-avatar-container .profile-avatar-text {
-        display: none;
-    }
-
-    .profile-avatar-container:hover .profile-avatar-text {
-        display: block;
-        position: absolute;
-        height: 100px;
-        width: 100px;
-        background: #444;
-        opacity: .6;
-        color: #fff;
-        top: 0;
-        left: 0;
-        line-height: 100px;
-        text-align: center;
-    }
-
-    .profile-avatar-container button {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100px;
-        height: 100px;
-        opacity: 0;
+    .basicinfo .row > div {
+        margin: 5px 0;
     }
 </style>
 <div id="content-container" class="container">
@@ -156,163 +131,63 @@
 </div>
         </div>
         <div class="col-md-9">
-            <div class="panel-body">
-                <!-- <h2 class="page-header">卡密充值                      <a href="http://www.bxfaka.com/links/20BF636CBE64306F" target="_blank" style="margin:1px;" class="btn btn-success btn-recharge pull-right"><i class="fa fa-random fa-fw"></i> 没有可点我购买卡密</a> -->
-                </h2>
-                <div class="panel-body" style="padding:0;">
-                  <div class="alert alert-warning-light">
-                      <div class="row">
-                          <div class="col-md-12">
-                              <p>卡密充值联系客服qq:</br>
-                                  温馨提示:24小时自动卡密充值,请先购充值卡密后在此页面使用！
-
-温馨提示:充值一般都是秒到帐的,如长时间不到联系客服QQ处理！
-
-温馨提示:卡密为虚拟物品一但充值成功非平台原因不作退款处理!</p>
-                              <div class="input-group input-group-md">
-                                  <div class="icon-addon addon-md">
-                                      <input type="text" placeholder="卡密" onfocus="this.select();" value="" id="card" class="form-control input-md">
-                                  </div>
-                                  <span class="input-group-btn">
-                                      <button class="btn btn-success btn-invite" id="check" type="button">查询</button>
-                                      <button class="btn btn-info btn-invite" id="bind" type="button">兑换</button>
-                                  </span>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <table class="table table-striped table-invite">
-                      <thead>
-                      <tr>
-                          <th>卡密</th>
-                          <th>单价</th>
-                          <th>总点数</th>
-                          <th>剩余点数</th>
-                          <th>绑定时间</th>
-                      </tr>
-                      <?php if(is_array($data) || $data instanceof \think\Collection || $data instanceof \think\Paginator): if( count($data)==0 ) : echo "" ;else: foreach($data as $key=>$v): ?>
-                          <tr>
-                        <th><?php echo $v['has_pwd']; ?></th>
-                        <th><?php echo $v['price']; ?></th>
-                        <th><?php echo $v['number']; ?></th>
-                        <th><?php echo $v['now_number']; ?></th>
-                        <th><?php echo $v['c_time']; ?></th>
-                    </tr>
-                        <?php endforeach; endif; else: echo "" ;endif; ?>
-                      </thead>
-                      <tbody>
-                                                </tbody>
-                  </table>
-                  <div class="pager"></div>
+            <div class="panel panel-default ">
+                <div class="panel-body">
+                    <h2 class="page-header">
+                        <?php echo __('User center'); ?>
+                        <a href="<?php echo url('user/profile'); ?>" class="btn btn-success pull-right"><i class="fa fa-pencil"></i>
+                            <?php echo __('Profile'); ?></a>
+                    </h2>
+                    <div class="row user-baseinfo">
+                        <div class="col-md-3 col-sm-3 col-xs-2 text-center user-center">
+                            <a href="<?php echo url('user/profile'); ?>" title="<?php echo __('Click to edit'); ?>">
+                                <span class="avatar-img"><img src="<?php echo cdnurl($user['avatar']); ?>" alt=""></span>
+                            </a>
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-10">
+                            <!-- Content -->
+                            <div class="ui-content">
+                                <!-- Heading -->
+                                <h4><a href="<?php echo url('user/profile'); ?>"><?php echo $user['nickname']; ?></a></h4>
+                                <!-- Paragraph -->
+                                <p>
+                                    <a href="<?php echo url('user/profile'); ?>">
+                                        <?php echo (isset($user['bio']) && ($user['bio'] !== '')?$user['bio']:__("This guy hasn't written anything yet")); ?>
+                                    </a>
+                                </p>
+                                <!-- Success -->
+                                <div class="basicinfo">
+                                    <div class="row">
+                                        <div class="col-xs-4 col-md-2"><?php echo __('Money'); ?></div>
+                                        <div class="col-xs-8 col-md-4">
+                                            <a href="javascript:;" class="viewmoney"><?php echo $user['money']; ?></a>
+                                        </div>
+                                        <div class="col-xs-4 col-md-2"><?php echo __('Score'); ?></div>
+                                        <div class="col-xs-8 col-md-4">
+                                            <a href="javascript:;" class="viewscore"><?php echo $user['score']; ?></a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-md-2"><?php echo __('Successions'); ?></div>
+                                        <div class="col-xs-8 col-md-4"><?php echo $user['successions']; ?> <?php echo __('Day'); ?></div>
+                                        <div class="col-xs-4 col-md-2"><?php echo __('Maxsuccessions'); ?></div>
+                                        <div class="col-xs-8 col-md-4"><?php echo $user['maxsuccessions']; ?> <?php echo __('Day'); ?></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-md-2"><?php echo __('Logintime'); ?></div>
+                                        <div class="col-xs-8 col-md-4"><?php echo date("Y-m-d H:i:s",$user['logintime']); ?></div>
+                                        <div class="col-xs-4 col-md-2"><?php echo __('Prevtime'); ?></div>
+                                        <div class="col-xs-8 col-md-4"><?php echo date("Y-m-d H:i:s",$user['prevtime']); ?></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<script type="text/html" id="emailtpl">
-    <form id="email-form" class="form-horizontal form-layer" method="POST" action="<?php echo url('api/user/changeemail'); ?>">
-        <div class="form-body">
-            <input type="hidden" name="action" value="changeemail" />
-            <div class="form-group">
-                <label class="control-label col-xs-12 col-sm-3"><?php echo __('New Email'); ?>:</label>
-                <div class="col-xs-12 col-sm-8">
-                    <input type="text" class="form-control" id="email" name="email" value="" data-rule="required;email;remote(<?php echo url('api/validate/check_email_available'); ?>, event=changeemail, id=">
-                    <span class="msg-box"></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-xs-12 col-sm-3"><?php echo __('Captcha'); ?>:</label>
-                <div class="col-xs-12 col-sm-8">
-                    <div class="input-group">
-                        <input type="text" name="captcha" id="email-captcha" class="form-control" data-rule="required;length(4);integer[+];remote(<?php echo url('api/validate/check_ems_correct'); ?>, event=changeemail, email:#email)" />
-                        <span class="input-group-btn" style="padding:0;border:none;">
-                            <a href="javascript:;" class="btn btn-info btn-captcha" data-url="<?php echo url('api/ems/send'); ?>" data-type="email" data-event="changeemail">获取验证码</a>
-                        </span>
-                    </div>
-                    <span class="msg-box"></span>
-                </div>
-            </div>
-        </div>
-        <div class="form-footer">
-            <div class="form-group" style="margin-bottom:0;">
-                <label class="control-label col-xs-12 col-sm-3"></label>
-                <div class="col-xs-12 col-sm-8">
-                    <button type="submit" class="btn btn-md btn-info"><?php echo __('Submit'); ?></button>
-                </div>
-            </div>
-        </div>
-    </form>
-</script>
-<script type="text/html" id="mobiletpl">
-    <form id="mobile-form" class="form-horizontal form-layer" method="POST" action="<?php echo url('api/user/changemobile'); ?>">
-        <div class="form-body">
-            <input type="hidden" name="action" value="changemobile" />
-            <div class="form-group">
-                <label for="c-mobile" class="control-label col-xs-12 col-sm-3"><?php echo __('New mobile'); ?>:</label>
-                <div class="col-xs-12 col-sm-8">
-                    <input type="text" class="form-control" id="mobile" name="mobile" value="" data-rule="required;mobile;remote(<?php echo url('api/validate/check_mobile_available'); ?>, event=changemobile, id=">
-                    <span class="msg-box"></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="mobile-captcha" class="control-label col-xs-12 col-sm-3"><?php echo __('Captcha'); ?>:</label>
-                <div class="col-xs-12 col-sm-8">
-                    <div class="input-group">
-                        <input type="text" name="captcha" id="mobile-captcha" class="form-control" data-rule="required;length(4);integer[+];remote(<?php echo url('api/validate/check_sms_correct'); ?>, event=changemobile, mobile:#mobile)" />
-                        <span class="input-group-btn" style="padding:0;border:none;">
-                            <a href="javascript:;" class="btn btn-info btn-captcha" data-url="<?php echo url('api/sms/send'); ?>" data-type="mobile" data-event="changemobile">获取验证码</a>
-                        </span>
-                    </div>
-                    <span class="msg-box"></span>
-                </div>
-            </div>
-        </div>
-        <div class="form-footer">
-            <div class="form-group" style="margin-bottom:0;">
-                <label class="control-label col-xs-12 col-sm-3"></label>
-                <div class="col-xs-12 col-sm-8">
-                    <button type="submit" class="btn btn-md btn-info"><?php echo __('Submit'); ?></button>
-                </div>
-            </div>
-        </div>
-    </form>
-</script>
-<style>
-    .form-layer {
-        height: 100%;
-        min-height: 150px;
-        min-width: 300px;
-    }
-
-    .form-body {
-        width: 100%;
-        overflow: auto;
-        top: 0;
-        position: absolute;
-        z-index: 10;
-        bottom: 50px;
-        padding: 15px;
-    }
-
-    .form-layer .form-footer {
-        height: 50px;
-        line-height: 50px;
-        background-color: #ecf0f1;
-        width: 100%;
-        position: absolute;
-        z-index: 200;
-        bottom: 0;
-        margin: 0;
-    }
-
-    .form-footer .form-group {
-        margin-left: 0;
-        margin-right: 0;
-    }
-</style>
-<script>
-</script>
         </main>
 
         <footer class="footer" style="clear:both">

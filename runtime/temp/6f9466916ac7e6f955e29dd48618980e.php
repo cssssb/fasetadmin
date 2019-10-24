@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:97:"C:\Users\Administrator\Desktop\fastAdmin\public/../application/index\view\user\rechargeorder.html";i:1571813007;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\layout\default.html";i:1571031854;s:80:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\meta.html";i:1570347773;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\sidenav.html";i:1571655994;s:82:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\script.html";i:1570347773;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:97:"C:\Users\Administrator\Desktop\fastAdmin\public/../application/index\view\user\rechargeorder.html";i:1571813012;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\layout\default.html";i:1571031854;s:80:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\meta.html";i:1570347773;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\sidenav.html";i:1571655994;s:82:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\script.html";i:1570347773;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -363,7 +363,7 @@
                                                     <tr style="text-align: center; vertical-align: middle;">
                                                         <td><?php echo $v['id']; ?></td>
                                                         <td><?php echo $v['has_pwd']; ?></td>
-                                                        <td><?php echo $v['price']; ?>123</td>
+                                                        <td><?php echo $v['price']; ?></td>
                                                         <td><?php echo $v['c_time']; ?></td>
                                                         <td>已支付</td>
                                                        

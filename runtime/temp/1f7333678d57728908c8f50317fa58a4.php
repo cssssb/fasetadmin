@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:93:"C:\Users\Administrator\Desktop\fastAdmin\public/../application/admin\view\auth\rule\edit.html";i:1570347773;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\layout\default.html";i:1570347773;s:80:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\common\meta.html";i:1570347773;s:82:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\auth\rule\tpl.html";i:1570347773;s:82:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\common\script.html";i:1570347773;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:92:"C:\Users\Administrator\Desktop\fastAdmin\public/../application/admin\view\auth\rule\add.html";i:1570347773;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\layout\default.html";i:1570347773;s:80:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\common\meta.html";i:1570347773;s:82:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\auth\rule\tpl.html";i:1570347773;s:82:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\common\script.html";i:1570347773;}*/ ?>
 <!DOCTYPE html>
 <html lang="<?php echo $config['language']; ?>">
     <head>
@@ -50,37 +50,37 @@
                             <!-- END RIBBON -->
                             <?php endif; ?>
                             <div class="content">
-                                <form id="edit-form" class="form-horizontal form-ajax" role="form" method="POST" action="">
+                                <form id="add-form" class="form-horizontal form-ajax" role="form" data-toggle="validator" method="POST" action="">
     <?php echo token(); ?>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><?php echo __('Ismenu'); ?>:</label>
         <div class="col-xs-12 col-sm-8">
-            <?php echo build_radios('row[ismenu]', ['1'=>__('Yes'), '0'=>__('No')], $row['ismenu']); ?>
+            <?php echo build_radios('row[ismenu]', ['1'=>__('Yes'), '0'=>__('No')]); ?>
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Parent'); ?>:</label>
+        <label  class="control-label col-xs-12 col-sm-2"><?php echo __('Parent'); ?>:</label>
         <div class="col-xs-12 col-sm-8">
-            <?php echo build_select('row[pid]', $ruledata, $row['pid'], ['class'=>'form-control', 'required'=>'']); ?>
+            <?php echo build_select('row[pid]', $ruledata, null, ['class'=>'form-control', 'required'=>'']); ?>
         </div>
     </div>
     <div class="form-group">
         <label for="name" class="control-label col-xs-12 col-sm-2"><?php echo __('Name'); ?>:</label>
         <div class="col-xs-12 col-sm-8">
-            <input type="text" class="form-control" id="name" name="row[name]" data-placeholder-node="<?php echo __('Node tips'); ?>" data-placeholder-menu="<?php echo __('Menu tips'); ?>" value="<?php echo htmlentities($row['name']); ?>" data-rule="required" />
+            <input type="text" class="form-control" id="name" name="row[name]" data-placeholder-node="<?php echo __('Node tips'); ?>" data-placeholder-menu="<?php echo __('Menu tips'); ?>" value="" data-rule="required" />
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><?php echo __('Title'); ?>:</label>
         <div class="col-xs-12 col-sm-8">
-            <input type="text" class="form-control" id="title" name="row[title]" value="<?php echo htmlentities($row['title']); ?>" data-rule="required" />
+            <input type="text" class="form-control" id="title" name="row[title]" value="" data-rule="required" />
         </div>
     </div>
     <div class="form-group">
         <label for="icon" class="control-label col-xs-12 col-sm-2"><?php echo __('Icon'); ?>:</label>
         <div class="col-xs-12 col-sm-8">
             <div class="input-group input-groupp-md">
-                <input type="text" class="form-control" id="icon" name="row[icon]" value="<?php echo $row['icon']; ?>" />
+                <input type="text" class="form-control" id="icon" name="row[icon]" value="fa fa-circle-o" />
                 <a href="javascript:;" class="btn-search-icon input-group-addon"><?php echo __('Search icon'); ?></a>
             </div>
         </div>
@@ -88,25 +88,25 @@
     <div class="form-group">
         <label for="weigh" class="control-label col-xs-12 col-sm-2"><?php echo __('Weigh'); ?>:</label>
         <div class="col-xs-12 col-sm-8">
-            <input type="text" class="form-control" id="weigh" name="row[weigh]" value="<?php echo $row['weigh']; ?>" data-rule="required" />
+            <input type="text" class="form-control" id="weigh" name="row[weigh]" value="0" data-rule="required" />
         </div>
     </div>
     <div class="form-group">
         <label for="remark" class="control-label col-xs-12 col-sm-2"><?php echo __('Condition'); ?>:</label>
         <div class="col-xs-12 col-sm-8">
-            <textarea class="form-control" id="condition" name="row[condition]"><?php echo htmlentities($row['condition']); ?></textarea>
+            <textarea class="form-control" id="condition" name="row[condition]"></textarea>
         </div>
     </div>
     <div class="form-group">
         <label for="remark" class="control-label col-xs-12 col-sm-2"><?php echo __('Remark'); ?>:</label>
         <div class="col-xs-12 col-sm-8">
-            <textarea class="form-control" id="remark" name="row[remark]"><?php echo htmlentities($row['remark']); ?></textarea>
+            <textarea class="form-control" id="remark" name="row[remark]"></textarea>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><?php echo __('Status'); ?>:</label>
         <div class="col-xs-12 col-sm-8">
-            <?php echo build_radios('row[status]', ['normal'=>__('Normal'), 'hidden'=>__('Hidden')], $row['status']); ?>
+            <?php echo build_radios('row[status]', ['normal'=>__('Normal'), 'hidden'=>__('Hidden')]); ?>
         </div>
     </div>
     <div class="form-group hidden layer-footer">
