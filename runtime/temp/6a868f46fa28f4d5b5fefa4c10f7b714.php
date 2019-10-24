@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:93:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\dynamiclist.html";i:1571714014;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:93:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\dynamiclist.html";i:1571904217;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1571714014;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -82,7 +82,427 @@
         </nav>
 
         <main class="content">
-            
+            <style>
+    .profile-avatar-container {
+        position: relative;
+        width: 100px;
+    }
+
+    .profile-avatar-container .profile-user-img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-avatar-container .profile-avatar-text {
+        display: none;
+    }
+
+    .profile-avatar-container:hover .profile-avatar-text {
+        display: block;
+        position: absolute;
+        height: 100px;
+        width: 100px;
+        background: #444;
+        opacity: .6;
+        color: #fff;
+        top: 0;
+        left: 0;
+        line-height: 100px;
+        text-align: center;
+    }
+
+    .profile-avatar-container button {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100px;
+        height: 100px;
+        opacity: 0;
+    }
+</style>
+<div id="content-container" class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="sidenav">
+    <?php echo hook('user_sidenav_before'); ?>
+    <ul class="list-group">
+        <li class="list-group-heading"><?php echo __('User center'); ?></li>
+        <li class="list-group-item <?php echo $config['actionname']=='index'?'active':''; ?>"> <a href="<?php echo url('user/index'); ?>"><i class="fa fa-user-circle fa-fw"></i> <?php echo __('User center'); ?></a> </li>
+        <li class="list-group-item <?php echo $config['actionname']=='profile'?'active':''; ?>"> <a href="<?php echo url('user/profile'); ?>"><i class="fa fa-user-o fa-fw"></i> <?php echo __('Profile'); ?></a> </li>
+        <li class="list-group-item <?php echo $config['actionname']=='changepwd'?'active':''; ?>"> <a href="<?php echo url('user/changepwd'); ?>"><i class="fa fa-key fa-fw"></i> <?php echo __('Change password'); ?></a> </li>
+        <li class="list-group-item <?php echo $config['actionname']=='logout'?'active':''; ?>"> <a href="<?php echo url('user/logout'); ?>"><i class="fa fa-sign-out fa-fw"></i> <?php echo __('Sign out'); ?></a> </li>
+        <li class="list-group-item <?php echo $config['actionname']=='invite'?'active':''; ?>"> <a href="<?php echo url('user/invite'); ?>"><i class="fa fa-sign-out fa-fw"></i> 邀请返利</a> </li>
+    </ul>
+    <ul class="list-group">
+        <li class="list-group-heading">充值中心</li>
+        <li class="list-group-item <?php echo $config['actionname']=='charlierecharge'?'active':''; ?>"> <a href="<?php echo url('user/charlierecharge'); ?>"><i class="fa fa-user-circle fa-fw"></i> 卡密充值</a> </li>
+        <li class="list-group-item <?php echo $config['actionname']=='rechargeorder'?'active':''; ?>"> <a href="<?php echo url('user/rechargeorder'); ?>"><i class="fa fa-user-o fa-fw"></i> 充值订单</a> </li>
+        <li class="list-group-item <?php echo $config['actionname']=='balancelog'?'active':''; ?>"> <a href="<?php echo url('user/balancelog'); ?>"><i class="fa fa-key fa-fw"></i> 余额日志</a> </li>
+    </ul>
+    <ul class="list-group">
+            <li class="list-group-heading">交易中心</li>
+            <li class="list-group-item <?php echo $config['actionname']=='exchangepoints'?'active':''; ?>"> <a href="<?php echo url('user/exchangepoints'); ?>"><i class="fa fa-user-circle fa-fw"></i> 兑换点数</a> </li>
+            <li class="list-group-item <?php echo $config['actionname']=='transaction'?'active':''; ?>"> <a href="<?php echo url('user/transaction'); ?>"><i class="fa fa-user-o fa-fw"></i> 交易记录</a> </li>
+    </ul>
+    <ul class="list-group">
+            <li class="list-group-heading">连接服务器</li>
+            <li class="list-group-item <?php echo $config['actionname']=='mainaccountnumber'?'active':''; ?>"> <a href="<?php echo url('user/mainaccountnumber'); ?>"><i class="fa fa-user-circle fa-fw"></i> 主账号</a> </li>
+            <li class="list-group-item <?php echo $config['actionname']=='dynamic'?'active':''; ?>"> <a href="<?php echo url('user/dynamic'); ?>"><i class="fa fa-user-o fa-fw"></i> 申请动态</a> </li>
+            <li class="list-group-item <?php echo $config['actionname']=='dynamiclist'?'active':''; ?>"> <a href="<?php echo url('user/dynamiclist'); ?>"><i class="fa fa-user-o fa-fw"></i> 动态列表</a> </li>
+            <li class="list-group-item <?php echo $config['actionname']=='static'?'active':''; ?>"> <a href="<?php echo url('user/static'); ?>"><i class="fa fa-user-o fa-fw"></i> 申请静态</a> </li>
+            <li class="list-group-item <?php echo $config['actionname']=='staticlist'?'active':''; ?>"> <a href="<?php echo url('user/staticlist'); ?>"><i class="fa fa-user-o fa-fw"></i> 静态列表</a> </li>
+    </ul>
+    <?php echo hook('user_sidenav_after'); ?>
+</div>
+        </div>
+        <div class="col-md-9">
+            <div class="panel panel-default panel-recharge">
+                <div class="panel-body">
+                    <h2 class="page-header">动态列表----疑问联系客服 支持API快速切换地区 配置后可脚本快速切换地区 请及时停止次数不够的账号连接 密码错误的连接
+                        会本地IP进黑名单 请去主账号界面自助解封 新人不推荐冲共享点数 建议用多少冲多少！
+                        <!-- <span>
+                            <small class="text-danger">余额:2.52</small>
+                        </span>
+                        <a href="/index/recharge/recharge.html" class="btn btn-info btn-recharge pull-right">
+                            <i class="fa fa-cny">
+                            </i> 充值余额</a> -->
+                    </h2>
+                    <br>
+                    <div class="fixed-table-toolbar">
+                        <div class="bs-bars pull-left">
+                            <div id="toolbar" class="toolbar">
+                                <a href="javascript:;" class="btn btn-primary btn-refresh" title="刷新"><i
+                                        class="fa fa-refresh"></i> </a>
+                                <a class="btn btn-info btn-disabled disabled btn-selfvpn" href="javascript:;">勾选账号充点</a>
+                                <a class="btn btn-success btn-groupvpn" href="javascript:;">静态按组充点</a>
+                                <a class="btn btn-warning btn-othervpn" href="javascript:;">为他人充点</a>
+                                <a href="javascript:;" class="btn btn-default" style="font-size:12px;color:dodgerblue;">
+                                    <span class="extend">
+                                        剩余点数：<span id="money">0</span>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="columns-right pull-right" style="margin-bottom:10px;">
+                            <button
+                                class="btn btn-default" type="button" name="commonSearch" title="Common search"><i
+                                    class="glyphicon glyphicon-search"></i></button></div>
+                        <div class="columns columns-right btn-group pull-right"><button class="btn btn-default"
+                                type="button" name="toggle" aria-label="toggle" title="切换"><i
+                                    class="glyphicon glyphicon-list-alt icon-list-alt"></i></button>
+                            <div class="keep-open btn-group" title="列"><button type="button" aria-label="columns"
+                                    class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i
+                                        class="glyphicon glyphicon-th icon-th"></i> <span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li role="menuitem"><label><input type="checkbox" data-field="vcname" value="1"
+                                                checked="checked"> 连接账号</label></li>
+                                    <li role="menuitem"><label><input type="checkbox" data-field="vcgroupId" value="2"
+                                                checked="checked"> 组ID</label></li>
+                                    <li role="menuitem"><label><input type="checkbox" data-field="createtime" value="3"
+                                                checked="checked"> 创建时间</label></li>
+                                    <li role="menuitem"><label><input type="checkbox" data-field="vcisp" value="4"
+                                                checked="checked"> 运营商</label></li>
+                                    <li role="menuitem"><label><input type="checkbox" data-field="vcdefaultLinkname"
+                                                value="5" checked="checked"> 线路</label></li>
+                                    <li role="menuitem"><label><input type="checkbox" data-field="vcexpireDate"
+                                                value="6" checked="checked"> 到期时间</label></li>
+                                    <li role="menuitem"><label><input type="checkbox" data-field="isOnline" value="7"
+                                                checked="checked"> 在线状态</label></li>
+                                    <li role="menuitem"><label><input type="checkbox" data-field="operate" value="8"
+                                                checked="checked"> 更多</label></li>
+                                </ul>
+                            </div>
+                            <div class="export btn-group"><button class="btn btn-default dropdown-toggle"
+                                    aria-label="export type" title="导出数据" data-toggle="dropdown" type="button"><i
+                                        class="glyphicon glyphicon-export icon-share"></i> <span
+                                        class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li role="menuitem" data-type="json"><a href="javascript:void(0)">JSON</a></li>
+                                    <li role="menuitem" data-type="xml"><a href="javascript:void(0)">XML</a></li>
+                                    <li role="menuitem" data-type="csv"><a href="javascript:void(0)">CSV</a></li>
+                                    <li role="menuitem" data-type="txt"><a href="javascript:void(0)">TXT</a></li>
+                                    <li role="menuitem" data-type="doc"><a href="javascript:void(0)">MS-Word</a></li>
+                                    <li role="menuitem" data-type="excel"><a href="javascript:void(0)">MS-Excel</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bootstrap-table">
+
+                     
+                        <div class="fixed-table-container" style="padding-bottom: 0px;">
+                            <div class="fixed-table-body">
+                                <div class="fixed-table-loading" style="top: 42px; display: none;">
+                                    正在努力地加载数据中，请稍候……</div>
+                                <table id="table" class="table table-striped table-bordered table-hover table-nowrap"
+                                    data-operate-edit="0" data-operate-del="" width="100%" data-show-columns="true">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center; vertical-align: middle; "
+                                                data-field="orderid">
+                                                <div class="th-inner "><input type="checkbox" name="checkall"
+                                                        id="checkall"></div>
+                                                <div class="fht-cell">
+                                                </div>
+                                            </th>
+                                            <th style="text-align: center; vertical-align: middle; "
+                                                data-field="amount">
+                                                <div class="th-inner ">链接账号</div>
+                                                <div class="fht-cell">
+                                                </div>
+                                            </th>
+
+                                            <th style="text-align: center; vertical-align: middle; "
+                                                data-field="paytime">
+                                                <div class="th-inner ">创建时间</div>
+                                                <div class="fht-cell">
+                                                </div>
+                                            </th>
+                                            <th style="text-align: center; vertical-align: middle; "
+                                                data-field="createtime">
+                                                <div class="th-inner ">默认路线</div>
+                                                <div class="fht-cell">
+                                                </div>
+                                            </th>
+                                            <th style="text-align: center; vertical-align: middle; "
+                                                data-field="status">
+                                                <div class="th-inner ">设置超时</div>
+                                                <div class="fht-cell">
+                                                </div>
+                                            </th>
+                                            <th style="text-align: center; vertical-align: middle; "
+                                                data-field="createtime">
+                                                <div class="th-inner ">在线状态</div>
+                                                <div class="fht-cell">
+                                                </div>
+                                            </th>
+                                            <th style="text-align: center; vertical-align: middle; "
+                                                data-field="status">
+                                                <div class="th-inner ">在线状态</div>
+                                                <div class="fht-cell">
+                                                </div>
+                                            </th>
+                                            <th style="text-align: center; vertical-align: middle; "
+                                                data-field="status">
+                                                <div class="th-inner ">更多</div>
+                                                <div class="fht-cell">
+                                                </div>
+                                            </th>
+
+                                        </tr>
+                                        <tr style="text-align: center; vertical-align: middle;">
+                                            <td><input type="checkbox" name="checkone" id="checkone"></td>
+                                            <td>chiyu-20</td>
+                                            <td>2019-08-06 18:24:39</td>
+                                            <td>唐山</td>
+                                            <td>增加</td>
+                                            <td><span
+                                                    style="background: #2c3e50;color: #fff;padding: 2px 8px;border-radius:5px">0/1</span>
+                                            </td>
+                                            <td><span class="text-danger"><i class="fa fa-circle"></i> 离线</span></td>
+                                            <td><a href="javascript:;" class="btn btn-xs btn-success btn-editone"
+                                                    data-toggle="tooltip" title="" data-table-id="table"
+                                                    data-field-index="8" data-row-index="0" data-button-index="1"
+                                                    data-original-title="编辑"><i class="fa fa-pencil"></i></a>
+                                            </td>
+
+                                        </tr>
+                                        <tr style="text-align: center; vertical-align: middle;">
+                                            <td><input type="checkbox" name="checkone" id="checkone"></td>
+                                            <td>chiyu-20</td>
+                                            <td>2019-08-06 18:24:39</td>
+                                            <td>唐山</td>
+                                            <td>增加</td>
+                                            <td><span
+                                                    style="background: #2c3e50;color: #fff;padding: 2px 8px;border-radius:5px">0/1</span>
+                                            </td>
+                                            <td><span class="text-danger"><i class="fa fa-circle"></i> 离线</span></td>
+                                            <td><a href="javascript:;" class="btn btn-xs btn-success btn-editone"
+                                                    data-toggle="tooltip" title="" data-table-id="table"
+                                                    data-field-index="8" data-row-index="0" data-button-index="1"
+                                                    data-original-title="编辑"><i class="fa fa-pencil"></i></a>
+                                            </td>
+
+                                        </tr>
+                                        <tr style="text-align: center; vertical-align: middle;">
+                                            <td><input type="checkbox" name="checkone" id="checkone"></td>
+                                            <td>chiyu-20</td>
+                                            <td>2019-08-06 18:24:39</td>
+                                            <td>唐山</td>
+                                            <td>增加</td>
+                                            <td><span
+                                                    style="background: #2c3e50;color: #fff;padding: 2px 8px;border-radius:5px">0/1</span>
+                                            </td>
+                                            <td><span class="text-danger"><i class="fa fa-circle"></i> 离线</span></td>
+                                            <td><a href="javascript:;" class="btn btn-xs btn-success btn-editone"
+                                                    data-toggle="tooltip" title="" data-table-id="table"
+                                                    data-field-index="8" data-row-index="0" data-button-index="1"
+                                                    data-original-title="编辑"><i class="fa fa-pencil"></i></a>
+                                            </td>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody data-listidx="0">
+                                        <tr class="no-records-found">
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="fixed-table-pagination" style="display: block;">
+                            <div class="pull-left pagination-detail"><span class="pagination-info">显示第 1 到第 10 条记录，总共
+                                    169 条记录</span><span class="page-list">每页显示 <span class="btn-group dropup"><button
+                                            type="button" class="btn btn-default dropdown-toggle"
+                                            data-toggle="dropdown"><span class="page-size">10</span> <span
+                                                class="caret"></span></button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li role="menuitem" class="active"><a href="#">10</a></li>
+                                            <li role="menuitem"><a href="#">25</a></li>
+                                            <li role="menuitem"><a href="#">50</a></li>
+                                            <li role="menuitem"><a href="#">All</a></li>
+                                        </ul>
+                                    </span> 条记录</span></div>
+                            <div class="pull-right pagination">
+                                <ul class="pagination">
+                                    <li class="page-pre"><a href="#">上一页</a></li>
+                                    <li class="page-number active"><a href="#">1</a></li>
+                                    <li class="page-number"><a href="#">2</a></li>
+                                    <li class="page-number"><a href="#">3</a></li>
+                                    <li class="page-number"><a href="#">4</a></li>
+                                    <li class="page-number"><a href="#">5</a></li>
+                                    <li class="page-last-separator disabled"><a href="#">...</a></li>
+                                    <li class="page-last"><a href="#">17</a></li>
+                                    <li class="page-next"><a href="#">下一页</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/html" id="emailtpl">
+        <form id="email-form" class="form-horizontal form-layer" method="POST" action="<?php echo url('api/user/changeemail'); ?>">
+            <div class="form-body">
+                <input type="hidden" name="action" value="changeemail" />
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-3"><?php echo __('New Email'); ?>:</label>
+                    <div class="col-xs-12 col-sm-8">
+                        <input type="text" class="form-control" id="email" name="email" value=""
+                            data-rule="required;email;remote(<?php echo url('api/validate/check_email_available'); ?>, event=changeemail, id=<?php echo $user['id']; ?>)"
+                            placeholder="<?php echo __('New email'); ?>">
+                        <span class="msg-box">
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-3"><?php echo __('Captcha'); ?>:</label>
+                    <div class="col-xs-12 col-sm-8">
+                        <div class="input-group">
+                            <input type="text" name="captcha" id="email-captcha" class="form-control"
+                                data-rule="required;length(4);integer[+];remote(<?php echo url('api/validate/check_ems_correct'); ?>, event=changeemail, email:#email)" />
+                            <span class="input-group-btn" style="padding:0;border:none;">
+                                <a href="javascript:;" class="btn btn-info btn-captcha"
+                                    data-url="<?php echo url('api/ems/send'); ?>" data-type="email"
+                                    data-event="changeemail">获取验证码</a>
+                            </span>
+                        </div>
+                        <span class="msg-box">
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-footer">
+                <div class="form-group" style="margin-bottom:0;">
+                    <label class="control-label col-xs-12 col-sm-3">
+                    </label>
+                    <div class="col-xs-12 col-sm-8">
+                        <button type="submit" class="btn btn-md btn-info"><?php echo __('Submit'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </script>
+    <script type="text/html" id="mobiletpl">
+        <form id="mobile-form" class="form-horizontal form-layer" method="POST"
+            action="<?php echo url('api/user/changemobile'); ?>">
+            <div class="form-body">
+                <input type="hidden" name="action" value="changemobile" />
+                <div class="form-group">
+                    <label for="c-mobile" class="control-label col-xs-12 col-sm-3"><?php echo __('New mobile'); ?>:</label>
+                    <div class="col-xs-12 col-sm-8">
+                        <input type="text" class="form-control" id="mobile" name="mobile" value=""
+                            data-rule="required;mobile;remote(<?php echo url('api/validate/check_mobile_available'); ?>, event=changemobile, id=<?php echo $user['id']; ?>)"
+                            placeholder="<?php echo __('New mobile'); ?>">
+                        <span class="msg-box">
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="mobile-captcha" class="control-label col-xs-12 col-sm-3"><?php echo __('Captcha'); ?>:</label>
+                    <div class="col-xs-12 col-sm-8">
+                        <div class="input-group">
+                            <input type="text" name="captcha" id="mobile-captcha" class="form-control"
+                                data-rule="required;length(4);integer[+];remote(<?php echo url('api/validate/check_sms_correct'); ?>, event=changemobile, mobile:#mobile)" />
+                            <span class="input-group-btn" style="padding:0;border:none;">
+                                <a href="javascript:;" class="btn btn-info btn-captcha"
+                                    data-url="<?php echo url('api/sms/send'); ?>" data-type="mobile"
+                                    data-event="changemobile">获取验证码</a>
+                            </span>
+                        </div>
+                        <span class="msg-box">
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-footer">
+                <div class="form-group" style="margin-bottom:0;">
+                    <label class="control-label col-xs-12 col-sm-3">
+                    </label>
+                    <div class="col-xs-12 col-sm-8">
+                        <button type="submit" class="btn btn-md btn-info"><?php echo __('Submit'); ?></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </script>
+    <style>
+        .form-layer {
+            height: 100%;
+            min-height: 150px;
+            min-width: 300px;
+        }
+
+        .form-body {
+            width: 100%;
+            overflow: auto;
+            top: 0;
+            position: absolute;
+            z-index: 10;
+            bottom: 50px;
+            padding: 15px;
+        }
+
+        .form-layer .form-footer {
+            height: 50px;
+            line-height: 50px;
+            background-color: #ecf0f1;
+            width: 100%;
+            position: absolute;
+            z-index: 200;
+            bottom: 0;
+            margin: 0;
+        }
+
+        .form-footer .form-group {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    </style>
         </main>
 
         <footer class="footer" style="clear:both">
