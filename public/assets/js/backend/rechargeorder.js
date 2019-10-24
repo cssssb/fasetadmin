@@ -30,7 +30,6 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'number', title: __('Number')},
                         {field: 'user_id', title: __('User_id')},
                         {field: 'admin_id', title: __('Admin_id')},
-                        {field: 'now_number', title: __('Now_number')},
                         {field: 'cadmin_time', title: __('Cadmin_time'), operate:'RANGE', addclass:'datetimerange', formatter: Table.api.formatter.datetime},
                         {field: 'price', title: __('Price')},
                         {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
