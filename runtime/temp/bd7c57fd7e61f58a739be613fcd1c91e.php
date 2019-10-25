@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:97:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\charlierecharge.html";i:1571905400;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1571714014;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:97:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\charlierecharge.html";i:1571998387;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1571714014;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -171,12 +171,12 @@
                                     温馨提示:卡密为虚拟物品一但充值成功非平台原因不作退款处理!</p>
                                 <div class="input-group input-group-md">
                                     <div class="icon-addon addon-md">
-                                        <input type="text" placeholder="卡密" onfocus="this.select();" value="" id="card"
+                                        <input type="text" placeholder="卡密" onfocus="this.select();" value="" id="cardpass"
                                             class="form-control input-md">
                                     </div>
                                     <span class="input-group-btn">
-                                        <button class="btn btn-success btn-invite" id="check" type="button">查询</button>
-                                        <button class="btn btn-info btn-invite" id="bind" type="button">兑换</button>
+                                        <button class="btn btn-success btn-invite inquire" id="inquire" type="button">查询</button>
+                                        <button class="btn btn-info btn-invite conversion" id="bind" type="button">兑换</button>
                                     </span>
                                 </div>
                             </div>

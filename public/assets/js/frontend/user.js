@@ -2,6 +2,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
     /*
     崔思思测试发送ajax
     */
+   
     var validatoroptions = {
         invalid: function (form, errors) {
             $.each(errors, function (i, j) {
@@ -10,6 +11,42 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
         }
     };
     var Controller = {
+        charlierecharge:function(){
+          
+            $(document).on("click",".inquire",function(){
+                $.ajax({
+                    url: "http://api2.ceh.com.cn/fav/has",
+                    type: 'post',
+                    dataType: 'json',
+                    data: {target: '319541621429371350',
+                        userid: '319430217930703154',
+                        user_id: '319430217930703154'},
+                    success: function (ret) {
+                        console.log(ret)
+                       
+                    }, error: function (e) {
+                       
+                    }
+                });
+            });
+            $(document).on("click",".conversion",function(){
+                $.ajax({
+                    url: "http://api2.ceh.com.cn/fav/has",
+                    type: 'post',
+                    dataType: 'json',
+                    data: {target: '319541621429371350',
+                        userid: '319430217930703154',
+                        user_id: '319430217930703154'},
+                    success: function (ret) {
+                      alert("d兑换成功")
+                       
+                    }, error: function (e) {
+                       
+                    }
+                });
+            })
+        },
+
         login: function () {
             //本地验证未通过时提示
             $("#login-form").data("validator-options", validatoroptions);
@@ -101,7 +138,8 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     }
                 });
             });
-        }
+        },
+
     };
     return Controller;
 });
