@@ -1,4 +1,7 @@
 define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, undefined, Frontend, Form, Template) {
+    /*
+    崔思思测试发送ajax
+    */
     var validatoroptions = {
         invalid: function (form, errors) {
             $.each(errors, function (i, j) {
