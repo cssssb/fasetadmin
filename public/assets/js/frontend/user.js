@@ -12,12 +12,13 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
     };
     var Controller = {
         charlierecharge:function(){
-          
+        //   点击查询的按钮
             $(document).on("click",".inquire",function(){
                 $.ajax({
                     url: "http://api2.ceh.com.cn/fav/has",
                     type: 'post',
                     dataType: 'json',
+                    // has_pwd:$('#cardpass').val()
                     data: {target: '319541621429371350',
                         userid: '319430217930703154',
                         user_id: '319430217930703154'},
@@ -29,6 +30,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     }
                 });
             });
+            // 点击兑换的按钮
             $(document).on("click",".conversion",function(){
                 $.ajax({
                     url: "http://api2.ceh.com.cn/fav/has",
