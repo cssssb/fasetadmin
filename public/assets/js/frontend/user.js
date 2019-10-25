@@ -23,7 +23,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                         userid: '319430217930703154',
                         user_id: '319430217930703154'},
                     success: function (ret) {
-                        console.log(ret)
+                      
                        
                     }, error: function (e) {
                        
@@ -40,8 +40,18 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                         userid: '319430217930703154',
                         user_id: '319430217930703154'},
                     success: function (ret) {
-                      alert("d兑换成功")
-                       
+                        // 现在随便一个的接口
+                        if(ret.result=="ok"){
+                            Toastr.success("成功");
+                        }else{
+                            Toastr.success("失败");
+                        }
+                        // 你自己的接口用这个
+                        // if(ret.msg=="成功"){
+                        //     Toastr.success("成功");
+                        // }else{
+                        //     Toastr.success("失败");
+                        // }
                     }, error: function (e) {
                        
                     }
