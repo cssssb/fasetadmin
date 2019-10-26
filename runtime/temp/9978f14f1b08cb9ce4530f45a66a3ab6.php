@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:94:"C:\Users\Administrator\Desktop\fastAdmin\public/../application/admin\view\dashboard\index.html";i:1570347773;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\layout\default.html";i:1570347773;s:80:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\common\meta.html";i:1570347773;s:82:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\common\script.html";i:1570347773;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:85:"C:\Users\user\Desktop\fastadmin\public/../application/admin\view\dashboard\index.html";i:1571470719;s:74:"C:\Users\user\Desktop\fastadmin\application\admin\view\layout\default.html";i:1571470719;s:71:"C:\Users\user\Desktop\fastadmin\application\admin\view\common\meta.html";i:1571470719;s:73:"C:\Users\user\Desktop\fastadmin\application\admin\view\common\script.html";i:1571470719;}*/ ?>
 <!DOCTYPE html>
 <html lang="<?php echo $config['language']; ?>">
     <head>
@@ -434,7 +434,7 @@
                             </div>
                             <div class="box-body">
                                 <ul class="products-list product-list-in-box">
-                                    <?php $__FOR_START_7293__=1;$__FOR_END_7293__=8;for($i=$__FOR_START_7293__;$i < $__FOR_END_7293__;$i+=1){ ?>
+                                    <?php $__FOR_START_16142__=1;$__FOR_END_16142__=8;for($i=$__FOR_START_16142__;$i < $__FOR_END_16142__;$i+=1){ ?>
                                     <li class="item">
                                         <div class="product-img">
                                             <img src="/assets/img/avatar.png" style="height:40px;width:40px;">

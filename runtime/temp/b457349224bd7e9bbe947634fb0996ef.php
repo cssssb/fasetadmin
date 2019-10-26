@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:97:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\charlierecharge.html";i:1571714014;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1571714014;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:90:"C:\Users\user\Desktop\fastadmin\public/../application/index\view\user\charlierecharge.html";i:1571842243;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\layout\default.html";i:1571470719;s:71:"C:\Users\user\Desktop\fastadmin\application\index\view\common\meta.html";i:1571470719;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\common\sidenav.html";i:1571842243;s:73:"C:\Users\user\Desktop\fastadmin\application\index\view\common\script.html";i:1571470719;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -160,50 +160,49 @@
                 <!-- <h2 class="page-header">卡密充值                      <a href="http://www.bxfaka.com/links/20BF636CBE64306F" target="_blank" style="margin:1px;" class="btn btn-success btn-recharge pull-right"><i class="fa fa-random fa-fw"></i> 没有可点我购买卡密</a> -->
                 </h2>
                 <div class="panel-body" style="padding:0;">
-                  <div class="alert alert-warning-light">
-                      <div class="row">
-                          <div class="col-md-12">
-                              <p>卡密充值联系客服qq:</br>
-                                  温馨提示:24小时自动卡密充值,请先购充值卡密后在此页面使用！
+                    <div class="alert alert-warning-light">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>卡密充值联系客服qq:</br>
+                                    温馨提示:24小时自动卡密充值,请先购充值卡密后在此页面使用！
 
-温馨提示:充值一般都是秒到帐的,如长时间不到联系客服QQ处理！
+                                    温馨提示:充值一般都是秒到帐的,如长时间不到联系客服QQ处理！
 
-温馨提示:卡密为虚拟物品一但充值成功非平台原因不作退款处理!</p>
-                              <div class="input-group input-group-md">
-                                  <div class="icon-addon addon-md">
-                                      <input type="text" placeholder="卡密" onfocus="this.select();" value="" id="card" class="form-control input-md">
-                                  </div>
-                                  <span class="input-group-btn">
-                                      <button class="btn btn-success btn-invite" id="check" type="button">查询</button>
-                                      <button class="btn btn-info btn-invite" id="bind" type="button">兑换</button>
-                                  </span>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <table class="table table-striped table-invite">
-                      <thead>
-                      <tr>
-                          <th>卡密</th>
-                          <th>单价</th>
-                          <th>总点数</th>
-                          <th>剩余点数</th>
-                          <th>绑定时间</th>
-                      </tr>
-                      <?php if(is_array($data) || $data instanceof \think\Collection || $data instanceof \think\Paginator): if( count($data)==0 ) : echo "" ;else: foreach($data as $key=>$v): ?>
-                          <tr>
-                        <th><?php echo $v['has_pwd']; ?></th>
-                        <th><?php echo $v['price']; ?></th>
-                        <th><?php echo $v['number']; ?></th>
-                        <th><?php echo $v['now_number']; ?></th>
-                        <th><?php echo $v['c_time']; ?></th>
-                    </tr>
-                        <?php endforeach; endif; else: echo "" ;endif; ?>
-                      </thead>
-                      <tbody>
-                                                </tbody>
-                  </table>
-                  <div class="pager"></div>
+                                    温馨提示:卡密为虚拟物品一但充值成功非平台原因不作退款处理!</p>
+                                <div class="input-group input-group-md">
+                                    <div class="icon-addon addon-md">
+                                        <input type="text" placeholder="卡密" onfocus="this.select();" value="" id="card"
+                                            class="form-control input-md">
+                                    </div>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-success btn-invite" id="check" type="button">查询</button>
+                                        <button class="btn btn-info btn-invite" id="bind" type="button">兑换</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-striped table-invite">
+                        <thead id="tabbox">
+                            <tr>
+                                <th>卡密</th>
+                                <th>单价</th>
+                                <th>总点数</th>
+                                <th>绑定时间</th>
+                            </tr>
+                            <?php if(is_array($data) || $data instanceof \think\Collection || $data instanceof \think\Paginator): if( count($data)==0 ) : echo "" ;else: foreach($data as $key=>$v): ?>
+                            <tr>
+                                <td><?php echo $v['has_pwd']; ?></td>
+                                <td><?php echo $v['price']; ?></td>
+                                <td><?php echo $v['number']; ?></td>
+                                <td><?php echo $v['c_time']; ?></td>
+                            </tr>
+                            <?php endforeach; endif; else: echo "" ;endif; ?>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <div class="pager"></div>
                 </div>
             </div>
         </div>
@@ -217,7 +216,8 @@
             <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3"><?php echo __('New Email'); ?>:</label>
                 <div class="col-xs-12 col-sm-8">
-                    <input type="text" class="form-control" id="email" name="email" value="" data-rule="required;email;remote(<?php echo url('api/validate/check_email_available'); ?>, event=changeemail, id=">
+                    <input type="text" class="form-control" id="email" name="email" value=""
+                        data-rule="required;email;remote(<?php echo url('api/validate/check_email_available'); ?>, event=changeemail, id=">
                     <span class="msg-box"></span>
                 </div>
             </div>
@@ -225,9 +225,11 @@
                 <label class="control-label col-xs-12 col-sm-3"><?php echo __('Captcha'); ?>:</label>
                 <div class="col-xs-12 col-sm-8">
                     <div class="input-group">
-                        <input type="text" name="captcha" id="email-captcha" class="form-control" data-rule="required;length(4);integer[+];remote(<?php echo url('api/validate/check_ems_correct'); ?>, event=changeemail, email:#email)" />
+                        <input type="text" name="captcha" id="email-captcha" class="form-control"
+                            data-rule="required;length(4);integer[+];remote(<?php echo url('api/validate/check_ems_correct'); ?>, event=changeemail, email:#email)" />
                         <span class="input-group-btn" style="padding:0;border:none;">
-                            <a href="javascript:;" class="btn btn-info btn-captcha" data-url="<?php echo url('api/ems/send'); ?>" data-type="email" data-event="changeemail">获取验证码</a>
+                            <a href="javascript:;" class="btn btn-info btn-captcha" data-url="<?php echo url('api/ems/send'); ?>"
+                                data-type="email" data-event="changeemail">获取验证码</a>
                         </span>
                     </div>
                     <span class="msg-box"></span>
@@ -251,7 +253,8 @@
             <div class="form-group">
                 <label for="c-mobile" class="control-label col-xs-12 col-sm-3"><?php echo __('New mobile'); ?>:</label>
                 <div class="col-xs-12 col-sm-8">
-                    <input type="text" class="form-control" id="mobile" name="mobile" value="" data-rule="required;mobile;remote(<?php echo url('api/validate/check_mobile_available'); ?>, event=changemobile, id=">
+                    <input type="text" class="form-control" id="mobile" name="mobile" value=""
+                        data-rule="required;mobile;remote(<?php echo url('api/validate/check_mobile_available'); ?>, event=changemobile, id=">
                     <span class="msg-box"></span>
                 </div>
             </div>
@@ -259,9 +262,11 @@
                 <label for="mobile-captcha" class="control-label col-xs-12 col-sm-3"><?php echo __('Captcha'); ?>:</label>
                 <div class="col-xs-12 col-sm-8">
                     <div class="input-group">
-                        <input type="text" name="captcha" id="mobile-captcha" class="form-control" data-rule="required;length(4);integer[+];remote(<?php echo url('api/validate/check_sms_correct'); ?>, event=changemobile, mobile:#mobile)" />
+                        <input type="text" name="captcha" id="mobile-captcha" class="form-control"
+                            data-rule="required;length(4);integer[+];remote(<?php echo url('api/validate/check_sms_correct'); ?>, event=changemobile, mobile:#mobile)" />
                         <span class="input-group-btn" style="padding:0;border:none;">
-                            <a href="javascript:;" class="btn btn-info btn-captcha" data-url="<?php echo url('api/sms/send'); ?>" data-type="mobile" data-event="changemobile">获取验证码</a>
+                            <a href="javascript:;" class="btn btn-info btn-captcha" data-url="<?php echo url('api/sms/send'); ?>"
+                                data-type="mobile" data-event="changemobile">获取验证码</a>
                         </span>
                     </div>
                     <span class="msg-box"></span>
