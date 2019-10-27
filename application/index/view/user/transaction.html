@@ -45,24 +45,17 @@
                     <div class="panel panel-default panel-recharge">
                         <div class="panel-body">
                             <h2 class="page-header">交易记录                        <span>
-<small class="text-danger">余额:2.52</small>
+<small class="text-danger">余额:{$user_money}</small>
 </span>
                                 <a href="/index/recharge/recharge.html" class="btn btn-info btn-recharge pull-right">
 <i class="fa fa-cny">
 </i> 充值余额</a>
                             </h2>
                             <div class="row">
-                                                  <div class="col-xs-6 col-md-2" style="text-align:right">(b服务器)动态 : </div>
-                              <div class="col-xs-6 col-md-1" style="text-align:left">0</div>
-                                                  <div class="col-xs-6 col-md-2" style="text-align:right">(b服务器)静态 : </div>
-                              <div class="col-xs-6 col-md-1" style="text-align:left">0</div>
-                                                  <div class="col-xs-6 col-md-2" style="text-align:right">(e服务器)动态 : </div>
-                              <div class="col-xs-6 col-md-1" style="text-align:left">0</div>
-                                                  <div class="col-xs-6 col-md-2" style="text-align:right">梦想 : </div>
-                              <div class="col-xs-6 col-md-1" style="text-align:left">0</div>
-                                                  <div class="col-xs-6 col-md-2" style="text-align:right">理想 : </div>
-                              <div class="col-xs-6 col-md-1" style="text-align:left">0</div>
-                                                </div>
+                                {foreach name="server_list" item="v"}
+                                                  <div class="col-xs-6 col-md-2" style="text-align:right">{$v.name} : </div>
+                              <div class="col-xs-6 col-md-1" style="text-align:left">{$v.user_number}</div>
+                              {/foreach}
                             <hr>
                             
                               <div class="bootstrap-table">
@@ -252,16 +245,6 @@
 <div class="fht-cell">
 </div>
 </th>
-<th style="text-align: center; vertical-align: middle; " data-field="receipt">
-<div class="th-inner ">回执</div>
-<div class="fht-cell">
-</div>
-</th>
-<th style="text-align: center; vertical-align: middle; " data-field="receiptlog">
-<div class="th-inner ">失败原因</div>
-<div class="fht-cell">
-</div>
-</th>
 <th style="text-align: center; vertical-align: middle; " data-field="createtime">
 <div class="th-inner ">创建时间</div>
 <div class="fht-cell">
@@ -270,177 +253,38 @@
 </tr>
 </thead>
 <tbody data-listidx="0">
-<tr data-index="0"> <td style="text-align: center; vertical-align: middle; ">-130</td> <td style="text-align: center; vertical-align: middle; ">130</td> <td style="text-align: center; vertical-align: middle; ">0</td> <td style="text-align: center; vertical-align: middle; ">充值共享账号:jiemo次数:130</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 消费" data-field="codeoperate" data-value="consume">
-<span class="text-danger">消费</span>
+    {foreach name="logger" item="v"}
+<tr data-index="0"> 
+<td style="text-align: center; vertical-align: middle; ">{$v.update_number}</td>
+<td style="text-align: center; vertical-align: middle; ">{$v.before_number}</td>
+<td style="text-align: center; vertical-align: middle; ">{$v.after_number}</td>
+<td style="text-align: center; vertical-align: middle; ">{$v.remarks}</td> <td style="text-align: center; vertical-align: middle; ">
+<a href="javascript:;" class="searchit" data-toggle="tooltip"  data-field="codeoperate" data-value="consume">
+<span class="{ $v.manage == '消费'?echo 'text-danger'?echo 'text-primary';}">{$v.manage}</span>
 </a>
 </td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 减少" data-field="state" data-value="0">
-<span class="text-primary">减少</span>
+<a href="javascript:;" class="searchit" data-toggle="tooltip"  data-field="state" data-value="0">
+<span class="{ $v.manage == '减少'?echo 'text-primary'?echo 'text-success';}">{$v.state}</span>
 </a>
 </td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 (e服务器)动态" data-field="codetype" data-value="5">
-<span class="text-gray">(e服务器)动态</span>
+<a href="javascript:;" class="searchit" data-toggle="tooltip"  data-field="codetype" data-value="5">
+<span class="text-gray">{$v.amount_name}</span>
 </a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 成功" data-field="receipt" data-value="2">
-<span class="text-success">成功</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">-</td> <td style="text-align: center; vertical-align: middle; ">2019-08-07 19:42:10</td> </tr>
+</td><td style="text-align: center; vertical-align: middle; ">{$v.c_time}</td> </tr>
+{/foreach}
 <tr data-index="1"> <td style="text-align: center; vertical-align: middle; ">130</td> <td style="text-align: center; vertical-align: middle; ">0</td> <td style="text-align: center; vertical-align: middle; ">130</td> <td style="text-align: center; vertical-align: middle; ">兑换(e服务器)动态: 130 花费:65 余额:2.52</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 兑换" data-field="codeoperate" data-value="codechange">
+<a href="javascript:;" class="searchit" data-toggle="tooltip"  data-field="codeoperate" data-value="codechange">
 <span class="text-primary">兑换</span>
 </a>
 </td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 增加" data-field="state" data-value="1">
+<a href="javascript:;" class="searchit" data-toggle="tooltip"  data-field="state" data-value="1">
 <span class="text-success">增加</span>
 </a>
 </td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 (e服务器)动态" data-field="codetype" data-value="5">
+<a href="javascript:;" class="searchit" data-toggle="tooltip"  data-field="codetype" data-value="5">
 <span class="text-gray">(e服务器)动态</span>
 </a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 " data-field="receipt" data-value="">
-<span class="text-primary">
-</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">-</td> <td style="text-align: center; vertical-align: middle; ">2019-08-07 19:41:50</td> </tr>
-<tr data-index="2"> <td style="text-align: center; vertical-align: middle; ">-20</td> <td style="text-align: center; vertical-align: middle; ">52449</td> <td style="text-align: center; vertical-align: middle; ">52429</td> <td style="text-align: center; vertical-align: middle; ">创建动态VPN账号:chiyu 数量:20 可更换次数:1</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 消费" data-field="codeoperate" data-value="consume">
-<span class="text-danger">消费</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 减少" data-field="state" data-value="0">
-<span class="text-primary">减少</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 (b服务器)动态" data-field="codetype" data-value="3">
-<span class="text-warning">(b服务器)动态</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 成功" data-field="receipt" data-value="2">
-<span class="text-success">成功</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">-</td> <td style="text-align: center; vertical-align: middle; ">2019-08-06 18:24:36</td> </tr>
-<tr data-index="3"> <td style="text-align: center; vertical-align: middle; ">-2000</td> <td style="text-align: center; vertical-align: middle; ">54449</td> <td style="text-align: center; vertical-align: middle; ">52449</td> <td style="text-align: center; vertical-align: middle; ">充值共享账号:jiemoip次数:2000</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 消费" data-field="codeoperate" data-value="consume">
-<span class="text-danger">消费</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 减少" data-field="state" data-value="0">
-<span class="text-primary">减少</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 (b服务器)动态" data-field="codetype" data-value="3">
-<span class="text-warning">(b服务器)动态</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 成功" data-field="receipt" data-value="2">
-<span class="text-success">成功</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">-</td> <td style="text-align: center; vertical-align: middle; ">2019-08-06 18:23:56</td> </tr>
-<tr data-index="4"> <td style="text-align: center; vertical-align: middle; ">-2000</td> <td style="text-align: center; vertical-align: middle; ">83455</td> <td style="text-align: center; vertical-align: middle; ">81455</td> <td style="text-align: center; vertical-align: middle; ">充值共享账号:jiemo次数:2000</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 消费" data-field="codeoperate" data-value="consume">
-<span class="text-danger">消费</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 减少" data-field="state" data-value="0">
-<span class="text-primary">减少</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 (e服务器)动态" data-field="codetype" data-value="5">
-<span class="text-gray">(e服务器)动态</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 成功" data-field="receipt" data-value="2">
-<span class="text-success">成功</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">-</td> <td style="text-align: center; vertical-align: middle; ">2019-08-06 18:21:39</td> </tr>
-<tr data-index="5"> <td style="text-align: center; vertical-align: middle; ">-10</td> <td style="text-align: center; vertical-align: middle; ">83465</td> <td style="text-align: center; vertical-align: middle; ">83455</td> <td style="text-align: center; vertical-align: middle; ">创建动态VPN账号:chenzi 数量:10 可更换次数:1</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 消费" data-field="codeoperate" data-value="consume">
-<span class="text-danger">消费</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 减少" data-field="state" data-value="0">
-<span class="text-primary">减少</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 (e服务器)动态" data-field="codetype" data-value="5">
-<span class="text-gray">(e服务器)动态</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 成功" data-field="receipt" data-value="2">
-<span class="text-success">成功</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">-</td> <td style="text-align: center; vertical-align: middle; ">2019-08-06 18:20:42</td> </tr>
-<tr data-index="6"> <td style="text-align: center; vertical-align: middle; ">-1</td> <td style="text-align: center; vertical-align: middle; ">83466</td> <td style="text-align: center; vertical-align: middle; ">83465</td> <td style="text-align: center; vertical-align: middle; ">创建动态VPN账号:lhy005 数量:1 可更换次数:1</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 消费" data-field="codeoperate" data-value="consume">
-<span class="text-danger">消费</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 减少" data-field="state" data-value="0">
-<span class="text-primary">减少</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 (e服务器)动态" data-field="codetype" data-value="5">
-<span class="text-gray">(e服务器)动态</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 成功" data-field="receipt" data-value="2">
-<span class="text-success">成功</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">-</td> <td style="text-align: center; vertical-align: middle; ">2019-08-06 18:07:43</td> </tr>
-<tr data-index="7"> <td style="text-align: center; vertical-align: middle; ">-1</td> <td style="text-align: center; vertical-align: middle; ">83467</td> <td style="text-align: center; vertical-align: middle; ">83466</td> <td style="text-align: center; vertical-align: middle; ">创建动态VPN账号:lhy004 数量:1 可更换次数:1</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 消费" data-field="codeoperate" data-value="consume">
-<span class="text-danger">消费</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 减少" data-field="state" data-value="0">
-<span class="text-primary">减少</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 (e服务器)动态" data-field="codetype" data-value="5">
-<span class="text-gray">(e服务器)动态</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 成功" data-field="receipt" data-value="2">
-<span class="text-success">成功</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">-</td> <td style="text-align: center; vertical-align: middle; ">2019-08-06 18:07:01</td> </tr>
-<tr data-index="8"> <td style="text-align: center; vertical-align: middle; ">-1</td> <td style="text-align: center; vertical-align: middle; ">83468</td> <td style="text-align: center; vertical-align: middle; ">83467</td> <td style="text-align: center; vertical-align: middle; ">创建动态VPN账号:lhy003 数量:1 可更换次数:1</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 消费" data-field="codeoperate" data-value="consume">
-<span class="text-danger">消费</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 减少" data-field="state" data-value="0">
-<span class="text-primary">减少</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 (e服务器)动态" data-field="codetype" data-value="5">
-<span class="text-gray">(e服务器)动态</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 成功" data-field="receipt" data-value="2">
-<span class="text-success">成功</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">-</td> <td style="text-align: center; vertical-align: middle; ">2019-08-06 18:06:25</td> </tr>
-<tr data-index="9"> <td style="text-align: center; vertical-align: middle; ">-1</td> <td style="text-align: center; vertical-align: middle; ">83469</td> <td style="text-align: center; vertical-align: middle; ">83468</td> <td style="text-align: center; vertical-align: middle; ">创建动态VPN账号:lhy002 数量:1 可更换次数:1</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 消费" data-field="codeoperate" data-value="consume">
-<span class="text-danger">消费</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 减少" data-field="state" data-value="0">
-<span class="text-primary">减少</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 (e服务器)动态" data-field="codetype" data-value="5">
-<span class="text-gray">(e服务器)动态</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">
-<a href="javascript:;" class="searchit" data-toggle="tooltip" title="点击搜索 成功" data-field="receipt" data-value="2">
-<span class="text-success">成功</span>
-</a>
-</td> <td style="text-align: center; vertical-align: middle; ">-</td> <td style="text-align: center; vertical-align: middle; ">2019-08-06 18:03:35</td> </tr>
+</td> <td style="text-align: center; vertical-align: middle; ">2019-08-07 19:41:50</td> </tr>
 </tbody>
 </table>
 </div>

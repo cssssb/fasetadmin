@@ -434,7 +434,7 @@
                             </div>
                             <div class="box-body">
                                 <ul class="products-list product-list-in-box">
-                                    <?php $__FOR_START_16142__=1;$__FOR_END_16142__=8;for($i=$__FOR_START_16142__;$i < $__FOR_END_16142__;$i+=1){ ?>
+                                    <?php $__FOR_START_19020__=1;$__FOR_END_19020__=8;for($i=$__FOR_START_19020__;$i < $__FOR_END_19020__;$i+=1){ ?>
                                     <li class="item">
                                         <div class="product-img">
                                             <img src="/assets/img/avatar.png" style="height:40px;width:40px;">
