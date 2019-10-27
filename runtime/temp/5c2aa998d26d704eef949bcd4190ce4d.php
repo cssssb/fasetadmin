@@ -1,4 +1,8 @@
+<<<<<<< HEAD:runtime/temp/5c2aa998d26d704eef949bcd4190ce4d.php
 <?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:89:"C:\Users\user\Desktop\fastadmin\public/../application/index\view\user\exchangepoints.html";i:1572083512;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\layout\default.html";i:1571470719;s:71:"C:\Users\user\Desktop\fastadmin\application\index\view\common\meta.html";i:1571470719;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\common\sidenav.html";i:1571842243;s:73:"C:\Users\user\Desktop\fastadmin\application\index\view\common\script.html";i:1571470719;}*/ ?>
+=======
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:96:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\exchangepoints.html";i:1572077855;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1571714014;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
+>>>>>>> ed0c14f6304d4d7f97c6aae1b33b9f36b68ce9b8:runtime/temp/0fcbba7bb83aa1f223b14ad4b07da74e.php
 <!DOCTYPE html>
 <html>
     <head>
@@ -172,53 +176,15 @@
                     <hr>
                     <form id="add-form" class="form-horizontal nice-validator n-default n-bootstrap" role="form"
                         data-toggle="validator" method="POST" action="" novalidate="novalidate">
-                        <input type="hidden" name="__token__" value="356f1d032dfc7d4b602658f25158587a">
+
                         <div class="form-group">
                             <label class="control-label col-xs-12 col-sm-4">选择兑换种类:</label>
                             <div class="col-xs-12 col-sm-4">
-                                <div class="btn-group bootstrap-select form-control dropup"><button type="button"
-                                        class="btn dropdown-toggle btn-default" data-toggle="dropdown" role="button"
-                                        title="请选择兑换种类" aria-expanded="false"><span
-                                            class="filter-option pull-left">请选择兑换种类</span>&nbsp;<span
-                                            class="bs-caret"><span class="caret"></span></span></button>
-                                    <div class="dropdown-menu open" role="combobox"
-                                        style="max-height: 301px; overflow: hidden; min-height: 83px;">
-                                        <ul class="dropdown-menu inner" role="listbox" aria-expanded="false"
-                                            style="max-height: 289px; overflow-y: auto; min-height: 71px;">
-                                            <li data-original-index="0" class="selected"><a tabindex="0" class=""
-                                                    style="" data-tokens="null" role="option" aria-disabled="false"
-                                                    aria-selected="true"><span class="text">请选择兑换种类</span><span
-                                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
-                                            <li data-original-index="1"><a tabindex="0" class="" style=""
-                                                    data-tokens="null" role="option" aria-disabled="false"
-                                                    aria-selected="false"><span class="text">(b服务器)动态</span><span
-                                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
-                                            <li data-original-index="2"><a tabindex="0" class="" style=""
-                                                    data-tokens="null" role="option" aria-disabled="false"
-                                                    aria-selected="false"><span class="text">(b服务器)静态</span><span
-                                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
-                                            <li data-original-index="3"><a tabindex="0" class="" style=""
-                                                    data-tokens="null" role="option" aria-disabled="false"
-                                                    aria-selected="false"><span class="text">(e服务器)动态</span><span
-                                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
-                                            <li data-original-index="4"><a tabindex="0" class="" style=""
-                                                    data-tokens="null" role="option" aria-disabled="false"
-                                                    aria-selected="false"><span class="text">梦想</span><span
-                                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
-                                            <li data-original-index="5"><a tabindex="0" class="" style=""
-                                                    data-tokens="null" role="option" aria-disabled="false"
-                                                    aria-selected="false"><span class="text">理想</span><span
-                                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
-                                        </ul>
-                                    </div><select class="selectpicker form-control" name="row[select]" tabindex="-98">
-                                        <option value="0" selected="selected">请选择兑换种类</option>
-                                        <option value="3">(b服务器)动态</option>
-                                        <option value="4">(b服务器)静态</option>
-                                        <option value="5">(e服务器)动态</option>
-                                        <option value="8">梦想</option>
-                                        <option value="9">理想</option>
-                                    </select>
-                                </div>
+                                <select class="selectpicker form-control" name="row[select]" tabindex="-98" >
+                                    <option value="0" selected="selected">请选择兑换种类</option>
+                                    
+                                </select>
+
                             </div>
                         </div>
                         <div class="form-group">

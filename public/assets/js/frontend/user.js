@@ -2,7 +2,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
     /*
     崔思思测试发送ajax
     */
-   
+
     var validatoroptions = {
         invalid: function (form, errors) {
             $.each(errors, function (i, j) {
@@ -11,42 +11,97 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
         }
     };
     var Controller = {
-        charlierecharge:function(){
-        //   点击查询的按钮
-            $(document).on("click",".inquire",function(){
-                has_pwd=$('#cardpass').val()
-                window.location.href="http://localhost:777/index/user/findhaspwd.html?has_pwd="+has_pwd
+        charlierecharge: function () {
+            //   点击查询的按钮
+            $(document).on("click", ".inquire", function () {
+                $.ajax({
+                    url: "http://api2.ceh.com.cn/fav/has",
+                    type: 'post',
+                    dataType: 'json',
+                    // has_pwd:$('#cardpass').val()
+                    data: {
+                        target: '319541621429371350',
+                        userid: '319430217930703154',
+                        user_id: '319430217930703154'
+                    },
+                    success: function (ret) {
+
+
+                    },
+                    error: function (e) {
+
+                    }
+                });
             });
-           
+            // 点击兑换的按钮
+            $(document).on("click", ".conversion", function () {
+                $.ajax({
+                    url: "http://api2.ceh.com.cn/fav/has",
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        target: '319541621429371350',
+                        userid: '319430217930703154',
+                        user_id: '319430217930703154'
+                    },
+                    success: function (ret) {
+                        // 现在随便一个的接口
+                        if (ret.result == "ok") {
+                            Toastr.success("成功");
+                        } else {
+                            Toastr.success("失败");
+                        }
+                        // 你自己的接口用这个
+                        // if(ret.msg=="成功"){
+                        //     Toastr.success("成功");
+                        // }else{
+                        //     Toastr.success("失败");
+                        // }
+                    },
+                    error: function (e) {
+
+                    }
+                });
+            })
         },
-        findhaspwd:function(){
- // 点击兑换的按钮
- $(document).on("click",".conversion",function(){
-    $.ajax({
-        url: "http://api2.ceh.com.cn/fav/has",
-        type: 'post',
-        dataType: 'json',
-        data: {target: '319541621429371350',
-            userid: '319430217930703154',
-            user_id: '319430217930703154'},
-        success: function (ret) {
-            // 现在随便一个的接口
-            if(ret.result=="ok"){
-                Toastr.success("成功");
-            }else{
-                Toastr.success("失败");
-            }
-            // 你自己的接口用这个
-            // if(ret.msg=="成功"){
-            //     Toastr.success("成功");
-            // }else{
-            //     Toastr.success("失败");
-            // }
-        }, error: function (e) {
-           
-        }
-    });
-})
+
+        exchangepoints: function () {
+            //选择兑换点数的列表
+            // $.ajax({
+            //     url: "/index/user/getserverlist",
+            //     type: 'get',
+            //     dataType: 'json',
+            //     data: {},
+            //     success: function (ret) {
+
+            //     }, error: function (e) {
+
+            //     }
+            // });
+            var serverlist = [{
+                "id": 1,
+                "name": "a服务器",
+                "price": "10"
+            }, {
+                "id": 1,
+                "name": "b服务器",
+                "price": "10"
+            }, {
+                "id": 1,
+                "name": "c服务器",
+                "price": "10"
+            }, {
+                "id": 1,
+                "name": "d服务器",
+                "price": "10"
+            }]
+            serverlist.forEach(function(e){
+                var optionsItem=document.createElement("option");
+                optionsItem.innerHTML=e.name;
+                var selectpicker=document.querySelector(".selectpicker")
+               selectpicker.appendChild(optionsItem)
+            })
+
         },
         login: function () {
             //本地验证未通过时提示
