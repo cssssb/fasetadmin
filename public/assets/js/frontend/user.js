@@ -92,7 +92,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                  
                     $.ajax({
                         url: "/index/user/buttenexchangepoints",
-                        type: 'post',
+                        type: 'get',
                         dataType: 'json',
                         data: {
                             number:num,

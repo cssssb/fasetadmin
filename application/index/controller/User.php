@@ -453,13 +453,13 @@ class User extends Frontend
      */
     public function buttenexchangepoints(){
         //验证用户余额是否足够购买
-        $where['id']=$_GET['amount_id'];
+        isset($_GET['amount_id'])?$where['id']=$_GET['amount_id']:$this->_postjsonencode(['msg'=>'缺少参数']);
         isset($_GET['number'])?true:$_GET['number']=1;
         $amount_data = DB::name('exchange_amount')->where($where)->find();
         $price = $amount_data['price'] * (int)$_GET['number'];
         if($this->auth->money<$price){
             $msg['msg'] = '余额不足';
-            $this->_postjsonencode($msg);die;
+            $this->_postjsonencode($msg);
         }
         //购买  减去金额 增加points里服务器数量的个数
         DB::name('user')->where('id',$this->auth->id)->setDec('money',$price);
@@ -613,7 +613,29 @@ class User extends Frontend
     
         //  public function 
 
-        private function _posturl(){
-
+        //md5(代理AgentId+代理AgentSecret+QueryString(不包括sign)+秒级timestamp)
+        // agentid	string	代理API接口分配的 AgentID
+        // sign	string	请求签名 计算方式详见 5
+        // timestamp	string	秒级时间戳
+        // agent_id：u6wjww1wc32rizyido7uwwacmvlbwuue 
+        // agent_sec: of67j67lpc1hr0x3dyyae3w61fbdr11o
+        private function _httpget(){
+            $this->agent_id = 'u6wjww1wc32rizyido7uwwacmvlbwuue';
+            $this->agent_sec = 'of67j67lpc1hr0x3dyyae3w61fbdr11o';
+            $_url = 'agent';
+            $url = 'http://b.api.vpn.cn:8080';
+            header('Content-type:application/json;charset=utf-8');
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);//禁止curl验证对等证书
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);//  ssl证书公用名
+            curl_setopt($ch, CURLOPT_URL, $url);//需要获取的url地址
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);//将获取的数据以字符串形式输出 而不是直接输出
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            $data = curl_exec($ch);
+            curl_close($ch);
+            if ($data === false) {
+                return "CURL Error:" . curl_error($ch);
+            }
+            return json_decode($data, true);
         }
 }
