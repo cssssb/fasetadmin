@@ -362,14 +362,21 @@ class User extends Frontend
      */
     public function findhaspwd(){
         //获取卡密
-        $this->view->assign('title','卡密充值');
+        // $this->view->assign('title','卡密充值');
         if (!$_GET['has_pwd']) {
             echo "<script>alert('请输入查询卡号');history.go(-1);</script>";
         }
         $haspwd = $_GET['has_pwd'];
         $data = $this->_findhaspwd($haspwd);
-        $this->view->assign('data',$data);
-        return $this->view->fetch();
+        if($data['user_id']){
+            $msg['msg'] = '已被绑定';
+        }else{
+            $msg['data'] = $data;
+        }
+
+        $this->_postjsonencode($msg);
+        // $this->view->assign('data',$data);
+        // return $this->view->fetch();
     }
 
     /**
@@ -385,7 +392,7 @@ class User extends Frontend
     public function hasexchange(){
         //获取卡密
         $msg['msg'] = '缺少参数';
-        if(!$_GET['has_pwd']){
+        if(!isset($_GET['has_pwd'])){
             return $this->_postjsonencode($msg);
         }else{
             $haspwd = $_GET['has_pwd'];
@@ -399,16 +406,16 @@ class User extends Frontend
         $time = date('Y-m-d H:i:s');
         $update = ['user_id'=>$this->auth->id,'c_time'=>$time];
         if(DB::name('rechargeablecard')->where('has_pwd','=',$haspwd)->update($update)){
-            //添加到余额日志 
-            $remainder = $has_data['number']+$this->auth->money;
             //修改余额
-            $this->_updateusermoney($remainder);
+            DB::name('user')->where('id',$this->auth->id)->setInc('money',$has_data['number']);
+            //添加到余额日志
             $data=['describe' => '充值',
                     'user_id'=>$this->auth->id,
-                    'user_name'=>$this->auth->username,
+                    'user_name'=>$this->auth->nickname,
                     'number'=>$has_data['number'],
-                    'remainder'=>$remainder,
-                    'type'=>1
+                    'remainder'=>$this->auth->money+$has_data['number'],
+                    'type'=>1,
+                    'c_time'=>date('Y-m-d H:i:s',time())
                 ];
             DB::name('rechargeablecard_log')->insert($data);
              $msg['msg']='兑换成功';
@@ -434,7 +441,53 @@ class User extends Frontend
         $this->view->assign('server_list',$server_list);
         return $this->view->fetch();
     }
-
+    /**
+     * ================
+     * @Author:        css
+     * @Parameter:     
+     * @DataTime:      2019-10-27
+     * @Return:        
+     * @Notes:         兑换点数的提交
+     * @ErrorReason:   
+     * ================
+     */
+    public function buttenexchangepoints(){
+        //验证用户余额是否足够购买
+        $where['id']=$_GET['amount_id'];
+        isset($_GET['number'])?true:$_GET['number']=1;
+        $amount_data = DB::name('exchange_amount')->where($where)->find();
+        $price = $amount_data['price'] * (int)$_GET['number'];
+        if($this->auth->money<$price){
+            $msg['msg'] = '余额不足';
+            $this->_postjsonencode($msg);die;
+        }
+        //购买  减去金额 增加points里服务器数量的个数
+        DB::name('user')->where('id',$this->auth->id)->setDec('money',$price);
+        $where = [];
+        $where['user_id'] = $this->auth->id;
+        $where['type'] = $_GET['amount_id'];
+        if(DB::name('exchange_points')->where($where)->find()){
+        DB::name('exchange_points')->where($where)->setInc('number',$_GET['number']);}else{
+            $data['user_id'] = $this->auth->id;
+            $data['number'] = $_GET['number'];
+            $data['type'] = $_GET['amount_id'];
+            $data['create_time'] = date('Y-m-d H:i:s');
+            DB::name('exchange_points')->insert($data);
+        }
+        
+        //写入余额日治
+        $data = [];
+        $data['user_id'] = $this->auth->id;
+        $data['user_name'] = $this->auth->nickname;
+        $data['type'] = 0;
+        $data['number'] = $price;
+        $data['remainder'] = $this->auth->money-$price;
+        $data['describe'] = '购买'.$amount_data['name'].':'.$_GET['number'].' 花费:'.$price.' 余额'.($this->auth->money-$price);
+        $data['c_time'] = date('Y-m-d H:i:s');
+        DB::name('rechargeablecard_log')->insert($data);
+        $msg['msg'] = '操作成功';
+        $this->_postjsonencode($msg);die;
+    }
      /**
       * ================
       * @Author:        css
@@ -477,11 +530,6 @@ class User extends Frontend
     //输入卡密查找指定卡
     private function _findhaspwd($has_pwd){
         return DB::name('rechargeablecard')->where('has_pwd','=',$has_pwd)->find();
-    }
-    //修改用户余额
-    private function _updateusermoney($money){
-        $param['money'] = $money;
-        return DB::name('user')->where('id='.$this->auth->id)->update($param);
     }
     //获取服务器列表
     private function _getServerList(){
@@ -566,6 +614,6 @@ class User extends Frontend
         //  public function 
 
         private function _posturl(){
-            
+
         }
 }
