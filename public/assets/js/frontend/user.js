@@ -51,41 +51,65 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
         
         exchangepoints: function () {
             //选择兑换点数的列表
-            // $.ajax({
-            //     url: "/index/user/getserverlist",
-            //     type: 'get',
-            //     dataType: 'json',
-            //     data: {},
-            //     success: function (ret) {
+            $.ajax({
+                url: "/index/user/getserverlist",
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function (ret) {
+                    ret.forEach(function(e){
+                        var optionsItem=document.createElement("option");
+                        optionsItem.innerHTML=e.name;
+                        optionsItem.value=e.price
+                        var selectpicker=document.querySelector(".selectpicker")
+                       selectpicker.appendChild(optionsItem);
+              })
 
-            //     }, error: function (e) {
+                }, error: function (e) {
 
-            //     }
-            // });
-            var serverlist = [{
-                "id": 1,
-                "name": "a服务器",
-                "price": "10"
-            }, {
-                "id": 1,
-                "name": "b服务器",
-                "price": "10"
-            }, {
-                "id": 1,
-                "name": "c服务器",
-                "price": "10"
-            }, {
-                "id": 1,
-                "name": "d服务器",
-                "price": "10"
-            }]
-            serverlist.forEach(function(e){
-                var optionsItem=document.createElement("option");
-                optionsItem.innerHTML=e.name;
-                var selectpicker=document.querySelector(".selectpicker")
-               selectpicker.appendChild(optionsItem)
-            })
+                }
+            });
 
+            $(".duihuannum").on(" input propertychange",function(){
+                var selectValue=$("#selectpicker").val();
+                var num= $(".duihuannum").val();
+                document.querySelector(".totalNum").innerHTML=selectValue*num
+            });
+            $("#selectpicker").change(() => {
+                var selectValue=$("#selectpicker").val();
+                var num= $(".duihuannum").val();
+               if(num!=""&&num!=0){
+                document.querySelector(".totalNum").innerHTML=selectValue*num
+               }
+            });
+                // 点击兑换的按钮
+                $(document).on("click", ".btn-embossed", function () {
+                    var selectValue=$("#selectpicker").val();
+                    var num= $(".duihuannum").val();
+                   if(num==""&&num==0){
+                    Toastr.success("请输入数量");
+                   }
+                 
+                    $.ajax({
+                        url: "/index/user/buttenexchangepoints",
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            number:num,
+                            amount_id:selectValue,
+                        },
+                        success: function (ret) {
+                           
+                                Toastr.success(ret.msg);
+                          
+                            return false;
+                        },
+                        error: function (e) {
+                            
+                        }
+                    });
+                })
+            
         },
         login: function () {
             //本地验证未通过时提示

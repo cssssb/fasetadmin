@@ -57,14 +57,13 @@
                     </div>
                     <hr>
                     <form id="add-form" class="form-horizontal nice-validator n-default n-bootstrap" role="form"
-                        data-toggle="validator" method="POST" action="" novalidate="novalidate">
+                        data-toggle="validator"  action="" novalidate="novalidate">
 
                         <div class="form-group">
                             <label class="control-label col-xs-12 col-sm-4">选择兑换种类:</label>
                             <div class="col-xs-12 col-sm-4">
-                                <select class="selectpicker form-control" name="row[select]" tabindex="-98" >
+                                <select id="selectpicker" class="selectpicker form-control" name="row[select]" tabindex="-98" >
                                     <option value="0" selected="selected">请选择兑换种类</option>
-                                    
                                 </select>
 
                             </div>
@@ -72,20 +71,19 @@
                         <div class="form-group">
                             <label class="control-label col-xs-12 col-sm-4">兑换数量:</label>
                             <div class="col-xs-12 col-sm-4">
-                                <input id="num" name="row[code]" class="form-control" type="text" value=""> </div>
+                                <input id="num" name="row[code]" class="form-control duihuannum" type="text" value="1"> </div>
                         </div>
 
 
                         <div class="form-group">
                             <label class="control-label col-xs-12 col-sm-4">总价:</label>
                             <label class="control-label col-xs-12 col-sm-4" style="text-align:left"><span
-                                    style="color:red" id="total"></span>元</label>
+                                    style="color:red" id="total" class="totalNum">0</span>元</label>
                         </div>
                         <div class="form-group layer-footer">
                             <label class="control-label col-xs-12 col-sm-4"></label>
                             <div class="col-xs-12 col-sm-8">
-                                <button type="submit" class="btn btn-success btn-embossed">提交</button>
-                                <button type="reset" class="btn btn-default btn-embossed">重置</button>
+                                <button  class="btn btn-success btn-embossed">提交</button>
                             </div>
                         </div>
                     </form>
