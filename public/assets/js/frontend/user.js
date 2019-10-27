@@ -11,45 +11,93 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
         }
     };
     var Controller = {
-        charlierecharge:function(){
-        //   点击查询的按钮
-            $(document).on("click",".inquire",function(){
-                has_pwd=$('#cardpass').val()
-                window.location.href="http://localhost:777/index/user/findhaspwd.html?has_pwd="+has_pwd
+        charlierecharge: function () {
+            //   点击查询的按钮
+            $(document).on("click", ".inquire", function () {
+                console.log($("#cardpass").val())
+                //选择兑换点数的列表
+                $.ajax({
+                    url: "/index/user/findhaspwd",
+                    type: 'get',
+                    dataType: 'json',
+                    data: {
+                        has_pwd: $("#cardpass").val()
+                    },
+                    success: function (ret) {
+
+                        var optionsItem = document.createElement("tr");
+                        var tab = "<td>" + ret.data.has_pwd + "</td><td>" + ret.data.price + "</td><td>" + ret.data.number + "</td><td> </td></td><td class='passduihuan'>兑换</td>";
+                        optionsItem.innerHTML = tab;
+                        var tabbox = document.querySelector("#tabbox")
+                        console.log(tabbox)
+                        tabbox.appendChild(optionsItem)
+                    },
+                    error: function (e) {
+
+                    }
+                });
+
             });
-           
+            //   点击查询的按钮
+            $(document).on("click", ".passduihuan", function () {
+                console.log($(this).parent().children("td:first-child").text())
+                var pass=$(this).parent().children("td:first-child").text()
+                //选择兑换点数的列表
+                $.ajax({
+                    url: "/index/user/buttenexchangepoints",
+                    type: 'get',
+                    dataType: 'json',
+                    data: {
+                        has_pwd: pass
+                    },
+                    success: function (ret) {
+
+                       
+                    },
+                    error: function (e) {
+
+                    }
+                });
+
+            });
+
         },
-        findhaspwd:function(){
- // 点击兑换的按钮
- $(document).on("click",".conversion",function(){
-    $.ajax({
-        url: "http://api2.ceh.com.cn/fav/has",
-        type: 'post',
-        dataType: 'json',
-        data: {target: '319541621429371350',
-            userid: '319430217930703154',
-            user_id: '319430217930703154'},
-        success: function (ret) {
-            // 现在随便一个的接口
-            if(ret.result=="ok"){
-                Toastr.success("成功");
-            }else{
-                Toastr.success("失败");
-            }
-            // 你自己的接口用这个
-            // if(ret.msg=="成功"){
-            //     Toastr.success("成功");
-            // }else{
-            //     Toastr.success("失败");
-            // }
-        }, error: function (e) {
-           
-        }
-    });
-})
+        findhaspwd: function () {
+            // 点击兑换的按钮
+            $(document).on("click", ".conversion", function () {
+                $.ajax({
+                    url: "http://api2.ceh.com.cn/fav/has",
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        target: '319541621429371350',
+                        userid: '319430217930703154',
+                        user_id: '319430217930703154'
+                    },
+                    success: function (ret) {
+                        // 现在随便一个的接口
+                        if (ret.result == "ok") {
+                            Toastr.success("成功");
+                        } else {
+                            Toastr.success("失败");
+                        }
+                        // 你自己的接口用这个
+                        // if(ret.msg=="成功"){
+                        //     Toastr.success("成功");
+                        // }else{
+                        //     Toastr.success("失败");
+                        // }
+                    },
+                    error: function (e) {
+
+                    }
+                });
+            })
         },
-        
+        // 卡密充值
         exchangepoints: function () {
+            var slsect
+
             //选择兑换点数的列表
             $.ajax({
                 url: "/index/user/getserverlist",
@@ -57,59 +105,63 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                 dataType: 'json',
                 data: {},
                 success: function (ret) {
-                    ret.forEach(function(e){
-                        var optionsItem=document.createElement("option");
-                        optionsItem.innerHTML=e.name;
-                        optionsItem.value=e.price
-                        var selectpicker=document.querySelector(".selectpicker")
-                       selectpicker.appendChild(optionsItem);
-              })
+                    slsect = ret
+                    ret.forEach(function (e) {
+                        var optionsItem = document.createElement("option");
+                        optionsItem.innerHTML = e.name;
+                        optionsItem.value = e.id
+                        var selectpicker = document.querySelector(".selectpicker")
+                        selectpicker.appendChild(optionsItem);
+                    })
 
-                }, error: function (e) {
+                },
+                error: function (e) {
 
                 }
             });
 
-            $(".duihuannum").on(" input propertychange",function(){
-                var selectValue=$("#selectpicker").val();
-                var num= $(".duihuannum").val();
-                document.querySelector(".totalNum").innerHTML=selectValue*num
+            $(".duihuannum").on(" input propertychange", function () {
+                var selectId = $("#selectpicker").val();
+                var price = slsect[selectId - 1].price;
+                var num = $(".duihuannum").val();
+                document.querySelector(".totalNum").innerHTML = price * num
             });
             $("#selectpicker").change(() => {
-                var selectValue=$("#selectpicker").val();
-                var num= $(".duihuannum").val();
-               if(num!=""&&num!=0){
-                document.querySelector(".totalNum").innerHTML=selectValue*num
-               }
+                var selectId = $("#selectpicker").val();
+                var price = slsect[selectId - 1].price;
+                var num = $(".duihuannum").val();
+                if (num != "" && num != 0) {
+                    document.querySelector(".totalNum").innerHTML = price * num
+                }
             });
-                // 点击兑换的按钮
-                $(document).on("click", ".btn-embossed", function () {
-                    var selectValue=$("#selectpicker").val();
-                    var num= $(".duihuannum").val();
-                   if(num==""&&num==0){
+            // 点击兑换的按钮
+            $(document).on("click", ".btn-embossed", function () {
+                var selectId = $("#selectpicker").val();
+                var num = $(".duihuannum").val();
+                if (num == "" && num == 0) {
                     Toastr.success("请输入数量");
-                   }
-                 
-                    $.ajax({
-                        url: "/index/user/buttenexchangepoints",
-                        type: 'post',
-                        dataType: 'json',
-                        data: {
-                            number:num,
-                            amount_id:selectValue,
-                        },
-                        success: function (ret) {
-                           
-                                Toastr.success(ret.msg);
-                          
-                            return false;
-                        },
-                        error: function (e) {
-                            
-                        }
-                    });
-                })
-            
+                }
+
+                $.ajax({
+                    url: "/index/user/buttenexchangepoints",
+                    type: 'get',
+                    dataType: 'json',
+                    data: {
+                        number: num,
+                        amount_id: selectId,
+                    },
+                    success: function (ret) {
+
+                        Toastr.success(ret.msg);
+
+                        return false;
+                    },
+                    error: function (e) {
+
+                    }
+                });
+            })
+
         },
         login: function () {
             //本地验证未通过时提示
