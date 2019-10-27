@@ -67,17 +67,18 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
 
         exchangepoints: function () {
             //选择兑换点数的列表
-            // $.ajax({
-            //     url: "/index/user/getserverlist",
-            //     type: 'get',
-            //     dataType: 'json',
-            //     data: {},
-            //     success: function (ret) {
+            $.ajax({
+                url: "/index/user/getserverlist",
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function (ret) {
 
-            //     }, error: function (e) {
+                }, error: function (e) {
 
-            //     }
-            // });
+                }
+            });
+
             var serverlist = [{
                 "id": 1,
                 "name": "a服务器",

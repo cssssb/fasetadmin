@@ -1,0 +1,834 @@
+---------------------------------------------------------------
+[ 2019-10-27T17:52:20+08:00 ] 0.0.0.0 GET localhost/
+[运行时间：1.082407s] [吞吐率：0.92req/s] [内存消耗：3,218.21kb] [文件加载：133]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000000s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.031200s ]
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => '',
+    1 => NULL,
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571574177; uid=6; token=086b83a3-f651-4fb3-83fa-2c94133aa20b',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'sec-fetch-site' => 'none',
+  'purpose' => 'prefetch',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'sec-fetch-user' => '?1',
+  'sec-fetch-mode' => 'navigate',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.005000s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index/lang/zh-cn/index.php
+[ info ] [ RUN ] app\index\controller\Index->index[ F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\controller\Index.php ]
+[ info ] [ VIEW ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\index\index.html [ array (
+  0 => 'user',
+  1 => 'site',
+  2 => 'config',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.267201s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.124800s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = 'c0091cfc94cba4e6ae23caf0518ed4dcb6ecb374' LIMIT 1 [ RunTime:0.078000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.111602s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 6 LIMIT 1 [ RunTime:0.124800s ]
+---------------------------------------------------------------
+[ 2019-10-27T17:52:29+08:00 ] 0.0.0.0 GET localhost/index/user/index.html
+[运行时间：1.372079s] [吞吐率：0.73req/s] [内存消耗：3,303.32kb] [文件加载：133]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000000s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.003000s ]
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'user',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=6; token=086b83a3-f651-4fb3-83fa-2c94133aa20b; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571574177,1572169943; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572169943',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'sec-fetch-user' => '?1',
+  'sec-fetch-mode' => 'navigate',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002000s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ RUN ] app\index\controller\User->index[ F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\controller\User.php ]
+[ info ] [ VIEW ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\index.html [ array (
+  0 => 'user',
+  1 => 'site',
+  2 => 'config',
+  3 => 'title',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.203011s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.071004s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = 'c0091cfc94cba4e6ae23caf0518ed4dcb6ecb374' LIMIT 1 [ RunTime:0.114007s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.131008s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 6 LIMIT 1 [ RunTime:0.368021s ]
+---------------------------------------------------------------
+[ 2019-10-27T17:52:30+08:00 ] 0.0.0.0 GET localhost/index/ajax/lang?callback=define&controllername=user&v=1572169947
+[运行时间：0.937252s] [吞吐率：1.07req/s] [内存消耗：3,090.30kb] [文件加载：132]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000000s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.004000s ]
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'ajax',
+    2 => 'lang',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=6; token=086b83a3-f651-4fb3-83fa-2c94133aa20b; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571574177,1572169943; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572169943',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/index/user/index.html',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => '*/*',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36',
+  'sec-fetch-mode' => 'no-cors',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+  'callback' => 'define',
+  'controllername' => 'user',
+  'v' => '1572169947',
+)
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.004001s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index/lang/zh-cn/ajax.php
+[ info ] [ RUN ] app\index\controller\Ajax->lang[ F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\controller\Ajax.php ]
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.221012s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.105205s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = 'c0091cfc94cba4e6ae23caf0518ed4dcb6ecb374' LIMIT 1 [ RunTime:0.159009s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.101006s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 6 LIMIT 1 [ RunTime:0.229013s ]
+---------------------------------------------------------------
+[ 2019-10-27T17:52:43+08:00 ] 0.0.0.0 GET localhost/index/user/exchangepoints.html
+[运行时间：0.748042s] [吞吐率：1.34req/s] [内存消耗：3,336.80kb] [文件加载：133]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000000s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.003000s ]
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'user',
+    2 => 'exchangepoints',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=6; token=086b83a3-f651-4fb3-83fa-2c94133aa20b; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571574177,1572169943; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572169943',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/index/user/index.html',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'sec-fetch-user' => '?1',
+  'sec-fetch-mode' => 'navigate',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002000s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ RUN ] app\index\controller\User->_empty[ F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\controller\User.php ]
+[ info ] [ VIEW ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\exchangepoints.html [ array (
+  0 => 'user',
+  1 => 'site',
+  2 => 'config',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.189010s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.166010s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = 'c0091cfc94cba4e6ae23caf0518ed4dcb6ecb374' LIMIT 1 [ RunTime:0.086005s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.131007s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 6 LIMIT 1 [ RunTime:0.089005s ]
+---------------------------------------------------------------
+[ 2019-10-27T17:52:45+08:00 ] 0.0.0.0 GET localhost/index/ajax/lang?callback=define&controllername=user&v=1572169963
+[运行时间：0.747042s] [吞吐率：1.34req/s] [内存消耗：3,090.31kb] [文件加载：132]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000000s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.003000s ]
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'ajax',
+    2 => 'lang',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=6; token=086b83a3-f651-4fb3-83fa-2c94133aa20b; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571574177,1572169943; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572169943',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/index/user/exchangepoints.html',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => '*/*',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36',
+  'sec-fetch-mode' => 'no-cors',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+  'callback' => 'define',
+  'controllername' => 'user',
+  'v' => '1572169963',
+)
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002000s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index/lang/zh-cn/ajax.php
+[ info ] [ RUN ] app\index\controller\Ajax->lang[ F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\controller\Ajax.php ]
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.184011s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.099005s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = 'c0091cfc94cba4e6ae23caf0518ed4dcb6ecb374' LIMIT 1 [ RunTime:0.135008s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.091006s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 6 LIMIT 1 [ RunTime:0.146008s ]
+---------------------------------------------------------------
+[ 2019-10-27T17:56:18+08:00 ] 0.0.0.0 GET localhost/assets/css/frontend.css.map
+[运行时间：0.192011s] [吞吐率：5.21req/s] [内存消耗：1,593.37kb] [文件加载：106]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000000s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.008000s ]
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'assets',
+    1 => 'css',
+    2 => 'frontend.css.map',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=6; token=086b83a3-f651-4fb3-83fa-2c94133aa20b; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571574177,1572169943; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572169943',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36',
+  'sec-fetch-site' => 'none',
+  'cache-control' => 'no-cache',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-10-27T17:56:19+08:00 ] 0.0.0.0 GET localhost/assets/css/bootstrap.css.map
+[运行时间：0.076005s] [吞吐率：13.16req/s] [内存消耗：1,593.37kb] [文件加载：106]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.001000s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.005000s ]
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'assets',
+    1 => 'css',
+    2 => 'bootstrap.css.map',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=6; token=086b83a3-f651-4fb3-83fa-2c94133aa20b; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571574177,1572169943; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572169943',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36',
+  'sec-fetch-site' => 'none',
+  'cache-control' => 'no-cache',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-10-27T17:56:19+08:00 ] 0.0.0.0 GET localhost/assets/css/fastadmin.css.map
+[运行时间：0.052003s] [吞吐率：19.23req/s] [内存消耗：1,593.37kb] [文件加载：106]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.001000s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.003001s ]
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'assets',
+    1 => 'css',
+    2 => 'fastadmin.css.map',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=6; token=086b83a3-f651-4fb3-83fa-2c94133aa20b; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571574177,1572169943; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572169943',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36',
+  'sec-fetch-site' => 'none',
+  'cache-control' => 'no-cache',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-10-27T17:56:26+08:00 ] 0.0.0.0 GET localhost/index/user/exchangepoints.html
+[运行时间：0.983056s] [吞吐率：1.02req/s] [内存消耗：3,189.78kb] [文件加载：131]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000000s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.005000s ]
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'user',
+    2 => 'exchangepoints',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=6; token=086b83a3-f651-4fb3-83fa-2c94133aa20b; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571574177,1572169943; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572169943',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/index/user/index.html',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'sec-fetch-user' => '?1',
+  'sec-fetch-mode' => 'navigate',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'no-cache',
+  'pragma' => 'no-cache',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002000s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ RUN ] app\index\controller\User->_empty[ F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\controller\User.php ]
+[ info ] [ VIEW ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\exchangepoints.html [ array (
+  0 => 'user',
+  1 => 'site',
+  2 => 'config',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.259014s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.134008s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = 'c0091cfc94cba4e6ae23caf0518ed4dcb6ecb374' LIMIT 1 [ RunTime:0.111007s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.175010s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 6 LIMIT 1 [ RunTime:0.158009s ]
+---------------------------------------------------------------
+[ 2019-10-27T17:56:26+08:00 ] 0.0.0.0 GET localhost/assets/css/bootstrap.css.map
+[运行时间：0.087005s] [吞吐率：11.49req/s] [内存消耗：1,593.37kb] [文件加载：106]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000000s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.006000s ]
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'assets',
+    1 => 'css',
+    2 => 'bootstrap.css.map',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=6; token=086b83a3-f651-4fb3-83fa-2c94133aa20b; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571574177,1572169943; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572169943',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36',
+  'sec-fetch-site' => 'none',
+  'cache-control' => 'no-cache',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-10-27T17:56:26+08:00 ] 0.0.0.0 GET localhost/assets/css/frontend.css.map
+[运行时间：0.106006s] [吞吐率：9.43req/s] [内存消耗：1,593.37kb] [文件加载：106]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000000s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.007001s ]
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'assets',
+    1 => 'css',
+    2 => 'frontend.css.map',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=6; token=086b83a3-f651-4fb3-83fa-2c94133aa20b; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571574177,1572169943; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572169943',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36',
+  'sec-fetch-site' => 'none',
+  'cache-control' => 'no-cache',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-10-27T17:56:27+08:00 ] 0.0.0.0 GET localhost/assets/css/fastadmin.css.map
+[运行时间：0.078004s] [吞吐率：12.82req/s] [内存消耗：1,593.37kb] [文件加载：106]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000000s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.003000s ]
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'assets',
+    1 => 'css',
+    2 => 'fastadmin.css.map',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=6; token=086b83a3-f651-4fb3-83fa-2c94133aa20b; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571574177,1572169943; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572169943',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36',
+  'sec-fetch-site' => 'none',
+  'cache-control' => 'no-cache',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-10-27T17:56:28+08:00 ] 0.0.0.0 GET localhost/index/ajax/lang?callback=define&controllername=user&v=1572170185
+[运行时间：1.119064s] [吞吐率：0.89req/s] [内存消耗：3,090.68kb] [文件加载：132]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000000s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.003000s ]
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'ajax',
+    2 => 'lang',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=6; token=086b83a3-f651-4fb3-83fa-2c94133aa20b; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571574177,1572169943; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572169943',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/index/user/exchangepoints.html',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => '*/*',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36',
+  'sec-fetch-mode' => 'no-cors',
+  'cache-control' => 'no-cache',
+  'pragma' => 'no-cache',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+  'callback' => 'define',
+  'controllername' => 'user',
+  'v' => '1572170185',
+)
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.003000s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index/lang/zh-cn/ajax.php
+[ info ] [ RUN ] app\index\controller\Ajax->lang[ F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\controller\Ajax.php ]
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.661037s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.110007s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = 'c0091cfc94cba4e6ae23caf0518ed4dcb6ecb374' LIMIT 1 [ RunTime:0.079004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.071005s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 6 LIMIT 1 [ RunTime:0.085004s ]
+---------------------------------------------------------------
+[ 2019-10-27T17:56:29+08:00 ] 0.0.0.0 GET localhost/index/user/getserverlist
+[运行时间：0.881051s] [吞吐率：1.14req/s] [内存消耗：3,187.41kb] [文件加载：133]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000000s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.015001s ]
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'user',
+    2 => 'getserverlist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=6; token=086b83a3-f651-4fb3-83fa-2c94133aa20b; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571574177,1572169943; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572169943',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/index/user/exchangepoints.html',
+  'sec-fetch-site' => 'same-origin',
+  'sec-fetch-mode' => 'cors',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'cache-control' => 'no-cache',
+  'pragma' => 'no-cache',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.013000s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ RUN ] app\index\controller\User->_empty[ F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.152009s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.070004s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = 'c0091cfc94cba4e6ae23caf0518ed4dcb6ecb374' LIMIT 1 [ RunTime:0.079005s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.083005s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 6 LIMIT 1 [ RunTime:0.099005s ]
+[ error ] [0]模板文件不存在:F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\getserverlist.html[F:\phpstudy\PHPTutorial\WWW\fasetadmin\thinkphp\library\think\view\driver\Think.php:82]
+---------------------------------------------------------------
+[ 2019-10-27T17:56:37+08:00 ] 0.0.0.0 GET localhost/index/user/exchangepoints.html
+[运行时间：0.627036s] [吞吐率：1.59req/s] [内存消耗：3,189.78kb] [文件加载：131]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000000s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.002000s ]
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'user',
+    2 => 'exchangepoints',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=6; token=086b83a3-f651-4fb3-83fa-2c94133aa20b; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571574177,1572169943; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572169943',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/index/user/index.html',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'sec-fetch-user' => '?1',
+  'sec-fetch-mode' => 'navigate',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'no-cache',
+  'pragma' => 'no-cache',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002000s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ RUN ] app\index\controller\User->_empty[ F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\controller\User.php ]
+[ info ] [ VIEW ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\exchangepoints.html [ array (
+  0 => 'user',
+  1 => 'site',
+  2 => 'config',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.134007s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.065004s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = 'c0091cfc94cba4e6ae23caf0518ed4dcb6ecb374' LIMIT 1 [ RunTime:0.096005s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.115006s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 6 LIMIT 1 [ RunTime:0.090005s ]
+---------------------------------------------------------------
+[ 2019-10-27T17:56:38+08:00 ] 0.0.0.0 GET localhost/assets/css/bootstrap.css.map
+[运行时间：0.108006s] [吞吐率：9.26req/s] [内存消耗：1,593.37kb] [文件加载：106]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000000s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.007000s ]
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'assets',
+    1 => 'css',
+    2 => 'bootstrap.css.map',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=6; token=086b83a3-f651-4fb3-83fa-2c94133aa20b; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571574177,1572169943; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572169943',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36',
+  'sec-fetch-site' => 'none',
+  'cache-control' => 'no-cache',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-10-27T17:56:38+08:00 ] 0.0.0.0 GET localhost/assets/css/frontend.css.map
+[运行时间：0.123007s] [吞吐率：8.13req/s] [内存消耗：1,593.37kb] [文件加载：106]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000000s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.008000s ]
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'assets',
+    1 => 'css',
+    2 => 'frontend.css.map',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=6; token=086b83a3-f651-4fb3-83fa-2c94133aa20b; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571574177,1572169943; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572169943',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36',
+  'sec-fetch-site' => 'none',
+  'cache-control' => 'no-cache',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-10-27T17:56:39+08:00 ] 0.0.0.0 GET localhost/assets/css/fastadmin.css.map
+[运行时间：0.082005s] [吞吐率：12.19req/s] [内存消耗：1,593.37kb] [文件加载：106]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000000s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.005000s ]
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'assets',
+    1 => 'css',
+    2 => 'fastadmin.css.map',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=6; token=086b83a3-f651-4fb3-83fa-2c94133aa20b; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571574177,1572169943; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572169943',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36',
+  'sec-fetch-site' => 'none',
+  'cache-control' => 'no-cache',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-10-27T17:56:39+08:00 ] 0.0.0.0 GET localhost/index/ajax/lang?callback=define&controllername=user&v=1572170196
+[运行时间：0.907052s] [吞吐率：1.10req/s] [内存消耗：3,090.68kb] [文件加载：132]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000000s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.004000s ]
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'ajax',
+    2 => 'lang',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=6; token=086b83a3-f651-4fb3-83fa-2c94133aa20b; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571574177,1572169943; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572169943',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/index/user/exchangepoints.html',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => '*/*',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36',
+  'sec-fetch-mode' => 'no-cors',
+  'cache-control' => 'no-cache',
+  'pragma' => 'no-cache',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+  'callback' => 'define',
+  'controllername' => 'user',
+  'v' => '1572170196',
+)
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.007000s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index/lang/zh-cn/ajax.php
+[ info ] [ RUN ] app\index\controller\Ajax->lang[ F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\controller\Ajax.php ]
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.190011s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.081005s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = 'c0091cfc94cba4e6ae23caf0518ed4dcb6ecb374' LIMIT 1 [ RunTime:0.094005s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.197011s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 6 LIMIT 1 [ RunTime:0.209012s ]
+---------------------------------------------------------------
+[ 2019-10-27T17:56:40+08:00 ] 0.0.0.0 GET localhost/index/user/getserverlist
+[运行时间：0.717830s] [吞吐率：1.39req/s] [内存消耗：3,187.41kb] [文件加载：133]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000000s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.005001s ]
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'user',
+    2 => 'getserverlist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=6; token=086b83a3-f651-4fb3-83fa-2c94133aa20b; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571574177,1572169943; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572169943',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/index/user/exchangepoints.html',
+  'sec-fetch-site' => 'same-origin',
+  'sec-fetch-mode' => 'cors',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'cache-control' => 'no-cache',
+  'pragma' => 'no-cache',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002000s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ RUN ] app\index\controller\User->_empty[ F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.150801s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.125805s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = 'c0091cfc94cba4e6ae23caf0518ed4dcb6ecb374' LIMIT 1 [ RunTime:0.081005s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.123205s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 6 LIMIT 1 [ RunTime:0.128007s ]
+[ error ] [0]模板文件不存在:F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\getserverlist.html[F:\phpstudy\PHPTutorial\WWW\fasetadmin\thinkphp\library\think\view\driver\Think.php:82]
+---------------------------------------------------------------
+[ 2019-10-27T17:59:03+08:00 ] 0.0.0.0 GET localhost/index/user/getserverlist
+[运行时间：0.683435s] [吞吐率：1.46req/s] [内存消耗：3,187.05kb] [文件加载：133]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.001000s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.003001s ]
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'user',
+    2 => 'getserverlist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=6; token=086b83a3-f651-4fb3-83fa-2c94133aa20b; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571574177,1572169943; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572169943',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'sec-fetch-site' => 'none',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'sec-fetch-mode' => 'navigate',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002000s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ RUN ] app\index\controller\User->_empty[ F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.176407s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.081004s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = 'c0091cfc94cba4e6ae23caf0518ed4dcb6ecb374' LIMIT 1 [ RunTime:0.094006s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.112006s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 6 LIMIT 1 [ RunTime:0.075005s ]
+[ error ] [0]模板文件不存在:F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\getserverlist.html[F:\phpstudy\PHPTutorial\WWW\fasetadmin\thinkphp\library\think\view\driver\Think.php:82]
