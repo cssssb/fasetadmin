@@ -57,12 +57,9 @@
     温馨提示:卡密为虚拟物品一但充值成功非平台原因不作退款处理!</p>
                                   <div class="input-group input-group-md">
                                       <div class="icon-addon addon-md">
-                                          <input type="text" placeholder="卡密" onfocus="this.select();" value="" id="card" class="form-control input-md">
                                       </div>
                                       <span class="input-group-btn">
-                                          <button class="btn btn-success btn-invite" id="check" type="button">查询</button>
-                                          <button class="btn btn-info btn-invite" id="bind" type="button">兑换</button>
-                                      </span>
+                                        </span>
                                   </div>
                               </div>
                           </div>
@@ -73,15 +70,17 @@
                               <th>卡密</th>
                               <th>单价</th>
                               <th>总点数</th>
-                              <th>剩余点数</th>
                               <th>绑定时间</th>
+                              <th>操作</th>
                           </tr>
                           <tr>
                             <th>{$data.has_pwd}</th>
                             <th>{$data.price}</th>
                             <th>{$data.number}</th>
-                            <th>{$data.now_number}</th>
                             <th>{$data.c_time}</th>
+                            <th>
+                            <button class="btn btn-info btn-invite conversion" id="bind" type="button">兑换</button>
+                            </th>
                         </tr>
                           </thead>
                           <tbody>

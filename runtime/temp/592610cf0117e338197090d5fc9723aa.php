@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:92:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\balancelog.html";i:1571714014;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1571714014;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:92:"C:\Users\user\Desktop\fastadmin\public/../application/index\view\user\mainaccountnumber.html";i:1572069169;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\layout\default.html";i:1571470719;s:71:"C:\Users\user\Desktop\fastadmin\application\index\view\common\meta.html";i:1571470719;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\common\sidenav.html";i:1571842243;s:73:"C:\Users\user\Desktop\fastadmin\application\index\view\common\script.html";i:1571470719;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -119,6 +119,12 @@
         height: 100px;
         opacity: 0;
     }
+option:hover{
+    background: #ccc
+}
+    /* .panel-default{
+        height: 600px;
+    } */
 </style>
 <div id="content-container" class="container">
     <div class="row">
@@ -156,23 +162,71 @@
 </div>
         </div>
         <div class="col-md-9">
-                <div class="panel panel-default panel-recharge">
-                    <div class="panel-body">
-                        <h2 class="page-header">余额日志                        <span><small class="text-danger">余额:<?php echo $number; ?></small></span>
-                            <a href="/index/recharge/recharge.html" class="btn btn-info btn-recharge pull-right"><i class="fa fa-cny"></i> 充值余额</a>
-                        </h2>
-                        <?php if(is_array($data) || $data instanceof \think\Collection || $data instanceof \think\Paginator): if( count($data)==0 ) : echo "" ;else: foreach($data as $key=>$v): ?>
-                                            <div class="row">
-                            <div class="col-md-12">
-                                <h4>
-                                    <?php echo $v['describe']; ?>                            </h4>
-                                    <?php echo $v['type']==1?'<p class="text-success">':'<p class="text-danger">'; ?>余额：<?php echo $v['type']==0?'-'.$v['number']:'+'.$v['number']; ?></p>
-                                <p class="text-muted">操作时间：<?php echo $v['c_time']; ?></p>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2 class="page-header">主账号----------配置连接服务器为 b.vpn.cn</h2>
+                    <form id="profile-form" class="form-horizontal" role="form" data-toggle="validator" method="POST"
+                        action="<?php echo url('api/user/profile'); ?>">
+                        <div class="row">
+                            <div class="col-xs-6 col-md-3" style="text-align:right">id : </div>
+                            <div class="col-xs-6 col-md-3" style="text-align:left">123570</div>
+                            <div class="col-xs-6 col-md-3" style="text-align:right">主账号名字 : </div>
+                            <div class="col-xs-6 col-md-3" style="text-align:left">test2</div>
+                        </div>
+                        <hr>
+
+                        <div class="form-group">
+                            <p style="font-weight: 900;font-size:13px;margin-left:20px">黑名单自动解封 </p>
+                            <label class="control-label col-xs-12 col-sm-2">请输入ip地址:</label>
+                            <div class="col-xs-12 col-sm-6">
+                                <input type="text" class="form-control" id="ipaddress" name="ipaddress" placeholder="">
+                            </div>
+                            <div class="col-xs-12 col-sm-6" style="text-align: right; margin-top:20px;">
+                                <button type="submit" class="btn btn-success btn-embossed disabled">查询</button>
+                                <button type="reset" class="btn btn-default btn-embossed">解除</button>
                             </div>
                         </div>
                         <hr>
-                        <?php endforeach; endif; else: echo "" ;endif; ?>
-                    </div>
+                        <div class="form-group">
+                            <p style="font-weight: 900;font-size:13px;margin-left:20px">密钥是调用接口时使用的</p>
+                            <label class="control-label col-xs-12 col-sm-2">密钥:</label>
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="passKey" name="passKey" value="1234"
+                                        data-rule="required" placeholder="" style="background: #eee">
+                                    <span class="input-group-btn" style="padding:0;border:none;">
+                                        <a href="javascript:;" class="btn btn-info btn-change"
+                                            data-type="email">随机生成</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <hr>
+                        <div class="form-group" style="margin-left:120px">
+                            <label for="c-bio" class="control-label col-xs-12 col-sm-2">查询类型:</label>
+                            <div class="col-xs-12 col-sm-5">
+                                <select class="form-control" name="status">
+                                    <option value="">共享点数</option>
+                                    <option value="0">动态VPN</option>
+                                    <option value="1">静态VPN</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-left:120px">
+                            <label for="c-email" class="control-label col-xs-12 col-sm-2">用户账号:</label>
+                            <div class="col-xs-12 col-sm-5">
+                                    <input type="text" class="form-control" id="account" name="account" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group normal-footer" style="margin-left:150px">
+                            <label class="control-label col-xs-12 col-sm-2"></label>
+                            <div class="col-xs-12 col-sm-8">
+                                <button type="submit" class="btn btn-success btn-embossed disabled">查询</button>
+                                <button type="reset" class="btn btn-default btn-embossed"><?php echo __('Reset'); ?></button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -186,7 +240,9 @@
             <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3"><?php echo __('New Email'); ?>:</label>
                 <div class="col-xs-12 col-sm-8">
-                    <input type="text" class="form-control" id="email" name="email" value="" data-rule="required;email;remote(<?php echo url('api/validate/check_email_available'); ?>, event=changeemail, id=">
+                    <input type="text" class="form-control" id="email" name="email" value=""
+                        data-rule="required;email;remote(<?php echo url('api/validate/check_email_available'); ?>, event=changeemail, id=<?php echo $user['id']; ?>)"
+                        placeholder="<?php echo __('New email'); ?>">
                     <span class="msg-box"></span>
                 </div>
             </div>
@@ -194,9 +250,11 @@
                 <label class="control-label col-xs-12 col-sm-3"><?php echo __('Captcha'); ?>:</label>
                 <div class="col-xs-12 col-sm-8">
                     <div class="input-group">
-                        <input type="text" name="captcha" id="email-captcha" class="form-control" data-rule="required;length(4);integer[+];remote(<?php echo url('api/validate/check_ems_correct'); ?>, event=changeemail, email:#email)" />
+                        <input type="text" name="captcha" id="email-captcha" class="form-control"
+                            data-rule="required;length(4);integer[+];remote(<?php echo url('api/validate/check_ems_correct'); ?>, event=changeemail, email:#email)" />
                         <span class="input-group-btn" style="padding:0;border:none;">
-                            <a href="javascript:;" class="btn btn-info btn-captcha" data-url="<?php echo url('api/ems/send'); ?>" data-type="email" data-event="changeemail">获取验证码</a>
+                            <a href="javascript:;" class="btn btn-info btn-captcha" data-url="<?php echo url('api/ems/send'); ?>"
+                                data-type="email" data-event="changeemail">获取验证码</a>
                         </span>
                     </div>
                     <span class="msg-box"></span>
@@ -220,7 +278,9 @@
             <div class="form-group">
                 <label for="c-mobile" class="control-label col-xs-12 col-sm-3"><?php echo __('New mobile'); ?>:</label>
                 <div class="col-xs-12 col-sm-8">
-                    <input type="text" class="form-control" id="mobile" name="mobile" value="" data-rule="required;mobile;remote(<?php echo url('api/validate/check_mobile_available'); ?>, event=changemobile, id=">
+                    <input type="text" class="form-control" id="mobile" name="mobile" value=""
+                        data-rule="required;mobile;remote(<?php echo url('api/validate/check_mobile_available'); ?>, event=changemobile, id=<?php echo $user['id']; ?>)"
+                        placeholder="<?php echo __('New mobile'); ?>">
                     <span class="msg-box"></span>
                 </div>
             </div>
@@ -228,9 +288,11 @@
                 <label for="mobile-captcha" class="control-label col-xs-12 col-sm-3"><?php echo __('Captcha'); ?>:</label>
                 <div class="col-xs-12 col-sm-8">
                     <div class="input-group">
-                        <input type="text" name="captcha" id="mobile-captcha" class="form-control" data-rule="required;length(4);integer[+];remote(<?php echo url('api/validate/check_sms_correct'); ?>, event=changemobile, mobile:#mobile)" />
+                        <input type="text" name="captcha" id="mobile-captcha" class="form-control"
+                            data-rule="required;length(4);integer[+];remote(<?php echo url('api/validate/check_sms_correct'); ?>, event=changemobile, mobile:#mobile)" />
                         <span class="input-group-btn" style="padding:0;border:none;">
-                            <a href="javascript:;" class="btn btn-info btn-captcha" data-url="<?php echo url('api/sms/send'); ?>" data-type="mobile" data-event="changemobile">获取验证码</a>
+                            <a href="javascript:;" class="btn btn-info btn-captcha" data-url="<?php echo url('api/sms/send'); ?>"
+                                data-type="mobile" data-event="changemobile">获取验证码</a>
                         </span>
                     </div>
                     <span class="msg-box"></span>

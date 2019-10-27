@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:96:"F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\exchangepoints.html";i:1572169492;s:81:"F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1572169492;s:78:"F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1572169492;s:81:"F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1572169492;s:80:"F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1572169492;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:96:"F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\exchangepoints.html";i:1572174718;s:81:"F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1572169492;s:78:"F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1572169492;s:81:"F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1572169492;s:80:"F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1572169492;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -159,32 +159,25 @@
             <div class="panel panel-default panel-recharge">
                 <div class="panel-body">
                     <h2 class="page-header">e服务器速度快--B服务器对联通移动支持更好--注：点数不通用 <span><small
-                                class="text-danger">余额:2.52</small></span>
+                                class="text-danger">余额:<?php echo $money; ?></small></span>
                         <a href="/index/recharge/recharge.html" class="btn btn-info btn-recharge pull-right"><i
                                 class="fa fa-cny"></i> 充值余额</a>
                     </h2>
                     <div class="row">
-                        <div class="col-xs-6 col-md-3" style="text-align:right">(b服务器)动态 : </div>
-                        <div class="col-xs-6 col-md-3" style="text-align:left">0</div>
-                        <div class="col-xs-6 col-md-3" style="text-align:right">(b服务器)静态 : </div>
-                        <div class="col-xs-6 col-md-3" style="text-align:left">0</div>
-                        <div class="col-xs-6 col-md-3" style="text-align:right">(e服务器)动态 : </div>
-                        <div class="col-xs-6 col-md-3" style="text-align:left">0</div>
-                        <div class="col-xs-6 col-md-3" style="text-align:right">梦想 : </div>
-                        <div class="col-xs-6 col-md-3" style="text-align:left">0</div>
-                        <div class="col-xs-6 col-md-3" style="text-align:right">理想 : </div>
-                        <div class="col-xs-6 col-md-3" style="text-align:left">0</div>
+                        <?php if(is_array($server_list) || $server_list instanceof \think\Collection || $server_list instanceof \think\Paginator): if( count($server_list)==0 ) : echo "" ;else: foreach($server_list as $key=>$v): ?>
+                        <div class="col-xs-6 col-md-3" style="text-align:right"><?php echo $v['name']; ?> : </div>
+                        <div class="col-xs-6 col-md-3" style="text-align:left"><?php echo $v['user_number']; ?></div>
+                        <?php endforeach; endif; else: echo "" ;endif; ?>
                     </div>
                     <hr>
                     <form id="add-form" class="form-horizontal nice-validator n-default n-bootstrap" role="form"
-                        data-toggle="validator" method="POST" action="" novalidate="novalidate">
+                        data-toggle="validator"  action="" novalidate="novalidate">
 
                         <div class="form-group">
                             <label class="control-label col-xs-12 col-sm-4">选择兑换种类:</label>
                             <div class="col-xs-12 col-sm-4">
-                                <select class="selectpicker form-control" name="row[select]" tabindex="-98" >
+                                <select id="selectpicker" class="selectpicker form-control" name="row[select]" tabindex="-98" >
                                     <option value="0" selected="selected">请选择兑换种类</option>
-                                    
                                 </select>
 
                             </div>
@@ -192,20 +185,19 @@
                         <div class="form-group">
                             <label class="control-label col-xs-12 col-sm-4">兑换数量:</label>
                             <div class="col-xs-12 col-sm-4">
-                                <input id="num" name="row[code]" class="form-control" type="text" value=""> </div>
+                                <input id="num" name="row[code]" class="form-control duihuannum" type="text" value="1"> </div>
                         </div>
 
 
                         <div class="form-group">
                             <label class="control-label col-xs-12 col-sm-4">总价:</label>
                             <label class="control-label col-xs-12 col-sm-4" style="text-align:left"><span
-                                    style="color:red" id="total"></span>元</label>
+                                    style="color:red" id="total" class="totalNum">0</span>元</label>
                         </div>
                         <div class="form-group layer-footer">
                             <label class="control-label col-xs-12 col-sm-4"></label>
                             <div class="col-xs-12 col-sm-8">
-                                <button type="submit" class="btn btn-success btn-embossed">提交</button>
-                                <button type="reset" class="btn btn-default btn-embossed">重置</button>
+                                <button  class="btn btn-success btn-embossed">提交</button>
                             </div>
                         </div>
                     </form>

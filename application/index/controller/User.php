@@ -362,11 +362,12 @@ class User extends Frontend
      */
     public function findhaspwd(){
         //获取卡密
-        if ($this->request->isPost()) {
-            $haspwd = $this->request->post("has_pwd");
-        }
-        $data = $this->_findhaspwd($haspwd);
         $this->view->assign('title','卡密充值');
+        if (!$_GET['has_pwd']) {
+            echo "<script>alert('请输入查询卡号');history.go(-1);</script>";
+        }
+        $haspwd = $_GET['has_pwd'];
+        $data = $this->_findhaspwd($haspwd);
         $this->view->assign('data',$data);
         return $this->view->fetch();
     }
@@ -383,28 +384,38 @@ class User extends Frontend
      */
     public function hasexchange(){
         //获取卡密
+        $msg['msg'] = '缺少参数';
         if(!$_GET['has_pwd']){
-            echo json_encode('缺少参数',JSON_UNESCAPED_UNICODE);die;
+            return $this->_postjsonencode($msg);
         }else{
             $haspwd = $_GET['has_pwd'];
         }
-        $update = ['user_id'=>$this->auth->id,'c_time'=>date('Y-M-D H:i:s',time())];
-        if(DB::name('rechargeablecard')->where('has_pwd='.$haspwd)->update($update)){
-            $has_data = $this->_findhaspwd($haspwd);
+        //判断是否有人已经绑定过了
+        $has_data = $this->_findhaspwd($haspwd);
+        if($has_data['user_id']){
+            $msg['msg'] = '已经被绑定';
+            return $this->_postjsonencode($msg);
+        }
+        $time = date('Y-m-d H:i:s');
+        $update = ['user_id'=>$this->auth->id,'c_time'=>$time];
+        if(DB::name('rechargeablecard')->where('has_pwd','=',$haspwd)->update($update)){
             //添加到余额日志 
+            $remainder = $has_data['number']+$this->auth->money;
+            //修改余额
+            $this->_updateusermoney($remainder);
             $data=['describe' => '充值',
                     'user_id'=>$this->auth->id,
                     'user_name'=>$this->auth->username,
                     'number'=>$has_data['number'],
-                    'remainder'=>$has_data['number']+$this->auth->money,
+                    'remainder'=>$remainder,
                     'type'=>1
                 ];
             DB::name('rechargeablecard_log')->insert($data);
              $msg['msg']='兑换成功';
-            echo json_encode($msg,JSON_UNESCAPED_UNICODE);die;
+             return $this->_postjsonencode($msg);
         }else{
             $msg['msg']='兑换失败';
-            echo json_encode($msg,JSON_UNESCAPED_UNICODE);die;
+            return $this->_postjsonencode($msg);
         };
     }
     /**
@@ -417,7 +428,12 @@ class User extends Frontend
      * @ErrorReason:   
      * ================
      */
-
+    public function exchangepoints(){
+        $this->view->assign('money',$this->auth->money);
+        $server_list = $this->_getServerWithUser();
+        $this->view->assign('server_list',$server_list);
+        return $this->view->fetch();
+    }
 
      /**
       * ================
@@ -431,22 +447,9 @@ class User extends Frontend
       */
 
       public function transaction(){
-        $server_list = $this->_getServerList();
+        $server_list = $this->_getServerWithUser();
         $logger = DB::name('exchange_log')->where('user_id='.$this->auth->id)->select();
-        $user_server_number = $this->_getuserServernumber();
-        foreach($server_list as &$k){
-            if(count($user_server_number)>=1){
-                foreach($user_server_number as $key){
-                    if($key['type']==$k['id']){
-                        $k['user_number'] = $key['number'];
-                    }else{
-                        $k['user_number'] =0;
-                    }
-                }
-            }else{
-                $k['user_number'] = 0;
-            }
-        }
+        
         foreach ($logger as &$key) {
             foreach ($server_list as $k){
                 if($k['id'] = $key['amount_id']){
@@ -473,10 +476,11 @@ class User extends Frontend
       }
     //输入卡密查找指定卡
     private function _findhaspwd($has_pwd){
-        return DB::name('rechargeablecard')->where('has_pwd='.$has_pwd)->find();
+        return DB::name('rechargeablecard')->where('has_pwd','=',$has_pwd)->find();
     }
     //修改用户余额
-    private function _updateusermoney($param){
+    private function _updateusermoney($money){
+        $param['money'] = $money;
         return DB::name('user')->where('id='.$this->auth->id)->update($param);
     }
     //获取服务器列表
@@ -488,4 +492,80 @@ class User extends Frontend
         return DB::name('exchange_points')->alias('p')->join('exchange_amount a','p.type=a.id','left')->where('user_id='.$this->auth->id)->select();
     }
 
+    private function _postjsonencode($msg){
+        echo json_encode($msg,JSON_UNESCAPED_UNICODE);
+    }
+    public function getserverlist(){
+        return $this->_postjsonencode($this->_getServerList());
+    }
+
+    private function _getServerWithUser(){
+        $server_list = $this->_getServerList();
+        $user_server_number = $this->_getuserServernumber();
+        foreach($server_list as &$k){
+            if(count($user_server_number)>=1){
+                foreach($user_server_number as $key){
+                    if($key['type']==$k['id']){
+                        $k['user_number'] = $key['number'];
+                    }else{
+                        $k['user_number'] =0;
+                    }
+                }
+            }else{
+                $k['user_number'] = 0;
+            }
+        }
+        return $server_list;
+    }
+
+    /**
+     * ================
+     * @Author:        css
+     * @Parameter:     
+     * @DataTime:      2019-10-27
+     * @Return:        
+     * @Notes:         黑名单自助解封
+     * @ErrorReason:   
+     * ================
+     */
+
+     /**
+      * ================
+      * @Author:        css
+      * @Parameter:     
+      * @DataTime:      2019-10-27
+      * @Return:        
+      * @Notes:         主账号 查询类型 用户账号
+      * @ErrorReason:   
+      * ================
+      */
+
+      /**
+       * ================
+       * @Author:        css
+       * @Parameter:     
+       * @DataTime:      2019-10-27
+       * @Return:        
+       * @Notes:         申请动态/静态
+       * @ErrorReason:   
+       * ================
+       */
+
+    
+        /**
+         * ================
+         * @Author:        css
+         * @Parameter:     
+         * @DataTime:      2019-10-27
+         * @Return:        
+         * @Notes:         动态/静态列表
+         * @ErrorReason:   
+         * ================
+         */
+    
+        //  public function 
+
+        private function _posturl(){
+            
+        }
 }
