@@ -11,44 +11,47 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
         }
     };
     var Controller = {
-        charlierecharge:function(){
-        //   点击查询的按钮
-            $(document).on("click",".inquire",function(){
-                has_pwd=$('#cardpass').val()
-                window.location.href="http://localhost:777/index/user/findhaspwd.html?has_pwd="+has_pwd
+        charlierecharge: function () {
+            //   点击查询的按钮
+            $(document).on("click", ".inquire", function () {
+                has_pwd = $('#cardpass').val()
+                window.location.href = "http://localhost:777/index/user/findhaspwd.html?has_pwd=" + has_pwd
             });
-           
+
         },
-        findhaspwd:function(){
- // 点击兑换的按钮
- $(document).on("click",".conversion",function(){
-    $.ajax({
-        url: "http://api2.ceh.com.cn/fav/has",
-        type: 'post',
-        dataType: 'json',
-        data: {target: '319541621429371350',
-            userid: '319430217930703154',
-            user_id: '319430217930703154'},
-        success: function (ret) {
-            // 现在随便一个的接口
-            if(ret.result=="ok"){
-                Toastr.success("成功");
-            }else{
-                Toastr.success("失败");
-            }
-            // 你自己的接口用这个
-            // if(ret.msg=="成功"){
-            //     Toastr.success("成功");
-            // }else{
-            //     Toastr.success("失败");
-            // }
-        }, error: function (e) {
-           
-        }
-    });
-})
+        findhaspwd: function () {
+            // 点击兑换的按钮
+            $(document).on("click", ".conversion", function () {
+                $.ajax({
+                    url: "http://api2.ceh.com.cn/fav/has",
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        target: '319541621429371350',
+                        userid: '319430217930703154',
+                        user_id: '319430217930703154'
+                    },
+                    success: function (ret) {
+                        // 现在随便一个的接口
+                        if (ret.result == "ok") {
+                            Toastr.success("成功");
+                        } else {
+                            Toastr.success("失败");
+                        }
+                        // 你自己的接口用这个
+                        // if(ret.msg=="成功"){
+                        //     Toastr.success("成功");
+                        // }else{
+                        //     Toastr.success("失败");
+                        // }
+                    },
+                    error: function (e) {
+
+                    }
+                });
+            })
         },
-        
+
         exchangepoints: function () {
             //选择兑换点数的列表
             $.ajax({
@@ -57,60 +60,93 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                 dataType: 'json',
                 data: {},
                 success: function (ret) {
-                    ret.forEach(function(e){
-                        var optionsItem=document.createElement("option");
-                        optionsItem.innerHTML=e.name;
-                        optionsItem.value=e.price
-                        var selectpicker=document.querySelector(".selectpicker")
-                       selectpicker.appendChild(optionsItem);
-              })
+                    ret.forEach(function (e) {
+                        var optionsItem = document.createElement("option");
+                        optionsItem.innerHTML = e.name;
+                        optionsItem.value = e.price
+                        var selectpicker = document.querySelector(".selectpicker")
+                        selectpicker.appendChild(optionsItem);
+                    })
 
-                }, error: function (e) {
+                },
+                error: function (e) {
 
                 }
             });
 
-            $(".duihuannum").on(" input propertychange",function(){
-                var selectValue=$("#selectpicker").val();
-                var num= $(".duihuannum").val();
-                document.querySelector(".totalNum").innerHTML=selectValue*num
+            $(".duihuannum").on(" input propertychange", function () {
+                var selectValue = $("#selectpicker").val();
+                var num = $(".duihuannum").val();
+                document.querySelector(".totalNum").innerHTML = selectValue * num
             });
             $("#selectpicker").change(() => {
-                var selectValue=$("#selectpicker").val();
-                var num= $(".duihuannum").val();
-               if(num!=""&&num!=0){
-                document.querySelector(".totalNum").innerHTML=selectValue*num
-               }
+                var selectValue = $("#selectpicker").val();
+                var num = $(".duihuannum").val();
+                if (num != "" && num != 0) {
+                    document.querySelector(".totalNum").innerHTML = selectValue * num
+                }
             });
-                // 点击兑换的按钮
-                $(document).on("click", ".btn-embossed", function () {
-                    var selectValue=$("#selectpicker").val();
-                    var num= $(".duihuannum").val();
-                   if(num==""&&num==0){
-                    Toastr.success("请输入数量");
-                   }
-                 
-                    $.ajax({
-                        url: "/index/user/buttenexchangepoints",
-                        type: 'get',
-                        dataType: 'json',
-                        data: {
-                            number:num,
-                            amount_id:selectValue,
-                        },
-                        success: function (ret) {
-                           
-                                Toastr.success(ret.msg);
-                          
-                            return false;
-                        },
-                        error: function (e) {
-                            
-                        }
-                    });
-                })
-            
+            // 点击兑换的按钮
+            $(document).on("click", ".btn-embossed", function () {
+                var selectValue = $("#selectpicker").val();
+                var num = $(".duihuannum").val();
+                if (num == "" && num == 0) {
+                    layer.msg('输入数量');
+                }
+
+                $.ajax({
+                    url: "/index/user/buttenexchangepoints",
+                    type: 'get',
+                    dataType: 'json',
+                    data: {
+                        number: num,
+                        amount_id: selectValue,
+                    },
+                    success: function (ret) {
+
+                        Toastr.success(ret.msg);
+
+                        return false;
+                    },
+                    error: function (e) {
+
+                    }
+                });
+            })
+
         },
+        mainaccountnumber: function () {
+            $(document).on("click", ".blacksearch", function () {
+                var passid = $("#ipaddress").val();
+             
+                // $.ajax({
+                //     url: "/index/user/blacklistedQuery",
+                //     type: 'get',
+                //     dataType: 'json',
+                //     data: {
+                //        ip:passid
+                //     },
+                //     success: function (ret) {
+                    
+                     
+                //     },
+                //     error: function (e) {
+
+                //     }
+                // });
+                Layer.open({
+                    type: 1,
+                    title: '信息',
+                    area: ["200px", "100px"],
+                    content: content,
+                    success: function (layero) {
+
+                    }
+                });
+            });
+
+        },
+
         login: function () {
             //本地验证未通过时提示
             $("#login-form").data("validator-options", validatoroptions);
