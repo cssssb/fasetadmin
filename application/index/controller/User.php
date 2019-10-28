@@ -362,13 +362,21 @@ class User extends Frontend
      */
     public function findhaspwd(){
         //获取卡密
-        if ($this->request->isPost()) {
-            $haspwd = $this->request->post("has_pwd");
+        // $this->view->assign('title','卡密充值');
+        if (!$_GET['has_pwd']) {
+            echo "<script>alert('请输入查询卡号');history.go(-1);</script>";
         }
+        $haspwd = $_GET['has_pwd'];
         $data = $this->_findhaspwd($haspwd);
-        $this->view->assign('title','卡密充值');
-        $this->view->assign('data',$data);
-        return $this->view->fetch();
+        if($data['user_id']){
+            $msg['msg'] = '已被绑定';
+        }else{
+            $msg['data'] = $data;
+        }
+
+        $this->_postjsonencode($msg);
+        // $this->view->assign('data',$data);
+        // return $this->view->fetch();
     }
 
     /**
@@ -383,28 +391,38 @@ class User extends Frontend
      */
     public function hasexchange(){
         //获取卡密
-        if(!$_GET['has_pwd']){
-            echo json_encode('缺少参数',JSON_UNESCAPED_UNICODE);die;
+        $msg['msg'] = '缺少参数';
+        if(!isset($_GET['has_pwd'])){
+            return $this->_postjsonencode($msg);
         }else{
             $haspwd = $_GET['has_pwd'];
         }
-        $update = ['user_id'=>$this->auth->id,'c_time'=>date('Y-M-D H:i:s',time())];
-        if(DB::name('rechargeablecard')->where('has_pwd='.$haspwd)->update($update)){
-            $has_data = $this->_findhaspwd($haspwd);
-            //添加到余额日志 
+        //判断是否有人已经绑定过了
+        $has_data = $this->_findhaspwd($haspwd);
+        if($has_data['user_id']){
+            $msg['msg'] = '已经被绑定';
+            return $this->_postjsonencode($msg);
+        }
+        $time = date('Y-m-d H:i:s');
+        $update = ['user_id'=>$this->auth->id,'c_time'=>$time];
+        if(DB::name('rechargeablecard')->where('has_pwd','=',$haspwd)->update($update)){
+            //修改余额
+            DB::name('user')->where('id',$this->auth->id)->setInc('money',$has_data['number']);
+            //添加到余额日志
             $data=['describe' => '充值',
                     'user_id'=>$this->auth->id,
-                    'user_name'=>$this->auth->username,
+                    'user_name'=>$this->auth->nickname,
                     'number'=>$has_data['number'],
-                    'remainder'=>$has_data['number']+$this->auth->money,
-                    'type'=>1
+                    'remainder'=>$this->auth->money+$has_data['number'],
+                    'type'=>1,
+                    'c_time'=>date('Y-m-d H:i:s',time())
                 ];
             DB::name('rechargeablecard_log')->insert($data);
              $msg['msg']='兑换成功';
-            echo json_encode($msg,JSON_UNESCAPED_UNICODE);die;
+             return $this->_postjsonencode($msg);
         }else{
             $msg['msg']='兑换失败';
-            echo json_encode($msg,JSON_UNESCAPED_UNICODE);die;
+            return $this->_postjsonencode($msg);
         };
     }
     /**
@@ -417,8 +435,59 @@ class User extends Frontend
      * @ErrorReason:   
      * ================
      */
-
-
+    public function exchangepoints(){
+        $this->view->assign('money',$this->auth->money);
+        $server_list = $this->_getServerWithUser();
+        $this->view->assign('server_list',$server_list);
+        return $this->view->fetch();
+    }
+    /**
+     * ================
+     * @Author:        css
+     * @Parameter:     
+     * @DataTime:      2019-10-27
+     * @Return:        
+     * @Notes:         兑换点数的提交
+     * @ErrorReason:   
+     * ================
+     */
+    public function buttenexchangepoints(){
+        //验证用户余额是否足够购买
+        isset($_GET['amount_id'])?$where['id']=$_GET['amount_id']:$this->_postjsonencode(['msg'=>'缺少参数']);
+        isset($_GET['number'])?true:$_GET['number']=1;
+        $amount_data = DB::name('exchange_amount')->where($where)->find();
+        $price = $amount_data['price'] * (int)$_GET['number'];
+        if($this->auth->money<$price){
+            $msg['msg'] = '余额不足';
+            $this->_postjsonencode($msg);
+        }
+        //购买  减去金额 增加points里服务器数量的个数
+        DB::name('user')->where('id',$this->auth->id)->setDec('money',$price);
+        $where = [];
+        $where['user_id'] = $this->auth->id;
+        $where['type'] = $_GET['amount_id'];
+        if(DB::name('exchange_points')->where($where)->find()){
+        DB::name('exchange_points')->where($where)->setInc('number',$_GET['number']);}else{
+            $data['user_id'] = $this->auth->id;
+            $data['number'] = $_GET['number'];
+            $data['type'] = $_GET['amount_id'];
+            $data['create_time'] = date('Y-m-d H:i:s');
+            DB::name('exchange_points')->insert($data);
+        }
+        
+        //写入余额日治
+        $data = [];
+        $data['user_id'] = $this->auth->id;
+        $data['user_name'] = $this->auth->nickname;
+        $data['type'] = 0;
+        $data['number'] = $price;
+        $data['remainder'] = $this->auth->money-$price;
+        $data['describe'] = '购买'.$amount_data['name'].':'.$_GET['number'].' 花费:'.$price.' 余额'.($this->auth->money-$price);
+        $data['c_time'] = date('Y-m-d H:i:s');
+        DB::name('rechargeablecard_log')->insert($data);
+        $msg['msg'] = '操作成功';
+        $this->_postjsonencode($msg);die;
+    }
      /**
       * ================
       * @Author:        css
@@ -431,22 +500,9 @@ class User extends Frontend
       */
 
       public function transaction(){
-        $server_list = $this->_getServerList();
+        $server_list = $this->_getServerWithUser();
         $logger = DB::name('exchange_log')->where('user_id='.$this->auth->id)->select();
-        $user_server_number = $this->_getuserServernumber();
-        foreach($server_list as &$k){
-            if(count($user_server_number)>=1){
-                foreach($user_server_number as $key){
-                    if($key['type']==$k['id']){
-                        $k['user_number'] = $key['number'];
-                    }else{
-                        $k['user_number'] =0;
-                    }
-                }
-            }else{
-                $k['user_number'] = 0;
-            }
-        }
+        
         foreach ($logger as &$key) {
             foreach ($server_list as $k){
                 if($k['id'] = $key['amount_id']){
@@ -473,11 +529,7 @@ class User extends Frontend
       }
     //输入卡密查找指定卡
     private function _findhaspwd($has_pwd){
-        return DB::name('rechargeablecard')->where('has_pwd='.$has_pwd)->find();
-    }
-    //修改用户余额
-    private function _updateusermoney($param){
-        return DB::name('user')->where('id='.$this->auth->id)->update($param);
+        return DB::name('rechargeablecard')->where('has_pwd','=',$has_pwd)->find();
     }
     //获取服务器列表
     private function _getServerList(){
@@ -488,4 +540,252 @@ class User extends Frontend
         return DB::name('exchange_points')->alias('p')->join('exchange_amount a','p.type=a.id','left')->where('user_id='.$this->auth->id)->select();
     }
 
+    private function _postjsonencode($msg){
+        echo json_encode($msg,JSON_UNESCAPED_UNICODE);
+    }
+    public function getserverlist(){
+        return $this->_postjsonencode($this->_getServerList());
+    }
+
+    private function _getServerWithUser(){
+        $server_list = $this->_getServerList();
+        $user_server_number = $this->_getuserServernumber();
+        foreach($server_list as &$k){
+            if(count($user_server_number)>=1){
+                foreach($user_server_number as $key){
+                    if($key['type']==$k['id']){
+                        $k['user_number'] = $key['number'];
+                    }else{
+                        $k['user_number'] =0;
+                    }
+                }
+            }else{
+                $k['user_number'] = 0;
+            }
+        }
+        return $server_list;
+    }
+
+    /**
+     * ================
+     * @Author:        css
+     * @Parameter:     
+     * @DataTime:      2019-10-27
+     * @Return:        
+     * @Notes:         黑名单自助解封
+     * @ErrorReason:   
+     * ================
+     */
+
+     /**
+      * ================
+      * @Author:        css
+      * @Parameter:     
+      * @DataTime:      2019-10-27
+      * @Return:        
+      * @Notes:         主账号 查询类型 用户账号
+      * @ErrorReason:   
+      * ================
+      */
+
+      /**
+       * ================
+       * @Author:        css
+       * @Parameter:     
+       * @DataTime:      2019-10-27
+       * @Return:        
+       * @Notes:         申请动态/静态
+       * @ErrorReason:   
+       * ================
+       */
+
+    
+        /**
+         * ================
+         * @Author:        css
+         * @Parameter:     
+         * @DataTime:      2019-10-27
+         * @Return:        
+         * @Notes:         动态/静态列表
+         * @ErrorReason:   
+         * ================
+         */
+    
+        //  public function 
+
+        //md5(代理AgentId+代理AgentSecret+QueryString(不包括sign)+秒级timestamp)
+        // agentid	string	代理API接口分配的 AgentID
+        // sign	string	请求签名 计算方式详见 5
+        // timestamp	string	秒级时间戳
+        // agent_id：wvohjijo4gdrwmswawqsrxlbptpl5rd6 
+        // agent_sec: 3m6710mpz6py4os28uxgmnawxkfjlwrc
+        private function _httpget($param=''){
+            $this->agent_id = 'wvohjijo4gdrwmswawqsrxlbptpl5rd6';
+            $this->agent_sec = '3m6710mpz6py4os28uxgmnawxkfjlwrc';
+            $_url = 'timestamp='.time().'&agentid='.$this->agent_id.$param;
+            $sign = md5($this->agent_id.$this->agent_sec.$_url.time());
+            $url = 'http://b.api.vpn.cn:8080'.$this->url.$_url.'&sign='.$sign;
+            header('Content-type:application/json;charset=utf-8');
+            $demo = 'http://[代理接口地址]/agent/create?agentid=aaa&count=10&cusId=2602&defaultLink=1&timestamp=1546409119&sign=4594587996bae3728047ed807c7e36dd';
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);//禁止curl验证对等证书
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);//  ssl证书公用名
+            curl_setopt($ch, CURLOPT_URL, $url);//需要获取的url地址
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);//将获取的数据以字符串形式输出 而不是直接输出
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            $data = curl_exec($ch);
+            curl_close($ch);
+            if ($data === false) {
+                return "CURL Error:" . curl_error($ch);
+            }
+            return json_decode($data, true);
+        }
+        
+        /**
+         * ================
+         * @Author:        css
+         * @Parameter:     
+         * @DataTime:      2019-10-28
+         * @Return:        
+         * @Notes:         代理余额查询
+         * @ErrorReason:   
+         * ================
+         */
+        public function agentBalanceQuery(){
+            $this->url = '/agent/getbalance?';
+            $data = $this->_httpget();
+            // var_export($data);
+            //array ( 'code' => 0, 'message' => 'success', 'data' => array ( 'count' => 9332719, 'days' => 0, ), )
+        }
+
+        /**
+         * ================
+         * @Author:        css
+         * @Parameter:     
+         * @DataTime:      2019-10-28
+         * @Return:        
+         * @Notes:         线路列表
+         * @ErrorReason:   
+         * ================
+         */
+        public function lineList(){
+            $this->url = '/agent/getlinklist?';
+            $data = $this->_httpget();
+            // var_dump($data);
+            return $this->_postjsonencode($data);
+        }
+        /**
+         * ================
+         * @Author:        css
+         * @Parameter:     
+         * @DataTime:      2019-10-28
+         * @Return:        
+         * @Notes:         vpn账号创建
+         * @ErrorReason:   
+         * 
+         * ================
+         */
+        // cusId	是	int	客户id
+        // name	是	string	账号名 仅允许字母数字
+        // password	是	int	密码 仅允许字母数字
+        // linkId	是	string	授权线路集合 1,2,3,4,5(当传9999时，授权路线是所有开启状态的路线)
+        // defaultLink	是	int	默认线路 包年包月账号随机分配线路时此参数失效
+        // expireDate	是	string	过期时间 2018-01-15
+        // isp	是	int	运营商 1联通 2电信 3移动 4联通电信 0不限
+        // accountTotal	是	int	包年包月账号(静态)创建数量，按次计费账号（动态）无此参数
+        // count	是	int	按次计费账号ip切换次数，包年包月账号无此参数（count传了>=0就是动态，count不传就是静态）
+        // rand	否	boolean	随机分配线路 1所选线路随机分配 0无随机。默认0，非必须参数。仅包年包月账号有效，固定分配默认线路时无效
+        // type	否	int	创建单个账号时是否名称增加01 默认增加01 type=1时不增加01
+        // timeoutExec	是	string	设置动态账号在线超时后账号状态 add 增加一个使用次数/offline 账号下线
+        public function agentCreate(){
+            $param = 'name,password,linkId,defaultLink,expireDate,isp,accountTotal,count,rand,type,timeoutExec';
+        }
+
+        /**
+         * ================
+         * @Author:        css
+         * @Parameter:     
+         * @DataTime:      2019-10-28
+         * @Return:        
+         * @Notes:         数据过滤
+         * @ErrorReason:   
+         * ================
+         */
+        private function _dataFilter($array, $strict = true)
+        {
+            is_array($array) ? true : $array = explode(',', $array);
+            $data = [];
+            foreach ($array as $key) {
+                $data[$key] = $_GET[$key];
+                if ($strict) {
+                    !isset($data[$key]) ? exit($this->_postjsonencode(['msg'=>"缺少参数$key"])) : true;
+                } else {
+                    if (!isset($data[$key])) {
+                        unset($data[$key]);
+                    }
+                }
+            }
+            return $data;
+        }
+
+        /**
+         * ================
+         * @Author:        css
+         * @Parameter:     
+         * @DataTime:      2019-10-28
+         * @Return:        
+         * @Notes:         查询ip被拉黑
+         * @ErrorReason:   
+         * ================
+         */
+        public function blacklistedQuery(){
+            $param = 'ip';
+            $param = $this->_dataFilter($param,true);
+            $this->url = '/agent/checkClientIpIsBlock?';
+            $data = $this->_httpget('&ip='.$param['ip']);
+            return $this->_postjsonencode($data);
+            // 参数名	类型	说明
+            // remote_ip	string	客户端IP
+            // acc	string	账号名称
+            // lot	int	屏蔽时长，单位为秒
+            // create_time	int	记录创建时间
+            // message	string	屏蔽原因
+            // {
+            //     "code": 0,
+            //     "message": "success",
+            //     "data": {
+            //       "searchList": {
+            //         "remote_ip": "客户端IP",
+            //         "acc": "账号名称",
+            //         "lot": 屏蔽时长，单位为秒,
+            //         "create_time": 记录创建时间,
+            //         "message": "屏蔽原因"
+            //       }
+            //     }
+            //   }
+        }
+
+        /**
+         * ================
+         * @Author:        css
+         * @Parameter:     
+         * @DataTime:      2019-10-28
+         * @Return:        
+         * @Notes:         删除被拉黑的ip
+         * @ErrorReason:   
+         * ================
+         */
+        public function deleteBlack(){
+            $param = 'ip';
+            $param = $this->_dataFilter($param,true);
+            $this->url = '/agent/removeClientIpBlock?';
+            $data = $this->_httpget('&ip='.$param['ip']);
+            return $this->_postjsonencode($data);
+
+            // {
+            //     "code": 0,
+            //     "message": "success",
+            //     "data": {}
+            //   }
+        }
 }

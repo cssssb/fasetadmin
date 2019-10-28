@@ -57,12 +57,11 @@
                                     温馨提示:卡密为虚拟物品一但充值成功非平台原因不作退款处理!</p>
                                 <div class="input-group input-group-md">
                                     <div class="icon-addon addon-md">
-                                        <input type="text" placeholder="卡密" onfocus="this.select();" value="" id="card"
+                                        <input type="text" placeholder="卡密" onfocus="this.select();" value="" id="cardpass"
                                             class="form-control input-md">
                                     </div>
                                     <span class="input-group-btn">
-                                        <button class="btn btn-success btn-invite" id="check" type="button">查询</button>
-                                        <button class="btn btn-info btn-invite" id="bind" type="button">兑换</button>
+                                        <button class="btn btn-success btn-invite inquire" id="inquire" type="button">查询</button>
                                     </span>
                                 </div>
                             </div>
@@ -76,14 +75,7 @@
                                 <th>总点数</th>
                                 <th>绑定时间</th>
                             </tr>
-                            {foreach name="data" item="v"}
-                            <tr>
-                                <td>{$v.has_pwd}</td>
-                                <td>{$v.price}</td>
-                                <td>{$v.number}</td>
-                                <td>{$v.c_time}</td>
-                            </tr>
-                            {/foreach}
+                            
                         </thead>
                         <tbody>
                         </tbody>

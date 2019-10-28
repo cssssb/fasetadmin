@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:93:"C:\Users\Administrator\Desktop\fastAdmin\public/../application/index\view\user\changepwd.html";i:1570347773;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\layout\default.html";i:1571031854;s:80:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\meta.html";i:1570347773;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\sidenav.html";i:1571655994;s:82:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\script.html";i:1570347773;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:89:"C:\Users\user\Desktop\fastadmin\public/../application/index\view\user\exchangepoints.html";i:1572178791;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\layout\default.html";i:1571470719;s:71:"C:\Users\user\Desktop\fastadmin\application\index\view\common\meta.html";i:1571470719;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\common\sidenav.html";i:1571842243;s:73:"C:\Users\user\Desktop\fastadmin\application\index\view\common\script.html";i:1571470719;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -82,7 +82,45 @@
         </nav>
 
         <main class="content">
-            <div id="content-container" class="container">
+            <style>
+    .profile-avatar-container {
+        position: relative;
+        width: 100px;
+    }
+
+    .profile-avatar-container .profile-user-img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-avatar-container .profile-avatar-text {
+        display: none;
+    }
+
+    .profile-avatar-container:hover .profile-avatar-text {
+        display: block;
+        position: absolute;
+        height: 100px;
+        width: 100px;
+        background: #444;
+        opacity: .6;
+        color: #fff;
+        top: 0;
+        left: 0;
+        line-height: 100px;
+        text-align: center;
+    }
+
+    .profile-avatar-container button {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100px;
+        height: 100px;
+        opacity: 0;
+    }
+</style>
+<div id="content-container" class="container">
     <div class="row">
         <div class="col-md-3">
             <div class="sidenav">
@@ -118,35 +156,48 @@
 </div>
         </div>
         <div class="col-md-9">
-            <div class="panel panel-default">
+            <div class="panel panel-default panel-recharge">
                 <div class="panel-body">
-                    <h2 class="page-header"><?php echo __('Change password'); ?></h2>
-                    <form id="changepwd-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
-                        <?php echo token(); ?>
+                    <h2 class="page-header">e服务器速度快--B服务器对联通移动支持更好--注：点数不通用 <span><small
+                                class="text-danger">余额:<?php echo $money; ?></small></span>
+                        <a href="/index/recharge/recharge.html" class="btn btn-info btn-recharge pull-right"><i
+                                class="fa fa-cny"></i> 充值余额</a>
+                    </h2>
+                    <div class="row">
+                        <?php if(is_array($server_list) || $server_list instanceof \think\Collection || $server_list instanceof \think\Paginator): if( count($server_list)==0 ) : echo "" ;else: foreach($server_list as $key=>$v): ?>
+                        <div class="col-xs-6 col-md-3" style="text-align:right"><?php echo $v['name']; ?> : </div>
+                        <div class="col-xs-6 col-md-3" style="text-align:left"><?php echo $v['user_number']; ?></div>
+                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                    </div>
+                    <hr>
+                    <form id="add-form" class="form-horizontal nice-validator n-default n-bootstrap" role="form"
+                        data-toggle="validator"  action="" novalidate="novalidate">
+
                         <div class="form-group">
-                            <label for="oldpassword" class="control-label col-xs-12 col-sm-2"><?php echo __('Old password'); ?>:</label>
+                            <label class="control-label col-xs-12 col-sm-4">选择兑换种类:</label>
                             <div class="col-xs-12 col-sm-4">
-                                <input type="password" class="form-control" id="oldpassword" name="oldpassword" value="" data-rule="required" placeholder="<?php echo __('Old password'); ?>">
+                                <select id="selectpicker" class="selectpicker form-control" name="row[select]" tabindex="-98" >
+                                    <option value="0" selected="selected">请选择兑换种类</option>
+                                </select>
+
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="newpassword" class="control-label col-xs-12 col-sm-2"><?php echo __('New password'); ?>:</label>
+                            <label class="control-label col-xs-12 col-sm-4">兑换数量:</label>
                             <div class="col-xs-12 col-sm-4">
-                                <input type="password" class="form-control" id="newpassword" name="newpassword" value="" data-rule="required" placeholder="<?php echo __('New password'); ?>" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="renewpassword" class="control-label col-xs-12 col-sm-2"><?php echo __('Renew password'); ?>:</label>
-                            <div class="col-xs-12 col-sm-4">
-                                <input type="password" class="form-control" id="renewpassword" name="renewpassword" value="" data-rule="required" placeholder="<?php echo __('Renew password'); ?>" />
-                            </div>
+                                <input id="num" name="row[code]" class="form-control duihuannum" type="text" value="1"> </div>
                         </div>
 
-                        <div class="form-group normal-footer">
-                            <label class="control-label col-xs-12 col-sm-2"></label>
+
+                        <div class="form-group">
+                            <label class="control-label col-xs-12 col-sm-4">总价:</label>
+                            <label class="control-label col-xs-12 col-sm-4" style="text-align:left"><span
+                                    style="color:red" id="total" class="totalNum">0</span>元</label>
+                        </div>
+                        <div class="form-group layer-footer">
+                            <label class="control-label col-xs-12 col-sm-4"></label>
                             <div class="col-xs-12 col-sm-8">
-                                <button type="submit" class="btn btn-success btn-embossed disabled"><?php echo __('Submit'); ?></button>
-                                <button type="reset" class="btn btn-default btn-embossed"><?php echo __('Reset'); ?></button>
+                                <button  class="btn btn-success btn-embossed">提交</button>
                             </div>
                         </div>
                     </form>
@@ -155,6 +206,116 @@
         </div>
     </div>
 </div>
+
+<script type="text/html" id="emailtpl">
+    <form id="email-form" class="form-horizontal form-layer" method="POST" action="<?php echo url('api/user/changeemail'); ?>">
+        <div class="form-body">
+            <input type="hidden" name="action" value="changeemail" />
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-3"><?php echo __('New Email'); ?>:</label>
+                <div class="col-xs-12 col-sm-8">
+                    <input type="text" class="form-control" id="email" name="email" value=""
+                        data-rule="required;email;remote(<?php echo url('api/validate/check_email_available'); ?>, event=changeemail, id=<?php echo $user['id']; ?>)"
+                        placeholder="<?php echo __('New email'); ?>">
+                    <span class="msg-box"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-3"><?php echo __('Captcha'); ?>:</label>
+                <div class="col-xs-12 col-sm-8">
+                    <div class="input-group">
+                        <input type="text" name="captcha" id="email-captcha" class="form-control"
+                            data-rule="required;length(4);integer[+];remote(<?php echo url('api/validate/check_ems_correct'); ?>, event=changeemail, email:#email)" />
+                        <span class="input-group-btn" style="padding:0;border:none;">
+                            <a href="javascript:;" class="btn btn-info btn-captcha" data-url="<?php echo url('api/ems/send'); ?>"
+                                data-type="email" data-event="changeemail">获取验证码</a>
+                        </span>
+                    </div>
+                    <span class="msg-box"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-footer">
+            <div class="form-group" style="margin-bottom:0;">
+                <label class="control-label col-xs-12 col-sm-3"></label>
+                <div class="col-xs-12 col-sm-8">
+                    <button type="submit" class="btn btn-md btn-info"><?php echo __('Submit'); ?></button>
+                </div>
+            </div>
+        </div>
+    </form>
+</script>
+<script type="text/html" id="mobiletpl">
+    <form id="mobile-form" class="form-horizontal form-layer" method="POST" action="<?php echo url('api/user/changemobile'); ?>">
+        <div class="form-body">
+            <input type="hidden" name="action" value="changemobile" />
+            <div class="form-group">
+                <label for="c-mobile" class="control-label col-xs-12 col-sm-3"><?php echo __('New mobile'); ?>:</label>
+                <div class="col-xs-12 col-sm-8">
+                    <input type="text" class="form-control" id="mobile" name="mobile" value=""
+                        data-rule="required;mobile;remote(<?php echo url('api/validate/check_mobile_available'); ?>, event=changemobile, id=<?php echo $user['id']; ?>)"
+                        placeholder="<?php echo __('New mobile'); ?>">
+                    <span class="msg-box"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="mobile-captcha" class="control-label col-xs-12 col-sm-3"><?php echo __('Captcha'); ?>:</label>
+                <div class="col-xs-12 col-sm-8">
+                    <div class="input-group">
+                        <input type="text" name="captcha" id="mobile-captcha" class="form-control"
+                            data-rule="required;length(4);integer[+];remote(<?php echo url('api/validate/check_sms_correct'); ?>, event=changemobile, mobile:#mobile)" />
+                        <span class="input-group-btn" style="padding:0;border:none;">
+                            <a href="javascript:;" class="btn btn-info btn-captcha" data-url="<?php echo url('api/sms/send'); ?>"
+                                data-type="mobile" data-event="changemobile">获取验证码</a>
+                        </span>
+                    </div>
+                    <span class="msg-box"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-footer">
+            <div class="form-group" style="margin-bottom:0;">
+                <label class="control-label col-xs-12 col-sm-3"></label>
+                <div class="col-xs-12 col-sm-8">
+                    <button type="submit" class="btn btn-md btn-info"><?php echo __('Submit'); ?></button>
+                </div>
+            </div>
+        </div>
+    </form>
+</script>
+<style>
+    .form-layer {
+        height: 100%;
+        min-height: 150px;
+        min-width: 300px;
+    }
+
+    .form-body {
+        width: 100%;
+        overflow: auto;
+        top: 0;
+        position: absolute;
+        z-index: 10;
+        bottom: 50px;
+        padding: 15px;
+    }
+
+    .form-layer .form-footer {
+        height: 50px;
+        line-height: 50px;
+        background-color: #ecf0f1;
+        width: 100%;
+        position: absolute;
+        z-index: 200;
+        bottom: 0;
+        margin: 0;
+    }
+
+    .form-footer .form-group {
+        margin-left: 0;
+        margin-right: 0;
+    }
+</style>
         </main>
 
         <footer class="footer" style="clear:both">
