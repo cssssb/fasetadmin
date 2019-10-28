@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:90:"C:\Users\user\Desktop\fastadmin\public/../application/index\view\user\charlierecharge.html";i:1572076576;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\layout\default.html";i:1571470719;s:71:"C:\Users\user\Desktop\fastadmin\application\index\view\common\meta.html";i:1571470719;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\common\sidenav.html";i:1571842243;s:73:"C:\Users\user\Desktop\fastadmin\application\index\view\common\script.html";i:1571470719;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:90:"C:\Users\user\Desktop\fastadmin\public/../application/index\view\user\charlierecharge.html";i:1572178945;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\layout\default.html";i:1571470719;s:71:"C:\Users\user\Desktop\fastadmin\application\index\view\common\meta.html";i:1571470719;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\common\sidenav.html";i:1571842243;s:73:"C:\Users\user\Desktop\fastadmin\application\index\view\common\script.html";i:1571470719;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -189,14 +189,7 @@
                                 <th>总点数</th>
                                 <th>绑定时间</th>
                             </tr>
-                            <?php if(is_array($data) || $data instanceof \think\Collection || $data instanceof \think\Paginator): if( count($data)==0 ) : echo "" ;else: foreach($data as $key=>$v): ?>
-                            <tr>
-                                <td><?php echo $v['has_pwd']; ?></td>
-                                <td><?php echo $v['price']; ?></td>
-                                <td><?php echo $v['number']; ?></td>
-                                <td><?php echo $v['c_time']; ?></td>
-                            </tr>
-                            <?php endforeach; endif; else: echo "" ;endif; ?>
+                            
                         </thead>
                         <tbody>
                         </tbody>

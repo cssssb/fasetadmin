@@ -30,7 +30,8 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                         optionsItem.innerHTML = tab;
                         var tabbox = document.querySelector("#tabbox")
                         console.log(tabbox)
-                        tabbox.appendChild(optionsItem)
+                        tabbox.appendChild(optionsItem);
+                        $("#cardpass").val()=="";
                     },
                     error: function (e) {
 
@@ -38,21 +39,20 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                 });
 
             });
-            //   点击查询的按钮
+            //   点的按钮
             $(document).on("click", ".passduihuan", function () {
                 console.log($(this).parent().children("td:first-child").text())
                 var pass=$(this).parent().children("td:first-child").text()
                 //选择兑换点数的列表
                 $.ajax({
-                    url: "/index/user/buttenexchangepoints",
+                    url: "/index/user/hasexchange",
                     type: 'get',
                     dataType: 'json',
                     data: {
                         has_pwd: pass
                     },
                     success: function (ret) {
-
-                       
+                        Toastr.success(ret.msg);
                     },
                     error: function (e) {
 

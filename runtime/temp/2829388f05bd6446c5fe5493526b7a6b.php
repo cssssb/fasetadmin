@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:97:"F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\charlierecharge.html";i:1572182704;s:81:"F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1572169492;s:78:"F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1572169492;s:81:"F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1572169492;s:80:"F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1572169492;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:97:"F:\phpstudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\charlierecharge.html";i:1572186102;s:81:"F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1572169492;s:78:"F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1572169492;s:81:"F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1572169492;s:80:"F:\phpstudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1572169492;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -190,14 +190,7 @@
                                 <th>绑定时间</th>
                                 <th>操作</th>
                             </tr>
-                            <!-- <?php if(is_array($data) || $data instanceof \think\Collection || $data instanceof \think\Paginator): if( count($data)==0 ) : echo "" ;else: foreach($data as $key=>$v): ?>
-                            <tr>
-                                <td><?php echo $v['has_pwd']; ?></td>
-                                <td><?php echo $v['price']; ?></td>
-                                <td><?php echo $v['number']; ?></td>
-                                <td><?php echo $v['c_time']; ?></td>
-                            </tr>
-                            <?php endforeach; endif; else: echo "" ;endif; ?> -->
+                            
                         </thead>
                         <tbody>
                         </tbody>
