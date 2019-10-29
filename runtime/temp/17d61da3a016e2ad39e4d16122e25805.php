@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:89:"C:\Users\user\Desktop\fastadmin\public/../application/index\view\user\exchangepoints.html";i:1572178791;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\layout\default.html";i:1571470719;s:71:"C:\Users\user\Desktop\fastadmin\application\index\view\common\meta.html";i:1571470719;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\common\sidenav.html";i:1571842243;s:73:"C:\Users\user\Desktop\fastadmin\application\index\view\common\script.html";i:1571470719;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:99:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\mainaccountnumber.html";i:1572245612;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1571714014;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -119,6 +119,12 @@
         height: 100px;
         opacity: 0;
     }
+option:hover{
+    background: #ccc
+}
+    /* .panel-default{
+        height: 600px;
+    } */
 </style>
 <div id="content-container" class="container">
     <div class="row">
@@ -156,48 +162,68 @@
 </div>
         </div>
         <div class="col-md-9">
-            <div class="panel panel-default panel-recharge">
+            <div class="panel panel-default">
                 <div class="panel-body">
-                    <h2 class="page-header">e服务器速度快--B服务器对联通移动支持更好--注：点数不通用 <span><small
-                                class="text-danger">余额:<?php echo $money; ?></small></span>
-                        <a href="/index/recharge/recharge.html" class="btn btn-info btn-recharge pull-right"><i
-                                class="fa fa-cny"></i> 充值余额</a>
-                    </h2>
-                    <div class="row">
-                        <?php if(is_array($server_list) || $server_list instanceof \think\Collection || $server_list instanceof \think\Paginator): if( count($server_list)==0 ) : echo "" ;else: foreach($server_list as $key=>$v): ?>
-                        <div class="col-xs-6 col-md-3" style="text-align:right"><?php echo $v['name']; ?> : </div>
-                        <div class="col-xs-6 col-md-3" style="text-align:left"><?php echo $v['user_number']; ?></div>
-                        <?php endforeach; endif; else: echo "" ;endif; ?>
-                    </div>
-                    <hr>
-                    <form id="add-form" class="form-horizontal nice-validator n-default n-bootstrap" role="form"
-                        data-toggle="validator"  action="" novalidate="novalidate">
+                    <h2 class="page-header">主账号----------配置连接服务器为 b.vpn.cn</h2>
+                    <form id="profile-form" class="form-horizontal" role="form" data-toggle="validator" method="POST"
+                        action="<?php echo url('api/user/profile'); ?>">
+                        <div class="row">
+                            <div class="col-xs-6 col-md-3" style="text-align:right">id : </div>
+                            <div class="col-xs-6 col-md-3" style="text-align:left">123570</div>
+                            <div class="col-xs-6 col-md-3" style="text-align:right">主账号名字 : </div>
+                            <div class="col-xs-6 col-md-3" style="text-align:left">test2</div>
+                        </div>
+                        <hr>
 
                         <div class="form-group">
-                            <label class="control-label col-xs-12 col-sm-4">选择兑换种类:</label>
-                            <div class="col-xs-12 col-sm-4">
-                                <select id="selectpicker" class="selectpicker form-control" name="row[select]" tabindex="-98" >
-                                    <option value="0" selected="selected">请选择兑换种类</option>
-                                </select>
-
+                            <p style="font-weight: 900;font-size:13px;margin-left:20px">黑名单自动解封 </p>
+                            <label class="control-label col-xs-12 col-sm-2">请输入ip地址:</label>
+                            <div class="col-xs-12 col-sm-6">
+                                <input type="text" class="form-control" id="ipaddress" name="ipaddress" placeholder="">
+                            </div>
+                            <div class="col-xs-12 col-sm-6" style="text-align: right; margin-top:20px;">
+                                <button type="button" class="btn btn-success btn-embossed disabled blacksearch">查询</button>
+                                <button type="button" class="btn btn-default btn-embossed blackjiechu">解除</button>
                             </div>
                         </div>
+                        <hr>
                         <div class="form-group">
-                            <label class="control-label col-xs-12 col-sm-4">兑换数量:</label>
-                            <div class="col-xs-12 col-sm-4">
-                                <input id="num" name="row[code]" class="form-control duihuannum" type="text" value="1"> </div>
+                            <p style="font-weight: 900;font-size:13px;margin-left:20px">密钥是调用接口时使用的</p>
+                            <label class="control-label col-xs-12 col-sm-2">密钥:</label>
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="passKey" name="passKey" value="1234"
+                                        data-rule="required" placeholder="" style="background: #eee">
+                                    <span class="input-group-btn" style="padding:0;border:none;">
+                                        <a href="javascript:;" class="btn btn-info btn-change"
+                                            data-type="email">随机生成</a>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-
-
-                        <div class="form-group">
-                            <label class="control-label col-xs-12 col-sm-4">总价:</label>
-                            <label class="control-label col-xs-12 col-sm-4" style="text-align:left"><span
-                                    style="color:red" id="total" class="totalNum">0</span>元</label>
+                        <br>
+                        <hr>
+                        <div class="form-group" style="margin-left:120px">
+                            <label for="c-bio" class="control-label col-xs-12 col-sm-2">查询类型:</label>
+                            <div class="col-xs-12 col-sm-5">
+                                <select class="form-control" name="status">
+                                    <option value="">共享点数</option>
+                                    <option value="0">动态VPN</option>
+                                    <option value="1">静态VPN</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group layer-footer">
-                            <label class="control-label col-xs-12 col-sm-4"></label>
+                        <div class="form-group" style="margin-left:120px">
+                            <label for="c-email" class="control-label col-xs-12 col-sm-2">用户账号:</label>
+                            <div class="col-xs-12 col-sm-5">
+                                    <input type="text" class="form-control" id="account" name="account" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group normal-footer" style="margin-left:150px">
+                            <label class="control-label col-xs-12 col-sm-2"></label>
                             <div class="col-xs-12 col-sm-8">
-                                <button  class="btn btn-success btn-embossed">提交</button>
+                                <button type="submit" class="btn btn-success btn-embossed disabled">查询</button>
+                                <button type="reset" class="btn btn-default btn-embossed"><?php echo __('Reset'); ?></button>
                             </div>
                         </div>
                     </form>
@@ -314,6 +340,11 @@
     .form-footer .form-group {
         margin-left: 0;
         margin-right: 0;
+    }
+    body .demo-class .layui-layer-title{background:#3966a7; color:#fff; border: none;}
+    .layui-layer-content{
+        padding: 10px 0 0 30px;
+        line-height: 20px
     }
 </style>
         </main>
