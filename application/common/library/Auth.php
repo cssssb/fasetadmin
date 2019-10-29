@@ -14,6 +14,7 @@ use think\Validate;
 
 class Auth
 {
+    static $_url = '';
     protected static $instance = null;
     protected $_error = '';
     protected $_logined = false;
@@ -26,7 +27,7 @@ class Auth
     //默认配置
     protected $config = [];
     protected $options = [];
-    protected $allowFields = ['id', 'username', 'nickname', 'mobile', 'avatar', 'score'];
+    protected $allowFields = ['id', 'username', 'nickname', 'mobile', 'avatar', 'score','inviter','system_id','system_name'];
 
     public function __construct($options = [])
     {
@@ -138,6 +139,8 @@ class Auth
             $this->setError('Mobile already exist');
             return false;
         }
+        $additional_data = $this->agent_createCustomer($username);
+
 
         $ip = request()->ip();
         $time = time();
@@ -159,7 +162,10 @@ class Auth
             'logintime' => $time,
             'loginip'   => $ip,
             'prevtime'  => $time,
-            'status'    => 'normal'
+            'status'    => 'normal',
+            'inviter'   => $extend['inviter'],
+            'system_id' => $additional_data['system_id'],
+            'system_name' => $additional_data['system_name']
         ]);
         $params['password'] = $this->getEncryptPassword($password, $params['salt']);
         $params = array_merge($params, $extend);
@@ -558,5 +564,43 @@ class Auth
     public function getError()
     {
         return $this->_error ? __($this->_error) : '';
+    }
+
+    private function agent_createCustomer($username){
+        $this->url = "/agent/createCustomer?";
+        self::$_url = '&name='.$username;
+        $data = $this->_httpget();
+        if($data['code']==0){
+            $return = ['system_id'=>$data['data']['id'],'system_name'=>$data['data']['username']];
+            return $return;
+        }else{
+            $msg['msg'] = '创建客户失败,客户已存在';
+            exit($this->_postjsonencode($msg));
+        }
+    }
+
+    private function _httpget(){
+        $this->agent_id = 'wvohjijo4gdrwmswawqsrxlbptpl5rd6';
+        $this->agent_sec = '3m6710mpz6py4os28uxgmnawxkfjlwrc';
+        $_url = 'timestamp='.time().'&agentid='.$this->agent_id.self::$_url;
+        $sign = md5($this->agent_id.$this->agent_sec.$_url.time());
+        $url = 'http://b.api.vpn.cn:8080'.$this->url.$_url.'&sign='.$sign;
+        header('Content-type:application/json;charset=utf-8');
+        $demo = 'http://[代理接口地址]/agent/create?agentid=aaa&count=10&cusId=2602&defaultLink=1&timestamp=1546409119&sign=4594587996bae3728047ed807c7e36dd';
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);//禁止curl验证对等证书
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);//  ssl证书公用名
+        curl_setopt($ch, CURLOPT_URL, $url);//需要获取的url地址
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);//将获取的数据以字符串形式输出 而不是直接输出
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        $data = curl_exec($ch);
+        curl_close($ch);
+        if ($data === false) {
+            return "CURL Error:" . curl_error($ch);
+        }
+        return json_decode($data, true);
+    }
+    private function _postjsonencode($msg){
+        echo json_encode($msg,JSON_UNESCAPED_UNICODE);
     }
 }

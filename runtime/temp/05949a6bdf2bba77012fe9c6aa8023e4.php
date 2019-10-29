@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:99:"C:\Users\Administrator\Desktop\fastAdmin\public/../application/index\view\user\charlierecharge.html";i:1571812601;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\layout\default.html";i:1571031854;s:80:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\meta.html";i:1570347773;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\sidenav.html";i:1571655994;s:82:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\script.html";i:1570347773;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:99:"C:\Users\Administrator\Desktop\fastAdmin\public/../application/index\view\user\charlierecharge.html";i:1572226714;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\layout\default.html";i:1571031854;s:80:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\meta.html";i:1570347773;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\sidenav.html";i:1571655994;s:82:"C:\Users\Administrator\Desktop\fastAdmin\application\index\view\common\script.html";i:1570347773;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -171,12 +171,11 @@
                                     温馨提示:卡密为虚拟物品一但充值成功非平台原因不作退款处理!</p>
                                 <div class="input-group input-group-md">
                                     <div class="icon-addon addon-md">
-                                        <input type="text" placeholder="卡密" onfocus="this.select();" value="" id="card"
+                                        <input type="text" placeholder="卡密" onfocus="this.select();" value="" id="cardpass"
                                             class="form-control input-md">
                                     </div>
                                     <span class="input-group-btn">
-                                        <button class="btn btn-success btn-invite" id="check" type="button">查询</button>
-                                        <button class="btn btn-info btn-invite" id="bind" type="button">兑换</button>
+                                        <button class="btn btn-success btn-invite inquire" id="inquire" type="button">查询</button>
                                     </span>
                                 </div>
                             </div>
@@ -190,14 +189,7 @@
                                 <th>总点数</th>
                                 <th>绑定时间</th>
                             </tr>
-                            <?php if(is_array($data) || $data instanceof \think\Collection || $data instanceof \think\Paginator): if( count($data)==0 ) : echo "" ;else: foreach($data as $key=>$v): ?>
-                            <tr>
-                                <td><?php echo $v['has_pwd']; ?></td>
-                                <td><?php echo $v['price']; ?></td>
-                                <td><?php echo $v['number']; ?></td>
-                                <td><?php echo $v['c_time']; ?></td>
-                            </tr>
-                            <?php endforeach; endif; else: echo "" ;endif; ?>
+                            
                         </thead>
                         <tbody>
                         </tbody>
