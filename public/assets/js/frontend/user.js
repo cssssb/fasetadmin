@@ -220,7 +220,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     ret.forEach(function (e) {
                         var optionsItem = document.createElement("option");
                         optionsItem.innerHTML = e.name;
-                        optionsItem.value = e.price
+                        optionsItem.value = e.id
                         var selectpicker = document.querySelector(".selectpicker")
                         selectpicker.appendChild(optionsItem);
                     })
@@ -253,13 +253,10 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     dataType: 'json',
                     data: param,
                     success: function (ret) {
-                        // ret.forEach(function (e) {
-                        //     var optionsItem = document.createElement("option");
-                        //     optionsItem.innerHTML = e.name;
-                        //     optionsItem.value = e.price
-                        //     var selectpicker = document.querySelector(".selectpicker")
-                        //     selectpicker.appendChild(optionsItem);
-                        // })
+                        Toastr.success("申请成功");
+                        setTimeout(() => {
+                            window.location.reload() 
+                        },1000);
 
                     },
                     error: function (e) {}
@@ -270,6 +267,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
         },
         dynamiclist: function () {
             $(document).on("click", ".bianji", function () {
+                
                 $.ajax({
                     url: "/index/user/lineList",
                     type: 'get',
@@ -302,7 +300,162 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                 });
 
             });
+
+            $("#toolbar").on("click", "div", function () {
+                var target= $(this).attr("class")
+                var content
+                if(target=="gouxuan"){
+                   content=$(".checkedcontent")
+                }else if(target=="staticgroup"){
+                   content=$(".staticcontent")
+                }else{
+                   content=$(".otherprop")
+                }
+               Layer.open({
+                   type: 1,
+                   title: '信息',
+                   area: ["650px", "450px"],
+                   content: content,
+                   skin: 'demo-class',
+                   success: function (layero) {
+                       content.removeClass("hidden")
+
+                   }
+               });
+
+           });
         },
+            // 申请静态
+            static: function () {
+                // 城市列表
+                $.ajax({
+                    url: "/index/user/lineList",
+                    type: 'get',
+                    dataType: 'json',
+                    data: {},
+                    success: function (ret) {
+                        ret.data.linkList.forEach(function (e) {
+                            var optionsItem = document.createElement("option");
+                            optionsItem.innerHTML = e.name;
+                            optionsItem.value = e.id
+                            var selectpicker = document.querySelector(".citypick")
+                            selectpicker.appendChild(optionsItem);
+                        })
+                    },
+                    error: function (e) {}
+                });
+                $.ajax({
+                    url: "/index/user/getserverlist",
+                    type: 'get',
+                    dataType: 'json',
+                    data: {},
+                    success: function (ret) {
+                        ret.forEach(function (e) {
+                            var optionsItem = document.createElement("option");
+                            optionsItem.innerHTML = e.name;
+                            optionsItem.value = e.id
+                            var selectpicker = document.querySelector(".selectpicker")
+                            selectpicker.appendChild(optionsItem);
+                        })
+    
+                    },
+                    error: function (e) {}
+                });
+                // 创建静态账号
+                $(document).on("click", ".staticbtn", function () {
+    
+                    //     for(var value of formData.values()){
+                    // 	console.log(value)
+                    // }
+                    var param = {
+                        'name': $('[name=name]').val(),
+                        'password': $('[name= password]').val(),
+                        'accountTotal': $('[name=accountTotal]').val(),
+                        'defaultLink': $('[name=defaultLink]').val(),
+                        "expireDate":$('[name=expireDate]').val(),
+                        'isp': $('[name= isp]:checked').val(),
+                        'serve_id': $('[name=serve_id]').val(),
+                        'linkId': 9999
+    
+                    }
+    
+                    $.ajax({
+                        url: "/index/user/agentCreate",
+                        type: 'get',
+                        dataType: 'json',
+                        data: param,
+                        success: function (ret) {
+                            Toastr.success("申请成功");
+                            setTimeout(() => {
+                                window.location.reload() 
+                            },1000);
+                           
+                        },
+                        error: function (e) {}
+                    });
+    
+                });
+    
+            },
+            staticlist: function () {
+                $(document).on("click", ".bianji", function () {
+                    $.ajax({
+                        url: "/index/user/lineList",
+                        type: 'get',
+                        dataType: 'json',
+                        data: {},
+                        success: function (ret) {
+                            ret.data.linkList.forEach(function (e) {
+                                var optionsItem = document.createElement("option");
+                                optionsItem.innerHTML = e.name;
+                                optionsItem.value = e.id
+                                var selectpicker = document.querySelector(".selectpicker")
+                                selectpicker.appendChild(optionsItem);
+                            })
+    
+                        },
+                        error: function (e) {
+    
+                        }
+                    });
+                    Layer.open({
+                        type: 1,
+                        title: '信息',
+                        area: ["650px", "450px"],
+                        content: $(".staticxiugai"),
+                        skin: 'demo-class',
+                        success: function (layero) {
+                            $(".staticxiugai").removeClass("hidden")
+    
+                        }
+                    });
+    
+                });
+    
+                $("#toolbar").on("click", "div", function () {
+                     var target= $(this).attr("class")
+                     var content
+                     if(target=="gouxuan"){
+                        content=$(".checkedcontent")
+                     }else if(target=="staticgroup"){
+                        content=$(".staticcontent")
+                     }else{
+                        content=$(".otherprop")
+                     }
+                    Layer.open({
+                        type: 1,
+                        title: '信息',
+                        area: ["650px", "450px"],
+                        content: content,
+                        skin: 'demo-class',
+                        success: function (layero) {
+                            content.removeClass("hidden")
+    
+                        }
+                    });
+    
+                });
+            },
 
 
         login: function () {
