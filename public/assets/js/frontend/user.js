@@ -147,7 +147,10 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
 
                 //     }
                 // });
-                var content = "<div>ip:456789</div><div>ip:456789</div><div>名称:test</div><div>屏蔽时长:3天</div><div>原因:黄赌毒</div>"
+                var content = "<div>ip:456789</div><div>创建时间:456789</div><div>名称:test</div><div>屏蔽时长:3天</div><div>原因:黄赌毒</div>";
+                if (passid == "") {
+                    content = "输入账号不能为空"
+                };
                 Layer.open({
                     type: 1,
                     title: '信息',
@@ -190,9 +193,9 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
 
                 //     }
                 // });
-                var content = "<div>ip:" + passid+ "解除成功</div><div>请立马解决触发原因</div><div>否则会再次发生屏蔽</div>"
-                if(passid==""){
-                    content="输入账号不能为空"
+                var content = "<div>ip:" + passid + "解除成功</div><div>请立马解决触发原因</div><div>否则会再次发生屏蔽</div>"
+                if (passid == "") {
+                    content = "输入账号不能为空"
                 }
                 Layer.open({
                     type: 1,
@@ -207,6 +210,128 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
             });
 
         },
+        // 申请动态
+        dynamic: function () {
+            // 申请动态的城市列表
+            $.ajax({
+                url: "/index/user/lineList",
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function (ret) {
+                    ret.data.linkList.forEach(function (e) {
+                        var optionsItem = document.createElement("option");
+                        optionsItem.innerHTML = e.name;
+                        optionsItem.value = e.id
+                        var selectpicker = document.querySelector(".citypick")
+                        selectpicker.appendChild(optionsItem);
+                    })
+                },
+                error: function (e) {}
+            });
+            $.ajax({
+                url: "/index/user/getserverlist",
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function (ret) {
+                    ret.forEach(function (e) {
+                        var optionsItem = document.createElement("option");
+                        optionsItem.innerHTML = e.name;
+                        optionsItem.value = e.price
+                        var selectpicker = document.querySelector(".selectpicker")
+                        selectpicker.appendChild(optionsItem);
+                    })
+
+                },
+                error: function (e) {}
+            });
+            // 创建动态账号
+            $(document).on("click", ".dynamicbtn", function () {
+                var uplode = $("#uploads")
+                var formData = new FormData(uplode);
+                formData.append('name', $('[name=name]').val());
+                formData.append('password', $('[name= password]').val());
+                formData.append('accountTotal', $('[name=accountTotal]').val());
+                formData.append('defaultLink', $('[name=defaultLink]').val());
+                formData.append('isp', $('[name= isp]:checked').val());
+                formData.append('count', $('[name=count]').val());
+                formData.append('serve_id', $('[name= serve_id]:checked').val());
+                formData.append('timeoutExec', $('[name=timeoutExec]:checked').val());
+                formData.append('linkId', 9999);
+            //     for(var value of formData.values()){
+            // 	console.log(value)
+            // }
+            var param={
+                'name':$('[name=name]').val(),
+                'password': $('[name= password]').val(),
+                'accountTotal':$('[name=accountTotal]').val(),
+                'name': $('[name=defaultLink]').val(),
+                'isp': $('[name= isp]:checked').val(),
+                'count': $('[name=count]').val(),
+                'serve_id':$('[name=serve_id]').val(),
+                'timeoutExec': $('[name=timeoutExec]:checked').val(),
+                'linkId': 9999
+
+            }
+            
+                $.ajax({
+                    url: "/index/user/agentCreate",
+                    type: 'get',
+                    dataType: 'json',
+                    data:param,
+                    success: function (ret) {
+                        // ret.forEach(function (e) {
+                        //     var optionsItem = document.createElement("option");
+                        //     optionsItem.innerHTML = e.name;
+                        //     optionsItem.value = e.price
+                        //     var selectpicker = document.querySelector(".selectpicker")
+                        //     selectpicker.appendChild(optionsItem);
+                        // })
+
+                    },
+                    error: function (e) {}
+                });
+
+            });
+
+        },
+        dynamiclist: function () {
+            $(document).on("click", ".bianji", function () {
+                $.ajax({
+                    url: "/index/user/lineList",
+                    type: 'get',
+                    dataType: 'json',
+                    data: {},
+                    success: function (ret) {
+                        ret.data.linkList.forEach(function (e) {
+                            var optionsItem = document.createElement("option");
+                            optionsItem.innerHTML = e.name;
+                            optionsItem.value = e.id
+                            var selectpicker = document.querySelector(".selectpicker")
+                            selectpicker.appendChild(optionsItem);
+                        })
+
+                    },
+                    error: function (e) {
+
+                    }
+                });
+                Layer.open({
+                    type: 1,
+                    title: '信息',
+                    area: ["650px", "450px"],
+                    content: $(".propfrom"),
+                    skin: 'demo-class',
+                    success: function (layero) {
+                        $(".propfrom").removeClass("hidden")
+
+                    }
+                });
+
+            });
+        },
+
 
         login: function () {
             //本地验证未通过时提示
