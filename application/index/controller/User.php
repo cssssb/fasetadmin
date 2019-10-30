@@ -20,7 +20,7 @@ class User extends Frontend
     protected $layout = 'default';
     protected $noNeedLogin = ['login', 'register', 'third'];
     protected $noNeedRight = ['*'];
-    
+    private static $_url='';
     /**
      * ================
      * @Author:        css
@@ -156,7 +156,8 @@ class User extends Frontend
             if (!$result) {
                 $this->error(__($validate->getError()), null, ['token' => $this->request->token()]);
             }
-            if ($this->auth->register($username, $password, $email, $mobile,$_GET)) {
+            isset($_GET['inviter'])?$additional_data['inviter'] = $_GET['inviter']:false;
+            if ($this->auth->register($username, $password, $email, $mobile,$additional_data)) {
                 // die;
                 $this->success(__('Sign up successful'), $url ? $url : url('user/index'));
             } else {
@@ -619,10 +620,10 @@ class User extends Frontend
         // timestamp	string	秒级时间戳
         // agent_id：wvohjijo4gdrwmswawqsrxlbptpl5rd6 
         // agent_sec: 3m6710mpz6py4os28uxgmnawxkfjlwrc
-        private function _httpget($param=''){
+        private function _httpget(){
             $this->agent_id = 'wvohjijo4gdrwmswawqsrxlbptpl5rd6';
             $this->agent_sec = '3m6710mpz6py4os28uxgmnawxkfjlwrc';
-            $_url = 'timestamp='.time().'&agentid='.$this->agent_id.$param;
+            $_url = 'timestamp='.time().'&agentid='.$this->agent_id.self::$_url;
             $sign = md5($this->agent_id.$this->agent_sec.$_url.time());
             $url = 'http://b.api.vpn.cn:8080'.$this->url.$_url.'&sign='.$sign;
             header('Content-type:application/json;charset=utf-8');
@@ -680,7 +681,7 @@ class User extends Frontend
          * @Parameter:     
          * @DataTime:      2019-10-28
          * @Return:        
-         * @Notes:         vpn账号创建
+         * @Notes:         vpn账号创建（）
          * @ErrorReason:   
          * 
          * ================
@@ -698,7 +699,13 @@ class User extends Frontend
         // type	否	int	创建单个账号时是否名称增加01 默认增加01 type=1时不增加01
         // timeoutExec	是	string	设置动态账号在线超时后账号状态 add 增加一个使用次数/offline 账号下线
         public function agentCreate(){
-            $param = 'name,password,linkId,defaultLink,expireDate,isp,accountTotal,count,rand,type,timeoutExec';
+            $param = 'name,password,linkId,defaultLink,expireDate,isp,accountTotal,count,timeoutExec';
+            $param = $this->_dataFilter($param);
+            $param['rand'] = $this->_dataFilter('rand',false);
+            $param['type'] = $this->_dataFilter('type',false);
+            $this->url = '/agent/create?';
+            $data = $this->_httpget();
+            return $this->_postjsonencode($data);
         }
 
         /**
@@ -716,7 +723,10 @@ class User extends Frontend
             is_array($array) ? true : $array = explode(',', $array);
             $data = [];
             foreach ($array as $key) {
-                $data[$key] = $_GET[$key];
+                if(isset($_GET[$key])) {
+                    $data[$key] = $_GET[$key];
+                    self::$_url .="&$key=$_GET[$key]";
+                }
                 if ($strict) {
                     !isset($data[$key]) ? exit($this->_postjsonencode(['msg'=>"缺少参数$key"])) : true;
                 } else {
