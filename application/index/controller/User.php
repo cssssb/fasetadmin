@@ -79,6 +79,7 @@ class User extends Frontend
             Cookie::delete('uid');
             Cookie::delete('token');
         });
+        $this->_server_url = 'http://b.api.vpn.cn:8080';
     }
 
     /**
@@ -621,11 +622,12 @@ class User extends Frontend
         // agent_id：wvohjijo4gdrwmswawqsrxlbptpl5rd6 
         // agent_sec: 3m6710mpz6py4os28uxgmnawxkfjlwrc
         private function _httpget(){
+            
             $this->agent_id = 'wvohjijo4gdrwmswawqsrxlbptpl5rd6';
             $this->agent_sec = '3m6710mpz6py4os28uxgmnawxkfjlwrc';
             $_url = 'timestamp='.time().'&agentid='.$this->agent_id.self::$_url;
             $sign = md5($this->agent_id.$this->agent_sec.$_url.time());
-            $url = 'http://b.api.vpn.cn:8080'.$this->url.$_url.'&sign='.$sign;
+            $url = $this->_server_url.$this->url.$_url.'&sign='.$sign;
             header('Content-type:application/json;charset=utf-8');
             $demo = 'http://[代理接口地址]/agent/create?agentid=aaa&count=10&cusId=2602&defaultLink=1&timestamp=1546409119&sign=4594587996bae3728047ed807c7e36dd';
             $ch = curl_init();
@@ -699,14 +701,238 @@ class User extends Frontend
         // type	否	int	创建单个账号时是否名称增加01 默认增加01 type=1时不增加01
         // timeoutExec	是	string	设置动态账号在线超时后账号状态 add 增加一个使用次数/offline 账号下线
         public function agentCreate(){
-            $param = 'name,password,linkId,defaultLink,expireDate,isp,accountTotal,count,timeoutExec';
+            
+            $param = 'name,password,linkId,defaultLink,isp,timeoutExec';
             $param = $this->_dataFilter($param);
+            $param['accountTotal'] = $this->_dataFilter($param['accountTotal'],false);//静态数量 动态无此参数
+            $param['expireDate'] = $this->_dataFilter('expireDate',false);//静态到期时间，动态无此参数
+            $param['count'] = $this->_dataFilter('count',false);//动态切换ip次数，静态无此参数
             $param['rand'] = $this->_dataFilter('rand',false);
             $param['type'] = $this->_dataFilter('type',false);
+            self::$_url.='&cusId='.$this->auth->system_id;
+            //todo 判断是哪个服务器 写死的如果是1为e服务器
+            if($_GET['serve_id']==1){
+                //修改访问地址
+            $this->_server_url = 'https://e.api.vpn.cn:8080';
+            }
             $this->url = '/agent/create?';
             $data = $this->_httpget();
             return $this->_postjsonencode($data);
         }
+        
+
+        /**
+         * ================
+         * @Author:        css
+         * @Parameter:     
+         * @DataTime:      2019-10-30
+         * @Return:        
+         * @Notes:         vpn账号查询 /|?
+         * @ErrorReason:   
+         * ================
+         */
+        public function agentSearch(){
+            $param = 'cusId,id';
+            $param = $this->_dataFilter($param);
+            $this->url = '/agent/search/?';
+            $data = $this->_httpget();
+            return $this->_postjsonencode($data);
+        }
+
+
+        /**
+         * ================
+         * @Author:        css
+         * @Parameter:     
+         * @DataTime:      2019-10-30
+         * @Return:        
+         * @Notes:         vpn账号充值
+         * @ErrorReason:   
+         * ================
+         */
+        public function agentRecharge(){
+            $param = 'name';
+            $param = $this->_dataFilter($param);
+            $param['days'] = (int) $this->_dataFilter('days',false);//int
+            $param['count'] = $this->_dataFilter('count',false);
+            $param['cusId'] = $this->auth->serve_id;
+            $msg['msg'] = '操作有误';
+            if(isset($param['days'])||isset($param['count'])){
+                $this->url = '/agent/recharge/?';
+                $data = $this->_httpget();
+                return $this->_postjsonencode($data);
+            }
+            return $this->_postjsonencode($msg);
+
+        }
+
+        /**
+         * ================
+         * @Author:        css
+         * @Parameter:     
+         * @DataTime:      2019-10-30
+         * @Return:        
+         * @Notes:         客户列表
+         * @ErrorReason:   
+         * ================
+         */
+        public function getCustomersList(){
+            $this->url = '/agent/getCustomersList/?';
+            return $this->_postjsonencode($this->_httpget());
+        }
+
+        /**
+         * ================
+         * @Author:        css
+         * @Parameter:     
+         * @DataTime:      2019-10-30
+         * @Return:        
+         * @Notes:         修改vpn账号基础信息 
+         * @ErrorReason:   
+         * ================
+         */
+        // id	是	string	VPN账号id集合 1,2,3
+        // cusId	是	int	客户id
+        // password	是	string	密码
+        // status	是	int	账号状态 1启用 0禁用
+        // isp	是	int	运营商设置 0 不限 1联通 2电信 3移动 4 联通电信
+        // timeoutExec	是	string	设置动态账号在线超时后账号状态 add 增加一个使用次数/offline 账号下线
+        public function agentChangeAccBaseDatal(){
+            $param = 'id,password,status,isp';
+            $param = $this->_dataFilter($param);
+            //如果有此参数是修改动态的vpn
+            $param['timeoutExec'] = $this->_dataFilter('timeoutExec',false);
+            self::$_url .= '&cusId='.$this->auth->system_id;
+            $this->url = '/agent/changeAccBaseData/?';
+            $data = $this->_httpget();
+            return $this->_postjsonencode($data);
+        }
+
+        /**
+         * ================
+         * @Author:        css
+         * @Parameter:     
+         * @DataTime:      2019-10-30
+         * @Return:        
+         * @Notes:         修改vpn账号线路信息 
+         * @ErrorReason:   
+         * ================
+         */
+        // id	是	string	VPN账号id集合 1,2,3
+        // cusId	是	int	客户id
+        // linkId	是	string	线路id集合 linkId=1,2,3
+        // defaultLink	是	int	默认线路id
+        // rand	否	int	是否随机分配线路 1随机 0固定
+        // ip	否	string	要切换的客户端公网IP,不传则账号所有ip都会进行切换
+        // updateIp	是	int	是否强制更换IP地址:1=是,0=否
+         public function agentChangeAccEnableLinks(){
+             $param = 'id,linkId,defaultLink,updateIp';
+             $param = $this->_dataFilter($param);
+             $param['rand'] = $this->_dataFilter('rand',false);
+             $param['ip'] = $this->_dataFilter('ip',false);
+             self::$_url .= '&cusId='.$this->auth->system_id;
+             $this->url = '/agent/changeAccEnableLinks/?';
+             $data = $this->_httpget();
+             return $this->_postjsonencode($data);
+            //  {
+            //     "code":0,
+            //     "message":"success",
+            //     "data":{}
+            // }
+         }
+
+         /**
+          * ================
+          * @Author:        css
+          * @Parameter:     
+          * @DataTime:      2019-10-30
+          * @Return:        
+          * @Notes:    动态账号共享点数充值     
+          * @ErrorReason:   
+          * ================
+          */
+          public function agentRechargeDynShareByCustomId(){
+            $param['count'] = $this->_dataFilter('count');
+            self::$_url .= '&cusId='.$this->auth->system_id;
+            $this->url = '/agent/rechargeDynShareByCustomId';
+            $data = $this->_httpget();
+            return $this->_postjsonencode($data);
+          }
+
+        /**
+         * ================
+         * @Author:        css
+         * @Parameter:     
+         * @DataTime:      2019-10-30
+         * @Return:        
+         * @Notes:         VPN账号按名称查询
+         * @ErrorReason:   
+         * ================
+         */
+        // 参数名	必选	类型	说明
+        // cusId	是	int	客户id
+        // name	是	string	账号名称集合 A,B,C
+        // page	是	int	请求第几页的数据（默认每页返回50条数据）
+         public function agentSearchAccByName(){
+             $param = 'name,page';
+             $param = $this->_dataFilter($param);
+             self::$_url .= '&cusId='.$this->auth->system_id;
+             $this->url = '/agent/searchAccByName/?';
+             $data = $this->_httpget();
+             return $this->_postjsonencode($data);
+         }
+        //  {
+        //     "code": 0,
+        //     "message": "success",
+        //     "data": {
+        //         "count": "69",  //总数量
+        //         "pages": 2,     //总页数
+        //         "cur_page": 1,  //当前页
+        //         "size": 50,     //每页返回的数量
+        //         "accList": [{
+        //             "id": 21266,
+        //             "accType":"static",
+        //             "cusId": 274,
+        //             "groupId": 1754,
+        //             "username": "ah10053",
+        //             "expireTime": "2028-08-17 23:59:59",
+        //             "linkList": [{
+        //                 "linkId": 95,
+        //                 "isDefault": 1
+        //             }],
+        //             "isp": 1,
+        //             "isOnline": 0,
+        //             "dynShare": {
+        //                 "used": 0,
+        //                 "total": 0
+        //             },
+        //             "timeoutExec": "add",
+        //             "surplus": 30
+        //         }]
+        //     }
+        // }
+
+        /**
+         * ================
+         * @Author:        css
+         * @Parameter:     
+         * @DataTime:      2019-10-30
+         * @Return:        
+         * @Notes:         VPN账号按客户查询
+         * @ErrorReason:   
+         * ================
+         */
+        // cusId	是	int	客户id
+        // page	是	int	请求第几页的数据（每页默认返回50条）
+
+        public function agentSearchAccByCid(){
+            $param['page'] = $this->_dataFilter('page');
+            self::$_url .= '&cusId='.$this->auth->system_id;
+            $this->url = '/agent/searchAccByCid/?';
+            $data = $this->_httpget();
+            return $this->_postjsonencode($data);
+        }
+
 
         /**
          * ================
