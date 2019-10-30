@@ -702,9 +702,10 @@ class User extends Frontend
         // timeoutExec	是	string	设置动态账号在线超时后账号状态 add 增加一个使用次数/offline 账号下线
         public function agentCreate(){
             
-            $param = 'name,password,linkId,defaultLink,isp,timeoutExec';
+            $param = 'name,password,linkId,defaultLink,isp';
             $param = $this->_dataFilter($param);
-            $param['accountTotal'] = $this->_dataFilter($param['accountTotal'],false);//静态数量 动态无此参数
+            $param['accountTotal'] = $this->_dataFilter('accountTotal',false);//静态数量 动态无此参数
+            $param['timeoutExec'] = $this->_dataFilter('timeoutExec',false);//动态设置超时状态 静态无此参数
             $param['expireDate'] = $this->_dataFilter('expireDate',false);//静态到期时间，动态无此参数
             $param['count'] = $this->_dataFilter('count',false);//动态切换ip次数，静态无此参数
             $param['rand'] = $this->_dataFilter('rand',false);
