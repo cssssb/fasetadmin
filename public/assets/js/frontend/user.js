@@ -119,88 +119,70 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
             // 点击查询
             $(document).on("click", ".blacksearch", function () {
                 var passid = $("#ipaddress").val();
-                // $.ajax({
-                //     url: "/index/user/blacklistedQuery",
-                //     type: 'get',
-                //     dataType: 'json',
-                //     data: {
-                //         ip: passid
-                //     },
-                //     success: function (ret) {
-                //         if (ret.message == "success" && ret.data.searchList) {
-                //             var res = ret.data.searchList
-                //             var content = "<div>ip:" + res.remote_ip + "</div><div>创建时间：" + res.create_time + "</div><div>名称:" + res.acc + "</div><div>屏蔽时长:" + res.lot + "</div><div>原因:" + res.message + "</div>"
-                //             Layer.open({
-                //                 type: 1,
-                //                 title: '信息',
-                //                 area: ["300px", "200px"],
-                //                 content: content,
-                //                 skin: 'demo-class',
-                //                 success: function (layero) {
-
-                //                 }
-                //             });
-
-                //         }
-                //     },
-                //     error: function (e) {
-
-                //     }
-                // });
-                var content = "<div>ip:456789</div><div>创建时间:456789</div><div>名称:test</div><div>屏蔽时长:3天</div><div>原因:黄赌毒</div>";
+                var content
                 if (passid == "") {
                     content = "输入账号不能为空"
-                };
-                Layer.open({
-                    type: 1,
-                    title: '信息',
-                    area: ["300px", "200px"],
-                    content: content,
-                    skin: 'demo-class',
-                    success: function (layero) {
+                } else {
+                    $.ajax({
+                        url: "/index/user/blacklistedQuery",
+                        type: 'get',
+                        dataType: 'json',
+                        data: {
+                            ip: passid
+                        },
+                        success: function (ret) {
+                            if (ret.message == "success" && ret.data.searchList) {
+                                var res = ret.data.searchList
+                                content = "<div>ip:" + res.remote_ip + "</div><div>创建时间：" + res.create_time + "</div><div>名称:" + res.acc + "</div><div>屏蔽时长:" + res.lot + "</div><div>原因:" + res.message + "</div>"
 
-                    }
-                });
+                            }
+                        },
+                        error: function (e) {
+
+                        }
+                    });
+                    Layer.open({
+                        type: 1,
+                        title: '信息',
+                        area: ["300px", "200px"],
+                        content: content,
+                        skin: 'demo-class',
+                        success: function (layero) {
+
+                        }
+                    });
+                }
             });
             // 点击解除
             $(document).on("click", ".blackjiechu", function () {
                 var passid = $("#ipaddress").val();
-                // $.ajax({
-                //     url: "/index/user/deleteBlack",
-                //     type: 'get',
-                //     dataType: 'json',
-                //     data: {
-                //         ip: passid
-                //     },
-                //     success: function (ret) {
-                //         if (ret.message == "success" && ret.data.searchList) {
-                //             var res = ret.data.searchList
-                //             var content = "<div>ip:" + res.remote_ip + "解除成功</div><div>请立马解决触发原因</div><div>否则会再次发生屏蔽</div>"
-                //             Layer.open({
-                //                 type: 1,
-                //                 title: '信息',
-                //                 area: ["300px", "200px"],
-                //                 content: content,
-                //                 skin: 'demo-class',
-                //                 success: function (layero) {
-
-                //                 }
-                //             });
-
-                //         }
-                //     },
-                //     error: function (e) {
-
-                //     }
-                // });
-                var content = "<div>ip:" + passid + "解除成功</div><div>请立马解决触发原因</div><div>否则会再次发生屏蔽</div>"
+                var content
                 if (passid == "") {
                     content = "输入账号不能为空"
+                } else {
+                    $.ajax({
+                        url: "/index/user/deleteBlack",
+                        type: 'get',
+                        dataType: 'json',
+                        data: {
+                            ip: passid
+                        },
+                        success: function (ret) {
+                            if (ret.message == "success" && ret.data.searchList) {
+                                var res = ret.data.searchList
+                                content = "<div>ip:" + res.remote_ip + "解除成功</div><div>请立马解决触发原因</div><div>否则会再次发生屏蔽</div>";
+
+                            }
+                        },
+                        error: function (e) {
+
+                        }
+                    });
                 }
                 Layer.open({
                     type: 1,
                     title: '信息',
-                    area: ["250px", "150px"],
+                    area: ["300px", "200px"],
                     content: content,
                     skin: 'demo-class',
                     success: function (layero) {
@@ -248,38 +230,28 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
             });
             // 创建动态账号
             $(document).on("click", ".dynamicbtn", function () {
-                var uplode = $("#uploads")
-                var formData = new FormData(uplode);
-                formData.append('name', $('[name=name]').val());
-                formData.append('password', $('[name= password]').val());
-                formData.append('accountTotal', $('[name=accountTotal]').val());
-                formData.append('defaultLink', $('[name=defaultLink]').val());
-                formData.append('isp', $('[name= isp]:checked').val());
-                formData.append('count', $('[name=count]').val());
-                formData.append('serve_id', $('[name= serve_id]:checked').val());
-                formData.append('timeoutExec', $('[name=timeoutExec]:checked').val());
-                formData.append('linkId', 9999);
-            //     for(var value of formData.values()){
-            // 	console.log(value)
-            // }
-            var param={
-                'name':$('[name=name]').val(),
-                'password': $('[name= password]').val(),
-                'accountTotal':$('[name=accountTotal]').val(),
-                'name': $('[name=defaultLink]').val(),
-                'isp': $('[name= isp]:checked').val(),
-                'count': $('[name=count]').val(),
-                'serve_id':$('[name=serve_id]').val(),
-                'timeoutExec': $('[name=timeoutExec]:checked').val(),
-                'linkId': 9999
 
-            }
-            
+                //     for(var value of formData.values()){
+                // 	console.log(value)
+                // }
+                var param = {
+                    'name': $('[name=name]').val(),
+                    'password': $('[name= password]').val(),
+                    'accountTotal': $('[name=accountTotal]').val(),
+                    'defaultLink': $('[name=defaultLink]').val(),
+                    'isp': $('[name= isp]:checked').val(),
+                    'count': $('[name=count]').val(),
+                    'serve_id': $('[name=serve_id]').val(),
+                    'timeoutExec': $('[name=timeoutExec]:checked').val(),
+                    'linkId': 9999
+
+                }
+
                 $.ajax({
                     url: "/index/user/agentCreate",
                     type: 'get',
                     dataType: 'json',
-                    data:param,
+                    data: param,
                     success: function (ret) {
                         // ret.forEach(function (e) {
                         //     var optionsItem = document.createElement("option");
