@@ -702,6 +702,7 @@ class User extends Frontend
         // timeoutExec	是	string	设置动态账号在线超时后账号状态 add 增加一个使用次数/offline 账号下线
         public function agentCreate(){
             
+            $_GET['expireDate']='2099-12-31';
             $param = 'name,password,linkId,defaultLink,isp';
             $param = $this->_dataFilter($param);
             $param['accountTotal'] = $this->_dataFilter('accountTotal',false);//静态数量 动态无此参数
@@ -710,12 +711,14 @@ class User extends Frontend
             $param['count'] = $this->_dataFilter('count',false);//动态切换ip次数，静态无此参数
             $param['rand'] = $this->_dataFilter('rand',false);
             $param['type'] = $this->_dataFilter('type',false);
+            // expireDate
             self::$_url.='&cusId='.$this->auth->system_id;
+            // echo self::$_url;
             //todo 判断是哪个服务器 写死的如果是1为e服务器
-            if($_GET['serve_id']==1){
-                //修改访问地址
-            $this->_server_url = 'https://e.api.vpn.cn:8080';
-            }
+            // if($_GET['serve_id']==1){
+            //     //修改访问地址
+            // $this->_server_url = 'https://e.api.vpn.cn:8080';
+            // }
             $this->url = '/agent/create?';
             $data = $this->_httpget();
             return $this->_postjsonencode($data);
