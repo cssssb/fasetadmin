@@ -44,70 +44,181 @@
         <div class="col-md-9">
             <div class="panel panel-default panel-recharge">
                 <div class="panel-body">
-                            <form id="add-form" class="form-horizontal nice-validator n-default n-bootstrap propfrom hidden" role="form"
-                            data-toggle="validator">
-                            <input type="hidden" name="__token__" value="4ec42dcfdb4c3eb8a5789e123390f644">
+                    <!-- 勾选账号 -->
+                    <div class="checkedcontent hidden">
+                        <h4 class="page-header" style="font-size:14px">注意：对 所勾选的若干条vpn账号充值 相同的点数 从新选择vpn请关闭窗口</h4>
+                        <form id="selfvpn-form" class="form-horizontal nice-validator n-default n-bootstrap" role="form"
+                            data-toggle="validator" method="POST" action="" novalidate="novalidate">
+                            <input type="hidden" name="__token__" value="c35ddc7eb12f8a1b2683d95365fe6916">
                             <div class="form-group">
-                                <label class="control-label col-xs-12 col-sm-4">连接账号:</label>
-                                <div class="col-xs-12 col-sm-4">
-                                    <input readonly="1" name="row[name]" class="form-control" type="text" value="chiyu-20">
+                                <label class="control-label col-xs-3 col-sm-4" style="text-align:right">账号名称:</label>
+                                <div class="col-xs-8 col-sm-4">
+                                    <input id="c-vcname" class="form-control" name="vcname" type="text" value=""
+                                        style="background: #fff">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-xs-12 col-sm-4">连接密码:</label>
-                                <div class="col-xs-12 col-sm-4">
-                                    <input name="row[password]" class="form-control" type="text" value="123"> </div>
-                            </div>
-                            <div class="form-group ">
-                                <label class="control-label col-xs-12 col-sm-4">默认线路:</label>
-                                <div class="col-xs-12 col-sm-4">
-                                    <select id="link" class="selectpicker form-control" name="row[defaultLink]"
-                                        tabindex="-98">
-                                        <option value="0">请选择默认线路</option>
-                                    </select>
-                                </div>
-    
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-xs-12 col-sm-4">运营商:</label>
-                                <div class="col-xs-12 col-sm-4">
-                                    <div class="radio"><label for="row[isp]-1"><input id="row[isp]-1" name="row[isp]"
-                                                type="radio" value="1"> 联通</label> <label for="row[isp]-2"><input
-                                                id="row[isp]-2" name="row[isp]" type="radio" value="2"> 电信</label> <label
-                                            for="row[isp]-3"><input id="row[isp]-3" checked="checked" name="row[isp]"
-                                                type="radio" value="3"> 移动</label> <label for="row[isp]-0"><input
-                                                id="row[isp]-0" name="row[isp]" type="radio" value="0"> 不限</label></div>
+                                <label class="control-label col-xs-3 col-sm-4" style="text-align:right">剩余额度:</label>
+                                <div class="col-xs-8 col-sm-4">
+                                    <input id="c-surplus" class="form-control" name="surplus" type="text" value=""
+                                        style="background: #fff">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-xs-12 col-sm-4">动态ip账号在线超时设置:</label>
-                                <div class="col-xs-12 col-sm-4">
-                                    <div class="radio"><label for="row[timeoutExec]-add"><input id="row[timeoutExec]-add"
-                                                checked="checked" name="row[timeoutExec]" type="radio" value="add"> 超时后
-                                            每隔5分钟 增加1个使用次数</label> <label for="row[timeoutExec]-offline"><input
-                                                id="row[timeoutExec]-offline" name="row[timeoutExec]" type="radio"
-                                                value="offline"> 超时后 断开连接</label></div>
+                                <label class="control-label col-xs-3 col-sm-4" style="text-align:right">充点数量:</label>
+                                <div class="col-xs-8 col-sm-4">
+                                    <input id="c-count" class="form-control" name="count" type="text" value="">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-xs-12 col-sm-4">账号状态:</label>
-                                <div class="col-xs-12 col-sm-4">
-                                    <div class="radio"><label for="row[status]-1"><input id="row[status]-1"
-                                                checked="checked" name="row[status]" type="radio" value="1"> 启用</label>
-                                    </div>
-                                </div>
+                                <label class="control-label col-xs-3 col-sm-4" style="text-align:right">点数:</label>
+                                <label class="control-label col-xs-8 col-sm-4" style="text-align:left"><span
+                                        style="color:red" id="code"></span></label>
                             </div>
-                           
+                            <div class="form-group">
+                                <label class="control-label col-xs-3 col-sm-4" style="text-align:right">可用点数:</label>
+                                <label class="control-label col-xs-8 col-sm-4" style="text-align:left"><span
+                                        style="color:#18bc9c">0</span></label>
+                            </div>
                             <div class="form-group layer-footer">
                                 <label class="control-label col-xs-12 col-sm-4"></label>
-                                <div class="col-xs-12 col-sm-8">
-                                    <button type="submit" class="btn btn-success btn-embossed">提交</button>
+                                <div class="col-xs-12 col-sm-4">
+                                    <button type="button" class="btn btn-success btn-embossed">确定</button>
                                     <button type="reset" class="btn btn-default btn-embossed">重置</button>
                                 </div>
                             </div>
                         </form>
 
-                   
+                    </div>
+                    <!-- 静态充值 -->
+                    <div class="staticcontent hidden">
+                        <h4 class="page-header" style="font-size:14px">注意：信息输入后 先点击查询 组成员 数量进行确认</h4>
+                        <form id="selfvpn-form" class="form-horizontal nice-validator n-default n-bootstrap" role="form"
+                            data-toggle="validator" method="POST" action="" novalidate="novalidate">
+                            <input type="hidden" name="__token__" value="586b2845924a650b0dba5f77bb305b08">
+                            <div class="form-group">
+                                <label class="control-label col-xs-3 col-sm-4" style="text-align:right">vpn主账号:</label>
+                                <div class="col-xs-8 col-sm-4">
+                                    <input id="c-vcname" class="form-control" name="row[username]" type="text"
+                                        value="jiemoip">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-3 col-sm-4" style="text-align:right">组ID:</label>
+                                <div class="col-xs-8 col-sm-4">
+                                    <input id="c-groupid" class="form-control" name="row[vcgroupId]" type="text"
+                                        value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-3 col-sm-4" style="text-align:right">充值天数:</label>
+                                <div class="col-xs-8 col-sm-4">
+                                    <input id="c-count" class="form-control" name="row[count]" type="text" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-3 col-sm-4" style="text-align:right">组成员数量:</label>
+                                <div class="col-xs-8 col-sm-4">
+                                    <input id="groupnum" class="form-control" name="row[groupnum]" type="text" value=""
+                                        readonly="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-3 col-sm-4" style="text-align:right">点数:</label>
+                                <label class="control-label col-xs-8 col-sm-4" style="text-align:left"><span
+                                        style="color:red" id="code"></span></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-3 col-sm-4" style="text-align:right">可用点数:</label>
+                                <label class="control-label col-xs-8 col-sm-4" style="text-align:left"><span
+                                        style="color:#18bc9c">0</span></label>
+                            </div>
+                            <div class="form-group layer-footer" style="display:none">
+                                <label class="control-label col-xs-12 col-sm-4"></label>
+                                <div class="col-xs-12 col-sm-6">
+                                    <button type="submit" class="btn btn-success btn-embossed">确定</button>
+                                    <button type="button" class="btn btn-info btn-embossed" id="group">查询</button>
+                                    <button type="reset" class="btn btn-default btn-embossed">重置</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <!-- taren -->
+                    <div class=" otherprop hidden error" style="text-align: center">
+                        <div class="image">
+                            <img src="/assets/img/error.svg" alt="" width="150">
+                        </div>
+                        <h1>没有此权限</h1>
+                        <p class="clearfix">
+                            <a href="/" class="btn btn-grey">返回首页</a>
+                        </p>
+                    </div>
+                    <!-- 编辑的html -->
+                    <form id="add-form" class="form-horizontal nice-validator n-default n-bootstrap propfrom hidden"
+                        role="form" data-toggle="validator">
+                        <input type="hidden" name="__token__" value="4ec42dcfdb4c3eb8a5789e123390f644">
+                        <div class="form-group">
+                            <label class="control-label col-xs-12 col-sm-4">连接账号:</label>
+                            <div class="col-xs-12 col-sm-4">
+                                <input readonly="1" name="row[name]" class="form-control" type="text" value="chiyu-20">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-12 col-sm-4">连接密码:</label>
+                            <div class="col-xs-12 col-sm-4">
+                                <input name="row[password]" class="form-control" type="text" value="123"> </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="control-label col-xs-12 col-sm-4">默认线路:</label>
+                            <div class="col-xs-12 col-sm-4">
+                                <select id="link" class="selectpicker form-control" name="row[defaultLink]"
+                                    tabindex="-98">
+                                    <option value="0">请选择默认线路</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-12 col-sm-4">运营商:</label>
+                            <div class="col-xs-12 col-sm-4">
+                                <div class="radio"><label for="row[isp]-1"><input id="row[isp]-1" name="row[isp]"
+                                            type="radio" value="1"> 联通</label> <label for="row[isp]-2"><input
+                                            id="row[isp]-2" name="row[isp]" type="radio" value="2"> 电信</label> <label
+                                        for="row[isp]-3"><input id="row[isp]-3" checked="checked" name="row[isp]"
+                                            type="radio" value="3"> 移动</label> <label for="row[isp]-0"><input
+                                            id="row[isp]-0" name="row[isp]" type="radio" value="0"> 不限</label></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-12 col-sm-4">动态ip账号在线超时设置:</label>
+                            <div class="col-xs-12 col-sm-4">
+                                <div class="radio"><label for="row[timeoutExec]-add"><input id="row[timeoutExec]-add"
+                                            checked="checked" name="row[timeoutExec]" type="radio" value="add"> 超时后
+                                        每隔5分钟 增加1个使用次数</label> <label for="row[timeoutExec]-offline"><input
+                                            id="row[timeoutExec]-offline" name="row[timeoutExec]" type="radio"
+                                            value="offline"> 超时后 断开连接</label></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-12 col-sm-4">账号状态:</label>
+                            <div class="col-xs-12 col-sm-4">
+                                <div class="radio"><label for="row[status]-1"><input id="row[status]-1"
+                                            checked="checked" name="row[status]" type="radio" value="1"> 启用</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group layer-footer">
+                            <label class="control-label col-xs-12 col-sm-4"></label>
+                            <div class="col-xs-12 col-sm-8">
+                                <button type="submit" class="btn btn-success btn-embossed">提交</button>
+                                <button type="reset" class="btn btn-default btn-embossed">重置</button>
+                            </div>
+                        </div>
+                    </form>
+
+
 
                     <h2 class="page-header">动态列表----疑问联系客服 支持API快速切换地区 配置后可脚本快速切换地区 请及时停止次数不够的账号连接 密码错误的连接
                         会本地IP进黑名单 请去主账号界面自助解封 新人不推荐冲共享点数 建议用多少冲多少！
@@ -124,9 +235,15 @@
                             <div id="toolbar" class="toolbar">
                                 <a href="javascript:;" class="btn btn-primary btn-refresh" title="刷新"><i
                                         class="fa fa-refresh"></i> </a>
-                                <a class="btn btn-info btn-disabled disabled btn-selfvpn" href="javascript:;">勾选账号充点</a>
-                                <a class="btn btn-success btn-groupvpn" href="javascript:;">静态按组充点</a>
-                                <a class="btn btn-warning btn-othervpn" href="javascript:;">为他人充点</a>
+
+                                        <div class="gouxuan"> <a
+                                            class="btn btn-info btn-disabled disabled btn-selfvpn"
+                                            href="javascript:;">勾选账号充点</a></div>
+                                    <div class="staticgroup"><a class="btn btn-success btn-groupvpn"
+                                            href="javascript:;">静态按组充点</a></div>
+                                    <div class="other"><a class="btn btn-warning btn-othervpn"
+                                            href="javascript:;">为他人充点</a></div>
+
                                 <a href="javascript:;" class="btn btn-default" style="font-size:12px;color:dodgerblue;">
                                     <span class="extend">
                                         剩余点数：<span id="money">0</span>
@@ -241,23 +358,7 @@
                                             </th>
 
                                         </tr>
-                                        <tr style="text-align: center; vertical-align: middle;">
-                                            <td><input type="checkbox" name="checkone" id="checkone"></td>
-                                            <td>chiyu-20</td>
-                                            <td>2019-08-06 18:24:39</td>
-                                            <td>唐山</td>
-                                            <td>增加</td>
-                                            <td><span
-                                                    style="background: #2c3e50;color: #fff;padding: 2px 8px;border-radius:5px">0/1</span>
-                                            </td>
-                                            <td><span class="text-danger"><i class="fa fa-circle"></i> 离线</span></td>
-                                            <td><a href="javascript:;" class="btn btn-xs btn-success btn-editone"
-                                                    data-toggle="tooltip" title="" data-table-id="table"
-                                                    data-field-index="8" data-row-index="0" data-button-index="1"
-                                                    data-original-title="编辑"><i class="fa fa-pencil"></i></a>
-                                            </td>
 
-                                        </tr>
                                         <tr style="text-align: center; vertical-align: middle;">
                                             <td><input type="checkbox" name="checkone" id="checkone"></td>
                                             <td>chiyu-20</td>
@@ -268,24 +369,8 @@
                                                     style="background: #2c3e50;color: #fff;padding: 2px 8px;border-radius:5px">0/1</span>
                                             </td>
                                             <td><span class="text-danger"><i class="fa fa-circle"></i> 离线</span></td>
-                                            <td><a href="javascript:;" class="btn btn-xs btn-success btn-editone"
-                                                    data-toggle="tooltip" title="" data-table-id="table"
-                                                    data-field-index="8" data-row-index="0" data-button-index="1"
+                                            <td class="bianji"><a class="btn btn-xs btn-success btn-editone"
                                                     data-original-title="编辑"><i class="fa fa-pencil"></i></a>
-                                            </td>
-
-                                        </tr>
-                                        <tr style="text-align: center; vertical-align: middle;">
-                                            <td><input type="checkbox" name="checkone" id="checkone"></td>
-                                            <td>chiyu-20</td>
-                                            <td>2019-08-06 18:24:39</td>
-                                            <td>唐山</td>
-                                            <td>增加</td>
-                                            <td><span
-                                                    style="background: #2c3e50;color: #fff;padding: 2px 8px;border-radius:5px">0/1</span>
-                                            </td>
-                                            <td><span class="text-danger"><i class="fa fa-circle"></i> 离线</span></td>
-                                            <td class="bianji"><a  class="btn btn-xs btn-success btn-editone" data-original-title="编辑"><i class="fa fa-pencil"></i></a>
                                             </td>
 
                                         </tr>
@@ -449,12 +534,21 @@
             margin-left: 0;
             margin-right: 0;
         }
-        .layui-layer-content{
+
+        .layui-layer-content {
             padding: 10px;
         }
-        body .demo-class .layui-layer-title{background:#2c3e50; color:#fff; border: none;}
-        .demo-class  .layui-layer-close1{
+
+        body .demo-class .layui-layer-title {
+            background: #2c3e50;
+            color: #fff;
+            border: none;
+        }
+
+        .demo-class .layui-layer-close1 {
             color: #fff !important
         }
+        .toolbar div {
+            display: inline-block
+        }
     </style>
-    
