@@ -43,6 +43,176 @@
         </div>
         <div class="col-md-9">
             <div class="panel panel-default panel-recharge">
+                <!-- 勾选 -->
+                <div class="checkedcontent hidden">
+                    <h4 class="page-header" style="font-size:14px">注意：对 所勾选的若干条vpn账号充值 相同的点数 从新选择vpn请关闭窗口</h4>
+                    <form id="selfvpn-form" class="form-horizontal nice-validator n-default n-bootstrap" role="form"
+                        data-toggle="validator" method="POST" action="" novalidate="novalidate">
+                        <input type="hidden" name="__token__" value="c35ddc7eb12f8a1b2683d95365fe6916">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3 col-sm-4" style="text-align:right">账号名称:</label>
+                            <div class="col-xs-8 col-sm-4">
+                                <input id="c-vcname" class="form-control" name="vcname" type="text" value=""
+                                    style="background: #fff">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3 col-sm-4" style="text-align:right">剩余额度:</label>
+                            <div class="col-xs-8 col-sm-4">
+                                <input id="c-surplus" class="form-control" name="surplus" type="text" value=""
+                                    style="background: #fff">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3 col-sm-4" style="text-align:right">充点数量:</label>
+                            <div class="col-xs-8 col-sm-4">
+                                <input id="c-count" class="form-control" name="count" type="text" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3 col-sm-4" style="text-align:right">点数:</label>
+                            <label class="control-label col-xs-8 col-sm-4" style="text-align:left"><span
+                                    style="color:red" id="code"></span></label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3 col-sm-4" style="text-align:right">可用点数:</label>
+                            <label class="control-label col-xs-8 col-sm-4" style="text-align:left"><span
+                                    style="color:#18bc9c">0</span></label>
+                        </div>
+                        <div class="form-group layer-footer">
+                            <label class="control-label col-xs-12 col-sm-4"></label>
+                            <div class="col-xs-12 col-sm-4">
+                                <button type="button" class="btn btn-success btn-embossed">确定</button>
+                                <button type="reset" class="btn btn-default btn-embossed">重置</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <!-- 静态充值 -->
+                <div class="staticcontent hidden">
+                    <h4 class="page-header" style="font-size:14px">注意：信息输入后 先点击查询 组成员 数量进行确认</h4>
+                    <form id="selfvpn-form" class="form-horizontal nice-validator n-default n-bootstrap" role="form"
+                        data-toggle="validator" method="POST" action="" novalidate="novalidate">
+                        <input type="hidden" name="__token__" value="586b2845924a650b0dba5f77bb305b08">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3 col-sm-4" style="text-align:right">vpn主账号:</label>
+                            <div class="col-xs-8 col-sm-4">
+                                <input id="c-vcname" class="form-control" name="row[username]" type="text"
+                                    value="jiemoip">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3 col-sm-4" style="text-align:right">组ID:</label>
+                            <div class="col-xs-8 col-sm-4">
+                                <input id="c-groupid" class="form-control" name="row[vcgroupId]" type="text" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3 col-sm-4" style="text-align:right">充值天数:</label>
+                            <div class="col-xs-8 col-sm-4">
+                                <input id="c-count" class="form-control" name="row[count]" type="text" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3 col-sm-4" style="text-align:right">组成员数量:</label>
+                            <div class="col-xs-8 col-sm-4">
+                                <input id="groupnum" class="form-control" name="row[groupnum]" type="text" value=""
+                                    readonly="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3 col-sm-4" style="text-align:right">点数:</label>
+                            <label class="control-label col-xs-8 col-sm-4" style="text-align:left"><span
+                                    style="color:red" id="code"></span></label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3 col-sm-4" style="text-align:right">可用点数:</label>
+                            <label class="control-label col-xs-8 col-sm-4" style="text-align:left"><span
+                                    style="color:#18bc9c">0</span></label>
+                        </div>
+                        <div class="form-group layer-footer">
+                            <label class="control-label col-xs-12 col-sm-4"></label>
+                            <div class="col-xs-12 col-sm-6">
+                                <button type="submit" class="btn btn-success btn-embossed">确定</button>
+                                <button type="button" class="btn btn-info btn-embossed" id="group">查询</button>
+                                <button type="reset" class="btn btn-default btn-embossed">重置</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- taren -->
+                <div class=" otherprop hidden error" style="text-align: center">
+                    <div class="image">
+                        <img src="/assets/img/error.svg" alt="" width="150">
+                    </div>
+                    <h1>没有此权限</h1>
+                    <p class="clearfix">
+                        <a href="/" class="btn btn-grey">返回首页</a>
+                    </p>
+                </div>
+                <form id="add-form" class="form-horizontal nice-validator n-default n-bootstrap hidden staticxiugai"
+                    role="form" data-toggle="validator" method="POST" action="" novalidate="novalidate">
+                    <input type="hidden" name="__token__" value="6b018ffbea1112cbb66d8f20e9779597">
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-4">连接账号:</label>
+                        <div class="col-xs-12 col-sm-4">
+                            <input readonly="1" name="row[name]" class="form-control" type="text" value="ddgg04">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-4">连接密码:</label>
+                        <div class="col-xs-12 col-sm-4">
+                            <input name="row[password]" class="form-control" type="text" value="888"> </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-4">默认线路:</label>
+                        <div class="col-xs-12 col-sm-4">
+                            <select id="link" class="selectpicker form-control" name="row[defaultLink]" tabindex="-98">
+                                <option value="0">请选择默认线路</option>
+
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-4">运营商:</label>
+                        <div class="col-xs-12 col-sm-4">
+                            <div class="radio"><label for="row[isp]-1"><input id="row[isp]-1" checked="checked"
+                                        name="row[isp]" type="radio" value="1"> 联通</label> <label
+                                    for="row[isp]-2"><input id="row[isp]-2" name="row[isp]" type="radio" value="2">
+                                    电信</label> <label for="row[isp]-3"><input id="row[isp]-3" name="row[isp]"
+                                        type="radio" value="3"> 移动</label> <label for="row[isp]-0"><input
+                                        id="row[isp]-0" name="row[isp]" type="radio" value="0"> 不限</label></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-4">账号状态:</label>
+                        <div class="col-xs-12 col-sm-4">
+                            <div class="radio"><label for="row[status]-1"><input id="row[status]-1" checked="checked"
+                                        name="row[status]" type="radio" value="1"> 启用</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" hidden="">
+                        <div class="col-xs-12 col-sm-4">
+                            <input name="row[linkId]" class="form-control" type="text"
+                                value="1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229">
+                        </div>
+                    </div>
+                    <div class="form-group" hidden="">
+                        <div class="col-xs-12 col-sm-4">
+                            <input id="linkname" name="link[linkname]" class="form-control" type="text" value="上海">
+                        </div>
+                    </div>
+                    <div class="form-group layer-footer">
+                        <label class="control-label col-xs-12 col-sm-4"></label>
+                        <div class="col-xs-12 col-sm-8">
+                            <button type="submit" class="btn btn-success btn-embossed">提交</button>
+                            <button type="reset" class="btn btn-default btn-embossed">重置</button>
+                        </div>
+                    </div>
+                </form>
                 <h2 class="page-header">静态vpn列表---单静态连接账号每天限制1次地区更换 用于变更ip 请及时停止次数不够的账号连接 密码错误的连接 多次尝试可能造成您本地IP进黑名单
                     遇到这种情况请重启本地路由器和光猫 换一个IP即可 固定IP的请发IP给客服 帮你解黑名单
                 </h2>
@@ -58,25 +228,28 @@
                                             novalidate="" method="post" action="">
                                             <fieldset>
                                                 <div class="row">
-                                                    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3"><label
-                                                            for="vcname" class="control-label col-xs-4">连接账号</label>
+                                                    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                                                        <label for="vcname" class="control-label col-xs-4">连接账号</label>
                                                         <div class="col-xs-8"><input type="hidden"
                                                                 class="form-control operate" name="vcname-operate"
                                                                 data-name="vcname" value="=" readonly=""><input
                                                                 type="text" class="form-control" name="vcname" value=""
                                                                 placeholder="连接账号" id="vcname" data-index="1"></div>
                                                     </div>
-                                                    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3"><label
-                                                            for="vcgroupId" class="control-label col-xs-4">组ID</label>
+                                                    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                                                        <label for="vcgroupId"
+                                                            class="control-label col-xs-4">组ID</label>
                                                         <div class="col-xs-8"><input type="hidden"
                                                                 class="form-control operate" name="vcgroupId-operate"
                                                                 data-name="vcgroupId" value="=" readonly=""><input
                                                                 type="text" class="form-control" name="vcgroupId"
                                                                 value="" placeholder="组ID" id="vcgroupId"
-                                                                data-index="2"></div>
+                                                                data-index="2">
+                                                        </div>
                                                     </div>
-                                                    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3"><label
-                                                            for="createtime" class="control-label col-xs-4">创建时间</label>
+                                                    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                                                        <label for="createtime"
+                                                            class="control-label col-xs-4">创建时间</label>
                                                         <div class="col-xs-8"><input type="hidden"
                                                                 class="form-control operate" name="createtime-operate"
                                                                 data-name="createtime" value="RANGE" readonly=""><input
@@ -84,15 +257,16 @@
                                                                 name="createtime" value="" placeholder="创建时间"
                                                                 id="createtime" data-index="3"></div>
                                                     </div>
-                                                    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3"><label
-                                                            for="vcexpireDate"
+                                                    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                                                        <label for="vcexpireDate"
                                                             class="control-label col-xs-4">到期时间</label>
                                                         <div class="col-xs-8"><input type="hidden"
                                                                 class="form-control operate" name="vcexpireDate-operate"
                                                                 data-name="vcexpireDate" value="LIKE" readonly=""><input
                                                                 type="text" class="form-control" name="vcexpireDate"
                                                                 value="" placeholder="到期时间" id="vcexpireDate"
-                                                                data-index="6"></div>
+                                                                data-index="6">
+                                                        </div>
                                                     </div>
                                                     <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                                                         <div class="col-sm-8 col-xs-offset-4"><button type="submit"
@@ -107,12 +281,17 @@
                                     <div class="fixed-table-toolbar">
                                         <div class="bs-bars pull-left">
                                             <div id="toolbar" class="toolbar">
+
                                                 <a href="javascript:;" class="btn btn-primary btn-refresh" title="刷新"><i
                                                         class="fa fa-refresh"></i> </a>
-                                                <a class="btn btn-info btn-disabled disabled btn-selfvpn"
-                                                    href="javascript:;">勾选账号充点</a>
-                                                <a class="btn btn-success btn-groupvpn" href="javascript:;">静态按组充点</a>
-                                                <a class="btn btn-warning btn-othervpn" href="javascript:;">为他人充点</a>
+                                                <div class="gouxuan"> <a
+                                                        class="btn btn-info btn-disabled disabled btn-selfvpn"
+                                                        href="javascript:;">勾选账号充点</a></div>
+                                                <div class="staticgroup"><a class="btn btn-success btn-groupvpn"
+                                                        href="javascript:;">静态按组充点</a></div>
+                                                <div class="other"><a class="btn btn-warning btn-othervpn"
+                                                        href="javascript:;">为他人充点</a></div>
+
                                                 <a href="javascript:;" class="btn btn-default"
                                                     style="font-size:12px;color:dodgerblue;">
                                                     <span class="extend">
@@ -145,7 +324,8 @@
                                                                 data-field="createtime" value="3" checked="checked">
                                                             创建时间</label></li>
                                                     <li role="menuitem"><label><input type="checkbox" data-field="vcisp"
-                                                                value="4" checked="checked"> 运营商</label></li>
+                                                                value="4" checked="checked">
+                                                            运营商</label></li>
                                                     <li role="menuitem"><label><input type="checkbox"
                                                                 data-field="vcdefaultLinkname" value="5"
                                                                 checked="checked"> 线路</label></li>
@@ -248,252 +428,27 @@
                                                     <tr data-index="0">
                                                         <td class="bs-checkbox "><input data-index="0"
                                                                 name="btSelectItem" type="checkbox"></td>
-                                                        <td style="text-align: center; vertical-align: middle; ">ddgg04
+                                                        <td style="text-align: center; vertical-align: middle; ">
+                                                            ddgg04
                                                         </td>
-                                                        <td style="text-align: center; vertical-align: middle; ">17435
+                                                        <td style="text-align: center; vertical-align: middle; ">
+                                                            17435
                                                         </td>
                                                         <td style="text-align: center; vertical-align: middle; ">
                                                             2019-05-20 14:32:43</td>
-                                                        <td style="text-align: center; vertical-align: middle; "><span
-                                                                class="text-success">联通</span></td>
-                                                        <td style="text-align: center; vertical-align: middle; ">上海</td>
+                                                        <td style="text-align: center; vertical-align: middle; ">
+                                                            <span class="text-success">联通</span></td>
+                                                        <td style="text-align: center; vertical-align: middle; ">上海
+                                                        </td>
                                                         <td style="text-align: center; vertical-align: middle; ">
                                                             2019-07-09 23:59:59</td>
-                                                        <td style="text-align: center; vertical-align: middle; "><span
-                                                                class="text-danger"><i class="fa fa-circle"></i>
+                                                        <td style="text-align: center; vertical-align: middle; ">
+                                                            <span class="text-danger"><i class="fa fa-circle"></i>
                                                                 离线</span></td>
-                                                        <td style="text-align: center; vertical-align: middle; "><a
-                                                                href="/addons/vpn/accounts/edit/ids/13620"
-                                                                class="btn btn-xs btn-success btn-editone"
+                                                        <td style="text-align: center; vertical-align: middle; "
+                                                            class="bianji"><a class="btn btn-xs btn-success btn-editone"
                                                                 data-toggle="tooltip" title="编辑" data-table-id="table"
                                                                 data-field-index="8" data-row-index="0"
-                                                                data-button-index="1"><i class="fa fa-pencil"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr data-index="1">
-                                                        <td class="bs-checkbox "><input data-index="1"
-                                                                name="btSelectItem" type="checkbox"></td>
-                                                        <td style="text-align: center; vertical-align: middle; ">ddgg03
-                                                        </td>
-                                                        <td style="text-align: center; vertical-align: middle; ">17435
-                                                        </td>
-                                                        <td style="text-align: center; vertical-align: middle; ">
-                                                            2019-05-20 14:32:43</td>
-                                                        <td style="text-align: center; vertical-align: middle; "><span
-                                                                class="text-success">联通</span></td>
-                                                        <td style="text-align: center; vertical-align: middle; ">江苏</td>
-                                                        <td style="text-align: center; vertical-align: middle; ">
-                                                            2019-05-21</td>
-                                                        <td style="text-align: center; vertical-align: middle; "><span
-                                                                class="text-danger"><i class="fa fa-circle"></i>
-                                                                离线</span></td>
-                                                        <td style="text-align: center; vertical-align: middle; "><a
-                                                                href="/addons/vpn/accounts/edit/ids/13619"
-                                                                class="btn btn-xs btn-success btn-editone"
-                                                                data-toggle="tooltip" title="编辑" data-table-id="table"
-                                                                data-field-index="8" data-row-index="1"
-                                                                data-button-index="1"><i class="fa fa-pencil"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr data-index="2">
-                                                        <td class="bs-checkbox "><input data-index="2"
-                                                                name="btSelectItem" type="checkbox"></td>
-                                                        <td style="text-align: center; vertical-align: middle; ">ddgg02
-                                                        </td>
-                                                        <td style="text-align: center; vertical-align: middle; ">17435
-                                                        </td>
-                                                        <td style="text-align: center; vertical-align: middle; ">
-                                                            2019-05-20 14:32:43</td>
-                                                        <td style="text-align: center; vertical-align: middle; "><span
-                                                                class="text-success">联通</span></td>
-                                                        <td style="text-align: center; vertical-align: middle; ">江苏</td>
-                                                        <td style="text-align: center; vertical-align: middle; ">
-                                                            2019-05-21</td>
-                                                        <td style="text-align: center; vertical-align: middle; "><span
-                                                                class="text-danger"><i class="fa fa-circle"></i>
-                                                                离线</span></td>
-                                                        <td style="text-align: center; vertical-align: middle; "><a
-                                                                href="/addons/vpn/accounts/edit/ids/13618"
-                                                                class="btn btn-xs btn-success btn-editone"
-                                                                data-toggle="tooltip" title="编辑" data-table-id="table"
-                                                                data-field-index="8" data-row-index="2"
-                                                                data-button-index="1"><i class="fa fa-pencil"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr data-index="3">
-                                                        <td class="bs-checkbox "><input data-index="3"
-                                                                name="btSelectItem" type="checkbox"></td>
-                                                        <td style="text-align: center; vertical-align: middle; ">ddgg01
-                                                        </td>
-                                                        <td style="text-align: center; vertical-align: middle; ">17435
-                                                        </td>
-                                                        <td style="text-align: center; vertical-align: middle; ">
-                                                            2019-05-20 14:32:43</td>
-                                                        <td style="text-align: center; vertical-align: middle; "><span
-                                                                class="text-success">联通</span></td>
-                                                        <td style="text-align: center; vertical-align: middle; ">江苏</td>
-                                                        <td style="text-align: center; vertical-align: middle; ">
-                                                            2019-05-21</td>
-                                                        <td style="text-align: center; vertical-align: middle; "><span
-                                                                class="text-danger"><i class="fa fa-circle"></i>
-                                                                离线</span></td>
-                                                        <td style="text-align: center; vertical-align: middle; "><a
-                                                                href="/addons/vpn/accounts/edit/ids/13617"
-                                                                class="btn btn-xs btn-success btn-editone"
-                                                                data-toggle="tooltip" title="编辑" data-table-id="table"
-                                                                data-field-index="8" data-row-index="3"
-                                                                data-button-index="1"><i class="fa fa-pencil"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr data-index="4">
-                                                        <td class="bs-checkbox "><input data-index="4"
-                                                                name="btSelectItem" type="checkbox"></td>
-                                                        <td style="text-align: center; vertical-align: middle; ">ddgzs01
-                                                        </td>
-                                                        <td style="text-align: center; vertical-align: middle; ">17430
-                                                        </td>
-                                                        <td style="text-align: center; vertical-align: middle; ">
-                                                            2019-05-20 14:24:17</td>
-                                                        <td style="text-align: center; vertical-align: middle; "><span
-                                                                class="text-success">联通</span></td>
-                                                        <td style="text-align: center; vertical-align: middle; ">江苏</td>
-                                                        <td style="text-align: center; vertical-align: middle; ">
-                                                            2019-05-21</td>
-                                                        <td style="text-align: center; vertical-align: middle; "><span
-                                                                class="text-danger"><i class="fa fa-circle"></i>
-                                                                离线</span></td>
-                                                        <td style="text-align: center; vertical-align: middle; "><a
-                                                                href="/addons/vpn/accounts/edit/ids/13616"
-                                                                class="btn btn-xs btn-success btn-editone"
-                                                                data-toggle="tooltip" title="编辑" data-table-id="table"
-                                                                data-field-index="8" data-row-index="4"
-                                                                data-button-index="1"><i class="fa fa-pencil"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr data-index="5">
-                                                        <td class="bs-checkbox "><input data-index="5"
-                                                                name="btSelectItem" type="checkbox"></td>
-                                                        <td style="text-align: center; vertical-align: middle; ">
-                                                            test0101</td>
-                                                        <td style="text-align: center; vertical-align: middle; ">15852
-                                                        </td>
-                                                        <td style="text-align: center; vertical-align: middle; ">
-                                                            2019-05-03 00:47:27</td>
-                                                        <td style="text-align: center; vertical-align: middle; "><span
-                                                                class="text-success">联通</span></td>
-                                                        <td style="text-align: center; vertical-align: middle; ">新疆巴音郭楞
-                                                        </td>
-                                                        <td style="text-align: center; vertical-align: middle; ">
-                                                            2019-05-04</td>
-                                                        <td style="text-align: center; vertical-align: middle; "><span
-                                                                class="text-danger"><i class="fa fa-circle"></i>
-                                                                离线</span></td>
-                                                        <td style="text-align: center; vertical-align: middle; "><a
-                                                                href="/addons/vpn/accounts/edit/ids/10431"
-                                                                class="btn btn-xs btn-success btn-editone"
-                                                                data-toggle="tooltip" title="编辑" data-table-id="table"
-                                                                data-field-index="8" data-row-index="5"
-                                                                data-button-index="1"><i class="fa fa-pencil"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr data-index="6">
-                                                        <td class="bs-checkbox "><input data-index="6"
-                                                                name="btSelectItem" type="checkbox"></td>
-                                                        <td style="text-align: center; vertical-align: middle; ">wei001
-                                                        </td>
-                                                        <td style="text-align: center; vertical-align: middle; ">9786
-                                                        </td>
-                                                        <td style="text-align: center; vertical-align: middle; ">
-                                                            2019-02-28 20:17:12</td>
-                                                        <td style="text-align: center; vertical-align: middle; "><span
-                                                                class="text-danger">电信</span></td>
-                                                        <td style="text-align: center; vertical-align: middle; ">江西省
-                                                        </td>
-                                                        <td style="text-align: center; vertical-align: middle; ">
-                                                            2019-03-01</td>
-                                                        <td style="text-align: center; vertical-align: middle; "><span
-                                                                class="text-danger"><i class="fa fa-circle"></i>
-                                                                离线</span></td>
-                                                        <td style="text-align: center; vertical-align: middle; "><a
-                                                                href="/addons/vpn/accounts/edit/ids/1815"
-                                                                class="btn btn-xs btn-success btn-editone"
-                                                                data-toggle="tooltip" title="编辑" data-table-id="table"
-                                                                data-field-index="8" data-row-index="6"
-                                                                data-button-index="1"><i class="fa fa-pencil"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr data-index="7">
-                                                        <td class="bs-checkbox "><input data-index="7"
-                                                                name="btSelectItem" type="checkbox"></td>
-                                                        <td style="text-align: center; vertical-align: middle; ">
-                                                            huanghu01</td>
-                                                        <td style="text-align: center; vertical-align: middle; ">9620
-                                                        </td>
-                                                        <td style="text-align: center; vertical-align: middle; ">
-                                                            2019-02-26 17:08:04</td>
-                                                        <td style="text-align: center; vertical-align: middle; "><span
-                                                                class="text-danger">电信</span></td>
-                                                        <td style="text-align: center; vertical-align: middle; ">上海</td>
-                                                        <td style="text-align: center; vertical-align: middle; ">
-                                                            2019-02-27</td>
-                                                        <td style="text-align: center; vertical-align: middle; "><span
-                                                                class="text-danger"><i class="fa fa-circle"></i>
-                                                                离线</span></td>
-                                                        <td style="text-align: center; vertical-align: middle; "><a
-                                                                href="/addons/vpn/accounts/edit/ids/1643"
-                                                                class="btn btn-xs btn-success btn-editone"
-                                                                data-toggle="tooltip" title="编辑" data-table-id="table"
-                                                                data-field-index="8" data-row-index="7"
-                                                                data-button-index="1"><i class="fa fa-pencil"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr data-index="8">
-                                                        <td class="bs-checkbox "><input data-index="8"
-                                                                name="btSelectItem" type="checkbox"></td>
-                                                        <td style="text-align: center; vertical-align: middle; ">
-                                                            nznydw01</td>
-                                                        <td style="text-align: center; vertical-align: middle; ">9211
-                                                        </td>
-                                                        <td style="text-align: center; vertical-align: middle; ">
-                                                            2019-02-19 17:48:47</td>
-                                                        <td style="text-align: center; vertical-align: middle; "><span
-                                                                class="text-danger">电信</span></td>
-                                                        <td style="text-align: center; vertical-align: middle; ">杭州</td>
-                                                        <td style="text-align: center; vertical-align: middle; ">
-                                                            2019-02-20</td>
-                                                        <td style="text-align: center; vertical-align: middle; "><span
-                                                                class="text-danger"><i class="fa fa-circle"></i>
-                                                                离线</span></td>
-                                                        <td style="text-align: center; vertical-align: middle; "><a
-                                                                href="/addons/vpn/accounts/edit/ids/1244"
-                                                                class="btn btn-xs btn-success btn-editone"
-                                                                data-toggle="tooltip" title="编辑" data-table-id="table"
-                                                                data-field-index="8" data-row-index="8"
-                                                                data-button-index="1"><i class="fa fa-pencil"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr data-index="9">
-                                                        <td class="bs-checkbox "><input data-index="9"
-                                                                name="btSelectItem" type="checkbox"></td>
-                                                        <td style="text-align: center; vertical-align: middle; ">
-                                                            niuniu01</td>
-                                                        <td style="text-align: center; vertical-align: middle; ">9170
-                                                        </td>
-                                                        <td style="text-align: center; vertical-align: middle; ">
-                                                            2019-02-18 18:48:45</td>
-                                                        <td style="text-align: center; vertical-align: middle; "><span
-                                                                class="text-danger">电信</span></td>
-                                                        <td style="text-align: center; vertical-align: middle; ">上海</td>
-                                                        <td style="text-align: center; vertical-align: middle; ">
-                                                            2019-02-19</td>
-                                                        <td style="text-align: center; vertical-align: middle; "><span
-                                                                class="text-danger"><i class="fa fa-circle"></i>
-                                                                离线</span></td>
-                                                        <td style="text-align: center; vertical-align: middle; "><a
-                                                                href="/addons/vpn/accounts/edit/ids/1214"
-                                                                class="btn btn-xs btn-success btn-editone"
-                                                                data-toggle="tooltip" title="编辑" data-table-id="table"
-                                                                data-field-index="8" data-row-index="9"
                                                                 data-button-index="1"><i class="fa fa-pencil"></i></a>
                                                         </td>
                                                     </tr>
@@ -515,7 +470,8 @@
                                                             data-toggle="dropdown"><span class="page-size">10</span>
                                                             <span class="caret"></span></button>
                                                         <ul class="dropdown-menu" role="menu">
-                                                            <li role="menuitem" class="active"><a href="#">10</a></li>
+                                                            <li role="menuitem" class="active"><a href="#">10</a>
+                                                            </li>
                                                             <li role="menuitem"><a href="#">25</a></li>
                                                         </ul>
                                                     </span> 条记录</span></div>
@@ -656,5 +612,19 @@
         .form-footer .form-group {
             margin-left: 0;
             margin-right: 0;
+        }
+
+        .layui-layer-content {
+            padding: 10px;
+        }
+
+        body .demo-class .layui-layer-title {
+            background: #2c3e50;
+            color: #fff;
+            border: none;
+        }
+
+        .toolbar div {
+            display: inline-block
         }
     </style>

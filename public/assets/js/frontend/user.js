@@ -24,6 +24,10 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                         has_pwd: $("#cardpass").val()
                     },
                     success: function (ret) {
+                        if(ret.data==null){
+                            layer.msg("无此账号")
+                            return
+                        }
 
                         var optionsItem = document.createElement("tr");
                         var tab = "<td>" + ret.data.has_pwd + "</td><td>" + ret.data.price + "</td><td>" + ret.data.number + "</td><td> </td></td><td class='passduihuan'>兑换</td>";
@@ -163,6 +167,181 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
             })
 
         },
+            // 申请静态
+            static: function () {
+                // 城市列表
+                $.ajax({
+                    url: "/index/user/lineList",
+                    type: 'get',
+                    dataType: 'json',
+                    data: {},
+                    success: function (ret) {
+                        ret.data.linkList.forEach(function (e) {
+                            var optionsItem = document.createElement("option");
+                            optionsItem.innerHTML = e.name;
+                            optionsItem.value = e.id
+                            var selectpicker = document.querySelector(".citypick")
+                            selectpicker.appendChild(optionsItem);
+                        })
+                    },
+                    error: function (e) {}
+                });
+                $.ajax({
+                    url: "/index/user/getserverlist",
+                    type: 'get',
+                    dataType: 'json',
+                    data: {},
+                    success: function (ret) {
+                        ret.forEach(function (e) {
+                            var optionsItem = document.createElement("option");
+                            optionsItem.innerHTML = e.name;
+                            optionsItem.value = e.id
+                            var selectpicker = document.querySelector(".selectpicker")
+                            selectpicker.appendChild(optionsItem);
+                        })
+    
+                    },
+                    error: function (e) {}
+                });
+                // 创建静态账号
+                $(document).on("click", ".staticbtn", function () {
+    
+                    //     for(var value of formData.values()){
+                    // 	console.log(value)
+                    // }
+                    var param = {
+                        'name': $('[name=name]').val(),
+                        'password': $('[name= password]').val(),
+                        'accountTotal': $('[name=accountTotal]').val(),
+                        'defaultLink': $('[name=defaultLink]').val(),
+                        "expireDate":$('[name=expireDate]').val(),
+                        'isp': $('[name= isp]:checked').val(),
+                        'serve_id': $('[name=serve_id]').val(),
+                        'linkId': 9999
+    
+                    }
+    
+                    $.ajax({
+                        url: "/index/user/agentCreate",
+                        type: 'get',
+                        dataType: 'json',
+                        data: param,
+                        success: function (ret) {
+                              switch (ret.code) {
+                            case 0:
+                                Toastr.success("申请成功");
+                                setTimeout(() => {
+                                    window.location.reload()
+                                }, 1000);
+                                break;
+                            case 1:
+                                layer.msg("操作失败");
+                                break;
+                            case 2:
+                                layer.msg("代理被禁用或删除");
+                                break;
+                            case 3:
+                                layer.msg("sign计算错误或未提交");
+                                break;
+                            case 4:
+                                layer.msg("参数完整性验证");
+                                break;
+                            case 5:
+                                layer.msg("授权额度余额已用完");
+                                break;
+                            case 7||7:
+                                layer.msg("账号名重复");
+                                break;
+                            case 8:
+                                layer.msg("代理授权额度余额已用完");
+                                break;
+                            case 9:
+                                layer.msg("被充值账号非按次计费模式");
+                                break;
+                            case 10:
+                                layer.msg("被充值账号非包年包月模式");
+                                break;
+                            case 11:
+                                layer.msg("默认线路未指定或不在授权范围内");
+                                break;
+                            default:
+                                layer.msg("客户已存在");
+                        }
+                            
+
+                            // Toastr.success("申请成功");
+                            // setTimeout(() => {
+                            //     window.location.reload() 
+                            // },1000);
+                           
+                        },
+                        error: function (e) {}
+                    });
+    
+                });
+    
+            },
+            staticlist: function () {
+                $(document).on("click", ".bianji", function () {
+                    $.ajax({
+                        url: "/index/user/lineList",
+                        type: 'get',
+                        dataType: 'json',
+                        data: {},
+                        success: function (ret) {
+                            ret.data.linkList.forEach(function (e) {
+                                var optionsItem = document.createElement("option");
+                                optionsItem.innerHTML = e.name;
+                                optionsItem.value = e.id
+                                var selectpicker = document.querySelector(".selectpicker")
+                                selectpicker.appendChild(optionsItem);
+                            })
+    
+                        },
+                        error: function (e) {
+    
+                        }
+                    });
+                    Layer.open({
+                        type: 1,
+                        title: '信息',
+                        area: ["650px", "450px"],
+                        content: $(".staticxiugai"),
+                        skin: 'demo-class',
+                        success: function (layero) {
+                            $(".staticxiugai").removeClass("hidden")
+    
+                        }
+                    });
+    
+                });
+    
+                $("#toolbar").on("click", "div", function () {
+                     var target= $(this).attr("class")
+                     var content
+                     if(target=="gouxuan"){
+                        content=$(".checkedcontent")
+                     }else if(target=="staticgroup"){
+                        content=$(".staticcontent")
+                     }else{
+                        content=$(".otherprop")
+                     }
+                    Layer.open({
+                        type: 1,
+                        title: '信息',
+                        area: ["650px", "450px"],
+                        content: content,
+                        skin: 'demo-class',
+                        success: function (layero) {
+                            content.removeClass("hidden")
+    
+                        }
+                    });
+    
+                });
+            },
+
+
         login: function () {
             //本地验证未通过时提示
             $("#login-form").data("validator-options", validatoroptions);
