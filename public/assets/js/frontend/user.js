@@ -254,9 +254,9 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     data: param,
                     success: function (ret) {
                         Toastr.success("申请成功");
-                        setTimeout(() => {
-                            window.location.reload() 
-                        },1000);
+                        // setTimeout(() => {
+                        //     window.location.reload() 
+                        // },1000);
 
                     },
                     error: function (e) {}
