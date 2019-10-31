@@ -407,25 +407,49 @@ class User extends Frontend
         }
         $time = date('Y-m-d H:i:s');
         $update = ['user_id'=>$this->auth->id,'c_time'=>$time];
-        if(DB::name('rechargeablecard')->where('has_pwd','=',$haspwd)->update($update)){
+
+        //开启事务
+        DB::startTrans();
+            try {
+            DB::name('rechargeablecard')->where('has_pwd','=',$haspwd)->update($update);
             //修改余额
             DB::name('user')->where('id',$this->auth->id)->setInc('money',$has_data['number']);
+            //邀请人返利
+            DB::name('user')->where('id',$this->auth->inviter)->setInc('money',(int)$has_data['number']*0.1);
+            DB::name('user')->where('id',$this->auth->id)->setInc('money',$has_data['number']);
             //添加到余额日志
-            $data=['describe' => '充值',
-                    'user_id'=>$this->auth->id,
-                    'user_name'=>$this->auth->nickname,
-                    'number'=>$has_data['number'],
-                    'remainder'=>$this->auth->money+$has_data['number'],
-                    'type'=>1,
-                    'c_time'=>date('Y-m-d H:i:s',time())
-                ];
-            DB::name('rechargeablecard_log')->insert($data);
-             $msg['msg']='兑换成功';
+            $this->_w_rechargeablecard_log('充值',$this->auth->id,$this->auth->nickname,$has_data['number'],$this->auth->money+$has_data['number'],1);
+            Db::commit();
+            $msg['msg']='兑换成功';
              return $this->_postjsonencode($msg);
-        }else{
+        }catch(\Exception $e){
+            Db::rollback();
             $msg['msg']='兑换失败';
             return $this->_postjsonencode($msg);
-        };
+        }
+    }
+    /**
+     * ================
+     * @Author:        css
+     * @Parameter:     
+     * @DataTime:      2019-10-31
+     * @Return:        
+     * @Notes:         写入余额日志
+     * @ErrorReason:   
+     * ================
+     */
+    private function _w_rechargeablecard_log($describe,$user_id,$user_name,$number,$remainder,$type){
+        $data=[
+                    'describe' => $describe,
+                    'user_id'=>$user_id,
+                    'user_name'=>$user_name,
+                    'number'=>$number,
+                    'remainder'=>$remainder,
+                    'type'=>$type,
+                    'c_time'=>date('Y-m-d H:i:s',time())
+                ];
+                return  DB::name('rechargeablecard_log')->insert($data);
+            
     }
     /**
      * ================
@@ -877,13 +901,16 @@ class User extends Frontend
         // cusId	是	int	客户id
         // name	是	string	账号名称集合 A,B,C
         // page	是	int	请求第几页的数据（默认每页返回50条数据）
-         public function agentSearchAccByName(){
+         public function agentSearchAccByName_1(){
              $param = 'name,page';
              $param = $this->_dataFilter($param);
              self::$_url .= '&cusId='.$this->auth->system_id;
              $this->url = '/agent/searchAccByName/?';
              $data = $this->_httpget();
              return $this->_postjsonencode($data);
+         }
+         public function agentSearchAccByName(){
+             DB::name('');
          }
         //  {
         //     "code": 0,
