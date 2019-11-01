@@ -14,8 +14,55 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
         charlierecharge: function () {
             //   点击查询的按钮
             $(document).on("click", ".inquire", function () {
-                has_pwd = $('#cardpass').val()
-                window.location.href = "http://localhost:777/index/user/findhaspwd.html?has_pwd=" + has_pwd
+                console.log($("#cardpass").val())
+                //选择兑换点数的列表
+                $.ajax({
+                    url: "/index/user/findhaspwd",
+                    type: 'get',
+                    dataType: 'json',
+                    data: {
+                        has_pwd: $("#cardpass").val()
+                    },
+                    success: function (ret) {
+                        if(ret.data==null){
+                            layer.msg("无此账号")
+                            return
+                        }
+
+                        var optionsItem = document.createElement("tr");
+                        var tab = "<td>" + ret.data.has_pwd + "</td><td>" + ret.data.price + "</td><td>" + ret.data.number + "</td><td> </td></td><td class='passduihuan'>兑换</td>";
+                        optionsItem.innerHTML = tab;
+                        var tabbox = document.querySelector("#tabbox")
+                        console.log(tabbox)
+                        tabbox.appendChild(optionsItem);
+                        $("#cardpass").val()=="";
+                    },
+                    error: function (e) {
+
+                    }
+                });
+
+            });
+            //   点的按钮
+            $(document).on("click", ".passduihuan", function () {
+                console.log($(this).parent().children("td:first-child").text())
+                var pass=$(this).parent().children("td:first-child").text()
+                //选择兑换点数的列表
+                $.ajax({
+                    url: "/index/user/hasexchange",
+                    type: 'get',
+                    dataType: 'json',
+                    data: {
+                        has_pwd: pass
+                    },
+                    success: function (ret) {
+                        Toastr.success(ret.msg);
+                    },
+                    error: function (e) {
+
+                    }
+                });
+
             });
 
         },
@@ -51,8 +98,10 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                 });
             })
         },
-
+        // 卡密充值
         exchangepoints: function () {
+            var slsect
+
             //选择兑换点数的列表
             $.ajax({
                 url: "/index/user/getserverlist",
@@ -60,10 +109,11 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                 dataType: 'json',
                 data: {},
                 success: function (ret) {
+                    slsect = ret
                     ret.forEach(function (e) {
                         var optionsItem = document.createElement("option");
                         optionsItem.innerHTML = e.name;
-                        optionsItem.value = e.price
+                        optionsItem.value = e.id
                         var selectpicker = document.querySelector(".selectpicker")
                         selectpicker.appendChild(optionsItem);
                     })
@@ -75,23 +125,25 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
             });
 
             $(".duihuannum").on(" input propertychange", function () {
-                var selectValue = $("#selectpicker").val();
+                var selectId = $("#selectpicker").val();
+                var price = slsect[selectId - 1].price;
                 var num = $(".duihuannum").val();
-                document.querySelector(".totalNum").innerHTML = selectValue * num
+                document.querySelector(".totalNum").innerHTML = price * num
             });
             $("#selectpicker").change(() => {
-                var selectValue = $("#selectpicker").val();
+                var selectId = $("#selectpicker").val();
+                var price = slsect[selectId - 1].price;
                 var num = $(".duihuannum").val();
                 if (num != "" && num != 0) {
-                    document.querySelector(".totalNum").innerHTML = selectValue * num
+                    document.querySelector(".totalNum").innerHTML = price * num
                 }
             });
             // 点击兑换的按钮
             $(document).on("click", ".btn-embossed", function () {
-                var selectValue = $("#selectpicker").val();
+                var selectId = $("#selectpicker").val();
                 var num = $(".duihuannum").val();
                 if (num == "" && num == 0) {
-                    layer.msg('输入数量');
+                    Toastr.success("请输入数量");
                 }
 
                 $.ajax({
@@ -100,7 +152,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     dataType: 'json',
                     data: {
                         number: num,
-                        amount_id: selectValue,
+                        amount_id: selectId,
                     },
                     success: function (ret) {
 
@@ -115,6 +167,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
             })
 
         },
+<<<<<<< HEAD
         mainaccountnumber: function () {
             // 点击查询
             $(document).on("click", ".blacksearch", function () {
@@ -377,6 +430,11 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
 
 
             $(document).on("click", ".bianji", function () {
+=======
+            // 申请静态
+            static: function () {
+                // 城市列表
+>>>>>>> 92b86abf341567bed180397a9f4a24071d3c30fc
                 $.ajax({
                     url: "/index/user/lineList",
                     type: 'get',
@@ -387,6 +445,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                             var optionsItem = document.createElement("option");
                             optionsItem.innerHTML = e.name;
                             optionsItem.value = e.id
+<<<<<<< HEAD
                             var selectpicker = document.querySelector(".selectpicker")
                             selectpicker.appendChild(optionsItem);
                         })
@@ -429,6 +488,13 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                         content.removeClass("hidden")
 
                     }
+=======
+                            var selectpicker = document.querySelector(".citypick")
+                            selectpicker.appendChild(optionsItem);
+                        })
+                    },
+                    error: function (e) {}
+>>>>>>> 92b86abf341567bed180397a9f4a24071d3c30fc
                 });
             });
 
