@@ -300,11 +300,9 @@
 
                         <div class="fixed-table-container" style="padding-bottom: 0px;">
                             <div class="fixed-table-body">
-                                <div class="fixed-table-loading" style="top: 42px; display: none;">
-                                    正在努力地加载数据中，请稍候……</div>
                                 <table id="table" class="table table-striped table-bordered table-hover table-nowrap"
                                     data-operate-edit="0" data-operate-del="" width="100%" data-show-columns="true">
-                                    <thead>
+                                    <!-- <thead> -->
                                         <tr>
                                             <th style="text-align: center; vertical-align: middle; "
                                                 data-field="orderid">
@@ -327,6 +325,13 @@
                                                 </div>
                                             </th>
                                             <th style="text-align: center; vertical-align: middle; "
+                                            data-field="paytime">
+                                            <div class="th-inner ">运营商</div>
+                                            <div class="fht-cell">
+                                            </div>
+                                        </th>
+
+                                            <th style="text-align: center; vertical-align: middle; "
                                                 data-field="createtime">
                                                 <div class="th-inner ">默认路线</div>
                                                 <div class="fht-cell">
@@ -340,7 +345,7 @@
                                             </th>
                                             <th style="text-align: center; vertical-align: middle; "
                                                 data-field="createtime">
-                                                <div class="th-inner ">在线状态</div>
+                                                <div class="th-inner ">剩余次数</div>
                                                 <div class="fht-cell">
                                                 </div>
                                             </th>
@@ -359,22 +364,7 @@
 
                                         </tr>
 
-                                        <tr style="text-align: center; vertical-align: middle;">
-                                            <td><input type="checkbox" name="checkone" id="checkone"></td>
-                                            <td>chiyu-20</td>
-                                            <td>2019-08-06 18:24:39</td>
-                                            <td>唐山</td>
-                                            <td>增加</td>
-                                            <td><span
-                                                    style="background: #2c3e50;color: #fff;padding: 2px 8px;border-radius:5px">0/1</span>
-                                            </td>
-                                            <td><span class="text-danger"><i class="fa fa-circle"></i> 离线</span></td>
-                                            <td class="bianji"><a class="btn btn-xs btn-success btn-editone"
-                                                    data-original-title="编辑"><i class="fa fa-pencil"></i></a>
-                                            </td>
-
-                                        </tr>
-                                    </thead>
+                                    <!-- </thead> -->
                                     <tbody data-listidx="0">
                                         <tr class="no-records-found">
                                         </tr>
@@ -382,30 +372,19 @@
                                 </table>
                             </div>
                         </div>
+                        <div    id="loding" style="text-align: center;padding:10px">
+                                正在努力地加载数据中，请稍候……</div>
                         <div class="fixed-table-pagination" style="display: block;">
-                            <div class="pull-left pagination-detail"><span class="pagination-info">显示第 1 到第 10 条记录，总共
-                                    169 条记录</span><span class="page-list">每页显示 <span class="btn-group dropup"><button
+                            <div class="pull-left pagination-detail"><span class="pagination-info">显示第 <span class="start"></span> 到第 <span class="end"></span> 条记录，总共
+                                    <span class="count"></span> 条记录</span><span class="page-list">每页显示 <span class="btn-group dropup"><button
                                             type="button" class="btn btn-default dropdown-toggle"
-                                            data-toggle="dropdown"><span class="page-size">10</span> <span
+                                            data-toggle="dropdown"><span class="page-size">50</span> <span
                                                 class="caret"></span></button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li role="menuitem" class="active"><a href="#">10</a></li>
-                                            <li role="menuitem"><a href="#">25</a></li>
-                                            <li role="menuitem"><a href="#">50</a></li>
-                                            <li role="menuitem"><a href="#">All</a></li>
-                                        </ul>
                                     </span> 条记录</span></div>
                             <div class="pull-right pagination">
                                 <ul class="pagination">
-                                    <li class="page-pre"><a href="#">上一页</a></li>
-                                    <li class="page-number active"><a href="#">1</a></li>
-                                    <li class="page-number"><a href="#">2</a></li>
-                                    <li class="page-number"><a href="#">3</a></li>
-                                    <li class="page-number"><a href="#">4</a></li>
-                                    <li class="page-number"><a href="#">5</a></li>
-                                    <li class="page-last-separator disabled"><a href="#">...</a></li>
-                                    <li class="page-last"><a href="#">17</a></li>
-                                    <li class="page-next"><a href="#">下一页</a></li>
+                                    <li class="page-pre" id="previous"><a href="#">上一页</a></li>
+                                    <li class="page-next" id="next"><a href="#">下一页</a></li>
                                 </ul>
                             </div>
                         </div>
