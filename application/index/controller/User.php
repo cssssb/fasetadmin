@@ -329,6 +329,7 @@ class User extends Frontend
         $data = DB::name('rechargeablecard')->where('user_id='.$this->auth->id)->select();
         $this->view->assign('title', '充值订单');
         $this->view->assign('data', $data);
+        $this->view->assign('money',$this->auth->money);
         // var_dump($data);
         return $this->view->fetch();
     }
@@ -345,10 +346,9 @@ class User extends Frontend
      */
     public function balancelog(){
         $data = DB::name('rechargeablecard_log')->where('user_id='.$this->auth->id)->select();
-        $number = DB::name('rechargeablecard')->where('user_id='.$this->auth->id)->find()['number'];
         $this->view->assign('title', '余额日志');
         $this->view->assign('data', $data);
-        $this->view->assign('number', $number);
+        $this->view->assign('money', $this->auth->money);
         return $this->view->fetch();
     }
 
@@ -451,6 +451,31 @@ class User extends Frontend
                 return  DB::name('rechargeablecard_log')->insert($data);
             
     }
+
+    /**
+     * ================
+     * @Author:        css
+     * @Parameter:     
+     * @DataTime:      2019-11-01
+     * @Return:        
+     * @Notes:         写入交易记录
+     * @ErrorReason:   
+     * ================
+     */
+    private function _w_exchange_log($update_number,$before_number,$after_number,$remarks,$manage,$state,$amount_id,$user_id,$user_name){
+        $data = [
+            'update_number'=>$update_number,
+            'before_number'=>$before_number,
+            'after_number'=>$after_number,
+            'remarks'=>$remarks,
+            'manage'=>$manage,
+            'state'=>$state,
+            'amount_id'=>$amount_id,
+            'user_id'=>$user_id,
+            'user_name'=>$user_name
+        ];
+        return DB::name('exchange_log')->insert($data);
+    }
     /**
      * ================
      * @Author:        css
@@ -485,9 +510,13 @@ class User extends Frontend
         $price = $amount_data['price'] * (int)$_GET['number'];
         if($this->auth->money<$price){
             $msg['msg'] = '余额不足';
-            $this->_postjsonencode($msg);
+            $this->_postjsonencode($msg);die;
         }
-        //购买  减去金额 增加points里服务器数量的个数
+
+        //开启事务
+        DB::startTrans();
+        try {
+            //购买  减去金额 增加points里服务器数量的个数
         DB::name('user')->where('id',$this->auth->id)->setDec('money',$price);
         $where = [];
         $where['user_id'] = $this->auth->id;
@@ -500,19 +529,18 @@ class User extends Frontend
             $data['create_time'] = date('Y-m-d H:i:s');
             DB::name('exchange_points')->insert($data);
         }
-        
+        $describe = '购买'.$amount_data['name'].':'.$_GET['number'].' 花费:'.$price.' 余额'.($this->auth->money-$price);
         //写入余额日治
-        $data = [];
-        $data['user_id'] = $this->auth->id;
-        $data['user_name'] = $this->auth->nickname;
-        $data['type'] = 0;
-        $data['number'] = $price;
-        $data['remainder'] = $this->auth->money-$price;
-        $data['describe'] = '购买'.$amount_data['name'].':'.$_GET['number'].' 花费:'.$price.' 余额'.($this->auth->money-$price);
-        $data['c_time'] = date('Y-m-d H:i:s');
-        DB::name('rechargeablecard_log')->insert($data);
+        $this->_w_rechargeablecard_log($describe,$this->auth->id,$this->auth->nickname,$price,$this->auth->money-$price,0);
+        Db::commit();
         $msg['msg'] = '操作成功';
         $this->_postjsonencode($msg);die;
+        } catch (\Exception $e) {
+            DB::rollback();
+            $msg['msg'] = '操作失败';
+            $this->_postjsonencode($msg);die;
+        }
+        
     }
      /**
       * ================
@@ -581,6 +609,7 @@ class User extends Frontend
                 foreach($user_server_number as $key){
                     if($key['type']==$k['id']){
                         $k['user_number'] = $key['number'];
+                        break;
                     }else{
                         $k['user_number'] =0;
                     }
@@ -727,28 +756,41 @@ class User extends Frontend
         public function agentCreate(){
             
             $_GET['expireDate']='2099-12-31';
-            $param = 'name,password,linkId,defaultLink,isp';
-            $param = $this->_dataFilter($param);
-            $param['accountTotal'] = $this->_dataFilter('accountTotal',false);//静态数量 动态无此参数
-            $param['timeoutExec'] = $this->_dataFilter('timeoutExec',false);//动态设置超时状态 静态无此参数
-            $param['expireDate'] = $this->_dataFilter('expireDate',false);//静态到期时间，动态无此参数
-            $param['count'] = $this->_dataFilter('count',false);//动态切换ip次数，静态无此参数
-            $param['rand'] = $this->_dataFilter('rand',false);
-            $param['type'] = $this->_dataFilter('type',false);
+            $this->_dataFilter('name,password,linkId,defaultLink,isp');
+            $param = $this->_dataFilter('name,password,linkId,defaultLink,isp,accountTotal,timeoutExec,expireDate,count,rand,type',false);
+            $param['user_id'] = $this->auth->id;
+            $param['user_name'] = $this->auth->nickname;
+            //申请动态/静态服务
+             $this->_server_create($param);
+            DB::name('agent')->insert($param);
             // expireDate
             self::$_url.='&cusId='.$this->auth->system_id;
             // echo self::$_url;
-            //todo 判断是哪个服务器 写死的如果是1为e服务器
-            // if($_GET['serve_id']==1){
-            //     //修改访问地址
-            // $this->_server_url = 'https://e.api.vpn.cn:8080';
-            // }
             $this->url = '/agent/create?';
             $data = $this->_httpget();
             return $this->_postjsonencode($data);
         }
-        
+        /**
+         * ================
+         * @Author:        css
+         * @Parameter:     
+         * @DataTime:      2019-11-01
+         * @Return:        
+         * @Notes:         申请动态/静态扣费服务
+         * @ErrorReason:   
+         * ================
+         */
+        private function _server_create($param){
+            
 
+
+
+            //todo 判断是哪个服务器 写死的如果是1为e服务器
+            if($_GET['serve_id']==1){
+                //修改访问地址
+            $this->_server_url = 'https://e.api.vpn.cn:8080';
+            }
+        }
         /**
          * ================
          * @Author:        css
@@ -957,7 +999,7 @@ class User extends Frontend
         // page	是	int	请求第几页的数据（每页默认返回50条）
 
         public function agentSearchAccByCid(){
-            $param['page'] = $this->_dataFilter('page');
+            $param['page'] = $this->_dataFilter('page')['page'];
             self::$_url .= '&cusId='.$this->auth->system_id;
             $this->url = '/agent/searchAccByCid/?';
             $data = $this->_httpget();
