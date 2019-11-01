@@ -353,12 +353,12 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
             });
 
         },
+       
         dynamiclist: function () {
             var pageIndex = 1;
             var countpages
             //AJAX方法取得数据并显示到页面上 
-            BindData()
-
+            BindData();
             function BindData() {
                 $.ajax({
                     type: "get", //使用get方法访问后台 
@@ -386,12 +386,13 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                             $(".tabcontent").remove()
                             for(var i=1;i<=data.pages;i++){
                                 $("#next").before("<li class='page-number'><a href='#'>"+i+"</a></li>")
-                                $(".page-number").eq(data.cur_page-1).addClass("active")
+                                $(".page-number").eq(data.cur_page-1).addClass("active");
+                                $(".active").children("a").addClass("activea")
                             };
                             $.each(data.accList, function (i, item) {
                                 var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
                                 var isOnline = (item.isOnline == 1 ? '在线' : '离线');
-                                var content = "<tr style='text-align: center; vertical-align: middle;c' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone'></td><td>" +
+                                var content = "<tr style='text-align: center; vertical-align: middle;' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone'></td><td>" +
                                     item.username + " </td><td>" + item.expireTime +
                                     " </td><td>" + item.isp + " </td><td>" + item.totalcount + " </td><td>" + timeoutExec + " </td><td><span style='background: #2c3e50;color: #fff;padding: 2px 8px;border-radius:5px'>" + item.surplus +
                                     "</span> </td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
@@ -415,14 +416,12 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
             });
             //下一页按钮click事件 
             $("#next").click(function () {
-                var pageCount = parseInt($(".active").text());
-                console.log(pageCount)                                                                                                          
-                if(pageCount<=countpages){
+                var pageCount = $(".page-number").index(".active");                                                                                                      
+                if(pageCount>=countpages){
                     return;
                 }
                 if (pageIndex != pageCount) {
                     pageIndex++;
-                    $("#lblCurent").text(pageIndex);
                 }
                 BindData();
             });
