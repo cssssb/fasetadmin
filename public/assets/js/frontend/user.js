@@ -167,7 +167,6 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
             })
 
         },
-<<<<<<< HEAD
         mainaccountnumber: function () {
             // 点击查询
             $(document).on("click", ".blacksearch", function () {
@@ -430,11 +429,6 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
 
 
             $(document).on("click", ".bianji", function () {
-=======
-            // 申请静态
-            static: function () {
-                // 城市列表
->>>>>>> 92b86abf341567bed180397a9f4a24071d3c30fc
                 $.ajax({
                     url: "/index/user/lineList",
                     type: 'get',
@@ -445,7 +439,6 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                             var optionsItem = document.createElement("option");
                             optionsItem.innerHTML = e.name;
                             optionsItem.value = e.id
-<<<<<<< HEAD
                             var selectpicker = document.querySelector(".selectpicker")
                             selectpicker.appendChild(optionsItem);
                         })
@@ -488,13 +481,6 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                         content.removeClass("hidden")
 
                     }
-=======
-                            var selectpicker = document.querySelector(".citypick")
-                            selectpicker.appendChild(optionsItem);
-                        })
-                    },
-                    error: function (e) {}
->>>>>>> 92b86abf341567bed180397a9f4a24071d3c30fc
                 });
             });
 
