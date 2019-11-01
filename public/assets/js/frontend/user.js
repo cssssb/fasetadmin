@@ -14,8 +14,55 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
         charlierecharge: function () {
             //   点击查询的按钮
             $(document).on("click", ".inquire", function () {
-                has_pwd = $('#cardpass').val()
-                window.location.href = "http://localhost:777/index/user/findhaspwd.html?has_pwd=" + has_pwd
+                console.log($("#cardpass").val())
+                //选择兑换点数的列表
+                $.ajax({
+                    url: "/index/user/findhaspwd",
+                    type: 'get',
+                    dataType: 'json',
+                    data: {
+                        has_pwd: $("#cardpass").val()
+                    },
+                    success: function (ret) {
+                        if(ret.data==null){
+                            layer.msg("无此账号")
+                            return
+                        }
+
+                        var optionsItem = document.createElement("tr");
+                        var tab = "<td>" + ret.data.has_pwd + "</td><td>" + ret.data.price + "</td><td>" + ret.data.number + "</td><td> </td></td><td class='passduihuan'>兑换</td>";
+                        optionsItem.innerHTML = tab;
+                        var tabbox = document.querySelector("#tabbox")
+                        console.log(tabbox)
+                        tabbox.appendChild(optionsItem);
+                        $("#cardpass").val()=="";
+                    },
+                    error: function (e) {
+
+                    }
+                });
+
+            });
+            //   点的按钮
+            $(document).on("click", ".passduihuan", function () {
+                console.log($(this).parent().children("td:first-child").text())
+                var pass=$(this).parent().children("td:first-child").text()
+                //选择兑换点数的列表
+                $.ajax({
+                    url: "/index/user/hasexchange",
+                    type: 'get',
+                    dataType: 'json',
+                    data: {
+                        has_pwd: pass
+                    },
+                    success: function (ret) {
+                        Toastr.success(ret.msg);
+                    },
+                    error: function (e) {
+
+                    }
+                });
+
             });
 
         },
@@ -51,8 +98,10 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                 });
             })
         },
-
+        // 卡密充值
         exchangepoints: function () {
+            var slsect
+
             //选择兑换点数的列表
             $.ajax({
                 url: "/index/user/getserverlist",
@@ -60,10 +109,11 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                 dataType: 'json',
                 data: {},
                 success: function (ret) {
+                    slsect = ret
                     ret.forEach(function (e) {
                         var optionsItem = document.createElement("option");
                         optionsItem.innerHTML = e.name;
-                        optionsItem.value = e.price
+                        optionsItem.value = e.id
                         var selectpicker = document.querySelector(".selectpicker")
                         selectpicker.appendChild(optionsItem);
                     })
@@ -75,23 +125,25 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
             });
 
             $(".duihuannum").on(" input propertychange", function () {
-                var selectValue = $("#selectpicker").val();
+                var selectId = $("#selectpicker").val();
+                var price = slsect[selectId - 1].price;
                 var num = $(".duihuannum").val();
-                document.querySelector(".totalNum").innerHTML = selectValue * num
+                document.querySelector(".totalNum").innerHTML = price * num
             });
             $("#selectpicker").change(() => {
-                var selectValue = $("#selectpicker").val();
+                var selectId = $("#selectpicker").val();
+                var price = slsect[selectId - 1].price;
                 var num = $(".duihuannum").val();
                 if (num != "" && num != 0) {
-                    document.querySelector(".totalNum").innerHTML = selectValue * num
+                    document.querySelector(".totalNum").innerHTML = price * num
                 }
             });
             // 点击兑换的按钮
             $(document).on("click", ".btn-embossed", function () {
-                var selectValue = $("#selectpicker").val();
+                var selectId = $("#selectpicker").val();
                 var num = $(".duihuannum").val();
                 if (num == "" && num == 0) {
-                    layer.msg('输入数量');
+                    Toastr.success("请输入数量");
                 }
 
                 $.ajax({
@@ -100,7 +152,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     dataType: 'json',
                     data: {
                         number: num,
-                        amount_id: selectValue,
+                        amount_id: selectId,
                     },
                     success: function (ret) {
 
@@ -114,253 +166,6 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                 });
             })
 
-        },
-        mainaccountnumber: function () {
-            // 点击查询
-            $(document).on("click", ".blacksearch", function () {
-                var passid = $("#ipaddress").val();
-                var content
-                if (passid == "") {
-                    content = "输入账号不能为空"
-                } else {
-                    $.ajax({
-                        url: "/index/user/blacklistedQuery",
-                        type: 'get',
-                        dataType: 'json',
-                        data: {
-                            ip: passid
-                        },
-                        success: function (ret) {
-                            if (ret.message == "success" && ret.data.searchList) {
-                                var res = ret.data.searchList
-                                content = "<div>ip:" + res.remote_ip + "</div><div>创建时间：" + res.create_time + "</div><div>名称:" + res.acc + "</div><div>屏蔽时长:" + res.lot + "</div><div>原因:" + res.message + "</div>"
-
-                            }
-                        },
-                        error: function (e) {
-
-                        }
-                    });
-                    Layer.open({
-                        type: 1,
-                        title: '信息',
-                        area: ["300px", "200px"],
-                        content: content,
-                        skin: 'demo-class',
-                        success: function (layero) {
-
-                        }
-                    });
-                }
-            });
-            // 点击解除
-            $(document).on("click", ".blackjiechu", function () {
-                var passid = $("#ipaddress").val();
-                var content
-                if (passid == "") {
-                    content = "输入账号不能为空"
-                } else {
-                    $.ajax({
-                        url: "/index/user/deleteBlack",
-                        type: 'get',
-                        dataType: 'json',
-                        data: {
-                            ip: passid
-                        },
-                        success: function (ret) {
-                            if (ret.message == "success" && ret.data.searchList) {
-                                var res = ret.data.searchList
-                                content = "<div>ip:" + res.remote_ip + "解除成功</div><div>请立马解决触发原因</div><div>否则会再次发生屏蔽</div>";
-
-                            }
-                        },
-                        error: function (e) {
-
-                        }
-                    });
-                }
-                Layer.open({
-                    type: 1,
-                    title: '信息',
-                    area: ["300px", "200px"],
-                    content: content,
-                    skin: 'demo-class',
-                    success: function (layero) {
-
-                    }
-                });
-            });
-
-        },
-        // 申请动态
-        dynamic: function () {
-            // 申请动态的城市列表
-            $.ajax({
-                url: "/index/user/lineList",
-                type: 'get',
-                dataType: 'json',
-                data: {},
-                success: function (ret) {
-                    ret.data.linkList.forEach(function (e) {
-                        var optionsItem = document.createElement("option");
-                        optionsItem.innerHTML = e.name;
-                        optionsItem.value = e.id
-                        var selectpicker = document.querySelector(".citypick")
-                        selectpicker.appendChild(optionsItem);
-                    })
-                },
-                error: function (e) {}
-            });
-            $.ajax({
-                url: "/index/user/getserverlist",
-                type: 'get',
-                dataType: 'json',
-                data: {},
-                success: function (ret) {
-                    ret.forEach(function (e) {
-                        var optionsItem = document.createElement("option");
-                        optionsItem.innerHTML = e.name;
-                        optionsItem.value = e.id
-                        var selectpicker = document.querySelector(".selectpicker")
-                        selectpicker.appendChild(optionsItem);
-                    })
-
-                },
-                error: function (e) {}
-            });
-            // 创建动态账号
-            $(document).on("click", ".dynamicbtn", function () {
-
-                //     for(var value of formData.values()){
-                // 	console.log(value)
-                // }
-                var param = {
-                    'name': $('[name=name]').val(),
-                    'password': $('[name= password]').val(),
-                    'accountTotal': $('[name=accountTotal]').val(),
-                    'defaultLink': $('[name=defaultLink]').val(),
-                    'isp': $('[name= isp]:checked').val(),
-                    'count': $('[name=count]').val(),
-                    'serve_id': $('[name=serve_id]').val(),
-                    'timeoutExec': $('[name=timeoutExec]:checked').val(),
-                    'linkId': 9999
-
-                }
-
-                $.ajax({
-                    url: "/index/user/agentCreate",
-                    type: 'get',
-                    dataType: 'json',
-                    data: param,
-                    success: function (ret) {
-                        switch (ret.code) {
-                            case 0:
-                                Toastr.success("申请成功");
-                                // setTimeout(() => {
-                                //     window.location.reload()
-                                // }, 1000);
-                                break;
-                            case 1:
-                                layer.msg("操作失败");
-                                break;
-                            case 2:
-                                layer.msg("代理被禁用或删除");
-                                break;
-                            case 3:
-                                layer.msg("sign计算错误或未提交");
-                                break;
-                            case 4:
-                                layer.msg("参数完整性验证");
-                                break;
-                            case 5:
-                                layer.msg("授权额度余额已用完");
-                                break;
-                            case 7||7:
-                                layer.msg("账号名重复");
-                                break;
-                            case 8:
-                                layer.msg("代理授权额度余额已用完");
-                                break;
-                            case 9:
-                                layer.msg("被充值账号非按次计费模式");
-                                break;
-                            case 10:
-                                layer.msg("被充值账号非包年包月模式");
-                                break;
-                            case 11:
-                                layer.msg("默认线路未指定或不在授权范围内");
-                                break;
-                            default:
-                                layer.msg("客户已存在");
-                        }
-                            
-
-                    },
-                    error: function (e) {}
-                });
-
-            });
-
-        },
-        dynamiclist: function () {
-            $(document).on("click", ".bianji", function () {
-                
-                $.ajax({
-                    url: "/index/user/lineList",
-                    type: 'get',
-                    dataType: 'json',
-                    data: {},
-                    success: function (ret) {
-                        ret.data.linkList.forEach(function (e) {
-                            var optionsItem = document.createElement("option");
-                            optionsItem.innerHTML = e.name;
-                            optionsItem.value = e.id
-                            var selectpicker = document.querySelector(".selectpicker")
-                            selectpicker.appendChild(optionsItem);
-                        })
-
-                    },
-                    error: function (e) {
-
-                    }
-                });
-                Layer.open({
-                    type: 1,
-                    title: '信息',
-                    area: ["650px", "450px"],
-                    content: $(".propfrom"),
-                    skin: 'demo-class',
-                    success: function (layero) {
-                        $(".propfrom").removeClass("hidden")
-
-                    }
-                });
-
-            });
-
-            $("#toolbar").on("click", "div", function () {
-                var target= $(this).attr("class")
-                var content
-                if(target=="gouxuan"){
-                   content=$(".checkedcontent")
-                }else if(target=="staticgroup"){
-                   content=$(".staticcontent")
-                }else{
-                   content=$(".otherprop")
-                }
-               Layer.open({
-                   type: 1,
-                   title: '信息',
-                   area: ["650px", "450px"],
-                   content: content,
-                   skin: 'demo-class',
-                   success: function (layero) {
-                       content.removeClass("hidden")
-
-                   }
-               });
-
-           });
         },
             // 申请静态
             static: function () {
