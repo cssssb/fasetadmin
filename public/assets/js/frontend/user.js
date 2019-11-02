@@ -8,7 +8,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
             $.each(errors, function (i, j) {
                 Layer.msg(j);
             });
-        }
+        }    
     };
     var Controller = {
         charlierecharge: function () {
@@ -24,10 +24,6 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                         has_pwd: $("#cardpass").val()
                     },
                     success: function (ret) {
-                        if(ret.data==null){
-                            layer.msg("无此账号")
-                            return
-                        }
 
                         var optionsItem = document.createElement("tr");
                         var tab = "<td>" + ret.data.has_pwd + "</td><td>" + ret.data.price + "</td><td>" + ret.data.number + "</td><td> </td></td><td class='passduihuan'>兑换</td>";
@@ -166,6 +162,252 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                 });
             })
 
+        },
+        mainaccountnumber: function () {
+            // 点击查询
+            $(document).on("click", ".blacksearch", function () {
+                var passid = $("#ipaddress").val();
+                var content
+                if (passid == "") {
+                    content = "输入账号不能为空"
+                } else {
+                    $.ajax({
+                        url: "/index/user/blacklistedQuery",
+                        type: 'get',
+                        dataType: 'json',
+                        data: {
+                            ip: passid
+                        },
+                        success: function (ret) {
+                            if (ret.message == "success" && ret.data.searchList) {
+                                var res = ret.data.searchList
+                                content = "<div>ip:" + res.remote_ip + "</div><div>创建时间：" + res.create_time + "</div><div>名称:" + res.acc + "</div><div>屏蔽时长:" + res.lot + "</div><div>原因:" + res.message + "</div>"
+
+                            }
+                        },
+                        error: function (e) {
+
+                        }
+                    });
+                    Layer.open({
+                        type: 1,
+                        title: '信息',
+                        area: ["300px", "200px"],
+                        content: content,
+                        skin: 'demo-class',
+                        success: function (layero) {
+
+                        }
+                    });
+                }
+            });
+            // 点击解除
+            $(document).on("click", ".blackjiechu", function () {
+                var passid = $("#ipaddress").val();
+                var content
+                if (passid == "") {
+                    content = "输入账号不能为空"
+                } else {
+                    $.ajax({
+                        url: "/index/user/deleteBlack",
+                        type: 'get',
+                        dataType: 'json',
+                        data: {
+                            ip: passid
+                        },
+                        success: function (ret) {
+                            if (ret.message == "success" && ret.data.searchList) {
+                                var res = ret.data.searchList
+                                content = "<div>ip:" + res.remote_ip + "解除成功</div><div>请立马解决触发原因</div><div>否则会再次发生屏蔽</div>";
+
+                            }
+                        },
+                        error: function (e) {
+
+                        }
+                    });
+                }
+                Layer.open({
+                    type: 1,
+                    title: '信息',
+                    area: ["300px", "200px"],
+                    content: content,
+                    skin: 'demo-class',
+                    success: function (layero) {
+
+                    }
+                });
+            });
+
+        },
+        // 申请动态
+        dynamic: function () {
+            // 申请动态的城市列表
+            $.ajax({
+                url: "/index/user/lineList",
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function (ret) {
+                    ret.data.linkList.forEach(function (e) {
+                        var optionsItem = document.createElement("option");
+                        optionsItem.innerHTML = e.name;
+                        optionsItem.value = e.id
+                        var selectpicker = document.querySelector(".citypick")
+                        selectpicker.appendChild(optionsItem);
+                    })
+                },
+                error: function (e) {}
+            });
+            $.ajax({
+                url: "/index/user/getserverlist",
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function (ret) {
+                    ret.forEach(function (e) {
+                        var optionsItem = document.createElement("option");
+                        optionsItem.innerHTML = e.name;
+                        optionsItem.value = e.id
+                        var selectpicker = document.querySelector(".selectpicker")
+                        selectpicker.appendChild(optionsItem);
+                    })
+
+                },
+                error: function (e) {}
+            });
+            // 创建动态账号
+            $(document).on("click", ".dynamicbtn", function () {
+
+                //     for(var value of formData.values()){
+                // 	console.log(value)
+                // }
+                var param = {
+                    'name': $('[name=name]').val(),
+                    'password': $('[name= password]').val(),
+                    'accountTotal': $('[name=accountTotal]').val(),
+                    'defaultLink': $('[name=defaultLink]').val(),
+                    'isp': $('[name= isp]:checked').val(),
+                    'count': $('[name=count]').val(),
+                    'serve_id': $('[name=serve_id]').val(),
+                    'timeoutExec': $('[name=timeoutExec]:checked').val(),
+                    'linkId': 9999
+
+                }
+
+                $.ajax({
+                    url: "/index/user/agentCreate",
+                    type: 'get',
+                    dataType: 'json',
+                    data: param,
+                    success: function (ret) {
+                        switch (ret.code) {
+                            case 0:
+                                Toastr.success("申请成功");
+                                // setTimeout(() => {
+                                //     window.location.reload()
+                                // }, 1000);
+                                break;
+                            case 1:
+                                layer.msg("操作失败");
+                                break;
+                            case 2:
+                                layer.msg("代理被禁用或删除");
+                                break;
+                            case 3:
+                                layer.msg("sign计算错误或未提交");
+                                break;
+                            case 4:
+                                layer.msg("参数完整性验证");
+                                break;
+                            case 5:
+                                layer.msg("授权额度余额已用完");
+                                break;
+                            case 7||7:
+                                layer.msg("账号名重复");
+                                break;
+                            case 8:
+                                layer.msg("代理授权额度余额已用完");
+                                break;
+                            case 9:
+                                layer.msg("被充值账号非按次计费模式");
+                                break;
+                            case 10:
+                                layer.msg("被充值账号非包年包月模式");
+                                break;
+                            case 11:
+                                layer.msg("默认线路未指定或不在授权范围内");
+                                break;
+                            default:
+                                layer.msg("客户已存在");
+                        }
+                            
+
+                    },
+                    error: function (e) {}
+                });
+
+            });
+
+        },
+        dynamiclist: function () {
+            $(document).on("click", ".bianji", function () {
+                $.ajax({
+                    url: "/index/user/lineList",
+                    type: 'get',
+                    dataType: 'json',
+                    data: {},
+                    success: function (ret) {
+                        ret.data.linkList.forEach(function (e) {
+                            var optionsItem = document.createElement("option");
+                            optionsItem.innerHTML = e.name;
+                            optionsItem.value = e.id
+                            var selectpicker = document.querySelector(".selectpicker")
+                            selectpicker.appendChild(optionsItem);
+                        })
+
+                    },
+                    error: function (e) {
+
+                    }
+                });
+                Layer.open({
+                    type: 1,
+                    title: '信息',
+                    area: ["650px", "450px"],
+                    content: $(".propfrom"),
+                    skin: 'demo-class',
+                    success: function (layero) {
+                        $(".propfrom").removeClass("hidden")
+
+                    }
+                });
+
+            });
+
+            $("#toolbar").on("click", "div", function () {
+                var target= $(this).attr("class")
+                var content
+                if(target=="gouxuan"){
+                   content=$(".checkedcontent")
+                }else if(target=="staticgroup"){
+                   content=$(".staticcontent")
+                }else{
+                   content=$(".otherprop")
+                }
+               Layer.open({
+                   type: 1,
+                   title: '信息',
+                   area: ["650px", "450px"],
+                   content: content,
+                   skin: 'demo-class',
+                   success: function (layero) {
+                       content.removeClass("hidden")
+
+                   }
+               });
+
+           });
         },
             // 申请静态
             static: function () {
