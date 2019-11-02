@@ -1,0 +1,1059 @@
+---------------------------------------------------------------
+[ 2019-11-02T17:10:12+08:00 ] 0.0.0.0 GET localhost:777/
+[运行时间：0.883365s] [吞吐率：1.13req/s] [内存消耗：3,976.79kb] [文件加载：133]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.019773s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.013300s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => '',
+    1 => NULL,
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.008083s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index/lang/zh-cn/index.php
+[ info ] [ RUN ] app\index\controller\Index->index[ C:\Users\user\Desktop\fastadmin\application\index\controller\Index.php ]
+[ info ] [ VIEW ] C:\Users\user\Desktop\fastadmin\public/../application/index\view\index\index.html [ array (
+  0 => 'user',
+  1 => 'site',
+  2 => 'config',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.211274s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.028595s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = '8efc671d44366b1acafa56e2f2bb8d59a0969894' LIMIT 1 [ RunTime:0.026781s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.027405s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.032258s ]
+---------------------------------------------------------------
+[ 2019-11-02T17:10:14+08:00 ] 0.0.0.0 GET localhost:777/favicon.ico
+[运行时间：0.524617s] [吞吐率：1.91req/s] [内存消耗：1,954.32kb] [文件加载：106]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000498s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.011766s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'favicon.ico',
+    1 => NULL,
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:777/',
+  'accept' => 'image/webp,image/apng,image/*,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-11-02T17:11:24+08:00 ] 0.0.0.0 GET localhost:777/index/user/index.html
+[运行时间：0.776635s] [吞吐率：1.29req/s] [内存消耗：4,135.88kb] [文件加载：133]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000420s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.008944s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'user',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.005920s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ RUN ] app\index\controller\User->index[ C:\Users\user\Desktop\fastadmin\application\index\controller\User.php ]
+[ info ] [ VIEW ] C:\Users\user\Desktop\fastadmin\public/../application/index\view\user\index.html [ array (
+  0 => 'user',
+  1 => 'site',
+  2 => 'config',
+  3 => 'title',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.046338s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.033757s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = '8efc671d44366b1acafa56e2f2bb8d59a0969894' LIMIT 1 [ RunTime:0.035374s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.035309s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.033442s ]
+---------------------------------------------------------------
+[ 2019-11-02T17:11:26+08:00 ] 0.0.0.0 GET localhost:777/index/ajax/lang?callback=define&controllername=user&v=1572685884
+[运行时间：0.690683s] [吞吐率：1.45req/s] [内存消耗：3,828.79kb] [文件加载：132]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000511s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.014021s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'ajax',
+    2 => 'lang',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:777/index/user/index.html',
+  'accept' => '*/*',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+  'callback' => 'define',
+  'controllername' => 'user',
+  'v' => '1572685884',
+)
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.008532s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index/lang/zh-cn/ajax.php
+[ info ] [ RUN ] app\index\controller\Ajax->lang[ C:\Users\user\Desktop\fastadmin\application\index\controller\Ajax.php ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.063124s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.042929s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = '8efc671d44366b1acafa56e2f2bb8d59a0969894' LIMIT 1 [ RunTime:0.041707s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.042277s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.041990s ]
+---------------------------------------------------------------
+[ 2019-11-02T17:19:05+08:00 ] 0.0.0.0 GET localhost:777/index/user/mainaccountnumber.html
+[运行时间：0.699610s] [吞吐率：1.43req/s] [内存消耗：4,171.10kb] [文件加载：133]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000774s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.014138s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'user',
+    2 => 'mainaccountnumber',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:777/index/user/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.010037s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ RUN ] app\index\controller\User->_empty[ C:\Users\user\Desktop\fastadmin\application\index\controller\User.php ]
+[ info ] [ VIEW ] C:\Users\user\Desktop\fastadmin\public/../application/index\view\user\mainaccountnumber.html [ array (
+  0 => 'user',
+  1 => 'site',
+  2 => 'config',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.017999s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.015344s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = '8efc671d44366b1acafa56e2f2bb8d59a0969894' LIMIT 1 [ RunTime:0.012933s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.013808s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.013675s ]
+---------------------------------------------------------------
+[ 2019-11-02T17:19:07+08:00 ] 0.0.0.0 GET localhost:777/index/ajax/lang?callback=define&controllername=user&v=1572686345
+[运行时间：0.580845s] [吞吐率：1.72req/s] [内存消耗：3,828.80kb] [文件加载：132]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.001286s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.017797s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'ajax',
+    2 => 'lang',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:777/index/user/mainaccountnumber.html',
+  'accept' => '*/*',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+  'callback' => 'define',
+  'controllername' => 'user',
+  'v' => '1572686345',
+)
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.008897s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index/lang/zh-cn/ajax.php
+[ info ] [ RUN ] app\index\controller\Ajax->lang[ C:\Users\user\Desktop\fastadmin\application\index\controller\Ajax.php ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.018426s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.013081s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = '8efc671d44366b1acafa56e2f2bb8d59a0969894' LIMIT 1 [ RunTime:0.014873s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.014620s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.016038s ]
+---------------------------------------------------------------
+[ 2019-11-02T17:19:09+08:00 ] 0.0.0.0 GET localhost:777/index/user/dynamic.html
+[运行时间：0.840260s] [吞吐率：1.19req/s] [内存消耗：4,182.62kb] [文件加载：133]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.001127s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.019069s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'user',
+    2 => 'dynamic',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:777/index/user/mainaccountnumber.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.009437s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ RUN ] app\index\controller\User->_empty[ C:\Users\user\Desktop\fastadmin\application\index\controller\User.php ]
+[ info ] [ VIEW ] C:\Users\user\Desktop\fastadmin\public/../application/index\view\user\dynamic.html [ array (
+  0 => 'user',
+  1 => 'site',
+  2 => 'config',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.021463s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.015347s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = '8efc671d44366b1acafa56e2f2bb8d59a0969894' LIMIT 1 [ RunTime:0.015303s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.016247s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.016476s ]
+---------------------------------------------------------------
+[ 2019-11-02T17:19:10+08:00 ] 0.0.0.0 GET localhost:777/index/ajax/lang?callback=define&controllername=user&v=1572686348
+[运行时间：0.508324s] [吞吐率：1.97req/s] [内存消耗：3,828.79kb] [文件加载：132]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000435s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.011884s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'ajax',
+    2 => 'lang',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:777/index/user/dynamic.html',
+  'accept' => '*/*',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+  'callback' => 'define',
+  'controllername' => 'user',
+  'v' => '1572686348',
+)
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.006301s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index/lang/zh-cn/ajax.php
+[ info ] [ RUN ] app\index\controller\Ajax->lang[ C:\Users\user\Desktop\fastadmin\application\index\controller\Ajax.php ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.025557s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.018810s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = '8efc671d44366b1acafa56e2f2bb8d59a0969894' LIMIT 1 [ RunTime:0.018481s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.018906s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.019290s ]
+---------------------------------------------------------------
+[ 2019-11-02T17:19:12+08:00 ] 0.0.0.0 GET localhost:777/index/user/getserverlist
+[运行时间：0.615474s] [吞吐率：1.62req/s] [内存消耗：3,955.61kb] [文件加载：130]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000627s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.014421s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'user',
+    2 => 'getserverlist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:777/index/user/dynamic.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.008849s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ RUN ] app\index\controller\User->getserverlist[ C:\Users\user\Desktop\fastadmin\application\index\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.033385s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.017900s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = '8efc671d44366b1acafa56e2f2bb8d59a0969894' LIMIT 1 [ RunTime:0.017692s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.017879s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.017353s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_exchange_amount` [ RunTime:0.019082s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_exchange_amount` [ RunTime:0.017560s ]
+---------------------------------------------------------------
+[ 2019-11-02T17:19:13+08:00 ] 0.0.0.0 GET localhost:777/index/user/lineList
+[运行时间：2.173787s] [吞吐率：0.46req/s] [内存消耗：3,963.80kb] [文件加载：130]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000535s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.012785s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'user',
+    2 => 'lineList',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:777/index/user/dynamic.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.007974s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ RUN ] app\index\controller\User->lineList[ C:\Users\user\Desktop\fastadmin\application\index\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.024077s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.013902s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = '8efc671d44366b1acafa56e2f2bb8d59a0969894' LIMIT 1 [ RunTime:0.013216s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.014600s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.013814s ]
+---------------------------------------------------------------
+[ 2019-11-02T17:19:14+08:00 ] 0.0.0.0 GET localhost:777/assets/css/fastadmin.css.map
+[运行时间：0.580564s] [吞吐率：1.72req/s] [内存消耗：1,954.05kb] [文件加载：106]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000653s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.018038s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'assets',
+    1 => 'css',
+    2 => 'fastadmin.css.map',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-11-02T17:19:14+08:00 ] 0.0.0.0 GET localhost:777/assets/css/frontend.css.map
+[运行时间：0.581509s] [吞吐率：1.72req/s] [内存消耗：1,954.05kb] [文件加载：106]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000658s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.019070s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'assets',
+    1 => 'css',
+    2 => 'frontend.css.map',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-11-02T17:19:15+08:00 ] 0.0.0.0 GET localhost:777/assets/css/bootstrap.css.map
+[运行时间：0.526588s] [吞吐率：1.90req/s] [内存消耗：1,954.05kb] [文件加载：106]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000538s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.011938s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'assets',
+    1 => 'css',
+    2 => 'bootstrap.css.map',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-11-02T17:28:04+08:00 ] 0.0.0.0 GET localhost:777/index/user/agentCreate?name=&password=&accountTotal=1&defaultLink=0&isp=0&count=&serve_id=1&timeoutExec=add&linkId=9999
+[运行时间：4.110223s] [吞吐率：0.24req/s] [内存消耗：3,934.48kb] [文件加载：130]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000485s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.008935s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'user',
+    2 => 'agentCreate',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:777/index/user/dynamic.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+  'name' => '',
+  'password' => '',
+  'accountTotal' => '1',
+  'defaultLink' => '0',
+  'isp' => '0',
+  'count' => '',
+  'serve_id' => '1',
+  'timeoutExec' => 'add',
+  'linkId' => '9999',
+)
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.006160s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ RUN ] app\index\controller\User->agentCreate[ C:\Users\user\Desktop\fastadmin\application\index\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.021499s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.014087s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = '8efc671d44366b1acafa56e2f2bb8d59a0969894' LIMIT 1 [ RunTime:0.013790s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.016636s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.021423s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_exchange_amount` [ RunTime:0.015774s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_exchange_amount` [ RunTime:0.014268s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_agent` [ RunTime:0.014840s ]
+[ sql ] [ SQL ] INSERT INTO `fa_agent` (`name` , `password` , `linkId` , `defaultLink` , `isp` , `accountTotal` , `timeoutExec` , `expireDate` , `count` , `user_id` , `user_name`) VALUES ('' , '' , '9999' , 0 , 0 , 1 , 'add' , '2099-12-31' , 0 , 1 , '') [ RunTime:0.023798s ]
+---------------------------------------------------------------
+[ 2019-11-02T17:28:06+08:00 ] 0.0.0.0 GET localhost:777/index/user/agentCreate?name=&password=&accountTotal=1&defaultLink=0&isp=0&count=&serve_id=1&timeoutExec=add&linkId=9999
+[运行时间：0.816109s] [吞吐率：1.23req/s] [内存消耗：3,988.30kb] [文件加载：135]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000482s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.011657s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'user',
+    2 => 'agentCreate',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:777/index/user/dynamic.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+  'name' => '',
+  'password' => '',
+  'accountTotal' => '1',
+  'defaultLink' => '0',
+  'isp' => '0',
+  'count' => '',
+  'serve_id' => '1',
+  'timeoutExec' => 'add',
+  'linkId' => '9999',
+)
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.006884s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ RUN ] app\index\controller\User->agentCreate[ C:\Users\user\Desktop\fastadmin\application\index\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.022496s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.015385s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = '8efc671d44366b1acafa56e2f2bb8d59a0969894' LIMIT 1 [ RunTime:0.013042s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.014334s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.014823s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_exchange_amount` [ RunTime:0.014312s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_exchange_amount` [ RunTime:0.013476s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_agent` [ RunTime:0.013654s ]
+[ error ] [10501]SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '0' for key 'PRIMARY'[C:\Users\user\Desktop\fastadmin\thinkphp\library\think\db\Connection.php:453]
+---------------------------------------------------------------
+[ 2019-11-02T17:28:33+08:00 ] 0.0.0.0 GET localhost:777/index/user/agentCreate?name=123&password=123&accountTotal=1&defaultLink=0&isp=0&count=1&serve_id=1&timeoutExec=add&linkId=9999
+[运行时间：0.810605s] [吞吐率：1.23req/s] [内存消耗：3,988.40kb] [文件加载：135]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000434s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.011270s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'user',
+    2 => 'agentCreate',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:777/index/user/dynamic.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+  'name' => '123',
+  'password' => '123',
+  'accountTotal' => '1',
+  'defaultLink' => '0',
+  'isp' => '0',
+  'count' => '1',
+  'serve_id' => '1',
+  'timeoutExec' => 'add',
+  'linkId' => '9999',
+)
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.006233s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ RUN ] app\index\controller\User->agentCreate[ C:\Users\user\Desktop\fastadmin\application\index\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.018181s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.013272s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = '8efc671d44366b1acafa56e2f2bb8d59a0969894' LIMIT 1 [ RunTime:0.013310s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.016986s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.015281s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_exchange_amount` [ RunTime:0.016695s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_exchange_amount` [ RunTime:0.014810s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_agent` [ RunTime:0.013250s ]
+[ error ] [10501]SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '0' for key 'PRIMARY'[C:\Users\user\Desktop\fastadmin\thinkphp\library\think\db\Connection.php:453]
+---------------------------------------------------------------
+[ 2019-11-02T19:02:14+08:00 ] 0.0.0.0 GET localhost:777/index/user/charlierecharge.html
+[运行时间：0.940662s] [吞吐率：1.06req/s] [内存消耗：4,153.74kb] [文件加载：134]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000867s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.015361s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'user',
+    2 => 'charlierecharge',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:777/index/user/dynamic.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.013781s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ RUN ] app\index\controller\User->charlierecharge[ C:\Users\user\Desktop\fastadmin\application\index\controller\User.php ]
+[ info ] [ VIEW ] C:\Users\user\Desktop\fastadmin\public/../application/index\view\user\charlierecharge.html [ array (
+  0 => 'user',
+  1 => 'site',
+  2 => 'config',
+  3 => 'title',
+  4 => 'data',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.021807s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.013935s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = '8efc671d44366b1acafa56e2f2bb8d59a0969894' LIMIT 1 [ RunTime:0.013820s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.013844s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.014004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_rechargeablecard` [ RunTime:0.013808s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_rechargeablecard` WHERE  (  user_id=1 ) [ RunTime:0.012855s ]
+---------------------------------------------------------------
+[ 2019-11-02T19:02:16+08:00 ] 0.0.0.0 GET localhost:777/assets/css/frontend.css.map
+[运行时间：0.587634s] [吞吐率：1.70req/s] [内存消耗：1,954.05kb] [文件加载：106]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000587s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.015133s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'assets',
+    1 => 'css',
+    2 => 'frontend.css.map',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-11-02T19:02:17+08:00 ] 0.0.0.0 GET localhost:777/assets/css/bootstrap.css.map
+[运行时间：0.582739s] [吞吐率：1.72req/s] [内存消耗：1,954.05kb] [文件加载：106]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000668s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.017543s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'assets',
+    1 => 'css',
+    2 => 'bootstrap.css.map',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-11-02T19:02:17+08:00 ] 0.0.0.0 GET localhost:777/assets/css/fastadmin.css.map
+[运行时间：0.598687s] [吞吐率：1.67req/s] [内存消耗：1,954.05kb] [文件加载：106]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.001311s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.023878s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'assets',
+    1 => 'css',
+    2 => 'fastadmin.css.map',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-11-02T19:02:17+08:00 ] 0.0.0.0 GET localhost:777/index/ajax/lang?callback=define&controllername=user&v=1572692534
+[运行时间：0.602733s] [吞吐率：1.66req/s] [内存消耗：3,828.80kb] [文件加载：132]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000675s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.015014s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'ajax',
+    2 => 'lang',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:777/index/user/charlierecharge.html',
+  'accept' => '*/*',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+  'callback' => 'define',
+  'controllername' => 'user',
+  'v' => '1572692534',
+)
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.009849s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index/lang/zh-cn/ajax.php
+[ info ] [ RUN ] app\index\controller\Ajax->lang[ C:\Users\user\Desktop\fastadmin\application\index\controller\Ajax.php ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.026838s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.016239s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = '8efc671d44366b1acafa56e2f2bb8d59a0969894' LIMIT 1 [ RunTime:0.017669s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.017523s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.015429s ]
+---------------------------------------------------------------
+[ 2019-11-02T19:02:18+08:00 ] 0.0.0.0 GET localhost:777/index/user/dynamiclist.html
+[运行时间：0.987068s] [吞吐率：1.01req/s] [内存消耗：4,252.56kb] [文件加载：133]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000994s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.022990s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'user',
+    2 => 'dynamiclist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:777/index/user/charlierecharge.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.013574s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ RUN ] app\index\controller\User->_empty[ C:\Users\user\Desktop\fastadmin\application\index\controller\User.php ]
+[ info ] [ VIEW ] C:\Users\user\Desktop\fastadmin\public/../application/index\view\user\dynamiclist.html [ array (
+  0 => 'user',
+  1 => 'site',
+  2 => 'config',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.025331s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.017434s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = '8efc671d44366b1acafa56e2f2bb8d59a0969894' LIMIT 1 [ RunTime:0.016732s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.015977s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.015213s ]
+---------------------------------------------------------------
+[ 2019-11-02T19:02:20+08:00 ] 0.0.0.0 GET localhost:777/assets/css/frontend.css.map
+[运行时间：0.570404s] [吞吐率：1.75req/s] [内存消耗：1,954.05kb] [文件加载：106]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000832s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.017663s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'assets',
+    1 => 'css',
+    2 => 'frontend.css.map',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-11-02T19:02:20+08:00 ] 0.0.0.0 GET localhost:777/assets/css/bootstrap.css.map
+[运行时间：0.572964s] [吞吐率：1.75req/s] [内存消耗：1,954.05kb] [文件加载：106]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.001339s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.016724s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'assets',
+    1 => 'css',
+    2 => 'bootstrap.css.map',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-11-02T19:02:20+08:00 ] 0.0.0.0 GET localhost:777/assets/css/fastadmin.css.map
+[运行时间：0.574208s] [吞吐率：1.74req/s] [内存消耗：1,954.05kb] [文件加载：106]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000672s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.017007s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'assets',
+    1 => 'css',
+    2 => 'fastadmin.css.map',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-11-02T19:02:21+08:00 ] 0.0.0.0 GET localhost:777/index/ajax/lang?callback=define&controllername=user&v=1572692538
+[运行时间：0.547542s] [吞吐率：1.83req/s] [内存消耗：3,828.80kb] [文件加载：132]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.001074s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.017931s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'ajax',
+    2 => 'lang',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:777/index/user/dynamiclist.html',
+  'accept' => '*/*',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+  'callback' => 'define',
+  'controllername' => 'user',
+  'v' => '1572692538',
+)
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.008971s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index/lang/zh-cn/ajax.php
+[ info ] [ RUN ] app\index\controller\Ajax->lang[ C:\Users\user\Desktop\fastadmin\application\index\controller\Ajax.php ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.016712s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.011313s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = '8efc671d44366b1acafa56e2f2bb8d59a0969894' LIMIT 1 [ RunTime:0.010463s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.012597s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.011556s ]
+---------------------------------------------------------------
+[ 2019-11-02T19:02:23+08:00 ] 0.0.0.0 GET localhost:777/index/user/agentSearchAccByCid?page=1
+[运行时间：1.279678s] [吞吐率：0.78req/s] [内存消耗：3,986.17kb] [文件加载：130]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000531s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.013084s ]
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'user',
+    2 => 'agentSearchAccByCid',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'uid=1; token=8d19c391-54ca-4aeb-817d-3b8e97c83451; Hm_lvt_f8d0a8c400404989e195270b0bbf060a=1571472261,1572068955,1572075140,1572685813; Hm_lpvt_f8d0a8c400404989e195270b0bbf060a=1572685813',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:777/index/user/dynamiclist.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'localhost:777',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+)
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.008574s ]
+[ info ] [ TOKEN ] INIT Mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] C:\Users\user\Desktop\fastadmin\public/../application/index/lang/zh-cn/user.php
+[ info ] [ RUN ] app\index\controller\User->agentSearchAccByCid[ C:\Users\user\Desktop\fastadmin\application\index\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.022575s ] mysql:host=39.105.175.43;port=3306;dbname=fastadmin;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user_token` [ RunTime:0.011726s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user_token` WHERE  `token` = '8efc671d44366b1acafa56e2f2bb8d59a0969894' LIMIT 1 [ RunTime:0.012430s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_user` [ RunTime:0.013547s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.012999s ]
