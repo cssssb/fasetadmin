@@ -5,12 +5,12 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             // 初始化表格参数配置
             Table.api.init({
                 extend: {
-                    index_url: 'exchangeamount/index' + location.search,
-                    add_url: 'exchangeamount/add',
-                    edit_url: 'exchangeamount/edit',
-                    del_url: 'exchangeamount/del',
-                    multi_url: 'exchangeamount/multi',
-                    table: 'exchangeamount',
+                    index_url: 'rechargeablecard_log/index' + location.search,
+                    add_url: 'rechargeablecard_log/add',
+                    edit_url: 'rechargeablecard_log/edit',
+                    del_url: 'rechargeablecard_log/del',
+                    multi_url: 'rechargeablecard_log/multi',
+                    table: 'rechargeablecard_log',
                 }
             });
 
@@ -25,9 +25,13 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     [
                         {checkbox: true},
                         {field: 'id', title: __('Id')},
-                        {field: 'name', title: __('Name')},
-                        {field: 'price', title: __('Price'), operate:'BETWEEN'},
-                        {field: 'recharge_price', title: '对应消耗点数'},
+                        {field: 'describe', title: __('Describe')},
+                        {field: 'user_id', title: __('User_id')},
+                        {field: 'user_name', title: __('User_name')},
+                        {field: 'number', title: __('Number')},
+                        {field: 'remainder', title: __('Remainder')},
+                        {field: 'c_time', title: __('C_time'), operate:'RANGE', addclass:'datetimerange', formatter: Table.api.formatter.datetime},
+                        {field: 'type', title: __('Type')},
                         {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
                     ]
                 ]
