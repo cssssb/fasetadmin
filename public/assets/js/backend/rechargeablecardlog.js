@@ -5,12 +5,12 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             // 初始化表格参数配置
             Table.api.init({
                 extend: {
-                    index_url: 'rechargeablecard_log/index' + location.search,
-                    add_url: 'rechargeablecard_log/add',
-                    edit_url: 'rechargeablecard_log/edit',
-                    del_url: 'rechargeablecard_log/del',
-                    multi_url: 'rechargeablecard_log/multi',
-                    table: 'rechargeablecard_log',
+                    index_url: 'rechargeablecardlog/index' + location.search,
+                    add_url: 'rechargeablecardlog/add',
+                    edit_url: 'rechargeablecardlog/edit',
+                    del_url: 'rechargeablecardlog/del',
+                    multi_url: 'rechargeablecardlog/multi',
+                    table: 'rechargeablecardlog',
                 }
             });
 

@@ -906,11 +906,12 @@ class User extends Frontend
                     $server_name = $key['name'];
                 }
             }
-            $server_count = $server_price*$_GET['days'];
             if(isset($_GET['days'])){
+                $server_count = $server_price*$_GET['days'];
                 $user_number>=$server_count?true:exit($this->_postjsonencode(['msg'=>'用户点数不足']));
             }
             if(isset($_GET['count'])){
+                $server_count = $server_price*$_GET['count'];
                 $user_number>=$server_count?true:exit($this->_postjsonencode(['msg'=>'用户点数不足']));
             }
             //扣点数 写入日志
@@ -1190,5 +1191,25 @@ class User extends Frontend
             //     "message": "success",
             //     "data": {}
             //   }
+        }
+        public function mainaccountnumber(){
+            $this->view->assign('title', '主账号');
+            return $this->view->fetch();
+        }
+        public function dynamic(){
+            $this->view->assign('title', '申请动态');
+            return $this->view->fetch();
+        }
+        public function dynamiclist(){
+            $this->view->assign('title', '动态列表');
+            return $this->view->fetch();
+        }
+        public function static(){
+            $this->view->assign('title', '申请静态');
+            return $this->view->fetch();
+        }
+        public function staticlist(){
+            $this->view->assign('title', '静态列表');
+            return $this->view->fetch();
         }
 }

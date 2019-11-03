@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:95:"C:\Users\user\Desktop\fastadmin\public/../application/admin\view\rechargeablecardlog\index.html";i:1572767588;s:74:"C:\Users\user\Desktop\fastadmin\application\admin\view\layout\default.html";i:1571470719;s:71:"C:\Users\user\Desktop\fastadmin\application\admin\view\common\meta.html";i:1571470719;s:73:"C:\Users\user\Desktop\fastadmin\application\admin\view\common\script.html";i:1571470719;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:95:"C:\Users\user\Desktop\fastadmin\public/../application/admin\view\rechargeablecardlog\index.html";i:1572768537;s:74:"C:\Users\user\Desktop\fastadmin\application\admin\view\layout\default.html";i:1571470719;s:71:"C:\Users\user\Desktop\fastadmin\application\admin\view\common\meta.html";i:1571470719;s:73:"C:\Users\user\Desktop\fastadmin\application\admin\view\common\script.html";i:1571470719;}*/ ?>
 <!DOCTYPE html>
 <html lang="<?php echo $config['language']; ?>">
     <head>
@@ -59,12 +59,12 @@
                 <div class="widget-body no-padding">
                     <div id="toolbar" class="toolbar">
                         <a href="javascript:;" class="btn btn-primary btn-refresh" title="<?php echo __('Refresh'); ?>" ><i class="fa fa-refresh"></i> </a>
-                        <a href="javascript:;" class="btn btn-success btn-add <?php echo $auth->check('rechargeablecard_log/add')?'':'hide'; ?>" title="<?php echo __('Add'); ?>" ><i class="fa fa-plus"></i> <?php echo __('Add'); ?></a>
-                        <a href="javascript:;" class="btn btn-success btn-edit btn-disabled disabled <?php echo $auth->check('rechargeablecard_log/edit')?'':'hide'; ?>" title="<?php echo __('Edit'); ?>" ><i class="fa fa-pencil"></i> <?php echo __('Edit'); ?></a>
-                        <a href="javascript:;" class="btn btn-danger btn-del btn-disabled disabled <?php echo $auth->check('rechargeablecard_log/del')?'':'hide'; ?>" title="<?php echo __('Delete'); ?>" ><i class="fa fa-trash"></i> <?php echo __('Delete'); ?></a>
-                        <a href="javascript:;" class="btn btn-danger btn-import <?php echo $auth->check('rechargeablecard_log/import')?'':'hide'; ?>" title="<?php echo __('Import'); ?>" id="btn-import-file" data-url="ajax/upload" data-mimetype="csv,xls,xlsx" data-multiple="false"><i class="fa fa-upload"></i> <?php echo __('Import'); ?></a>
+                        <a href="javascript:;" class="btn btn-success btn-add <?php echo $auth->check('rechargeablecardlog/add')?'':'hide'; ?>" title="<?php echo __('Add'); ?>" ><i class="fa fa-plus"></i> <?php echo __('Add'); ?></a>
+                        <a href="javascript:;" class="btn btn-success btn-edit btn-disabled disabled <?php echo $auth->check('rechargeablecardlog/edit')?'':'hide'; ?>" title="<?php echo __('Edit'); ?>" ><i class="fa fa-pencil"></i> <?php echo __('Edit'); ?></a>
+                        <a href="javascript:;" class="btn btn-danger btn-del btn-disabled disabled <?php echo $auth->check('rechargeablecardlog/del')?'':'hide'; ?>" title="<?php echo __('Delete'); ?>" ><i class="fa fa-trash"></i> <?php echo __('Delete'); ?></a>
+                        <a href="javascript:;" class="btn btn-danger btn-import <?php echo $auth->check('rechargeablecardlog/import')?'':'hide'; ?>" title="<?php echo __('Import'); ?>" id="btn-import-file" data-url="ajax/upload" data-mimetype="csv,xls,xlsx" data-multiple="false"><i class="fa fa-upload"></i> <?php echo __('Import'); ?></a>
 
-                        <div class="dropdown btn-group <?php echo $auth->check('rechargeablecard_log/multi')?'':'hide'; ?>">
+                        <div class="dropdown btn-group <?php echo $auth->check('rechargeablecardlog/multi')?'':'hide'; ?>">
                             <a class="btn btn-primary btn-more dropdown-toggle btn-disabled disabled" data-toggle="dropdown"><i class="fa fa-cog"></i> <?php echo __('More'); ?></a>
                             <ul class="dropdown-menu text-left" role="menu">
                                 <li><a class="btn btn-link btn-multi btn-disabled disabled" href="javascript:;" data-params="status=normal"><i class="fa fa-eye"></i> <?php echo __('Set to normal'); ?></a></li>
@@ -75,8 +75,8 @@
                         
                     </div>
                     <table id="table" class="table table-striped table-bordered table-hover table-nowrap"
-                           data-operate-edit="<?php echo $auth->check('rechargeablecard_log/edit'); ?>" 
-                           data-operate-del="<?php echo $auth->check('rechargeablecard_log/del'); ?>" 
+                           data-operate-edit="<?php echo $auth->check('rechargeablecardlog/edit'); ?>" 
+                           data-operate-del="<?php echo $auth->check('rechargeablecardlog/del'); ?>" 
                            width="100%">
                     </table>
                 </div>
