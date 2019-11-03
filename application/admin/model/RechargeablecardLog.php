@@ -5,7 +5,7 @@ namespace app\admin\model;
 use think\Model;
 
 
-class rechargeablecardlog extends Model
+class RechargeablecardLog extends Model
 {
 
     

@@ -4,7 +4,7 @@ namespace app\admin\validate;
 
 use think\Validate;
 
-class rechargeablecardlog extends Validate
+class RechargeablecardLog extends Validate
 {
     /**
      * 验证规则

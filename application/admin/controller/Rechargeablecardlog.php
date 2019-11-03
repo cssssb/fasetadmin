@@ -9,19 +9,19 @@ use app\common\controller\Backend;
  *
  * @icon fa fa-circle-o
  */
-class rechargeablecardlog extends Backend
+class RechargeablecardLog extends Backend
 {
     
     /**
      * RechargeablecardLog模型对象
-     * @var \app\admin\model\rechargeablecardlog
+     * @var \app\admin\model\RechargeablecardLog
      */
     protected $model = null;
 
     public function _initialize()
     {
         parent::_initialize();
-        $this->model = new \app\admin\model\rechargeablecardlog;
+        $this->model = new \app\admin\model\RechargeablecardLog;
 
     }
     
