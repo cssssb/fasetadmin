@@ -505,7 +505,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     }
                 });
                 id = $(this).attr("id")
-
+console.log($(this).parent("tr:nth-child(2)").text())
 
             });
             $(document).on("click", ".gouxuan", function () {
