@@ -876,7 +876,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     'defaultLink': $('[name=defaultLink]').val(),
                     "expireDate": $('[name=expireDate]').val(),
                     'isp': $('[name= isp]:checked').val(),
-                    'serve_id': $('[name=serve_id]').val(),
+                    'serve_id': 3,
                     'linkId': 9999
 
                 }
