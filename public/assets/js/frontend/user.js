@@ -324,6 +324,9 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     dataType: 'json',
                     data: param,
                     success: function (ret) {
+                        if(ret.msg){
+                            layer.msg(ret.msg);
+                        }else{
                         switch (ret.code) {
                             case 0:
                                 Toastr.success("申请成功");
@@ -364,7 +367,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                             default:
                                 layer.msg("客户已存在");
                         }
-
+                    }
 
                     },
                     error: function (e) {}
@@ -389,7 +392,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
 
             var pageIndex = 1;
             var countpages
-            var serverid;
+            var serverid=2;
             var id;
             //AJAX方法取得数据并显示到页面上 
             BindData();
@@ -588,7 +591,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     $(".changedy").text("切换至e服务器动态列表")
                     $(".titname").text("b服务器动态列表")
 
-                    serverid = "";
+                    serverid = 2;
                     BindData()
                 }
                 // BindData();
@@ -649,7 +652,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     success: function (ret) {
                         switch (ret.code) {
                             case 0:
-                                Toastr.success("申请成功");
+                                Toastr.success("修改成功");
                                 // setTimeout(() => {
                                 //     window.location.reload()
                                 // }, 1000);
@@ -701,7 +704,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     success: function (ret) {
                         switch (ret.code) {
                             case 0:
-                                Toastr.success("申请成功");
+                                Toastr.success("修改成功");
                                 // setTimeout(() => {
                                 //     window.location.reload()
                                 // }, 1000);
