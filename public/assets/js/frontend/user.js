@@ -439,7 +439,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                                         " </td> <td class='bianji'  id='" + item.id + "'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
                                     $(".table-nowrap").append(content)
                                 }else{
-                                    $(".fixed-table-body").append("<div style='padding:10px; text-align: center;width:100%'>暂无数据</div>")
+                                    $(".fixed-table-body").html("<div style='padding:50px; text-align: center;width:100%'>暂无数据</div>")
                                 }
                                 })
                            
@@ -485,7 +485,8 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                         ret.data.linkList.forEach(function (e) {
                             var optionsItem = document.createElement("option");
                             optionsItem.innerHTML = e.name;
-                            optionsItem.value = e.id
+                            optionsItem.value = e.id;
+                            
                             var selectpicker = document.querySelector(".selectpicker")
                             selectpicker.appendChild(optionsItem);
                         })
@@ -495,6 +496,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
 
                     }
                 });
+                // $(".xiuname").val()=$(this).parent().children().eq(1).text();
                 Layer.open({
                     type: 1,
                     title: '信息',
@@ -506,8 +508,9 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
 
                     }     
                 });
-                id = $(this).attr("id")
-console.log($(this).parent("tr:nth-child(2)").text())
+                id = $(this).attr("id");
+                
+
 
             });
             $(document).on("click", ".gouxuan", function () {
@@ -541,13 +544,15 @@ console.log($(this).parent("tr:nth-child(2)").text())
             });
 
             $(".staticgroup").click(function () {
-                console.log($(".changedy").text())
-                if ($(".changedy").text() == "b服务器动态列表") {
-                    $(".changedy").text("e服务器动态列表");
+                if ($(".changedy").text() == "切换至e服务器动态列表") {
+                    $(".changedy").text("切换至b服务器动态列表");
+                    $(".titname").text("e服务器动态列表")
                     serverid = 1;
                     BindData()
-                } else if ($(".changedy").text() == "e服务器动态列表") {
-                    $(".changedy").text("b服务器动态列表")
+                } else if ($(".changedy").text() == "切换至b服务器动态列表") {
+                    $(".changedy").text("切换至e服务器动态列表")
+                    $(".titname").text("b服务器动态列表")
+
                     serverid = "";
                     BindData()
                 }
@@ -909,7 +914,7 @@ console.log($(this).parent("tr:nth-child(2)").text())
                                         " </td> <td class='bianji'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
                                     $(".table-nowrap").append(content)
                                 } else {
-                                    $(".fixed-table-body").append("<div style='padding:10px; text-align: center;width:100%'>暂无数据</div>")
+                                    $(".fixed-table-body").html("<div style='padding:50px; text-align: center;width:100%;font-size:14px'>暂无数据</div>")
                                 }
                                 })
                             
@@ -989,7 +994,10 @@ console.log($(this).parent("tr:nth-child(2)").text())
                     s += $(this).parent().next().text() + ', ';
 
                 });
-                $("#c-vcname").val(s.substring(9));
+                if($("#c-vcname").val()!=""){
+                    $("#c-vcname").val(s.substring(9));
+                
+             
                 Layer.open({
                     type: 1,
                     title: '信息',
@@ -1001,16 +1009,21 @@ console.log($(this).parent("tr:nth-child(2)").text())
 
                     }
                 });
+            }else{
+                return;
+            }
             });
 
             $(".staticgroup").click(function () {
-                console.log($(".changedy").text())
-                if ($(".changedy").text() == "b服务器动态列表") {
-                    $(".changedy").text("e服务器动态列表");
+                if ($(".changedy").text() == "切换至e服务器静态列表") {
+                    $(".changedy").text("切换至b服务器静态列表");
+                    $(".titname").text("e服务器静态列表")
                     serverid = 1;
                     BindData()
-                } else if ($(".changedy").text() == "e服务器动态列表") {
-                    $(".changedy").text("b服务器动态列表")
+                } else if ($(".changedy").text() == "切换至b服务器静态列表") {
+                    $(".changedy").text("切换至e服务器静态列表")
+                    $(".titname").text("b服务器静态列表")
+
                     serverid = "";
                     BindData()
                 }
