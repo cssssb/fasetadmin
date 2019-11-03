@@ -1088,8 +1088,14 @@ class User extends Frontend
         public function agentSearchAccByCid(){
             $param['page'] = $this->_dataFilter('page')['page'];
             self::$_url .= '&cusId='.$this->auth->system_id;
+            if($_GET['serve_id']==1){
+                //修改访问地址
+                $this->_server_url = 'https://e.api.vpn.cn:8080';
+            }
+                
             $this->url = '/agent/searchAccByCid/?';
             $data = $this->_httpget();
+            if($data['code']==0){
             $user_data = DB::name('agent')->field('name,count')->where('cusId',$this->auth->system_id)->select();
             foreach($data['data']['accList'] as &$key){
                 foreach($user_data as $k){
@@ -1097,7 +1103,7 @@ class User extends Frontend
                         $key['count']=$k['count'];
                     }
                 }
-            }
+            }}
             return $this->_postjsonencode($data);
         }
 

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:86:"C:\Users\user\Desktop\fastadmin\public/../application/index\view\user\dynamiclist.html";i:1572768050;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\layout\default.html";i:1571470719;s:71:"C:\Users\user\Desktop\fastadmin\application\index\view\common\meta.html";i:1571470719;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\common\sidenav.html";i:1571842243;s:73:"C:\Users\user\Desktop\fastadmin\application\index\view\common\script.html";i:1571470719;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:86:"C:\Users\user\Desktop\fastadmin\public/../application/index\view\user\dynamiclist.html";i:1572796096;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\layout\default.html";i:1571470719;s:71:"C:\Users\user\Desktop\fastadmin\application\index\view\common\meta.html";i:1571470719;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\common\sidenav.html";i:1571842243;s:73:"C:\Users\user\Desktop\fastadmin\application\index\view\common\script.html";i:1571470719;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -275,7 +275,7 @@
                         <div class="form-group">
                             <label class="control-label col-xs-12 col-sm-4">连接账号:</label>
                             <div class="col-xs-12 col-sm-4">
-                                <input readonly="1" name="name" class="form-control" type="text" value="chiyu-20">
+                                <input readonly="1" name="name" class="form-control xiuname" type="text" value="chiyu-20">
                             </div>
                         </div>
                         <div class="form-group">
@@ -334,7 +334,7 @@
 
 
 
-                    <h2 class="page-header">动态列表----疑问联系客服 支持API快速切换地区 配置后可脚本快速切换地区 请及时停止次数不够的账号连接 密码错误的连接
+                    <h2 class="page-header"><span class="titname">b服务器动态列表</span>----疑问联系客服 支持API快速切换地区 配置后可脚本快速切换地区 请及时停止次数不够的账号连接 密码错误的连接
                         会本地IP进黑名单 请去主账号界面自助解封 新人不推荐冲共享点数 建议用多少冲多少！
                         <!-- <span>
                             <small class="text-danger">余额:2.52</small>
@@ -353,7 +353,7 @@
                                 <div class="gouxuan"> <a class="btn btn-info btn-disabled disabled btn-selfvpn"
                                         href="javascript:;">勾选账号充点</a></div>
                                 <div class="staticgroup"><a class="btn btn-success btn-groupvpn changedy"
-                                            href="javascript:;">b服务器动态列表</a></div>
+                                            href="javascript:;">切换至e服务器动态列表</a></div>
                                     <!-- <div class="other"><a class="btn btn-warning btn-othervpn"
                                             href="javascript:;">为他人充点</a></div> -->
 
