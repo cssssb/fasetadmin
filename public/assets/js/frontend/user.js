@@ -242,22 +242,22 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
         },
         // 申请动态
         dynamic: function () {
-           
+
             $(".onlyNumAlpha").bind("input propertychange change", function (event) {
                 var num = $(".onlyNumAlpha").val();
                 var reg = /^[0-9a-zA-Z]+$/;
-                if(!reg.test(num)){
+                if (!reg.test(num)) {
                     layer.msg("只能输入数字或者字母");
-                   $(this).val("")
-                    }
+                    $(this).val("")
+                }
             });
 
             $(".onlynum").bind("input propertychange change", function (event) {
                 var num = $(".onlynum").val();
-                if(num<=0){
-                    layer.msg("数量至少为1");   
+                if (num <= 0) {
+                    layer.msg("数量至少为1");
                     $(".onlynum").val(1)
-                    }
+                }
             });
             // 申请动态的城市列表
             $.ajax({
@@ -299,10 +299,10 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                 var str = $(".onlyNumAlpha").val();
                 var num = $(".onlynum").val();
                 var reg = /^[0-9a-zA-Z]+$/;
-                if(!reg.test(str) || num<=0){
+                if (!reg.test(str) || num <= 0) {
                     layer.msg("请输入正确信息");
-                  return;
-                    }
+                    return;
+                }
                 var param = {
                     'name': $('[name=name]').val(),
                     'password': $('[name= password]').val(),
@@ -397,46 +397,50 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     success: function (msg) { //msg为返回的数据，在这里做数据绑定 
                         if (msg.code == 0) {
                             var data = msg.data;
-                            var end = data.cur_page * 50;
-                            var start = end - 49;
-                            countpages = data.pages;
-                            $(".count").text(data.count);
-                            $(".start").text(start);
-                            $(".end").text(end);
-                            $(".page-number").remove()
-                            $(".tabcontent").remove()
-                            for (var i = 1; i <= data.pages; i++) {
-                                $("#next").before("<li class='page-number'><a href='#'>" + i + "</a></li>")
-                                $(".page-number").eq(data.cur_page - 1).addClass("active");
-                                $(".active").children("a").addClass("activea")
-                            };
-                            $.each(data.accList, function (i, item) {
-                                var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
-                                var isOnline = (item.isOnline == 1 ? '在线' : '离线');
-                                var isp
-                                switch (item.isp) {
-                                    case 0:
-                                        isp = "不限";
-                                        break;
-                                    case 1:
-                                        isp = "联通";
-                                        break;
-                                    case 2:
-                                        isp = "电信";
-                                        break;
-                                    case 3:
-                                        isp = "移动";
-                                        break;
+                            if (data.accType == "dynamic") {
+                                var end = data.cur_page * 50;
+                                var start = end - 49;
+                                countpages = data.pages;
+                                $(".count").text(data.count);
+                                $(".start").text(start);
+                                $(".end").text(end);
+                                $(".page-number").remove()
+                                $(".tabcontent").remove()
+                                for (var i = 1; i <= data.pages; i++) {
+                                    $("#next").before("<li class='page-number'><a href='#'>" + i + "</a></li>")
+                                    $(".page-number").eq(data.cur_page - 1).addClass("active");
+                                    $(".active").children("a").addClass("activea")
+                                };
+                                $.each(data.accList, function (i, item) {
+                                    var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
+                                    var isOnline = (item.isOnline == 1 ? '在线' : '离线');
+                                    var isp
+                                    switch (item.isp) {
+                                        case 0:
+                                            isp = "不限";
+                                            break;
+                                        case 1:
+                                            isp = "联通";
+                                            break;
+                                        case 2:
+                                            isp = "电信";
+                                            break;
+                                        case 3:
+                                            isp = "移动";
+                                            break;
 
 
-                                }
-                                var content = "<tr style='text-align: center; vertical-align: middle;' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone' ></td><td>" +
-                                    item.username + " </td><td>" + item.expireTime +
-                                    " </td><td>" + isp + " </td><td>" + item.totalcount + " </td><td>" + timeoutExec + " </td><td><span style='background: #2c3e50;color: #fff;padding: 2px 8px;border-radius:5px'>" + item.surplus +
-                                    "/" + item.totalcount + "</span> </td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
-                                    " </td> <td class='bianji'  id='"+item.id+"'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
-                                $(".table-nowrap").append(content)
-                            })
+                                    }
+                                    var content = "<tr style='text-align: center; vertical-align: middle;' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone' ></td><td>" +
+                                        item.username + " </td><td>" + item.expireTime +
+                                        " </td><td>" + isp + " </td><td>" + item.totalcount + " </td><td>" + timeoutExec + " </td><td><span style='background: #2c3e50;color: #fff;padding: 2px 8px;border-radius:5px'>" + item.surplus +
+                                        "/" + item.totalcount + "</span> </td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
+                                        " </td> <td class='bianji'  id='" + item.id + "'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
+                                    $(".table-nowrap").append(content)
+                                })
+                            }else{
+                                $(".fixed-table-body").append("<div style='padding:10px; text-align: center;width:100%'>暂无数据</div>")
+                            }
                         }
                     },
                     error: function () {
@@ -500,7 +504,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
 
                     }
                 });
-             id=$(this).attr("id")
+                id = $(this).attr("id")
 
 
             });
@@ -548,7 +552,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                 // BindData();
             });
             $(".checkbtn").click(function () {
-                if( $(".connum").val().trim()==""){
+                if ($(".connum").val().trim() == "") {
                     layer.msg("请输入充值天数")
                 }
                 $.ajax({
@@ -580,7 +584,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                 //    return;
                 //     }
                 var param = {
-                    "id":id,
+                    "id": id,
                     'password': $('[name= password]').val(),
                     'isp': $('[name= isp]:checked').val(),
                     'count': $('[name=count]').val(),
@@ -588,12 +592,12 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     'timeoutExec': $('[name=timeoutExec]:checked').val(),
                     'status': $('[name=status]:checked').val()
                 }
-                var params= {
-                    "id":id,
-                  'linkId':9999,
-                  "defaultLink":$('[name=defaultLink]').val(),
+                var params = {
+                    "id": id,
+                    'linkId': 9999,
+                    "defaultLink": $('[name=defaultLink]').val(),
                     'status': $('[name=status]:checked').val(),
-                    "updateIp":1
+                    "updateIp": 1
                 }
                 $.ajax({
                     url: "/index/user/agentChangeAccEnableLinks",
@@ -708,17 +712,17 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
             $(".onlyNumAlpha").bind("input propertychange change", function (event) {
                 var num = $(".onlyNumAlpha").val();
                 var reg = /^[0-9a-zA-Z]+$/;
-                if(!reg.test(num)){
+                if (!reg.test(num)) {
                     layer.msg("只能输入数字或者字母");
-                   $(this).val("")
-                    }
+                    $(this).val("")
+                }
             });
             $(".onlynum").bind("input propertychange change", function (event) {
                 var num = $(".onlynum").val();
-                if(num<=0){
+                if (num <= 0) {
                     layer.msg("数量至少为1");
                     $(".onlynum").val(1)
-                    }
+                }
             });
             // 城市列表
             $.ajax({
@@ -860,46 +864,51 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     }, //AJAX请求完成时隐藏loading提示 
                     success: function (msg) { //msg为返回的数据，在这里做数据绑定 
                         if (msg.code == 0) {
+
                             var data = msg.data;
-                            var end = data.cur_page * 50;
-                            var start = end - 49;
-                            countpages = data.pages;
-                            $(".count").text(data.count);
-                            $(".start").text(start);
-                            $(".end").text(end);
-                            $(".page-number").remove()
-                            $(".tabcontent").remove()
-                            for (var i = 1; i <= data.pages; i++) {
-                                $("#next").before("<li class='page-number'><a href='#'>" + i + "</a></li>")
-                                $(".page-number").eq(data.cur_page - 1).addClass("active");
-                                $(".active").children("a").addClass("activea")
-                            };
-                            $.each(data.accList, function (i, item) {
-                                var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
-                                var isOnline = (item.isOnline == 1 ? '在线' : '离线');
-                                var isp
-                                switch (item.isp) {
-                                    case 0:
-                                        isp = "不限";
-                                        break;
-                                    case 1:
-                                        isp = "联通";
-                                        break;
-                                    case 2:
-                                        isp = "电信";
-                                        break;
-                                    case 3:
-                                        isp = "移动";
-                                        break;
+                            if (data.accType == "static") {
+                                var end = data.cur_page * 50;
+                                var start = end - 49;
+                                countpages = data.pages;
+                                $(".count").text(data.count);
+                                $(".start").text(start);
+                                $(".end").text(end);
+                                $(".page-number").remove()
+                                $(".tabcontent").remove()
+                                for (var i = 1; i <= data.pages; i++) {
+                                    $("#next").before("<li class='page-number'><a href='#'>" + i + "</a></li>")
+                                    $(".page-number").eq(data.cur_page - 1).addClass("active");
+                                    $(".active").children("a").addClass("activea")
+                                };
+                                $.each(data.accList, function (i, item) {
+                                    var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
+                                    var isOnline = (item.isOnline == 1 ? '在线' : '离线');
+                                    var isp
+                                    switch (item.isp) {
+                                        case 0:
+                                            isp = "不限";
+                                            break;
+                                        case 1:
+                                            isp = "联通";
+                                            break;
+                                        case 2:
+                                            isp = "电信";
+                                            break;
+                                        case 3:
+                                            isp = "移动";
+                                            break;
 
 
-                                }
-                                var content = "<tr style='text-align: center; vertical-align: middle;' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone'></td><td>" +
-                                    item.username + " </td><td>" + item.groupId +
-                                    " </td><td>" + item.expireTime + " </td><td>" + isp + " </td><td>" + item.link + " </td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
-                                    " </td> <td class='bianji'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
-                                $(".table-nowrap").append(content)
-                            })
+                                    }
+                                    var content = "<tr style='text-align: center; vertical-align: middle;' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone'></td><td>" +
+                                        item.username + " </td><td>" + item.groupId +
+                                        " </td><td>" + item.expireTime + " </td><td>" + isp + " </td><td>" + item.link + " </td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
+                                        " </td> <td class='bianji'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
+                                    $(".table-nowrap").append(content)
+                                })
+                            } else {
+                                $(".fixed-table-body").append("<div style='padding:10px; text-align: center;width:100%'>暂无数据</div>")
+                            }
                         }
                     },
                     error: function () {
@@ -989,7 +998,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     }
                 });
             });
-            
+
             $(".staticgroup").click(function () {
                 console.log($(".changedy").text())
                 if ($(".changedy").text() == "b服务器动态列表") {
@@ -1004,7 +1013,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                 // BindData();
             });
             $(".checkbtn").click(function () {
-                if( $(".connum").val().trim()==""){
+                if ($(".connum").val().trim() == "") {
                     layer.msg("请输入充值天数")
                 }
                 $.ajax({
@@ -1029,12 +1038,12 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
 
                 var num = $(".onlyNumAlpha").val();
                 var reg = /^[0-9a-zA-Z]+$/;
-                if(!reg.test(num)){
+                if (!reg.test(num)) {
                     layer.msg("只能输入数字或者字母");
-                   return;
-                    }
+                    return;
+                }
                 var param = {
-                    "id":id,
+                    "id": id,
                     'password': $('[name= password]').val(),
                     'isp': $('[name= isp]:checked').val(),
                     'count': $('[name=count]').val(),
@@ -1042,12 +1051,12 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     'timeoutExec': $('[name=timeoutExec]:checked').val(),
                     'status': $('[name=status]:checked').val()
                 }
-                var params= {
-                    "id":id,
-                  'linkId':9999,
-                  "defaultLink":$('[name=defaultLink]').val(),
+                var params = {
+                    "id": id,
+                    'linkId': 9999,
+                    "defaultLink": $('[name=defaultLink]').val(),
                     'status': $('[name=status]:checked').val(),
-                    "updateIp":1
+                    "updateIp": 1
                 }
                 $.ajax({
                     url: "/index/user/agentChangeAccEnableLinks",
