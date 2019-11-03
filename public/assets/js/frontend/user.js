@@ -497,6 +497,41 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                                 }, 1000);
                             })
 
+                        }else{
+                            switch (ret.code) {
+                                case 1:
+                                    layer.msg("操作失败");
+                                    break;
+                                case 2:
+                                    layer.msg("代理被禁用或删除");
+                                    break;
+                                case 3:
+                                    layer.msg("sign计算错误或未提交");
+                                    break;
+                                case 4:
+                                    layer.msg("参数完整性验证");
+                                    break;
+                                case 5:
+                                    layer.msg("授权额度余额已用完");
+                                    break;
+                                case 6 :
+                                    layer.msg("账号名重复");
+                                    break;
+                                case 8:
+                                    layer.msg("代理授权额度余额已用完");
+                                    break;
+                                case 9:
+                                    layer.msg("被充值账号非按次计费模式");
+                                    break;
+                                case 10:
+                                    layer.msg("被充值账号非包年包月模式");
+                                    break;
+                                case 11:
+                                    layer.msg("默认线路未指定或不在授权范围内");
+                                    break;
+                                case 7:
+                                    layer.msg("账号名重复");
+                            }
                         }
                     },
                     error: function () {
@@ -825,23 +860,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     $(".onlynum").val(1)
                 }
             });
-            // 城市列表
-            $.ajax({
-                url: "/index/user/lineList",
-                type: 'get',
-                dataType: 'json',
-                data: {},
-                success: function (ret) {
-                    ret.data.linkList.forEach(function (e) {
-                        var optionsItem = document.createElement("option");
-                        optionsItem.innerHTML = e.name;
-                        optionsItem.value = e.id
-                        var selectpicker = document.querySelector(".citypick")
-                        selectpicker.appendChild(optionsItem);
-                    })
-                },
-                error: function (e) {}
-            });
+           
             $.ajax({
                 url: "/index/user/getserverlist",
                 type: 'get',
@@ -876,7 +895,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     'defaultLink': $('[name=defaultLink]').val(),
                     "expireDate": $('[name=expireDate]').val(),
                     'isp': $('[name= isp]:checked').val(),
-                    'serve_id': $('[name=serve_id]').val(),
+                    'serve_id': 3,
                     'linkId': 9999
 
                 }
