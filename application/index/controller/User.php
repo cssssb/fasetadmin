@@ -760,15 +760,22 @@ class User extends Frontend
             $param = $this->_dataFilter('name,password,linkId,defaultLink,isp,accountTotal,timeoutExec,expireDate,count,rand,type',false);
             $param['user_id'] = $this->auth->id;
             $param['user_name'] = $this->auth->nickname;
-            //申请动态/静态服务
-             $this->_server_create($param);
+             //开启事务
+            DB::startTrans();
+        try {
+            //先判断钱够不够
+            $this->_server_create($param);
+            //够了就发送创建请求
             DB::name('agent')->insert($param);
             // expireDate
-            self::$_url.='&cusId='.$this->auth->system_id;
-            // echo self::$_url;
-            $this->url = '/agent/create?';
-            $data = $this->_httpget();
-            return $this->_postjsonencode($data);
+            
+            DB::commit();
+            return $this->_postjsonencode(['msg'=>'创建成功']);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $this->_postjsonencode(['msg'=>'创建失败，请联系管理员']);
+        }
+            
         }
         /**
          * ================
@@ -776,20 +783,83 @@ class User extends Frontend
          * @Parameter:     
          * @DataTime:      2019-11-01
          * @Return:        
-         * @Notes:         申请动态/静态扣费服务
+         * @Notes:         申请动态/静态扣点数服务
          * @ErrorReason:   
          * ================
          */
+        public function remainingPoints($server_id=''){
+           isset($_GET['server_id'])? $server_id = $_GET['server_id']:true;
+           $where['type']= $server_id;
+           $where['user_id'] = $this->auth->id;
+           $return = DB::name('exchange_points')->where($where)->find()['number'];
+           isset($return)?true:$return = 0;
+           return $return;
+
+        }
         private function _server_create($param){
+            //获取服务器扣费数额
+            $server_price_data = $this->_getServerList();
+            foreach($server_price_data as $key){
+                if($key['id']=$_GET['serve_id']){
+                    $server_price = $key['recharge_price'];
+                    $server_name = $key['name'];
+                }
+            }
+            //获取对应的点数
+            $where['user_id'] = $this->auth->id;
+            $where['type'] = $_GET['server_id'];
+            $user_number = DB::name('exchange_points')->where($where)->find()['number'];
+            //如果是创建动态
+            if(isset($param['count'])){
+                $price = $param['count']*$server_price;
+                $server_count = $param['count'];
+                $price>= $user_number?true:exit($this->_postjsonencode(['msg'=>'用户点数不足']));
+            }else{
+                $price = $param['accountTotal']*$server_price;
+                $server_count = $param['accountTotal'];
+                $price >= $user_number?true:exit($this->_postjsonencode(['msg'=>'用户点数不足']));
+            }
+
+
+            self::$_url.='&cusId='.$this->auth->system_id;
+            // echo self::$_url;
+            $this->url = '/agent/create?';
             
-
-
-
             //todo 判断是哪个服务器 写死的如果是1为e服务器
             if($_GET['serve_id']==1){
                 //修改访问地址
-            $this->_server_url = 'https://e.api.vpn.cn:8080';
+                $this->_server_url = 'https://e.api.vpn.cn:8080';
             }
+            $data = $this->_httpget();
+            //把创建好的vpn写入数据库
+            if($data['message']=='success'){
+                $users_name = '';
+                foreach($data['data']['account'] as $key){
+                    $users_name .= $key['name'].',';
+                }
+            }else{
+                exit($this->_postjsonencode(['msg'=>'创建失败，请联系管理员']));
+            }
+            //调用充值接口
+            $data['name'] = trim($users_name);
+            $data['count'] = $param['count'];
+            if(!isset($param['count'])){$data['days']=1;}
+            $this->agentRecharge($data);
+            //写入点数日志
+            $this->_w_exchange_log($server_count,$user_number,$user_number-$server_count,'创建vpn账号:'.$param['name'],0,0,$_GET['server_id'],$this->auth->id,$this->auth->nickname);
+            //扣费
+            DB::name('exchange_points')->where($where)->setDec('number',$price);
+            unset($_GET);
+            $_GET['name']=$data['name'];
+            isset($data['days'])?$_GET['days'] =$data['days']:true;
+            isset($data['count'])?$_GET['count'] = $data['count']:true;
+            $_GET['cusId'] = $this->auth->system_id;
+            self::$_url = '';
+            $this->_dataFilter('name,days,count,cusId',false);
+            $this->url = '/agent/recharge/?';
+            self::$_url .='&cusId='.$this->auth->system_id;
+            return $this->_httpget();
+            
         }
         /**
          * ================
@@ -820,19 +890,12 @@ class User extends Frontend
          * @ErrorReason:   
          * ================
          */
-        public function agentRecharge(){
-            $param = 'name';
-            $param = $this->_dataFilter($param);
-            $param['days'] = (int) $this->_dataFilter('days',false);//int
-            $param['count'] = $this->_dataFilter('count',false);
-            $param['cusId'] = $this->auth->serve_id;
-            $msg['msg'] = '操作有误';
-            if(isset($param['days'])||isset($param['count'])){
+        public function agentRecharge($data=[]){
+                $this->_dataFilter('name,days,count,cusId',false);
                 $this->url = '/agent/recharge/?';
+                self::$_url .='&cusId='.$this->auth->system_id;
                 $data = $this->_httpget();
                 return $this->_postjsonencode($data);
-            }
-            return $this->_postjsonencode($msg);
 
         }
 
@@ -1003,6 +1066,14 @@ class User extends Frontend
             self::$_url .= '&cusId='.$this->auth->system_id;
             $this->url = '/agent/searchAccByCid/?';
             $data = $this->_httpget();
+            $user_data = DB::name('agent')->field('name,count')->where('cusId',$this->auth->system_id)->select();
+            foreach($data['data']['accList'] as &$key){
+                foreach($user_data as $k){
+                    if($k['name']==$key['username']){
+                        $key['count']=$k['count'];
+                    }
+                }
+            }
             return $this->_postjsonencode($data);
         }
 
