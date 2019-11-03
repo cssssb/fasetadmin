@@ -397,7 +397,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     success: function (msg) { //msg为返回的数据，在这里做数据绑定 
                         if (msg.code == 0) {
                             var data = msg.data;
-                            if (data.accType == "dynamic") {
+                            
                                 var end = data.cur_page * 50;
                                 var start = end - 49;
                                 countpages = data.pages;
@@ -412,6 +412,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                                     $(".active").children("a").addClass("activea")
                                 };
                                 $.each(data.accList, function (i, item) {
+                                    if (item.accType =="dynamic") {
                                     var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
                                     var isOnline = (item.isOnline == 1 ? '在线' : '离线');
                                     var isp
@@ -437,10 +438,11 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                                         "/" + item.totalcount + "</span> </td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
                                         " </td> <td class='bianji'  id='" + item.id + "'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
                                     $(".table-nowrap").append(content)
+                                }else{
+                                    $(".fixed-table-body").append("<div style='padding:10px; text-align: center;width:100%'>暂无数据</div>")
+                                }
                                 })
-                            }else{
-                                $(".fixed-table-body").append("<div style='padding:10px; text-align: center;width:100%'>暂无数据</div>")
-                            }
+                           
                         }
                     },
                     error: function () {
@@ -502,7 +504,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     success: function (layero) {
                         $(".propfrom").removeClass("hidden")
 
-                    }
+                    }     
                 });
                 id = $(this).attr("id")
 console.log($(this).parent("tr:nth-child(2)").text())
@@ -866,7 +868,7 @@ console.log($(this).parent("tr:nth-child(2)").text())
                         if (msg.code == 0) {
 
                             var data = msg.data;
-                            if (data.accType == "static") {
+                            
                                 var end = data.cur_page * 50;
                                 var start = end - 49;
                                 countpages = data.pages;
@@ -881,6 +883,7 @@ console.log($(this).parent("tr:nth-child(2)").text())
                                     $(".active").children("a").addClass("activea")
                                 };
                                 $.each(data.accList, function (i, item) {
+                                    if (data.accType == "static") {
                                     var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
                                     var isOnline = (item.isOnline == 1 ? '在线' : '离线');
                                     var isp
@@ -905,10 +908,11 @@ console.log($(this).parent("tr:nth-child(2)").text())
                                         " </td><td>" + item.expireTime + " </td><td>" + isp + " </td><td>" + item.link + " </td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
                                         " </td> <td class='bianji'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
                                     $(".table-nowrap").append(content)
+                                } else {
+                                    $(".fixed-table-body").append("<div style='padding:10px; text-align: center;width:100%'>暂无数据</div>")
+                                }
                                 })
-                            } else {
-                                $(".fixed-table-body").append("<div style='padding:10px; text-align: center;width:100%'>暂无数据</div>")
-                            }
+                            
                         }
                     },
                     error: function () {
