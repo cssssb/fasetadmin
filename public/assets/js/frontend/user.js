@@ -372,6 +372,18 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
         },
 
         dynamiclist: function () {
+            var linklist = [];
+            $.ajax({
+                url: "/index/user/lineList",
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function (ret) {
+                    linklist = ret.data.linkList;
+                },
+                error: function (e) {}
+            });
+
             var pageIndex = 1;
             var countpages
             var serverid;
@@ -395,54 +407,73 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                         $("#loding").hide();
                     }, //AJAX请求完成时隐藏loading提示 
                     success: function (msg) { //msg为返回的数据，在这里做数据绑定 
+
                         if (msg.code == 0) {
                             var data = msg.data;
-                            
-                                var end = data.cur_page * 50;
-                                var start = end - 49;
-                                countpages = data.pages;
-                                $(".count").text(data.count);
-                                $(".start").text(start);
-                                $(".end").text(end);
-                                $(".page-number").remove()
-                                $(".tabcontent").remove()
-                                for (var i = 1; i <= data.pages; i++) {
-                                    $("#next").before("<li class='page-number'><a href='#'>" + i + "</a></li>")
-                                    $(".page-number").eq(data.cur_page - 1).addClass("active");
-                                    $(".active").children("a").addClass("activea")
-                                };
-                                $.each(data.accList, function (i, item) {
-                                    if (item.accType =="dynamic") {
-                                    var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
-                                    var isOnline = (item.isOnline == 1 ? '在线' : '离线');
-                                    var isp
-                                    switch (item.isp) {
-                                        case 0:
-                                            isp = "不限";
-                                            break;
-                                        case 1:
-                                            isp = "联通";
-                                            break;
-                                        case 2:
-                                            isp = "电信";
-                                            break;
-                                        case 3:
-                                            isp = "移动";
-                                            break;
 
-
+                            var end = data.cur_page * 50;
+                            var start = end - 49;
+                            countpages = data.pages;
+                            $(".count").text(data.count);
+                            $(".start").text(start);
+                            $(".end").text(end);
+                            $(".page-number").remove()
+                            $(".tabcontent").remove()
+                            for (var i = 1; i <= data.pages; i++) {
+                                $("#next").before("<li class='page-number'><a href='#'>" + i + "</a></li>")
+                                $(".page-number").eq(data.cur_page - 1).addClass("active");
+                                $(".active").children("a").addClass("activea")
+                            };
+                            $.each(data.accList, function (i, item) {
+                                var link;
+                                var linkname
+                                $.each(item.linkList, function (index, it) {
+                                    if (it.isDefault == 1) {
+                                        link = it.linkId
                                     }
-                                    var content = "<tr style='text-align: center; vertical-align: middle;' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone' ></td><td>" +
-                                        item.username + " </td><td>" + item.expireTime +
-                                        " </td><td>" + isp + " </td><td>" + item.totalcount + " </td><td>" + timeoutExec + " </td><td><span style='background: #2c3e50;color: #fff;padding: 2px 8px;border-radius:5px'>" + item.surplus +
-                                        "/" + item.totalcount + "</span> </td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
-                                        " </td> <td class='bianji'  id='" + item.id + "'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
-                                    $(".table-nowrap").append(content)
-                                }else{
-                                    $(".fixed-table-body").html("<div style='padding:50px; text-align: center;width:100%'>暂无数据</div>")
-                                }
                                 })
-                           
+                                setTimeout(() => {
+                                    $.each(linklist, function (key, data) {
+                                        if (data.id == link) {
+                                            linkname = data.name;
+                                        }
+                                    })
+
+
+                                    // 城市列表
+
+                                    if (item.accType == "dynamic") {
+                                        var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
+                                        var isOnline = (item.isOnline == 1 ? '在线' : '离线');
+                                        var isp
+                                        switch (item.isp) {
+                                            case 0:
+                                                isp = "不限";
+                                                break;
+                                            case 1:
+                                                isp = "联通";
+                                                break;
+                                            case 2:
+                                                isp = "电信";
+                                                break;
+                                            case 3:
+                                                isp = "移动";
+                                                break;
+
+
+                                        }
+                                        var content = "<tr style='text-align: center; vertical-align: middle;' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone' ></td><td>" +
+                                            item.username + " </td><td>" + item.expireTime +
+                                            " </td><td>" + isp + " </td><td>" + linkname + " </td><td>" + timeoutExec + " </td><td><span style='background: #2c3e50;color: #fff;padding: 2px 8px;border-radius:5px'>" + item.surplus +
+                                            "</span> </td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
+                                            " </td> <td class='bianji'  id='" + item.id + "'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
+                                        $(".table-nowrap").append(content)
+                                    } else {
+                                        $(".fixed-table-body").html("<div style='padding:50px; text-align: center;width:100%'>暂无数据</div>")
+                                    }
+                                }, 1000);
+                            })
+
                         }
                     },
                     error: function () {
@@ -486,7 +517,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                             var optionsItem = document.createElement("option");
                             optionsItem.innerHTML = e.name;
                             optionsItem.value = e.id;
-                            
+
                             var selectpicker = document.querySelector(".selectpicker")
                             selectpicker.appendChild(optionsItem);
                         })
@@ -506,10 +537,10 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     success: function (layero) {
                         $(".propfrom").removeClass("hidden")
 
-                    }     
+                    }
                 });
                 id = $(this).attr("id");
-                
+
 
 
             });
@@ -848,6 +879,18 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
 
         },
         staticlist: function () {
+            var linklist = [];
+            $.ajax({
+                url: "/index/user/lineList",
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function (ret) {
+                    linklist = ret.data.linkList;
+                },
+                error: function (e) {}
+            });
+
             var pageIndex = 1;
             var countpages
             var serverid
@@ -873,22 +916,36 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                         if (msg.code == 0) {
 
                             var data = msg.data;
-                            
-                                var end = data.cur_page * 50;
-                                var start = end - 49;
-                                countpages = data.pages;
-                                $(".count").text(data.count);
-                                $(".start").text(start);
-                                $(".end").text(end);
-                                $(".page-number").remove()
-                                $(".tabcontent").remove()
-                                for (var i = 1; i <= data.pages; i++) {
-                                    $("#next").before("<li class='page-number'><a href='#'>" + i + "</a></li>")
-                                    $(".page-number").eq(data.cur_page - 1).addClass("active");
-                                    $(".active").children("a").addClass("activea")
-                                };
-                                $.each(data.accList, function (i, item) {
-                                    if (data.accType == "static") {
+
+                            var end = data.cur_page * 50;
+                            var start = end - 49;
+                            countpages = data.pages;
+                            $(".count").text(data.count);
+                            $(".start").text(start);
+                            $(".end").text(end);
+                            $(".page-number").remove()
+                            $(".tabcontent").remove()
+                            for (var i = 1; i <= data.pages; i++) {
+                                $("#next").before("<li class='page-number'><a href='#'>" + i + "</a></li>")
+                                $(".page-number").eq(data.cur_page - 1).addClass("active");
+                                $(".active").children("a").addClass("activea")
+                            };
+                            $.each(data.accList, function (i, item) {
+                                var link;
+                                var linkname
+                                $.each(item.linkList, function (index, it) {
+                                    if (it.isDefault == 1) {
+                                        link = it.linkId
+                                    }
+                                })
+                                setTimeout(() => {
+                                    $.each(linklist, function (key, data) {
+                                        if (data.id == link) {
+                                            linkname = data.name;
+                                        }
+                                    })
+
+                                if (data.accType == "static") {
                                     var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
                                     var isOnline = (item.isOnline == 1 ? '在线' : '离线');
                                     var isp
@@ -910,14 +967,15 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                                     }
                                     var content = "<tr style='text-align: center; vertical-align: middle;' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone'></td><td>" +
                                         item.username + " </td><td>" + item.groupId +
-                                        " </td><td>" + item.expireTime + " </td><td>" + isp + " </td><td>" + item.link + " </td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
+                                        " </td><td>" + item.expireTime + " </td><td>" + isp + " </td><td>" + linkname + " </td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
                                         " </td> <td class='bianji'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
                                     $(".table-nowrap").append(content)
                                 } else {
                                     $(".fixed-table-body").html("<div style='padding:50px; text-align: center;width:100%;font-size:14px'>暂无数据</div>")
                                 }
-                                })
-                            
+                            })
+                            })
+
                         }
                     },
                     error: function () {
@@ -994,24 +1052,24 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     s += $(this).parent().next().text() + ', ';
 
                 });
-                if($("#c-vcname").val()!=""){
+                if ($("#c-vcname").val() != "") {
                     $("#c-vcname").val(s.substring(9));
-                
-             
-                Layer.open({
-                    type: 1,
-                    title: '信息',
-                    area: ["650px", "450px"],
-                    content: content,
-                    skin: 'demo-class',
-                    success: function (layero) {
-                        content.removeClass("hidden")
 
-                    }
-                });
-            }else{
-                return;
-            }
+
+                    Layer.open({
+                        type: 1,
+                        title: '信息',
+                        area: ["650px", "450px"],
+                        content: content,
+                        skin: 'demo-class',
+                        success: function (layero) {
+                            content.removeClass("hidden")
+
+                        }
+                    });
+                } else {
+                    return;
+                }
             });
 
             $(".staticgroup").click(function () {
