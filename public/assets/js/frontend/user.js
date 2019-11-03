@@ -11,6 +11,23 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
         }
     };
     var Controller = {
+        invite:function(){
+            $(document).on("click", ".copy", function () {
+                var copyDom = document.querySelector('#link');
+                //创建选中范围
+            var range = document.createRange();
+            range.selectNode(copyDom);
+                //移除剪切板中内容
+            window.getSelection().removeAllRanges();
+                //添加新的内容到剪切板
+            window.getSelection().addRange(range);
+                //复制
+            var successful = document.execCommand('copy');
+             return successful
+            });
+
+        
+        },
         charlierecharge: function () {
             //   点击查询的按钮
             $(document).on("click", ".inquire", function () {
@@ -610,7 +627,46 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                         'serve_id': serverid
                     },
                     success: function (ret) {
-
+                        switch (ret.code) {
+                            case 0:
+                                Toastr.success("修改成功");
+                                // setTimeout(() => {
+                                //     window.location.reload()
+                                // }, 1000);
+                                break;
+                            case 1:
+                                layer.msg("操作失败");
+                                break;
+                            case 2:
+                                layer.msg("代理被禁用或删除");
+                                break;
+                            case 3:
+                                layer.msg("sign计算错误或未提交");
+                                break;
+                            case 4:
+                                layer.msg("参数完整性验证");
+                                break;
+                            case 5:
+                                layer.msg("授权额度余额已用完");
+                                break;
+                            case 6 :
+                                layer.msg("账号名重复");
+                                break;
+                            case 8:
+                                layer.msg("代理授权额度余额已用完");
+                                break;
+                            case 9:
+                                layer.msg("被充值账号非按次计费模式");
+                                break;
+                            case 10:
+                                layer.msg("被充值账号非包年包月模式");
+                                break;
+                            case 11:
+                                layer.msg("默认线路未指定或不在授权范围内");
+                                break;
+                            case 7:
+                                layer.msg("账号名重复");
+                        }
 
                     },
                     error: function (e) {
@@ -724,7 +780,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                             case 5:
                                 layer.msg("授权额度余额已用完");
                                 break;
-                            case 7 || 7:
+                            case 6 || 7:
                                 layer.msg("账号名重复");
                                 break;
                             case 8:
@@ -1081,21 +1137,6 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                 }
             });
 
-            $(".staticgroup").click(function () {
-                if ($(".changedy").text() == "切换至e服务器静态列表") {
-                    $(".changedy").text("切换至b服务器静态列表");
-                    $(".titname").text("e服务器静态列表")
-                    serverid = 1;
-                    BindData()
-                } else if ($(".changedy").text() == "切换至b服务器静态列表") {
-                    $(".changedy").text("切换至e服务器静态列表")
-                    $(".titname").text("b服务器静态列表")
-
-                    serverid = "";
-                    BindData()
-                }
-                // BindData();
-            });
             $(".checkbtn").click(function () {
                 if ($(".connum").val().trim() == "") {
                     layer.msg("请输入充值天数")
@@ -1107,9 +1148,50 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     data: {
                         "name": $("#c-vcname").val(),
                         "days": $(".connum").val(),
-                        'serve_id': serverid
+                        'serve_id': 3
                     },
                     success: function (ret) {
+                        switch (ret.code) {
+                            case 0:
+                                Toastr.success("申请成功");
+                                // setTimeout(() => {
+                                //     window.location.reload()
+                                // }, 1000);
+                                break;
+                            case 1:
+                                layer.msg("操作失败");
+                                break;
+                            case 2:
+                                layer.msg("代理被禁用或删除");
+                                break;
+                            case 3:
+                                layer.msg("sign计算错误或未提交");
+                                break;
+                            case 4:
+                                layer.msg("参数完整性验证");
+                                break;
+                            case 5:
+                                layer.msg("授权额度余额已用完");
+                                break;
+                            case 7 :
+                                layer.msg("账号名重复");
+                                break;
+                            case 8:
+                                layer.msg("代理授权额度余额已用完");
+                                break;
+                            case 9:
+                                layer.msg("被充值账号非按次计费模式");
+                                break;
+                            case 10:
+                                layer.msg("被充值账号非包年包月模式");
+                                break;
+                            case 11:
+                                layer.msg("默认线路未指定或不在授权范围内");
+                                break;
+                            case 6:
+                                layer.msg("账号名重复");
+                        }
+
 
 
                     },
