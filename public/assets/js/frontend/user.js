@@ -24,7 +24,10 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                         has_pwd: $("#cardpass").val()
                     },
                     success: function (ret) {
-
+                        if(ret.data==null){
+                            layer.msg("查询不到此账号")
+                            return;
+                        }
                         var optionsItem = document.createElement("tr");
                         var tab = "<td>" + ret.data.has_pwd + "</td><td>" + ret.data.price + "</td><td>" + ret.data.number + "</td><td> </td></td><td class='passduihuan'>兑换</td>";
                         optionsItem.innerHTML = tab;
@@ -527,7 +530,8 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
 
                     }
                 });
-                // $(".xiuname").val()=$(this).parent().children().eq(1).text();
+                // console.log($(this).parent().children().eq(2).text())
+                $(".xiuname").val($(this).parent().children().eq(1).text());
                 Layer.open({
                     type: 1,
                     title: '信息',
@@ -1027,6 +1031,8 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
 
                     }
                 });
+                $(".xiuname").val($(this).parent().children().eq(1).text());
+
                 Layer.open({
                     type: 1,
                     title: '信息',
