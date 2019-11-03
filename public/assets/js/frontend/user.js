@@ -12,6 +12,9 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
     };
     var Controller = {
         invite:function(){
+
+            console.log(window.location.host)
+            $(".localurl").text(window.location.host+"/index/user/register.html?invite=")
             $(document).on("click", ".copy", function () {
                 var copyDom = document.querySelector('#link');
                 //创建选中范围
@@ -23,7 +26,8 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
             window.getSelection().addRange(range);
                 //复制
             var successful = document.execCommand('copy');
-             return successful
+            layer.msg("复制成功")
+             return successful;
             });
 
         
@@ -535,7 +539,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                         }
                     },
                     error: function () {
-                        alert("加载数据失败");
+                        // alert("加载数据失败");
                     } //加载失败，请求错误处理 
                 });
             };
@@ -1099,7 +1103,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                         }
                     },
                     error: function () {
-                        alert("加载数据失败");
+                        // alert("加载数据失败");
                     } //加载失败，请求错误处理 
                 });
             };
