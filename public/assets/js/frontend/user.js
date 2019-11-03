@@ -887,6 +887,9 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     dataType: 'json',
                     data: param,
                     success: function (ret) {
+                        if(ret.msg){
+                            layer.msg(ret.msg);
+                        }else{
                         switch (ret.code) {
                             case 0:
                                 Toastr.success("申请成功");
@@ -927,7 +930,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                             default:
                                 layer.msg("客户已存在");
                         }
-
+                    }
 
                         // Toastr.success("申请成功");
                         // setTimeout(() => {
