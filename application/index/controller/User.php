@@ -1088,7 +1088,7 @@ class User extends Frontend
         public function agentSearchAccByCid(){
             $param['page'] = $this->_dataFilter('page')['page'];
             self::$_url .= '&cusId='.$this->auth->system_id;
-            if($_GET['serve_id']==1){
+            if(isset($_GET['serve_di']) && $_GET['serve_id']==1){
                 //修改访问地址
                 $this->_server_url = 'https://e.api.vpn.cn:8080';
             }
