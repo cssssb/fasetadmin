@@ -24,10 +24,6 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                         has_pwd: $("#cardpass").val()
                     },
                     success: function (ret) {
-                        if(ret.data==null){
-                            layer.msg("无此账号")
-                            return
-                        }
 
                         var optionsItem = document.createElement("tr");
                         var tab = "<td>" + ret.data.has_pwd + "</td><td>" + ret.data.price + "</td><td>" + ret.data.number + "</td><td> </td></td><td class='passduihuan'>兑换</td>";
@@ -35,7 +31,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                         var tabbox = document.querySelector("#tabbox")
                         console.log(tabbox)
                         tabbox.appendChild(optionsItem);
-                        $("#cardpass").val()=="";
+                        $("#cardpass").val() == "";
                     },
                     error: function (e) {
 
@@ -46,7 +42,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
             //   点的按钮
             $(document).on("click", ".passduihuan", function () {
                 console.log($(this).parent().children("td:first-child").text())
-                var pass=$(this).parent().children("td:first-child").text()
+                var pass = $(this).parent().children("td:first-child").text()
                 //选择兑换点数的列表
                 $.ajax({
                     url: "/index/user/hasexchange",
@@ -246,6 +242,23 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
         },
         // 申请动态
         dynamic: function () {
+
+            $(".onlyNumAlpha").bind("input propertychange change", function (event) {
+                var num = $(".onlyNumAlpha").val();
+                var reg = /^[0-9a-zA-Z]+$/;
+                if (!reg.test(num)) {
+                    layer.msg("只能输入数字或者字母");
+                    $(this).val("")
+                }
+            });
+
+            $(".onlynum").bind("input propertychange change", function (event) {
+                var num = $(".onlynum").val();
+                if (num <= 0) {
+                    layer.msg("数量至少为1");
+                    $(".onlynum").val(1)
+                }
+            });
             // 申请动态的城市列表
             $.ajax({
                 url: "/index/user/lineList",
@@ -283,9 +296,13 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
             // 创建动态账号
             $(document).on("click", ".dynamicbtn", function () {
 
-                //     for(var value of formData.values()){
-                // 	console.log(value)
-                // }
+                var str = $(".onlyNumAlpha").val();
+                var num = $(".onlynum").val();
+                var reg = /^[0-9a-zA-Z]+$/;
+                if (!reg.test(str) || num <= 0) {
+                    layer.msg("请输入正确信息");
+                    return;
+                }
                 var param = {
                     'name': $('[name=name]').val(),
                     'password': $('[name= password]').val(),
@@ -353,12 +370,15 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
             });
 
         },
-       
+
         dynamiclist: function () {
             var pageIndex = 1;
             var countpages
+            var serverid;
+            var id;
             //AJAX方法取得数据并显示到页面上 
             BindData();
+
             function BindData() {
                 $.ajax({
                     type: "get", //使用get方法访问后台 
@@ -366,6 +386,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     url: "/index/user/agentSearchAccByCid", //要访问的后台地址 
                     data: {
                         "page": pageIndex,
+                        'serve_id': serverid
                     }, //要发送的数据 
                     ajaxStart: function () {
                         $("#loding").show();
@@ -376,29 +397,50 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     success: function (msg) { //msg为返回的数据，在这里做数据绑定 
                         if (msg.code == 0) {
                             var data = msg.data;
-                            var end =data.cur_page*50;
-                            var start=end-49;
-                            countpages=data.pages;
-                            $(".count").text(data.count);
-                            $(".start").text(start);
-                            $(".end").text(end);
-                            $(".page-number").remove()
-                            $(".tabcontent").remove()
-                            for(var i=1;i<=data.pages;i++){
-                                $("#next").before("<li class='page-number'><a href='#'>"+i+"</a></li>")
-                                $(".page-number").eq(data.cur_page-1).addClass("active");
-                                $(".active").children("a").addClass("activea")
-                            };
-                            $.each(data.accList, function (i, item) {
-                                var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
-                                var isOnline = (item.isOnline == 1 ? '在线' : '离线');
-                                var content = "<tr style='text-align: center; vertical-align: middle;' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone'></td><td>" +
-                                    item.username + " </td><td>" + item.expireTime +
-                                    " </td><td>" + item.isp + " </td><td>" + item.totalcount + " </td><td>" + timeoutExec + " </td><td><span style='background: #2c3e50;color: #fff;padding: 2px 8px;border-radius:5px'>" + item.surplus +
-                                    "</span> </td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
-                                    " </td> <td class='bianji'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
-                                $(".table-nowrap").append(content)
-                            })
+                            if (data.accType == "dynamic") {
+                                var end = data.cur_page * 50;
+                                var start = end - 49;
+                                countpages = data.pages;
+                                $(".count").text(data.count);
+                                $(".start").text(start);
+                                $(".end").text(end);
+                                $(".page-number").remove()
+                                $(".tabcontent").remove()
+                                for (var i = 1; i <= data.pages; i++) {
+                                    $("#next").before("<li class='page-number'><a href='#'>" + i + "</a></li>")
+                                    $(".page-number").eq(data.cur_page - 1).addClass("active");
+                                    $(".active").children("a").addClass("activea")
+                                };
+                                $.each(data.accList, function (i, item) {
+                                    var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
+                                    var isOnline = (item.isOnline == 1 ? '在线' : '离线');
+                                    var isp
+                                    switch (item.isp) {
+                                        case 0:
+                                            isp = "不限";
+                                            break;
+                                        case 1:
+                                            isp = "联通";
+                                            break;
+                                        case 2:
+                                            isp = "电信";
+                                            break;
+                                        case 3:
+                                            isp = "移动";
+                                            break;
+
+
+                                    }
+                                    var content = "<tr style='text-align: center; vertical-align: middle;' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone' ></td><td>" +
+                                        item.username + " </td><td>" + item.expireTime +
+                                        " </td><td>" + isp + " </td><td>" + item.totalcount + " </td><td>" + timeoutExec + " </td><td><span style='background: #2c3e50;color: #fff;padding: 2px 8px;border-radius:5px'>" + item.surplus +
+                                        "/" + item.totalcount + "</span> </td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
+                                        " </td> <td class='bianji'  id='" + item.id + "'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
+                                    $(".table-nowrap").append(content)
+                                })
+                            }else{
+                                $(".fixed-table-body").append("<div style='padding:10px; text-align: center;width:100%'>暂无数据</div>")
+                            }
                         }
                     },
                     error: function () {
@@ -416,8 +458,8 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
             });
             //下一页按钮click事件 
             $("#next").click(function () {
-                var pageCount = $(".page-number").index(".active");                                                                                                      
-                if(pageCount>=countpages){
+                var pageCount = $(".page-number").index(".active");
+                if (pageCount >= countpages) {
                     return;
                 }
                 if (pageIndex != pageCount) {
@@ -425,6 +467,10 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                 }
                 BindData();
             });
+            $("#checkall").click(function () {
+                $(":checkbox[name='checkone']").prop("checked", this.checked); // this指代的你当前选择的这个元素的JS对象
+            });
+
 
 
             $(document).on("click", ".bianji", function () {
@@ -458,18 +504,22 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
 
                     }
                 });
+                id = $(this).attr("id")
+
 
             });
-            $("#toolbar").on("click", "div", function () {
-                var target = $(this).attr("class")
+            $(document).on("click", ".gouxuan", function () {
+                // var target = $(this).attr("class")
                 var content
-                if (target == "gouxuan") {
-                    content = $(".checkedcontent")
-                } else if (target == "staticgroup") {
-                    content = $(".staticcontent")
-                } else {
-                    content = $(".otherprop")
-                }
+                var s
+                content = $(".checkedcontent");
+                $('input[name="checkone"]:checked').each(function () {
+                    console.log($(this).parent().next().text())
+
+                    s += $(this).parent().next().text() + ', ';
+
+                });
+                $("#c-vcname").val(s.substring(9));
                 Layer.open({
                     type: 1,
                     title: '信息',
@@ -483,12 +533,197 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                 });
             });
 
+            $(".connum").bind("input propertychange change", function (event) {
+                var num = $(".connum").val();
+                document.querySelector("#code").innerText = 10 * num
+            });
 
+            $(".staticgroup").click(function () {
+                console.log($(".changedy").text())
+                if ($(".changedy").text() == "b服务器动态列表") {
+                    $(".changedy").text("e服务器动态列表");
+                    serverid = 1;
+                    BindData()
+                } else if ($(".changedy").text() == "e服务器动态列表") {
+                    $(".changedy").text("b服务器动态列表")
+                    serverid = "";
+                    BindData()
+                }
+                // BindData();
+            });
+            $(".checkbtn").click(function () {
+                if ($(".connum").val().trim() == "") {
+                    layer.msg("请输入充值天数")
+                }
+                $.ajax({
+                    url: "/index/user/agentRecharge",
+                    type: 'get',
+                    dataType: 'json',
+                    data: {
+                        "name": $("#c-vcname").val(),
+                        "count": $(".connum").val(),
+                        'serve_id': serverid
+                    },
+                    success: function (ret) {
+
+
+                    },
+                    error: function (e) {
+
+                    }
+                });
+            });
+
+            // 编辑请求
+            $(document).on("click", ".xiugaibtn", function () {
+
+                // var num = $(".onlyNumAlpha").val();
+                // var reg = /^[0-9a-zA-Z]+$/;
+                // if(!reg.test(num)){
+                //     layer.msg("只能输入数字或者字母");
+                //    return;
+                //     }
+                var param = {
+                    "id": id,
+                    'password': $('[name= password]').val(),
+                    'isp': $('[name= isp]:checked').val(),
+                    'count': $('[name=count]').val(),
+                    'serve_id': $('[name=serve_id]').val(),
+                    'timeoutExec': $('[name=timeoutExec]:checked').val(),
+                    'status': $('[name=status]:checked').val()
+                }
+                var params = {
+                    "id": id,
+                    'linkId': 9999,
+                    "defaultLink": $('[name=defaultLink]').val(),
+                    'status': $('[name=status]:checked').val(),
+                    "updateIp": 1
+                }
+                $.ajax({
+                    url: "/index/user/agentChangeAccEnableLinks",
+                    type: 'get',
+                    dataType: 'json',
+                    data: params,
+                    success: function (ret) {
+                        switch (ret.code) {
+                            case 0:
+                                Toastr.success("申请成功");
+                                // setTimeout(() => {
+                                //     window.location.reload()
+                                // }, 1000);
+                                break;
+                            case 1:
+                                layer.msg("操作失败");
+                                break;
+                            case 2:
+                                layer.msg("代理被禁用或删除");
+                                break;
+                            case 3:
+                                layer.msg("sign计算错误或未提交");
+                                break;
+                            case 4:
+                                layer.msg("参数完整性验证");
+                                break;
+                            case 5:
+                                layer.msg("授权额度余额已用完");
+                                break;
+                            case 7 || 7:
+                                layer.msg("账号名重复");
+                                break;
+                            case 8:
+                                layer.msg("代理授权额度余额已用完");
+                                break;
+                            case 9:
+                                layer.msg("被充值账号非按次计费模式");
+                                break;
+                            case 10:
+                                layer.msg("被充值账号非包年包月模式");
+                                break;
+                            case 11:
+                                layer.msg("默认线路未指定或不在授权范围内");
+                                break;
+                            default:
+                                layer.msg("客户已存在");
+                        }
+
+
+                    },
+                    error: function (e) {}
+                });
+
+                $.ajax({
+                    url: "/index/user/agentChangeAccBaseDatal",
+                    type: 'get',
+                    dataType: 'json',
+                    data: param,
+                    success: function (ret) {
+                        switch (ret.code) {
+                            case 0:
+                                Toastr.success("申请成功");
+                                // setTimeout(() => {
+                                //     window.location.reload()
+                                // }, 1000);
+                                break;
+                            case 1:
+                                layer.msg("操作失败");
+                                break;
+                            case 2:
+                                layer.msg("代理被禁用或删除");
+                                break;
+                            case 3:
+                                layer.msg("sign计算错误或未提交");
+                                break;
+                            case 4:
+                                layer.msg("参数完整性验证");
+                                break;
+                            case 5:
+                                layer.msg("授权额度余额已用完");
+                                break;
+                            case 7 || 7:
+                                layer.msg("账号名重复");
+                                break;
+                            case 8:
+                                layer.msg("代理授权额度余额已用完");
+                                break;
+                            case 9:
+                                layer.msg("被充值账号非按次计费模式");
+                                break;
+                            case 10:
+                                layer.msg("被充值账号非包年包月模式");
+                                break;
+                            case 11:
+                                layer.msg("默认线路未指定或不在授权范围内");
+                                break;
+                            default:
+                                layer.msg("客户已存在");
+                        }
+
+
+                    },
+                    error: function (e) {}
+                });
+
+            });
 
 
         },
         // 申请静态
         static: function () {
+            $(".onlyNumAlpha").bind("input propertychange change", function (event) {
+                var num = $(".onlyNumAlpha").val();
+                var reg = /^[0-9a-zA-Z]+$/;
+                if (!reg.test(num)) {
+                    layer.msg("只能输入数字或者字母");
+                    $(this).val("")
+                }
+            });
+            $(".onlynum").bind("input propertychange change", function (event) {
+                var num = $(".onlynum").val();
+                if (num <= 0) {
+                    layer.msg("数量至少为1");
+                    $(".onlynum").val(1)
+                }
+            });
             // 城市列表
             $.ajax({
                 url: "/index/user/lineList",
@@ -526,9 +761,13 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
             // 创建静态账号
             $(document).on("click", ".staticbtn", function () {
 
-                //     for(var value of formData.values()){
-                // 	console.log(value)
-                // }
+                // var str = $(".onlyNumAlpha").val();
+                // var num = $(".onlynum").val();
+                // var reg = /^[0-9a-zA-Z]+$/;
+                // if(!reg.test(str) || num<=0){
+                //     layer.msg("请输入正确信息");
+                //   return;
+                //     }
                 var param = {
                     'name': $('[name=name]').val(),
                     'password': $('[name= password]').val(),
@@ -602,6 +841,105 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
 
         },
         staticlist: function () {
+            var pageIndex = 1;
+            var countpages
+            var serverid
+            //AJAX方法取得数据并显示到页面上 
+            BindData();
+
+            function BindData() {
+                $.ajax({
+                    type: "get", //使用get方法访问后台 
+                    dataType: "json", //返回json格式的数据 
+                    url: "/index/user/agentSearchAccByCid", //要访问的后台地址 
+                    data: {
+                        "page": pageIndex,
+                        'serve_id': serverid
+                    }, //要发送的数据 
+                    ajaxStart: function () {
+                        $("#loding").show();
+                    },
+                    complete: function () {
+                        $("#loding").hide();
+                    }, //AJAX请求完成时隐藏loading提示 
+                    success: function (msg) { //msg为返回的数据，在这里做数据绑定 
+                        if (msg.code == 0) {
+
+                            var data = msg.data;
+                            if (data.accType == "static") {
+                                var end = data.cur_page * 50;
+                                var start = end - 49;
+                                countpages = data.pages;
+                                $(".count").text(data.count);
+                                $(".start").text(start);
+                                $(".end").text(end);
+                                $(".page-number").remove()
+                                $(".tabcontent").remove()
+                                for (var i = 1; i <= data.pages; i++) {
+                                    $("#next").before("<li class='page-number'><a href='#'>" + i + "</a></li>")
+                                    $(".page-number").eq(data.cur_page - 1).addClass("active");
+                                    $(".active").children("a").addClass("activea")
+                                };
+                                $.each(data.accList, function (i, item) {
+                                    var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
+                                    var isOnline = (item.isOnline == 1 ? '在线' : '离线');
+                                    var isp
+                                    switch (item.isp) {
+                                        case 0:
+                                            isp = "不限";
+                                            break;
+                                        case 1:
+                                            isp = "联通";
+                                            break;
+                                        case 2:
+                                            isp = "电信";
+                                            break;
+                                        case 3:
+                                            isp = "移动";
+                                            break;
+
+
+                                    }
+                                    var content = "<tr style='text-align: center; vertical-align: middle;' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone'></td><td>" +
+                                        item.username + " </td><td>" + item.groupId +
+                                        " </td><td>" + item.expireTime + " </td><td>" + isp + " </td><td>" + item.link + " </td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
+                                        " </td> <td class='bianji'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
+                                    $(".table-nowrap").append(content)
+                                })
+                            } else {
+                                $(".fixed-table-body").append("<div style='padding:10px; text-align: center;width:100%'>暂无数据</div>")
+                            }
+                        }
+                    },
+                    error: function () {
+                        alert("加载数据失败");
+                    } //加载失败，请求错误处理 
+                });
+            };
+            //上一页按钮click事件 
+            $("#previous").click(function () {
+                if (pageIndex != 1) {
+                    pageIndex--;
+                    $("#lblCurent").text(pageIndex);
+                }
+                BindData();
+            });
+            //下一页按钮click事件 
+            $("#next").click(function () {
+                var pageCount = $(".page-number").index(".active");
+                if (pageCount >= countpages) {
+                    return;
+                }
+                if (pageIndex != pageCount) {
+                    pageIndex++;
+                }
+                BindData();
+            });
+            $("#checkall").click(function () {
+                $(":checkbox[name='checkone']").prop("checked", this.checked); // this指代的你当前选择的这个元素的JS对象
+            });
+
+
             $(document).on("click", ".bianji", function () {
                 $.ajax({
                     url: "/index/user/lineList",
@@ -636,16 +974,18 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
 
             });
 
-            $("#toolbar").on("click", "div", function () {
-                var target = $(this).attr("class")
+            $(document).on("click", ".gouxuan", function () {
+                // var target = $(this).attr("class")
                 var content
-                if (target == "gouxuan") {
-                    content = $(".checkedcontent")
-                } else if (target == "staticgroup") {
-                    content = $(".staticcontent")
-                } else {
-                    content = $(".otherprop")
-                }
+                var s
+                content = $(".checkedcontent");
+                $('input[name="checkone"]:checked').each(function () {
+                    console.log($(this).parent().next().text())
+
+                    s += $(this).parent().next().text() + ', ';
+
+                });
+                $("#c-vcname").val(s.substring(9));
                 Layer.open({
                     type: 1,
                     title: '信息',
@@ -657,8 +997,173 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
 
                     }
                 });
+            });
+
+            $(".staticgroup").click(function () {
+                console.log($(".changedy").text())
+                if ($(".changedy").text() == "b服务器动态列表") {
+                    $(".changedy").text("e服务器动态列表");
+                    serverid = 1;
+                    BindData()
+                } else if ($(".changedy").text() == "e服务器动态列表") {
+                    $(".changedy").text("b服务器动态列表")
+                    serverid = "";
+                    BindData()
+                }
+                // BindData();
+            });
+            $(".checkbtn").click(function () {
+                if ($(".connum").val().trim() == "") {
+                    layer.msg("请输入充值天数")
+                }
+                $.ajax({
+                    url: "/index/user/agentRecharge",
+                    type: 'get',
+                    dataType: 'json',
+                    data: {
+                        "name": $("#c-vcname").val(),
+                        "days": $(".connum").val(),
+                        'serve_id': serverid
+                    },
+                    success: function (ret) {
+
+
+                    },
+                    error: function (e) {
+
+                    }
+                });
+            });
+            $(document).on("click", ".xiugaibtn", function () {
+
+                var num = $(".onlyNumAlpha").val();
+                var reg = /^[0-9a-zA-Z]+$/;
+                if (!reg.test(num)) {
+                    layer.msg("只能输入数字或者字母");
+                    return;
+                }
+                var param = {
+                    "id": id,
+                    'password': $('[name= password]').val(),
+                    'isp': $('[name= isp]:checked').val(),
+                    'count': $('[name=count]').val(),
+                    'serve_id': $('[name=serve_id]').val(),
+                    'timeoutExec': $('[name=timeoutExec]:checked').val(),
+                    'status': $('[name=status]:checked').val()
+                }
+                var params = {
+                    "id": id,
+                    'linkId': 9999,
+                    "defaultLink": $('[name=defaultLink]').val(),
+                    'status': $('[name=status]:checked').val(),
+                    "updateIp": 1
+                }
+                $.ajax({
+                    url: "/index/user/agentChangeAccEnableLinks",
+                    type: 'get',
+                    dataType: 'json',
+                    data: params,
+                    success: function (ret) {
+                        switch (ret.code) {
+                            case 0:
+                                Toastr.success("申请成功");
+                                // setTimeout(() => {
+                                //     window.location.reload()
+                                // }, 1000);
+                                break;
+                            case 1:
+                                layer.msg("操作失败");
+                                break;
+                            case 2:
+                                layer.msg("代理被禁用或删除");
+                                break;
+                            case 3:
+                                layer.msg("sign计算错误或未提交");
+                                break;
+                            case 4:
+                                layer.msg("参数完整性验证");
+                                break;
+                            case 5:
+                                layer.msg("授权额度余额已用完");
+                                break;
+                            case 7 || 7:
+                                layer.msg("账号名重复");
+                                break;
+                            case 8:
+                                layer.msg("代理授权额度余额已用完");
+                                break;
+                            case 9:
+                                layer.msg("被充值账号非按次计费模式");
+                                break;
+                            case 10:
+                                layer.msg("被充值账号非包年包月模式");
+                                break;
+                            case 11:
+                                layer.msg("默认线路未指定或不在授权范围内");
+                                break;
+                            default:
+                                layer.msg("客户已存在");
+                        }
+
+
+                    },
+                    error: function (e) {}
+                });
+
+                $.ajax({
+                    url: "/index/user/agentChangeAccBaseDatal",
+                    type: 'get',
+                    dataType: 'json',
+                    data: param,
+                    success: function (ret) {
+                        switch (ret.code) {
+                            case 0:
+                                Toastr.success("申请成功");
+                                // setTimeout(() => {
+                                //     window.location.reload()
+                                // }, 1000);
+                                break;
+                            case 1:
+                                layer.msg("操作失败");
+                                break;
+                            case 2:
+                                layer.msg("代理被禁用或删除");
+                                break;
+                            case 3:
+                                layer.msg("sign计算错误或未提交");
+                                break;
+                            case 4:
+                                layer.msg("参数完整性验证");
+                                break;
+                            case 5:
+                                layer.msg("授权额度余额已用完");
+                                break;
+                            case 7 || 7:
+                                layer.msg("账号名重复");
+                                break;
+                            case 8:
+                                layer.msg("代理授权额度余额已用完");
+                                break;
+                            case 9:
+                                layer.msg("被充值账号非按次计费模式");
+                                break;
+                            case 10:
+                                layer.msg("被充值账号非包年包月模式");
+                                break;
+                            case 11:
+                                layer.msg("默认线路未指定或不在授权范围内");
+                                break;
+                            default:
+                                layer.msg("客户已存在");
+                        }
+
+
+                    },
+                    error: function (e) {}
+                });
 
             });
+
         },
 
 

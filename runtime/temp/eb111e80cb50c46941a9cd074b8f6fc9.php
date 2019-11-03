@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:82:"C:\Users\user\Desktop\fastadmin\public/../application/index\view\user\dynamic.html";i:1572528132;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\layout\default.html";i:1571470719;s:71:"C:\Users\user\Desktop\fastadmin\application\index\view\common\meta.html";i:1571470719;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\common\sidenav.html";i:1571842243;s:73:"C:\Users\user\Desktop\fastadmin\application\index\view\common\script.html";i:1571470719;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:82:"C:\Users\user\Desktop\fastadmin\public/../application/index\view\user\dynamic.html";i:1572766955;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\layout\default.html";i:1571470719;s:71:"C:\Users\user\Desktop\fastadmin\application\index\view\common\meta.html";i:1571470719;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\common\sidenav.html";i:1571842243;s:73:"C:\Users\user\Desktop\fastadmin\application\index\view\common\script.html";i:1571470719;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -178,17 +178,17 @@
                                     <div class="form-group">
                                         <label class="control-label col-xs-12 col-sm-4">连接账号:</label>
                                         <div class="col-xs-12 col-sm-4">
-                                            <input name="name" class="form-control" type="text" value=""> </div>
+                                            <input name="name" class="form-control onlyNumAlpha" type="text" value=""> </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-xs-12 col-sm-4">连接密码:</label>
                                         <div class="col-xs-12 col-sm-4">
-                                            <input name="password" class="form-control" type="text" value=""> </div>
+                                            <input name="password" class="form-control onlyNumAlpha" type="text" value=""> </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-xs-12 col-sm-4">账号创建数量:</label>
                                         <div class="col-xs-12 col-sm-4">
-                                            <input id="num" name="accountTotal" class="form-control" type="number" value="1">
+                                            <input id="num" name="accountTotal" class="form-control onlynum" type="number" value="1">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -214,11 +214,11 @@
                                     <div class="form-group">
                                         <label class="control-label col-xs-12 col-sm-4">可使用IP数量:</label>
                                         <div class="col-xs-12 col-sm-4">
-                                            <input id="count" name="count" class="form-control" type="number" value=""> </div>
+                                            <input id="count" name="count" class="form-control onlynum" type="number" value=""> </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-xs-12 col-sm-4">动态ip账号在线超时设置:</label>
-                                        <div class="col-xs-12 col-sm-4">
+                                        <div class="col-xs-12 col-sm-4" >
                                             <div class="radio"><label for="row[timeoutExec]-add"><input id="row[timeoutExec]-add"
                                                         checked="checked" name="timeoutExec" type="radio" value="add"> 超时后
                                                     每隔5分钟 增加1个使用次数（老手推荐）</label> <label for="timeoutExec"><input
@@ -341,6 +341,7 @@
             z-index: 10;
             bottom: 50px;
             padding: 15px;
+           
         }
     
         .form-layer .form-footer {
