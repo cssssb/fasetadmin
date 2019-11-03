@@ -1061,6 +1061,41 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                             })
                             })
 
+                        }else{
+                            switch (ret.code) {
+                                case 1:
+                                    layer.msg("操作失败");
+                                    break;
+                                case 2:
+                                    layer.msg("代理被禁用或删除");
+                                    break;
+                                case 3:
+                                    layer.msg("sign计算错误或未提交");
+                                    break;
+                                case 4:
+                                    layer.msg("参数完整性验证");
+                                    break;
+                                case 5:
+                                    layer.msg("授权额度余额已用完");
+                                    break;
+                                case 6 :
+                                    layer.msg("账号名重复");
+                                    break;
+                                case 8:
+                                    layer.msg("代理授权额度余额已用完");
+                                    break;
+                                case 9:
+                                    layer.msg("被充值账号非按次计费模式");
+                                    break;
+                                case 10:
+                                    layer.msg("被充值账号非包年包月模式");
+                                    break;
+                                case 11:
+                                    layer.msg("默认线路未指定或不在授权范围内");
+                                    break;
+                                case 7:
+                                    layer.msg("账号名重复");
+                            }
                         }
                     },
                     error: function () {
