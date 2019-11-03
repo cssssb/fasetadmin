@@ -825,23 +825,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     $(".onlynum").val(1)
                 }
             });
-            // 城市列表
-            $.ajax({
-                url: "/index/user/lineList",
-                type: 'get',
-                dataType: 'json',
-                data: {},
-                success: function (ret) {
-                    ret.data.linkList.forEach(function (e) {
-                        var optionsItem = document.createElement("option");
-                        optionsItem.innerHTML = e.name;
-                        optionsItem.value = e.id
-                        var selectpicker = document.querySelector(".citypick")
-                        selectpicker.appendChild(optionsItem);
-                    })
-                },
-                error: function (e) {}
-            });
+           
             $.ajax({
                 url: "/index/user/getserverlist",
                 type: 'get',
