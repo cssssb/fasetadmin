@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:93:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\dynamiclist.html";i:1572574507;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1571714014;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:93:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\dynamiclist.html";i:1572665114;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1571714014;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -350,13 +350,12 @@
                                 <a href="javascript:;" class="btn btn-primary btn-refresh" title="刷新"><i
                                         class="fa fa-refresh"></i> </a>
 
-                                        <div class="gouxuan"> <a
-                                            class="btn btn-info btn-disabled disabled btn-selfvpn"
-                                            href="javascript:;">勾选账号充点</a></div>
-                                    <div class="staticgroup"><a class="btn btn-success btn-groupvpn"
-                                            href="javascript:;">静态按组充点</a></div>
-                                    <div class="other"><a class="btn btn-warning btn-othervpn"
-                                            href="javascript:;">为他人充点</a></div>
+                                <div class="gouxuan"> <a class="btn btn-info btn-disabled disabled btn-selfvpn"
+                                        href="javascript:;">勾选账号充点</a></div>
+                                <div class="staticgroup"><a class="btn btn-success btn-groupvpn"
+                                        href="javascript:;">静态按组充点</a></div>
+                                <div class="other"><a class="btn btn-warning btn-othervpn" href="javascript:;">为他人充点</a>
+                                </div>
 
                                 <a href="javascript:;" class="btn btn-default" style="font-size:12px;color:dodgerblue;">
                                     <span class="extend">
@@ -417,66 +416,59 @@
                                 <table id="table" class="table table-striped table-bordered table-hover table-nowrap"
                                     data-operate-edit="0" data-operate-del="" width="100%" data-show-columns="true">
                                     <!-- <thead> -->
-                                        <tr>
-                                            <th style="text-align: center; vertical-align: middle; "
-                                                data-field="orderid">
-                                                <div class="th-inner "><input type="checkbox" name="checkall"
-                                                        id="checkall"></div>
-                                                <div class="fht-cell">
-                                                </div>
-                                            </th>
-                                            <th style="text-align: center; vertical-align: middle; "
-                                                data-field="amount">
-                                                <div class="th-inner ">链接账号</div>
-                                                <div class="fht-cell">
-                                                </div>
-                                            </th>
+                                    <tr>
+                                        <th style="text-align: center; vertical-align: middle; " data-field="orderid">
+                                            <div class="th-inner "><input type="checkbox" name="checkall" id="checkall">
+                                            </div>
+                                            <div class="fht-cell">
+                                            </div>
+                                        </th>
+                                        <th style="text-align: center; vertical-align: middle; " data-field="amount">
+                                            <div class="th-inner ">链接账号</div>
+                                            <div class="fht-cell">
+                                            </div>
+                                        </th>
 
-                                            <th style="text-align: center; vertical-align: middle; "
-                                                data-field="paytime">
-                                                <div class="th-inner ">创建时间</div>
-                                                <div class="fht-cell">
-                                                </div>
-                                            </th>
-                                            <th style="text-align: center; vertical-align: middle; "
-                                            data-field="paytime">
+                                        <th style="text-align: center; vertical-align: middle; " data-field="paytime">
+                                            <div class="th-inner ">创建时间</div>
+                                            <div class="fht-cell">
+                                            </div>
+                                        </th>
+                                        <th style="text-align: center; vertical-align: middle; " data-field="paytime">
                                             <div class="th-inner ">运营商</div>
                                             <div class="fht-cell">
                                             </div>
                                         </th>
 
-                                            <th style="text-align: center; vertical-align: middle; "
-                                                data-field="createtime">
-                                                <div class="th-inner ">默认路线</div>
-                                                <div class="fht-cell">
-                                                </div>
-                                            </th>
-                                            <th style="text-align: center; vertical-align: middle; "
-                                                data-field="status">
-                                                <div class="th-inner ">设置超时</div>
-                                                <div class="fht-cell">
-                                                </div>
-                                            </th>
-                                            <th style="text-align: center; vertical-align: middle; "
-                                                data-field="createtime">
-                                                <div class="th-inner ">剩余次数</div>
-                                                <div class="fht-cell">
-                                                </div>
-                                            </th>
-                                            <th style="text-align: center; vertical-align: middle; "
-                                                data-field="status">
-                                                <div class="th-inner ">在线状态</div>
-                                                <div class="fht-cell">
-                                                </div>
-                                            </th>
-                                            <th style="text-align: center; vertical-align: middle; "
-                                                data-field="status">
-                                                <div class="th-inner ">更多</div>
-                                                <div class="fht-cell">
-                                                </div>
-                                            </th>
+                                        <th style="text-align: center; vertical-align: middle; "
+                                            data-field="createtime">
+                                            <div class="th-inner ">默认路线</div>
+                                            <div class="fht-cell">
+                                            </div>
+                                        </th>
+                                        <th style="text-align: center; vertical-align: middle; " data-field="status">
+                                            <div class="th-inner ">设置超时</div>
+                                            <div class="fht-cell">
+                                            </div>
+                                        </th>
+                                        <th style="text-align: center; vertical-align: middle; "
+                                            data-field="createtime">
+                                            <div class="th-inner ">剩余次数/总次数</div>
+                                            <div class="fht-cell">
+                                            </div>
+                                        </th>
+                                        <th style="text-align: center; vertical-align: middle; " data-field="status">
+                                            <div class="th-inner ">在线状态</div>
+                                            <div class="fht-cell">
+                                            </div>
+                                        </th>
+                                        <th style="text-align: center; vertical-align: middle; " data-field="status">
+                                            <div class="th-inner ">更多</div>
+                                            <div class="fht-cell">
+                                            </div>
+                                        </th>
 
-                                        </tr>
+                                    </tr>
 
                                     <!-- </thead> -->
                                     <tbody data-listidx="0">
@@ -486,14 +478,15 @@
                                 </table>
                             </div>
                         </div>
-                        <div    id="loding" style="text-align: center;padding:10px">
-                                正在努力地加载数据中，请稍候……</div>
+                        <div id="loding" style="text-align: center;padding:10px">
+                            正在努力地加载数据中，请稍候……</div>
                         <div class="fixed-table-pagination" style="display: block;">
-                            <div class="pull-left pagination-detail"><span class="pagination-info">显示第 <span class="start"></span> 到第 <span class="end"></span> 条记录，总共
-                                    <span class="count"></span> 条记录</span><span class="page-list">每页显示 <span class="btn-group dropup"><button
-                                            type="button" class="btn btn-default dropdown-toggle"
-                                            data-toggle="dropdown"><span class="page-size">50</span> <span
-                                                class="caret"></span></button>
+                            <div class="pull-left pagination-detail"><span class="pagination-info">显示第 <span
+                                        class="start"></span> 到第 <span class="end"></span> 条记录，总共
+                                    <span class="count"></span> 条记录</span><span class="page-list">每页显示 <span
+                                        class="btn-group dropup"><button type="button"
+                                            class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span
+                                                class="page-size">50</span> <span class="caret"></span></button>
                                     </span> 条记录</span></div>
                             <div class="pull-right pagination">
                                 <ul class="pagination">
@@ -641,6 +634,7 @@
         .demo-class .layui-layer-close1 {
             color: #fff !important
         }
+
         .toolbar div {
             display: inline-block
         }

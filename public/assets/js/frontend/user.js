@@ -394,7 +394,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                                 var isOnline = (item.isOnline == 1 ? '在线' : '离线');
                                 var content = "<tr style='text-align: center; vertical-align: middle;' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone'></td><td>" +
                                     item.username + " </td><td>" + item.expireTime +
-                                    " </td><td>" + item.isp + " </td><td>" + item.totalcount + " </td><td>" + timeoutExec + " </td><td><span style='background: #2c3e50;color: #fff;padding: 2px 8px;border-radius:5px'>" + item.surplus +
+                                    " </td><td>" + item.isp + " </td><td>" + item.totalcount + " </td><td>" + timeoutExec + " </td><td><span style='background: #2c3e50;color: #fff;padding: 2px 8px;border-radius:5px'>" + item.surplus+"/"+ item.totalcount+
                                     "</span> </td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
                                     " </td> <td class='bianji'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
                                 $(".table-nowrap").append(content)
@@ -408,7 +408,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
             };
             //上一页按钮click事件 
             $("#previous").click(function () {
-                if (pageIndex != 1) {
+                if (pageIndex != 1 ) {
                     pageIndex--;
                     $("#lblCurent").text(pageIndex);
                 }
@@ -602,6 +602,94 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
 
         },
         staticlist: function () {
+            var pageIndex = 1;
+            var countpages
+            //AJAX方法取得数据并显示到页面上 
+            BindData();
+            function BindData() {
+                $.ajax({
+                    type: "get", //使用get方法访问后台 
+                    dataType: "json", //返回json格式的数据 
+                    url: "/index/user/agentSearchAccByCid", //要访问的后台地址 
+                    data: {
+                        "page": pageIndex,
+                        'type':1
+                    }, //要发送的数据 
+                    ajaxStart: function () {
+                        $("#loding").show();
+                    },
+                    complete: function () {
+                        $("#loding").hide();
+                    }, //AJAX请求完成时隐藏loading提示 
+                    success: function (msg) { //msg为返回的数据，在这里做数据绑定 
+                        if (msg.code == 0) {
+                            var data = msg.data;
+                            var end =data.cur_page*50;
+                            var start=end-49;
+                            countpages=data.pages;
+                            $(".count").text(data.count);
+                            $(".start").text(start);
+                            $(".end").text(end);
+                            $(".page-number").remove()
+                            $(".tabcontent").remove()
+                            for(var i=1;i<=data.pages;i++){
+                                $("#next").before("<li class='page-number'><a href='#'>"+i+"</a></li>")
+                                $(".page-number").eq(data.cur_page-1).addClass("active");
+                                $(".active").children("a").addClass("activea")
+                            };
+                            $.each(data.accList, function (i, item) {
+                                var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
+                                var isOnline = (item.isOnline == 1 ? '在线' : '离线');
+                                var isp;
+                                switch (item.isp) {
+                                    case 0:
+                                       isp="不限";
+                                        break;
+                                    case 1:
+                                        isp="联通";
+                                        break;
+                                    case 2:
+                                        isp="电信";
+                                        break;
+                                    case 3:
+                                        isp="移动";
+                                        break;
+                                }
+                                var content = "<tr style='text-align: center; vertical-align: middle;' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone'></td><td>" +
+                                    item.username + " </td><td>" + item.groupId +
+                                    " </td><td>" + item.expireTime + " </td><td><span class='text-success'>"+isp+"</span> </td><td>" + item.link + " </td><td>" + item.expireTime  +
+                                    "</td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
+                                    " </td> <td class='bianji'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
+                                $(".table-nowrap").append(content)
+                            })
+                        }
+                    },
+                    error: function () {
+                        alert("加载数据失败");
+                    } //加载失败，请求错误处理 
+                });
+            };
+            //上一页按钮click事件 
+            $("#previous").click(function () {
+                if (pageIndex != 1 ) {
+                    pageIndex--;
+                    $("#lblCurent").text(pageIndex);
+                }
+                BindData();
+            });
+            //下一页按钮click事件 
+            $("#next").click(function () {
+                var pageCount = $(".page-number").index(".active");                                                                                                      
+                if(pageCount>=countpages){
+                    return;
+                }
+                if (pageIndex != pageCount) {
+                    pageIndex++;
+                }
+                BindData();
+            });
+
+
             $(document).on("click", ".bianji", function () {
                 $.ajax({
                     url: "/index/user/lineList",
