@@ -756,19 +756,27 @@ class User extends Frontend
         public function agentCreate(){
             
             $_GET['expireDate']='2099-12-31';
-            $this->_dataFilter('name,password,linkId,defaultLink,isp');
+            // $this->_dataFilter('name,password,linkId,defaultLink,isp');
+            // unset(self::$_url);
             $param = $this->_dataFilter('name,password,linkId,defaultLink,isp,accountTotal,timeoutExec,expireDate,count,rand,type',false);
             $param['user_id'] = $this->auth->id;
             $param['user_name'] = $this->auth->nickname;
-            //申请动态/静态服务
-             $this->_server_create($param);
+             //开启事务
+            DB::startTrans();
+        try {
+            //先判断钱够不够
+            $this->_server_create($param);
+            //够了就发送创建请求
             DB::name('agent')->insert($param);
             // expireDate
-            self::$_url.='&cusId='.$this->auth->system_id;
-            // echo self::$_url;
-            $this->url = '/agent/create?';
-            $data = $this->_httpget();
-            return $this->_postjsonencode($data);
+            
+            DB::commit();
+            return $this->_postjsonencode(['msg'=>'创建成功']);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $this->_postjsonencode(['msg'=>'创建失败，请联系管理员']);
+        }
+            
         }
         /**
          * ================
@@ -776,20 +784,85 @@ class User extends Frontend
          * @Parameter:     
          * @DataTime:      2019-11-01
          * @Return:        
-         * @Notes:         申请动态/静态扣费服务
+         * @Notes:         申请动态/静态扣点数服务
          * @ErrorReason:   
          * ================
          */
+        public function remainingPoints($server_id=''){
+           isset($_GET['server_id'])? $server_id = $_GET['server_id']:true;
+           $where['type']= $server_id;
+           $where['user_id'] = $this->auth->id;
+           $return = DB::name('exchange_points')->where($where)->find()['number'];
+           isset($return)?true:$return = 0;
+           return $return;
+
+        }
         private function _server_create($param){
+            //获取服务器扣费数额
+            $server_price_data = $this->_getServerList();
+            foreach($server_price_data as $key){
+                if($key['id']=$_GET['serve_id']){
+                    $server_price = $key['recharge_price'];
+                    $server_name = $key['name'];
+                }
+            }
+            //获取对应的点数
+            $where['user_id'] = $this->auth->id;
+            $where['type'] = $_GET['serve_id'];
+            $user_number = DB::name('exchange_points')->where($where)->find()['number'];
+            //如果是创建动态
+            if(isset($param['count'])){
+                $price = $param['count']*$server_price;
+                $server_count = $param['count'];
+                $price<= $user_number?true:exit($this->_postjsonencode(['msg'=>'用户点数不足']));
+            }else{
+                $price = $param['accountTotal']*$server_price;
+                $server_count = $param['accountTotal'];
+                $price <= $user_number?true:exit($this->_postjsonencode(['msg'=>'用户点数不足']));
+            }
+
+
+            self::$_url.='&cusId='.$this->auth->system_id;
+            // echo self::$_url;
+            $this->url = '/agent/create?';
             
-
-
-
             //todo 判断是哪个服务器 写死的如果是1为e服务器
             if($_GET['serve_id']==1){
                 //修改访问地址
-            $this->_server_url = 'https://e.api.vpn.cn:8080';
+                $this->_server_url = 'https://e.api.vpn.cn:8080';
             }
+            $data = $this->_httpget();
+            //把创建好的vpn写入数据库
+            if($data['message']=='success'){
+                $users_name = '';
+                foreach($data['data']['account'] as $key){
+                    $users_name .= $key['name'].',';
+                }
+            }else{
+                //返回错误码
+                exit($this->_postjsonencode($data));
+            }
+            //调用充值接口
+            $data['name'] = trim($users_name);
+            $data['count'] = $param['count'];
+            if(!isset($param['count'])){$data['days']=1;}
+            // $this->agentRecharge($data);
+            //写入点数日志
+            $this->_w_exchange_log($server_count,$user_number,$user_number-$server_count,'创建vpn账号:'.$param['name'],0,0,$_GET['serve_id'],$this->auth->id,$this->auth->nickname);
+            //扣费
+            DB::name('exchange_points')->where($where)->setDec('number',$price);
+            unset($_GET);
+            
+            self::$_url = '';
+            $_GET['name']=$data['name'];
+            isset($data['days'])?$_GET['days'] =$data['days']:true;
+            isset($data['count'])?$_GET['count'] = $data['count']:true;
+            $_GET['cusId'] = $this->auth->system_id;
+            $this->_dataFilter('name,days,count,cusId',false);
+            $this->url = '/agent/recharge/?';
+            self::$_url .='&cusId='.$this->auth->system_id;
+            return $this->_httpget();
+            
         }
         /**
          * ================
@@ -821,18 +894,35 @@ class User extends Frontend
          * ================
          */
         public function agentRecharge(){
-            $param = 'name';
-            $param = $this->_dataFilter($param);
-            $param['days'] = (int) $this->_dataFilter('days',false);//int
-            $param['count'] = $this->_dataFilter('count',false);
-            $param['cusId'] = $this->auth->serve_id;
-            $msg['msg'] = '操作有误';
-            if(isset($param['days'])||isset($param['count'])){
+            //消耗点数扣款
+            $where['user_id'] = $this->auth->id;
+            $where['type'] = $_GET['serve_id'];
+            $user_number = DB::name('exchange_points')->where($where)->find()['number'];
+            //获取服务器扣点数额
+            $server_price_data = $this->_getServerList();
+            foreach($server_price_data as $key){
+                if($key['id']=$_GET['serve_id']){
+                    $server_price = $key['recharge_price'];
+                    $server_name = $key['name'];
+                }
+            }
+            if(isset($_GET['days'])){
+                $server_count = $server_price*$_GET['days'];
+                $user_number>=$server_count?true:exit($this->_postjsonencode(['msg'=>'用户点数不足']));
+            }
+            if(isset($_GET['count'])){
+                $server_count = $server_price*$_GET['count'];
+                $user_number>=$server_count?true:exit($this->_postjsonencode(['msg'=>'用户点数不足']));
+            }
+            //扣点数 写入日志
+            DB::name('exchange_points')->where($where)->setDec('number',$server_count);
+            $this->_w_exchange_log($server_count,$user_number,$user_number-$server_count,'兑换:'.$server_name.'消耗'.$server_count.'点',0,0,$_GET['serve_id'],$this->auth->id,$this->auth->nickname);
+
+                $this->_dataFilter('name,days,count',false);
                 $this->url = '/agent/recharge/?';
+                self::$_url .='&cusId='.$this->auth->system_id;
                 $data = $this->_httpget();
                 return $this->_postjsonencode($data);
-            }
-            return $this->_postjsonencode($msg);
 
         }
 
@@ -871,7 +961,7 @@ class User extends Frontend
             $param = 'id,password,status,isp';
             $param = $this->_dataFilter($param);
             //如果有此参数是修改动态的vpn
-            $param['timeoutExec'] = $this->_dataFilter('timeoutExec',false);
+            $param['timeoutExec'] = $this->_dataFilter('timeoutExec',false)['timeoutExec'];
             self::$_url .= '&cusId='.$this->auth->system_id;
             $this->url = '/agent/changeAccBaseData/?';
             $data = $this->_httpget();
@@ -943,16 +1033,13 @@ class User extends Frontend
         // cusId	是	int	客户id
         // name	是	string	账号名称集合 A,B,C
         // page	是	int	请求第几页的数据（默认每页返回50条数据）
-         public function agentSearchAccByName_1(){
+         public function agentSearchAccByName(){
              $param = 'name,page';
              $param = $this->_dataFilter($param);
              self::$_url .= '&cusId='.$this->auth->system_id;
              $this->url = '/agent/searchAccByName/?';
              $data = $this->_httpget();
              return $this->_postjsonencode($data);
-         }
-         public function agentSearchAccByName(){
-             DB::name('');
          }
         //  {
         //     "code": 0,
@@ -1001,8 +1088,22 @@ class User extends Frontend
         public function agentSearchAccByCid(){
             $param['page'] = $this->_dataFilter('page')['page'];
             self::$_url .= '&cusId='.$this->auth->system_id;
+            if(isset($_GET['serve_di']) && $_GET['serve_id']==1){
+                //修改访问地址
+                $this->_server_url = 'https://e.api.vpn.cn:8080';
+            }
+                
             $this->url = '/agent/searchAccByCid/?';
             $data = $this->_httpget();
+            if($data['code']==0){
+            $user_data = DB::name('agent')->field('name,count')->where('cusId',$this->auth->system_id)->select();
+            foreach($data['data']['accList'] as &$key){
+                foreach($user_data as $k){
+                    if($k['name']==$key['username']){
+                        $key['count']=$k['count'];
+                    }
+                }
+            }}
             return $this->_postjsonencode($data);
         }
 
@@ -1096,5 +1197,25 @@ class User extends Frontend
             //     "message": "success",
             //     "data": {}
             //   }
+        }
+        public function mainaccountnumber(){
+            $this->view->assign('title', '主账号');
+            return $this->view->fetch();
+        }
+        public function dynamic(){
+            $this->view->assign('title', '申请动态');
+            return $this->view->fetch();
+        }
+        public function dynamiclist(){
+            $this->view->assign('title', '动态列表');
+            return $this->view->fetch();
+        }
+        public function static(){
+            $this->view->assign('title', '申请静态');
+            return $this->view->fetch();
+        }
+        public function staticlist(){
+            $this->view->assign('title', '静态列表');
+            return $this->view->fetch();
         }
 }

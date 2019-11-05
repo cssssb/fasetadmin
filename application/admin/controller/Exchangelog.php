@@ -17,7 +17,8 @@ class Exchangelog extends Backend
      * @var \app\admin\model\Exchangelog
      */
     protected $model = null;
-
+    protected $noNeedLogin = ['*'];
+    protected $noNeedRight = ['*'];
     public function _initialize()
     {
         parent::_initialize();

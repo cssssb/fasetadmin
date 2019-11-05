@@ -19,7 +19,7 @@ class User extends Model
     protected $append = [
         'prevtime_text',
         'logintime_text',
-        'jointime_text'
+        'jointime_text',
     ];
 
     public function getOriginData()

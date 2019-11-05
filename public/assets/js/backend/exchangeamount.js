@@ -10,7 +10,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     edit_url: 'exchangeamount/edit',
                     del_url: 'exchangeamount/del',
                     multi_url: 'exchangeamount/multi',
-                    table: 'exchange_amount',
+                    table: 'exchangeamount',
                 }
             });
 
@@ -27,6 +27,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'id', title: __('Id')},
                         {field: 'name', title: __('Name')},
                         {field: 'price', title: __('Price'), operate:'BETWEEN'},
+                        {field: 'recharge_price', title: '对应消耗点数'},
                         {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
                     ]
                 ]
