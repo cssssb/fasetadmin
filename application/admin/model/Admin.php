@@ -13,7 +13,10 @@ class Admin extends Model
     // 定义时间戳字段名
     protected $createTime = 'createtime';
     protected $updateTime = 'updatetime';
-
+// 追加属性
+protected $append = [
+    'number',
+];
     /**
      * 重置用户密码
      * @author baiyouwen
