@@ -79,7 +79,8 @@ class User extends Frontend
             Cookie::delete('uid');
             Cookie::delete('token');
         });
-        $this->_server_url = 'http://b.api.vpn.cn:8080';
+        // $this->_server_url = 'http://b.api.vpn.cn:8080';
+        $this->_server_url = 'https://e.api.vpn.cn:8080';
     }
 
     /**
@@ -676,8 +677,13 @@ class User extends Frontend
         // agent_sec: 3m6710mpz6py4os28uxgmnawxkfjlwrc
         private function _httpget(){
             
-            $this->agent_id = 'wvohjijo4gdrwmswawqsrxlbptpl5rd6';
-            $this->agent_sec = '3m6710mpz6py4os28uxgmnawxkfjlwrc';
+            // $this->agent_id = 'wvohjijo4gdrwmswawqsrxlbptpl5rd6';
+            // $this->agent_sec = '3m6710mpz6py4os28uxgmnawxkfjlwrc';
+
+            //efuwuqi
+            $this->agent_id = 'u6wjww1wc32rizyido7uwwacmvlbwuue';
+            $this->agent_sec = 'of67j67lpc1hr0x3dyyae3w61fbdr11o';
+
             $_url = 'timestamp='.time().'&agentid='.$this->agent_id.self::$_url;
             $sign = md5($this->agent_id.$this->agent_sec.$_url.time());
             $url = $this->_server_url.$this->url.$_url.'&sign='.$sign;
@@ -690,10 +696,10 @@ class User extends Frontend
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);//将获取的数据以字符串形式输出 而不是直接输出
             curl_setopt($ch, CURLOPT_HEADER, 0);
             $data = curl_exec($ch);
-            curl_close($ch);
             if ($data === false) {
                 return "CURL Error:" . curl_error($ch);
             }
+            curl_close($ch);
             return json_decode($data, true);
         }
         
@@ -709,7 +715,8 @@ class User extends Frontend
          */
         public function agentBalanceQuery(){
             $this->url = '/agent/getbalance?';
-            $data = $this->_httpget();
+            $this->_postjsonencode($this->_httpget());
+
             // var_export($data);
             //array ( 'code' => 0, 'message' => 'success', 'data' => array ( 'count' => 9332719, 'days' => 0, ), )
         }
@@ -754,7 +761,7 @@ class User extends Frontend
         // type	否	int	创建单个账号时是否名称增加01 默认增加01 type=1时不增加01
         // timeoutExec	是	string	设置动态账号在线超时后账号状态 add 增加一个使用次数/offline 账号下线
         public function agentCreate(){
-            
+             $this->url = '/agent/create?';
             $_GET['expireDate']='2099-12-31';
             // $this->_dataFilter('name,password,linkId,defaultLink,isp');
             // unset(self::$_url);
@@ -824,7 +831,7 @@ class User extends Frontend
 
             self::$_url.='&cusId='.$this->auth->system_id;
             // echo self::$_url;
-            $this->url = '/agent/create?';
+           
             
             //todo 判断是哪个服务器 写死的如果是1为e服务器
             if($_GET['serve_id']==1){
@@ -840,6 +847,10 @@ class User extends Frontend
                 }
             }else{
                 //返回错误码
+                 $_url = 'timestamp='.time().'&agentid='.$this->agent_id.self::$_url;
+            // $sign = md5($this->agent_id.$this->agent_sec.$_url.time());
+            $url = $this->_server_url.$this->url.$_url.'&sign=';
+                $data['url'] = $url;
                 exit($this->_postjsonencode($data));
             }
             //调用充值接口
