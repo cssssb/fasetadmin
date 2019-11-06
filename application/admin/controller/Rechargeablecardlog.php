@@ -5,23 +5,23 @@ namespace app\admin\controller;
 use app\common\controller\Backend;
 
 /**
- * 
+ * 余额日志
  *
  * @icon fa fa-circle-o
  */
-class Exchangeamount extends Backend
+class RechargeablecardLog extends Backend
 {
     
     /**
-     * ExchangeAmount模型对象
-     * @var \app\admin\model\Exchangeamount
+     * RechargeablecardLog模型对象
+     * @var \app\admin\model\RechargeablecardLog
      */
     protected $model = null;
 
     public function _initialize()
     {
         parent::_initialize();
-        $this->model = new \app\admin\model\Exchangeamount;
+        $this->model = new \app\admin\model\RechargeablecardLog;
 
     }
     
@@ -30,5 +30,6 @@ class Exchangeamount extends Backend
      * 因此在当前控制器中可不用编写增删改查的代码,除非需要自己控制这部分逻辑
      * 需要将application/admin/library/traits/Backend.php中对应的方法复制到当前控制器,然后进行修改
      */
+    
 
 }

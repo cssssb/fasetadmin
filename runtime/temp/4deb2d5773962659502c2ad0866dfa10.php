@@ -1,4 +1,8 @@
+<<<<<<< HEAD:runtime/temp/6a868f46fa28f4d5b5fefa4c10f7b714.php
 <?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:93:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\dynamiclist.html";i:1572665114;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1571714014;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
+=======
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:86:"C:\Users\user\Desktop\fastadmin\public/../application/index\view\user\dynamiclist.html";i:1572796096;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\layout\default.html";i:1571470719;s:71:"C:\Users\user\Desktop\fastadmin\application\index\view\common\meta.html";i:1571470719;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\common\sidenav.html";i:1571842243;s:73:"C:\Users\user\Desktop\fastadmin\application\index\view\common\script.html";i:1571470719;}*/ ?>
+>>>>>>> 49fbd94291e1c10bc87b0d451621cca125f4c96a:runtime/temp/4deb2d5773962659502c2ad0866dfa10.php
 <!DOCTYPE html>
 <html>
     <head>
@@ -171,23 +175,23 @@
                                         style="background: #fff">
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label class="control-label col-xs-3 col-sm-4" style="text-align:right">剩余额度:</label>
                                 <div class="col-xs-8 col-sm-4">
                                     <input id="c-surplus" class="form-control" name="surplus" type="text" value=""
                                         style="background: #fff">
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <label class="control-label col-xs-3 col-sm-4" style="text-align:right">充点数量:</label>
                                 <div class="col-xs-8 col-sm-4">
-                                    <input id="c-count" class="form-control" name="count" type="text" value="">
+                                    <input id="c-count" class="form-control connum" name="count" type="text" value="">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-xs-3 col-sm-4" style="text-align:right">点数:</label>
                                 <label class="control-label col-xs-8 col-sm-4" style="text-align:left"><span
-                                        style="color:red" id="code"></span></label>
+                                        style="color:red" id="code" ></span></label>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-xs-3 col-sm-4" style="text-align:right">可用点数:</label>
@@ -197,7 +201,7 @@
                             <div class="form-group layer-footer">
                                 <label class="control-label col-xs-12 col-sm-4"></label>
                                 <div class="col-xs-12 col-sm-4">
-                                    <button type="button" class="btn btn-success btn-embossed">确定</button>
+                                    <button type="button" class="btn btn-success btn-embossed checkbtn">确定</button>
                                     <button type="reset" class="btn btn-default btn-embossed">重置</button>
                                 </div>
                             </div>
@@ -205,7 +209,7 @@
 
                     </div>
                     <!-- 静态充值 -->
-                    <div class="staticcontent hidden">
+                    <!-- <div class="staticcontent hidden">
                         <h4 class="page-header" style="font-size:14px">注意：信息输入后 先点击查询 组成员 数量进行确认</h4>
                         <form id="selfvpn-form" class="form-horizontal nice-validator n-default n-bootstrap" role="form"
                             data-toggle="validator" method="POST" action="" novalidate="novalidate">
@@ -257,9 +261,9 @@
                             </div>
                         </form>
 
-                    </div>
+                    </div> -->
                     <!-- taren -->
-                    <div class=" otherprop hidden error" style="text-align: center">
+                    <!-- <div class=" otherprop hidden error" style="text-align: center">
                         <div class="image">
                             <img src="/assets/img/error.svg" alt="" width="150">
                         </div>
@@ -267,7 +271,7 @@
                         <p class="clearfix">
                             <a href="/" class="btn btn-grey">返回首页</a>
                         </p>
-                    </div>
+                    </div> -->
                     <!-- 编辑的html -->
                     <form id="add-form" class="form-horizontal nice-validator n-default n-bootstrap propfrom hidden"
                         role="form" data-toggle="validator">
@@ -275,18 +279,18 @@
                         <div class="form-group">
                             <label class="control-label col-xs-12 col-sm-4">连接账号:</label>
                             <div class="col-xs-12 col-sm-4">
-                                <input readonly="1" name="row[name]" class="form-control" type="text" value="chiyu-20">
+                                <input readonly="1" name="name" class="form-control xiuname" type="text" value="chiyu-20">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-xs-12 col-sm-4">连接密码:</label>
+                            <label class="control-label col-xs-12 col-sm-4 onlyNumAlpha">连接密码:</label>
                             <div class="col-xs-12 col-sm-4">
-                                <input name="row[password]" class="form-control" type="text" value="123"> </div>
+                                <input name="password" class="form-control" type="text" value=""> </div>
                         </div>
                         <div class="form-group ">
                             <label class="control-label col-xs-12 col-sm-4">默认线路:</label>
                             <div class="col-xs-12 col-sm-4">
-                                <select id="link" class="selectpicker form-control" name="row[defaultLink]"
+                                <select id="link" class="selectpicker form-control" name="defaultLink"
                                     tabindex="-98">
                                     <option value="0">请选择默认线路</option>
                                 </select>
@@ -296,21 +300,21 @@
                         <div class="form-group">
                             <label class="control-label col-xs-12 col-sm-4">运营商:</label>
                             <div class="col-xs-12 col-sm-4">
-                                <div class="radio"><label for="row[isp]-1"><input id="row[isp]-1" name="row[isp]"
+                                <div class="radio"><label for="row[isp]-1"><input id="row[isp]-1" name="isp"
                                             type="radio" value="1"> 联通</label> <label for="row[isp]-2"><input
-                                            id="row[isp]-2" name="row[isp]" type="radio" value="2"> 电信</label> <label
-                                        for="row[isp]-3"><input id="row[isp]-3" checked="checked" name="row[isp]"
+                                            id="row[isp]-2" name="isp" type="radio" value="2"> 电信</label> <label
+                                        for="row[isp]-3"><input id="row[isp]-3" checked="checked" name="isp"
                                             type="radio" value="3"> 移动</label> <label for="row[isp]-0"><input
-                                            id="row[isp]-0" name="row[isp]" type="radio" value="0"> 不限</label></div>
+                                            id="row[isp]-0" name="isp" type="radio" value="0"> 不限</label></div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-12 col-sm-4">动态ip账号在线超时设置:</label>
                             <div class="col-xs-12 col-sm-4">
                                 <div class="radio"><label for="row[timeoutExec]-add"><input id="row[timeoutExec]-add"
-                                            checked="checked" name="row[timeoutExec]" type="radio" value="add"> 超时后
+                                            checked="checked" name="timeoutExec" type="radio" value="add"> 超时后
                                         每隔5分钟 增加1个使用次数</label> <label for="row[timeoutExec]-offline"><input
-                                            id="row[timeoutExec]-offline" name="row[timeoutExec]" type="radio"
+                                            id="row[timeoutExec]-offline" name="timeoutExec" type="radio"
                                             value="offline"> 超时后 断开连接</label></div>
                             </div>
                         </div>
@@ -318,7 +322,7 @@
                             <label class="control-label col-xs-12 col-sm-4">账号状态:</label>
                             <div class="col-xs-12 col-sm-4">
                                 <div class="radio"><label for="row[status]-1"><input id="row[status]-1"
-                                            checked="checked" name="row[status]" type="radio" value="1"> 启用</label>
+                                            checked="checked" name="status" type="radio" value="1"> 启用</label>
                                 </div>
                             </div>
                         </div>
@@ -326,7 +330,7 @@
                         <div class="form-group layer-footer">
                             <label class="control-label col-xs-12 col-sm-4"></label>
                             <div class="col-xs-12 col-sm-8">
-                                <button type="submit" class="btn btn-success btn-embossed">提交</button>
+                                <button type="button" class="btn btn-success btn-embossed xiugaibtn">提交</button>
                                 <button type="reset" class="btn btn-default btn-embossed">重置</button>
                             </div>
                         </div>
@@ -334,7 +338,7 @@
 
 
 
-                    <h2 class="page-header">动态列表----疑问联系客服 支持API快速切换地区 配置后可脚本快速切换地区 请及时停止次数不够的账号连接 密码错误的连接
+                    <h2 class="page-header"><span class="titname">b服务器动态列表</span>----疑问联系客服 支持API快速切换地区 配置后可脚本快速切换地区 请及时停止次数不够的账号连接 密码错误的连接
                         会本地IP进黑名单 请去主账号界面自助解封 新人不推荐冲共享点数 建议用多少冲多少！
                         <!-- <span>
                             <small class="text-danger">余额:2.52</small>
@@ -352,10 +356,17 @@
 
                                 <div class="gouxuan"> <a class="btn btn-info btn-disabled disabled btn-selfvpn"
                                         href="javascript:;">勾选账号充点</a></div>
+<<<<<<< HEAD:runtime/temp/6a868f46fa28f4d5b5fefa4c10f7b714.php
                                 <div class="staticgroup"><a class="btn btn-success btn-groupvpn"
                                         href="javascript:;">静态按组充点</a></div>
                                 <div class="other"><a class="btn btn-warning btn-othervpn" href="javascript:;">为他人充点</a>
                                 </div>
+=======
+                                <div class="staticgroup"><a class="btn btn-success btn-groupvpn changedy"
+                                            href="javascript:;">切换至e服务器动态列表</a></div>
+                                    <!-- <div class="other"><a class="btn btn-warning btn-othervpn"
+                                            href="javascript:;">为他人充点</a></div> -->
+>>>>>>> 49fbd94291e1c10bc87b0d451621cca125f4c96a:runtime/temp/4deb2d5773962659502c2ad0866dfa10.php
 
                                 <a href="javascript:;" class="btn btn-default" style="font-size:12px;color:dodgerblue;">
                                     <span class="extend">
@@ -364,7 +375,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="columns-right pull-right" style="margin-bottom:10px;">
+                        <!-- <div class="columns-right pull-right" style="margin-bottom:10px;">
                             <button class="btn btn-default" type="button" name="commonSearch" title="Common search"><i
                                     class="glyphicon glyphicon-search"></i></button></div>
                         <div class="columns columns-right btn-group pull-right"><button class="btn btn-default"
@@ -406,7 +417,7 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="bootstrap-table">
 
@@ -430,7 +441,11 @@
                                         </th>
 
                                         <th style="text-align: center; vertical-align: middle; " data-field="paytime">
+<<<<<<< HEAD:runtime/temp/6a868f46fa28f4d5b5fefa4c10f7b714.php
                                             <div class="th-inner ">创建时间</div>
+=======
+                                            <div class="th-inner ">过期时间</div>
+>>>>>>> 49fbd94291e1c10bc87b0d451621cca125f4c96a:runtime/temp/4deb2d5773962659502c2ad0866dfa10.php
                                             <div class="fht-cell">
                                             </div>
                                         </th>
@@ -453,7 +468,11 @@
                                         </th>
                                         <th style="text-align: center; vertical-align: middle; "
                                             data-field="createtime">
+<<<<<<< HEAD:runtime/temp/6a868f46fa28f4d5b5fefa4c10f7b714.php
                                             <div class="th-inner ">剩余次数/总次数</div>
+=======
+                                            <div class="th-inner ">剩余次数</div>
+>>>>>>> 49fbd94291e1c10bc87b0d451621cca125f4c96a:runtime/temp/4deb2d5773962659502c2ad0866dfa10.php
                                             <div class="fht-cell">
                                             </div>
                                         </th>

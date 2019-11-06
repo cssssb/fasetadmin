@@ -11,6 +11,27 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
         }
     };
     var Controller = {
+        invite:function(){
+
+            console.log(window.location.host)
+            $(".localurl").text(window.location.host+"/index/user/register.html?invite=")
+            $(document).on("click", ".copy", function () {
+                var copyDom = document.querySelector('#link');
+                //创建选中范围
+            var range = document.createRange();
+            range.selectNode(copyDom);
+                //移除剪切板中内容
+            window.getSelection().removeAllRanges();
+                //添加新的内容到剪切板
+            window.getSelection().addRange(range);
+                //复制
+            var successful = document.execCommand('copy');
+            layer.msg("复制成功")
+             return successful;
+            });
+
+        
+        },
         charlierecharge: function () {
             //   点击查询的按钮
             $(document).on("click", ".inquire", function () {
@@ -25,17 +46,16 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     },
                     success: function (ret) {
                         if(ret.data==null){
-                            layer.msg("无此账号")
-                            return
+                            layer.msg("查询不到此账号")
+                            return;
                         }
-
                         var optionsItem = document.createElement("tr");
                         var tab = "<td>" + ret.data.has_pwd + "</td><td>" + ret.data.price + "</td><td>" + ret.data.number + "</td><td> </td></td><td class='passduihuan'>兑换</td>";
                         optionsItem.innerHTML = tab;
                         var tabbox = document.querySelector("#tabbox")
                         console.log(tabbox)
                         tabbox.appendChild(optionsItem);
-                        $("#cardpass").val()=="";
+                        $("#cardpass").val() == "";
                     },
                     error: function (e) {
 
@@ -46,7 +66,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
             //   点的按钮
             $(document).on("click", ".passduihuan", function () {
                 console.log($(this).parent().children("td:first-child").text())
-                var pass=$(this).parent().children("td:first-child").text()
+                var pass = $(this).parent().children("td:first-child").text()
                 //选择兑换点数的列表
                 $.ajax({
                     url: "/index/user/hasexchange",
@@ -246,6 +266,23 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
         },
         // 申请动态
         dynamic: function () {
+
+            $(".onlyNumAlpha").bind("input propertychange change", function (event) {
+                var num = $(".onlyNumAlpha").val();
+                var reg = /^[0-9a-zA-Z]+$/;
+                if (!reg.test(num)) {
+                    layer.msg("只能输入数字或者字母");
+                    $(this).val("")
+                }
+            });
+
+            $(".onlynum").bind("input propertychange change", function (event) {
+                var num = $(".onlynum").val();
+                if (num <= 0) {
+                    layer.msg("数量至少为1");
+                    $(".onlynum").val(1)
+                }
+            });
             // 申请动态的城市列表
             $.ajax({
                 url: "/index/user/lineList",
@@ -283,15 +320,19 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
             // 创建动态账号
             $(document).on("click", ".dynamicbtn", function () {
 
-                //     for(var value of formData.values()){
-                // 	console.log(value)
-                // }
+                var str = $(".onlyNumAlpha").val();
+                var num = $(".onlynum").val();
+                var reg = /^[0-9a-zA-Z]+$/;
+                if (!reg.test(str) || num <= 0) {
+                    layer.msg("请输入正确信息");
+                    return;
+                }
                 var param = {
                     'name': $('[name=name]').val(),
                     'password': $('[name= password]').val(),
                     'accountTotal': $('[name=accountTotal]').val(),
                     'defaultLink': $('[name=defaultLink]').val(),
-                    'isp': $('[name= isp]:checked').val(),
+                    'isp': l,
                     'count': $('[name=count]').val(),
                     'serve_id': $('[name=serve_id]').val(),
                     'timeoutExec': $('[name=timeoutExec]:checked').val(),
@@ -300,6 +341,1070 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
 
                 $.ajax({
                     url: "/index/user/agentCreate",
+                    type: 'get',
+                    dataType: 'json',
+                    data: param,
+                    success: function (ret) {
+                        if(ret.msg){
+                            layer.msg(ret.msg);
+                        }else{
+                        switch (ret.code) {
+                            case 0:
+                                Toastr.success("申请成功");
+                                // setTimeout(() => {
+                                //     window.location.reload()
+                                // }, 1000);
+                                break;
+                            case 1:
+                                layer.msg("操作失败");
+                                break;
+                            case 2:
+                                layer.msg("代理被禁用或删除");
+                                break;
+                            case 3:
+                                layer.msg("sign计算错误或未提交");
+                                break;
+                            case 4:
+                                layer.msg("参数完整性验证");
+                                break;
+                            case 5:
+                                layer.msg("授权额度余额已用完");
+                                break;
+                            case 7 || 7:
+                                layer.msg("账号名重复");
+                                break;
+                            case 8:
+                                layer.msg("代理授权额度余额已用完");
+                                break;
+                            case 9:
+                                layer.msg("被充值账号非按次计费模式");
+                                break;
+                            case 10:
+                                layer.msg("被充值账号非包年包月模式");
+                                break;
+                            case 11:
+                                layer.msg("默认线路未指定或不在授权范围内");
+                                break;
+                            default:
+                                layer.msg("客户已存在");
+                        }
+                    }
+
+                    },
+                    error: function (e) {}
+                });
+
+            });
+
+        },
+
+        dynamiclist: function () {
+            var linklist = [];
+            $.ajax({
+                url: "/index/user/lineList",
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function (ret) {
+                    linklist = ret.data.linkList;
+                },
+                error: function (e) {}
+            });
+
+            var pageIndex = 1;
+            var countpages
+            var serverid=2;
+            var id;
+            //AJAX方法取得数据并显示到页面上 
+            BindData();
+
+            function BindData() {
+                $.ajax({
+                    type: "get", //使用get方法访问后台 
+                    dataType: "json", //返回json格式的数据 
+                    url: "/index/user/agentSearchAccByCid", //要访问的后台地址 
+                    data: {
+                        "page": pageIndex,
+                        'serve_id': serverid
+                    }, //要发送的数据 
+                    ajaxStart: function () {
+                        $("#loding").show();
+                    },
+                    complete: function () {
+                        $("#loding").hide();
+                    }, //AJAX请求完成时隐藏loading提示 
+                    success: function (msg) { //msg为返回的数据，在这里做数据绑定 
+
+                        if (msg.code == 0) {
+                            var data = msg.data;
+
+                            var end = data.cur_page * 50;
+                            var start = end - 49;
+                            countpages = data.pages;
+                            $(".count").text(data.count);
+                            $(".start").text(start);
+                            $(".end").text(end);
+                            $(".page-number").remove()
+                            $(".tabcontent").remove()
+                            for (var i = 1; i <= data.pages; i++) {
+                                $("#next").before("<li class='page-number'><a href='#'>" + i + "</a></li>")
+                                $(".page-number").eq(data.cur_page - 1).addClass("active");
+                                $(".active").children("a").addClass("activea")
+                            };
+                            $.each(data.accList, function (i, item) {
+<<<<<<< HEAD
+                                var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
+                                var isOnline = (item.isOnline == 1 ? '在线' : '离线');
+                                var content = "<tr style='text-align: center; vertical-align: middle;' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone'></td><td>" +
+                                    item.username + " </td><td>" + item.expireTime +
+                                    " </td><td>" + item.isp + " </td><td>" + item.totalcount + " </td><td>" + timeoutExec + " </td><td><span style='background: #2c3e50;color: #fff;padding: 2px 8px;border-radius:5px'>" + item.surplus+"/"+ item.totalcount+
+                                    "</span> </td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
+                                    " </td> <td class='bianji'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
+                                $(".table-nowrap").append(content)
+=======
+                                var link;
+                                var linkname
+                                $.each(item.linkList, function (index, it) {
+                                    if (it.isDefault == 1) {
+                                        link = it.linkId
+                                    }
+                                })
+                                setTimeout(() => {
+                                    $.each(linklist, function (key, data) {
+                                        if (data.id == link) {
+                                            linkname = data.name;
+                                        }
+                                    })
+
+
+                                    // 城市列表
+
+                                    if (item.accType == "dynamic") {
+                                        var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
+                                        var isOnline = (item.isOnline == 1 ? '在线' : '离线');
+                                        var isp
+                                        switch (item.isp) {
+                                            case 0:
+                                                isp = "不限";
+                                                break;
+                                            case 1:
+                                                isp = "联通";
+                                                break;
+                                            case 2:
+                                                isp = "电信";
+                                                break;
+                                            case 3:
+                                                isp = "移动";
+                                                break;
+
+
+                                        }
+                                        var content = "<tr style='text-align: center; vertical-align: middle;' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone' ></td><td>" +
+                                            item.username + " </td><td>" + item.expireTime +
+                                            " </td><td>" + isp + " </td><td>" + linkname + " </td><td>" + timeoutExec + " </td><td><span style='background: #2c3e50;color: #fff;padding: 2px 8px;border-radius:5px'>" + item.surplus +
+                                            "</span> </td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
+                                            " </td> <td class='bianji'  id='" + item.id + "'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
+                                        $(".table-nowrap").append(content)
+                                    } else {
+                                        $(".fixed-table-body").html("<div style='padding:50px; text-align: center;width:100%'>暂无数据</div>")
+                                    }
+                                }, 1000);
+>>>>>>> 49fbd94291e1c10bc87b0d451621cca125f4c96a
+                            })
+
+                        }else{
+                            switch (ret.code) {
+                                case 1:
+                                    layer.msg("操作失败");
+                                    break;
+                                case 2:
+                                    layer.msg("代理被禁用或删除");
+                                    break;
+                                case 3:
+                                    layer.msg("sign计算错误或未提交");
+                                    break;
+                                case 4:
+                                    layer.msg("参数完整性验证");
+                                    break;
+                                case 5:
+                                    layer.msg("授权额度余额已用完");
+                                    break;
+                                case 6 :
+                                    layer.msg("账号名重复");
+                                    break;
+                                case 8:
+                                    layer.msg("代理授权额度余额已用完");
+                                    break;
+                                case 9:
+                                    layer.msg("被充值账号非按次计费模式");
+                                    break;
+                                case 10:
+                                    layer.msg("被充值账号非包年包月模式");
+                                    break;
+                                case 11:
+                                    layer.msg("默认线路未指定或不在授权范围内");
+                                    break;
+                                case 7:
+                                    layer.msg("账号名重复");
+                            }
+                        }
+                    },
+                    error: function () {
+                        // alert("加载数据失败");
+                    } //加载失败，请求错误处理 
+                });
+            };
+            //上一页按钮click事件 
+            $("#previous").click(function () {
+                if (pageIndex != 1 ) {
+                    pageIndex--;
+                    $("#lblCurent").text(pageIndex);
+                }
+                BindData();
+            });
+            //下一页按钮click事件 
+            $("#next").click(function () {
+                var pageCount = $(".page-number").index(".active");
+                if (pageCount >= countpages) {
+                    return;
+                }
+                if (pageIndex != pageCount) {
+                    pageIndex++;
+                }
+                BindData();
+            });
+            $("#checkall").click(function () {
+                $(":checkbox[name='checkone']").prop("checked", this.checked); // this指代的你当前选择的这个元素的JS对象
+            });
+
+
+
+            $(document).on("click", ".bianji", function () {
+                $.ajax({
+                    url: "/index/user/lineList",
+                    type: 'get',
+                    dataType: 'json',
+                    data: {},
+                    success: function (ret) {
+                        ret.data.linkList.forEach(function (e) {
+                            var optionsItem = document.createElement("option");
+                            optionsItem.innerHTML = e.name;
+                            optionsItem.value = e.id;
+
+                            var selectpicker = document.querySelector(".selectpicker")
+                            selectpicker.appendChild(optionsItem);
+                        })
+
+                    },
+                    error: function (e) {
+
+                    }
+                });
+                // console.log($(this).parent().children().eq(2).text())
+                $(".xiuname").val($(this).parent().children().eq(1).text());
+                Layer.open({
+                    type: 1,
+                    title: '信息',
+                    area: ["650px", "450px"],
+                    content: $(".propfrom"),
+                    skin: 'demo-class',
+                    success: function (layero) {
+                        $(".propfrom").removeClass("hidden")
+
+                    }
+                });
+                id = $(this).attr("id");
+
+
+
+            });
+            $(document).on("click", ".gouxuan", function () {
+                // var target = $(this).attr("class")
+                var content
+                var s
+                content = $(".checkedcontent");
+                $('input[name="checkone"]:checked').each(function () {
+                    console.log($(this).parent().next().text())
+
+                    s += $(this).parent().next().text() + ', ';
+
+                });
+                $("#c-vcname").val(s.substring(9));
+                Layer.open({
+                    type: 1,
+                    title: '信息',
+                    area: ["650px", "450px"],
+                    content: content,
+                    skin: 'demo-class',
+                    success: function (layero) {
+                        content.removeClass("hidden")
+
+                    }
+                });
+            });
+
+            $(".connum").bind("input propertychange change", function (event) {
+                var num = $(".connum").val();
+                document.querySelector("#code").innerText = 10 * num
+            });
+
+            $(".staticgroup").click(function () {
+                if ($(".changedy").text() == "切换至e服务器动态列表") {
+                    $(".changedy").text("切换至b服务器动态列表");
+                    $(".titname").text("e服务器动态列表")
+                    serverid = 1;
+                    BindData()
+                } else if ($(".changedy").text() == "切换至b服务器动态列表") {
+                    $(".changedy").text("切换至e服务器动态列表")
+                    $(".titname").text("b服务器动态列表")
+
+                    serverid = 2;
+                    BindData()
+                }
+                // BindData();
+            });
+            $(".checkbtn").click(function () {
+                if ($(".connum").val().trim() == "") {
+                    layer.msg("请输入充值天数")
+                }
+                $.ajax({
+                    url: "/index/user/agentRecharge",
+                    type: 'get',
+                    dataType: 'json',
+                    data: {
+                        "name": $("#c-vcname").val(),
+                        "count": $(".connum").val(),
+                        'serve_id': serverid
+                    },
+                    success: function (ret) {
+                        switch (ret.code) {
+                            case 0:
+                                Toastr.success("修改成功");
+                                // setTimeout(() => {
+                                //     window.location.reload()
+                                // }, 1000);
+                                break;
+                            case 1:
+                                layer.msg("操作失败");
+                                break;
+                            case 2:
+                                layer.msg("代理被禁用或删除");
+                                break;
+                            case 3:
+                                layer.msg("sign计算错误或未提交");
+                                break;
+                            case 4:
+                                layer.msg("参数完整性验证");
+                                break;
+                            case 5:
+                                layer.msg("授权额度余额已用完");
+                                break;
+                            case 6 :
+                                layer.msg("账号名重复");
+                                break;
+                            case 8:
+                                layer.msg("代理授权额度余额已用完");
+                                break;
+                            case 9:
+                                layer.msg("被充值账号非按次计费模式");
+                                break;
+                            case 10:
+                                layer.msg("被充值账号非包年包月模式");
+                                break;
+                            case 11:
+                                layer.msg("默认线路未指定或不在授权范围内");
+                                break;
+                            case 7:
+                                layer.msg("账号名重复");
+                        }
+
+                    },
+                    error: function (e) {
+
+                    }
+                });
+            });
+
+            // 编辑请求
+            $(document).on("click", ".xiugaibtn", function () {
+
+                // var num = $(".onlyNumAlpha").val();
+                // var reg = /^[0-9a-zA-Z]+$/;
+                // if(!reg.test(num)){
+                //     layer.msg("只能输入数字或者字母");
+                //    return;
+                //     }
+                var param = {
+                    "id": id,
+                    'password': $('[name= password]').val(),
+                    'isp': $('[name= isp]:checked').val(),
+                    'count': $('[name=count]').val(),
+                    'serve_id': $('[name=serve_id]').val(),
+                    'timeoutExec': $('[name=timeoutExec]:checked').val(),
+                    'status': $('[name=status]:checked').val()
+                }
+                var params = {
+                    "id": id,
+                    'linkId': 9999,
+                    "defaultLink": $('[name=defaultLink]').val(),
+                    'status': $('[name=status]:checked').val(),
+                    "updateIp": 1
+                }
+                $.ajax({
+                    url: "/index/user/agentChangeAccEnableLinks",
+                    type: 'get',
+                    dataType: 'json',
+                    data: params,
+                    success: function (ret) {
+                        switch (ret.code) {
+                            case 0:
+                                Toastr.success("修改成功");
+                                // setTimeout(() => {
+                                //     window.location.reload()
+                                // }, 1000);
+                                break;
+                            case 1:
+                                layer.msg("操作失败");
+                                break;
+                            case 2:
+                                layer.msg("代理被禁用或删除");
+                                break;
+                            case 3:
+                                layer.msg("sign计算错误或未提交");
+                                break;
+                            case 4:
+                                layer.msg("参数完整性验证");
+                                break;
+                            case 5:
+                                layer.msg("授权额度余额已用完");
+                                break;
+                            case 7 || 7:
+                                layer.msg("账号名重复");
+                                break;
+                            case 8:
+                                layer.msg("代理授权额度余额已用完");
+                                break;
+                            case 9:
+                                layer.msg("被充值账号非按次计费模式");
+                                break;
+                            case 10:
+                                layer.msg("被充值账号非包年包月模式");
+                                break;
+                            case 11:
+                                layer.msg("默认线路未指定或不在授权范围内");
+                                break;
+                            default:
+                                layer.msg("客户已存在");
+                        }
+
+
+                    },
+                    error: function (e) {}
+                });
+
+                $.ajax({
+                    url: "/index/user/agentChangeAccBaseDatal",
+                    type: 'get',
+                    dataType: 'json',
+                    data: param,
+                    success: function (ret) {
+                        switch (ret.code) {
+                            case 0:
+                                Toastr.success("修改成功");
+                                // setTimeout(() => {
+                                //     window.location.reload()
+                                // }, 1000);
+                                break;
+                            case 1:
+                                layer.msg("操作失败");
+                                break;
+                            case 2:
+                                layer.msg("代理被禁用或删除");
+                                break;
+                            case 3:
+                                layer.msg("sign计算错误或未提交");
+                                break;
+                            case 4:
+                                layer.msg("参数完整性验证");
+                                break;
+                            case 5:
+                                layer.msg("授权额度余额已用完");
+                                break;
+                            case 6 || 7:
+                                layer.msg("账号名重复");
+                                break;
+                            case 8:
+                                layer.msg("代理授权额度余额已用完");
+                                break;
+                            case 9:
+                                layer.msg("被充值账号非按次计费模式");
+                                break;
+                            case 10:
+                                layer.msg("被充值账号非包年包月模式");
+                                break;
+                            case 11:
+                                layer.msg("默认线路未指定或不在授权范围内");
+                                break;
+                            default:
+                                layer.msg("客户已存在");
+                        }
+
+
+                    },
+                    error: function (e) {}
+                });
+
+            });
+
+
+        },
+        // 申请静态
+        static: function () {
+            $(".onlyNumAlpha").bind("input propertychange change", function (event) {
+                var num = $(".onlyNumAlpha").val();
+                var reg = /^[0-9a-zA-Z]+$/;
+                if (!reg.test(num)) {
+                    layer.msg("只能输入数字或者字母");
+                    $(this).val("")
+                }
+            });
+            $(".onlynum").bind("input propertychange change", function (event) {
+                var num = $(".onlynum").val();
+                if (num <= 0) {
+                    layer.msg("数量至少为1");
+                    $(".onlynum").val(1)
+                }
+            });
+           
+            $.ajax({
+                url: "/index/user/getserverlist",
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function (ret) {
+                    ret.forEach(function (e) {
+                        var optionsItem = document.createElement("option");
+                        optionsItem.innerHTML = e.name;
+                        optionsItem.value = e.id
+                        var selectpicker = document.querySelector(".selectpicker")
+                        selectpicker.appendChild(optionsItem);
+                    })
+
+                },
+                error: function (e) {}
+            });
+            // 创建静态账号
+            $(document).on("click", ".staticbtn", function () {
+
+                // var str = $(".onlyNumAlpha").val();
+                // var num = $(".onlynum").val();
+                // var reg = /^[0-9a-zA-Z]+$/;
+                // if(!reg.test(str) || num<=0){
+                //     layer.msg("请输入正确信息");
+                //   return;
+                //     }
+                var param = {
+                    'name': $('[name=name]').val(),
+                    'password': $('[name= password]').val(),
+                    'accountTotal': $('[name=accountTotal]').val(),
+                    'defaultLink': $('[name=defaultLink]').val(),
+                    "expireDate": $('[name=expireDate]').val(),
+                    'isp': $('[name= isp]:checked').val(),
+                    'serve_id': 3,
+                    'linkId': 9999
+
+                }
+
+                $.ajax({
+                    url: "/index/user/agentCreate",
+                    type: 'get',
+                    dataType: 'json',
+                    data: param,
+                    success: function (ret) {
+                        if(ret.msg){
+                            layer.msg(ret.msg);
+                        }else{
+                        switch (ret.code) {
+                            case 0:
+                                Toastr.success("申请成功");
+                                setTimeout(() => {
+                                    window.location.reload()
+                                }, 1000);
+                                break;
+                            case 1:
+                                layer.msg("操作失败");
+                                break;
+                            case 2:
+                                layer.msg("代理被禁用或删除");
+                                break;
+                            case 3:
+                                layer.msg("sign计算错误或未提交");
+                                break;
+                            case 4:
+                                layer.msg("参数完整性验证");
+                                break;
+                            case 5:
+                                layer.msg("授权额度余额已用完");
+                                break;
+                            case 7 || 7:
+                                layer.msg("账号名重复");
+                                break;
+                            case 8:
+                                layer.msg("代理授权额度余额已用完");
+                                break;
+                            case 9:
+                                layer.msg("被充值账号非按次计费模式");
+                                break;
+                            case 10:
+                                layer.msg("被充值账号非包年包月模式");
+                                break;
+                            case 11:
+                                layer.msg("默认线路未指定或不在授权范围内");
+                                break;
+                            default:
+                                layer.msg("客户已存在");
+                        }
+                    }
+
+                        // Toastr.success("申请成功");
+                        // setTimeout(() => {
+                        //     window.location.reload() 
+                        // },1000);
+
+                    },
+                    error: function (e) {}
+                });
+
+            });
+
+        },
+        staticlist: function () {
+<<<<<<< HEAD
+            var pageIndex = 1;
+            var countpages
+            //AJAX方法取得数据并显示到页面上 
+            BindData();
+=======
+            var linklist = [];
+            $.ajax({
+                url: "/index/user/lineList",
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function (ret) {
+                    linklist = ret.data.linkList;
+                },
+                error: function (e) {}
+            });
+
+            var pageIndex = 1;
+            var countpages
+            var serverid
+            //AJAX方法取得数据并显示到页面上 
+            BindData();
+
+>>>>>>> 49fbd94291e1c10bc87b0d451621cca125f4c96a
+            function BindData() {
+                $.ajax({
+                    type: "get", //使用get方法访问后台 
+                    dataType: "json", //返回json格式的数据 
+                    url: "/index/user/agentSearchAccByCid", //要访问的后台地址 
+                    data: {
+                        "page": pageIndex,
+<<<<<<< HEAD
+                        'type':1
+=======
+                        'serve_id': serverid
+>>>>>>> 49fbd94291e1c10bc87b0d451621cca125f4c96a
+                    }, //要发送的数据 
+                    ajaxStart: function () {
+                        $("#loding").show();
+                    },
+                    complete: function () {
+                        $("#loding").hide();
+                    }, //AJAX请求完成时隐藏loading提示 
+                    success: function (msg) { //msg为返回的数据，在这里做数据绑定 
+                        if (msg.code == 0) {
+<<<<<<< HEAD
+                            var data = msg.data;
+                            var end =data.cur_page*50;
+                            var start=end-49;
+                            countpages=data.pages;
+=======
+
+                            var data = msg.data;
+
+                            var end = data.cur_page * 50;
+                            var start = end - 49;
+                            countpages = data.pages;
+>>>>>>> 49fbd94291e1c10bc87b0d451621cca125f4c96a
+                            $(".count").text(data.count);
+                            $(".start").text(start);
+                            $(".end").text(end);
+                            $(".page-number").remove()
+                            $(".tabcontent").remove()
+<<<<<<< HEAD
+                            for(var i=1;i<=data.pages;i++){
+                                $("#next").before("<li class='page-number'><a href='#'>"+i+"</a></li>")
+                                $(".page-number").eq(data.cur_page-1).addClass("active");
+                                $(".active").children("a").addClass("activea")
+                            };
+                            $.each(data.accList, function (i, item) {
+                                var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
+                                var isOnline = (item.isOnline == 1 ? '在线' : '离线');
+                                var isp;
+                                switch (item.isp) {
+                                    case 0:
+                                       isp="不限";
+                                        break;
+                                    case 1:
+                                        isp="联通";
+                                        break;
+                                    case 2:
+                                        isp="电信";
+                                        break;
+                                    case 3:
+                                        isp="移动";
+                                        break;
+                                }
+                                var content = "<tr style='text-align: center; vertical-align: middle;' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone'></td><td>" +
+                                    item.username + " </td><td>" + item.groupId +
+                                    " </td><td>" + item.expireTime + " </td><td><span class='text-success'>"+isp+"</span> </td><td>" + item.link + " </td><td>" + item.expireTime  +
+                                    "</td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
+                                    " </td> <td class='bianji'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
+                                $(".table-nowrap").append(content)
+                            })
+                        }
+                    },
+                    error: function () {
+                        alert("加载数据失败");
+=======
+                            for (var i = 1; i <= data.pages; i++) {
+                                $("#next").before("<li class='page-number'><a href='#'>" + i + "</a></li>")
+                                $(".page-number").eq(data.cur_page - 1).addClass("active");
+                                $(".active").children("a").addClass("activea")
+                            };
+                            $.each(data.accList, function (i, item) {
+                                var link;
+                                var linkname
+                                $.each(item.linkList, function (index, it) {
+                                    if (it.isDefault == 1) {
+                                        link = it.linkId
+                                    }
+                                })
+                                setTimeout(() => {
+                                    $.each(linklist, function (key, data) {
+                                        if (data.id == link) {
+                                            linkname = data.name;
+                                        }
+                                    })
+
+                                if (data.accType == "static") {
+                                    var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
+                                    var isOnline = (item.isOnline == 1 ? '在线' : '离线');
+                                    var isp
+                                    switch (item.isp) {
+                                        case 0:
+                                            isp = "不限";
+                                            break;
+                                        case 1:
+                                            isp = "联通";
+                                            break;
+                                        case 2:
+                                            isp = "电信";
+                                            break;
+                                        case 3:
+                                            isp = "移动";
+                                            break;
+
+
+                                    }
+                                    var content = "<tr style='text-align: center; vertical-align: middle;' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone'></td><td>" +
+                                        item.username + " </td><td>" + item.groupId +
+                                        " </td><td>" + item.expireTime + " </td><td>" + isp + " </td><td>" + linkname + " </td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
+                                        " </td> <td class='bianji'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
+                                    $(".table-nowrap").append(content)
+                                } else {
+                                    $(".fixed-table-body").html("<div style='padding:50px; text-align: center;width:100%;font-size:14px'>暂无数据</div>")
+                                }
+                            })
+                            })
+
+                        }else{
+                            switch (ret.code) {
+                                case 1:
+                                    layer.msg("操作失败");
+                                    break;
+                                case 2:
+                                    layer.msg("代理被禁用或删除");
+                                    break;
+                                case 3:
+                                    layer.msg("sign计算错误或未提交");
+                                    break;
+                                case 4:
+                                    layer.msg("参数完整性验证");
+                                    break;
+                                case 5:
+                                    layer.msg("授权额度余额已用完");
+                                    break;
+                                case 6 :
+                                    layer.msg("账号名重复");
+                                    break;
+                                case 8:
+                                    layer.msg("代理授权额度余额已用完");
+                                    break;
+                                case 9:
+                                    layer.msg("被充值账号非按次计费模式");
+                                    break;
+                                case 10:
+                                    layer.msg("被充值账号非包年包月模式");
+                                    break;
+                                case 11:
+                                    layer.msg("默认线路未指定或不在授权范围内");
+                                    break;
+                                case 7:
+                                    layer.msg("账号名重复");
+                            }
+                        }
+                    },
+                    error: function () {
+                        // alert("加载数据失败");
+>>>>>>> 49fbd94291e1c10bc87b0d451621cca125f4c96a
+                    } //加载失败，请求错误处理 
+                });
+            };
+            //上一页按钮click事件 
+            $("#previous").click(function () {
+                if (pageIndex != 1) {
+                    pageIndex--;
+                    $("#lblCurent").text(pageIndex);
+                }
+                BindData();
+            });
+            //下一页按钮click事件 
+            $("#next").click(function () {
+                var pageCount = $(".page-number").index(".active");
+                if (pageCount >= countpages) {
+                    return;
+                }
+                if (pageIndex != pageCount) {
+                    pageIndex++;
+                }
+                BindData();
+            });
+            $("#checkall").click(function () {
+                $(":checkbox[name='checkone']").prop("checked", this.checked); // this指代的你当前选择的这个元素的JS对象
+            });
+
+
+            $(document).on("click", ".bianji", function () {
+                $.ajax({
+                    url: "/index/user/lineList",
+                    type: 'get',
+                    dataType: 'json',
+                    data: {},
+                    success: function (ret) {
+                        ret.data.linkList.forEach(function (e) {
+                            var optionsItem = document.createElement("option");
+                            optionsItem.innerHTML = e.name;
+                            optionsItem.value = e.id
+                            var selectpicker = document.querySelector(".selectpicker")
+                            selectpicker.appendChild(optionsItem);
+                        })
+
+                    },
+                    error: function (e) {
+
+                    }
+                });
+                $(".xiuname").val($(this).parent().children().eq(1).text());
+
+                Layer.open({
+                    type: 1,
+                    title: '信息',
+                    area: ["650px", "450px"],
+                    content: $(".staticxiugai"),
+                    skin: 'demo-class',
+                    success: function (layero) {
+                        $(".staticxiugai").removeClass("hidden")
+
+                    }
+                });
+
+            });
+
+            $(document).on("click", ".gouxuan", function () {
+                // var target = $(this).attr("class")
+                var content
+                var s
+                content = $(".checkedcontent");
+                $('input[name="checkone"]:checked').each(function () {
+                    console.log($(this).parent().next().text())
+
+                    s += $(this).parent().next().text() + ', ';
+
+                });
+                if ($("#c-vcname").val() != "") {
+                    $("#c-vcname").val(s.substring(9));
+
+
+                    Layer.open({
+                        type: 1,
+                        title: '信息',
+                        area: ["650px", "450px"],
+                        content: content,
+                        skin: 'demo-class',
+                        success: function (layero) {
+                            content.removeClass("hidden")
+
+                        }
+                    });
+                } else {
+                    return;
+                }
+            });
+
+            $(".checkbtn").click(function () {
+                if ($(".connum").val().trim() == "") {
+                    layer.msg("请输入充值天数")
+                }
+                $.ajax({
+                    url: "/index/user/agentRecharge",
+                    type: 'get',
+                    dataType: 'json',
+                    data: {
+                        "name": $("#c-vcname").val(),
+                        "days": $(".connum").val(),
+                        'serve_id': 3
+                    },
+                    success: function (ret) {
+                        switch (ret.code) {
+                            case 0:
+                                Toastr.success("申请成功");
+                                // setTimeout(() => {
+                                //     window.location.reload()
+                                // }, 1000);
+                                break;
+                            case 1:
+                                layer.msg("操作失败");
+                                break;
+                            case 2:
+                                layer.msg("代理被禁用或删除");
+                                break;
+                            case 3:
+                                layer.msg("sign计算错误或未提交");
+                                break;
+                            case 4:
+                                layer.msg("参数完整性验证");
+                                break;
+                            case 5:
+                                layer.msg("授权额度余额已用完");
+                                break;
+                            case 7 :
+                                layer.msg("账号名重复");
+                                break;
+                            case 8:
+                                layer.msg("代理授权额度余额已用完");
+                                break;
+                            case 9:
+                                layer.msg("被充值账号非按次计费模式");
+                                break;
+                            case 10:
+                                layer.msg("被充值账号非包年包月模式");
+                                break;
+                            case 11:
+                                layer.msg("默认线路未指定或不在授权范围内");
+                                break;
+                            case 6:
+                                layer.msg("账号名重复");
+                        }
+
+
+
+                    },
+                    error: function (e) {
+
+                    }
+                });
+            });
+            $(document).on("click", ".xiugaibtn", function () {
+
+                var num = $(".onlyNumAlpha").val();
+                var reg = /^[0-9a-zA-Z]+$/;
+                if (!reg.test(num)) {
+                    layer.msg("只能输入数字或者字母");
+                    return;
+                }
+                var param = {
+                    "id": id,
+                    'password': $('[name= password]').val(),
+                    'isp': $('[name= isp]:checked').val(),
+                    'count': $('[name=count]').val(),
+                    'serve_id': $('[name=serve_id]').val(),
+                    'timeoutExec': $('[name=timeoutExec]:checked').val(),
+                    'status': $('[name=status]:checked').val()
+                }
+                var params = {
+                    "id": id,
+                    'linkId': 9999,
+                    "defaultLink": $('[name=defaultLink]').val(),
+                    'status': $('[name=status]:checked').val(),
+                    "updateIp": 1
+                }
+                $.ajax({
+                    url: "/index/user/agentChangeAccEnableLinks",
+                    type: 'get',
+                    dataType: 'json',
+                    data: params,
+                    success: function (ret) {
+                        switch (ret.code) {
+                            case 0:
+                                Toastr.success("申请成功");
+                                // setTimeout(() => {
+                                //     window.location.reload()
+                                // }, 1000);
+                                break;
+                            case 1:
+                                layer.msg("操作失败");
+                                break;
+                            case 2:
+                                layer.msg("代理被禁用或删除");
+                                break;
+                            case 3:
+                                layer.msg("sign计算错误或未提交");
+                                break;
+                            case 4:
+                                layer.msg("参数完整性验证");
+                                break;
+                            case 5:
+                                layer.msg("授权额度余额已用完");
+                                break;
+                            case 7 || 7:
+                                layer.msg("账号名重复");
+                                break;
+                            case 8:
+                                layer.msg("代理授权额度余额已用完");
+                                break;
+                            case 9:
+                                layer.msg("被充值账号非按次计费模式");
+                                break;
+                            case 10:
+                                layer.msg("被充值账号非包年包月模式");
+                                break;
+                            case 11:
+                                layer.msg("默认线路未指定或不在授权范围内");
+                                break;
+                            default:
+                                layer.msg("客户已存在");
+                        }
+
+
+                    },
+                    error: function (e) {}
+                });
+
+                $.ajax({
+                    url: "/index/user/agentChangeAccBaseDatal",
                     type: 'get',
                     dataType: 'json',
                     data: param,
@@ -352,401 +1457,6 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
 
             });
 
-        },
-       
-        dynamiclist: function () {
-            var pageIndex = 1;
-            var countpages
-            //AJAX方法取得数据并显示到页面上 
-            BindData();
-            function BindData() {
-                $.ajax({
-                    type: "get", //使用get方法访问后台 
-                    dataType: "json", //返回json格式的数据 
-                    url: "/index/user/agentSearchAccByCid", //要访问的后台地址 
-                    data: {
-                        "page": pageIndex,
-                    }, //要发送的数据 
-                    ajaxStart: function () {
-                        $("#loding").show();
-                    },
-                    complete: function () {
-                        $("#loding").hide();
-                    }, //AJAX请求完成时隐藏loading提示 
-                    success: function (msg) { //msg为返回的数据，在这里做数据绑定 
-                        if (msg.code == 0) {
-                            var data = msg.data;
-                            var end =data.cur_page*50;
-                            var start=end-49;
-                            countpages=data.pages;
-                            $(".count").text(data.count);
-                            $(".start").text(start);
-                            $(".end").text(end);
-                            $(".page-number").remove()
-                            $(".tabcontent").remove()
-                            for(var i=1;i<=data.pages;i++){
-                                $("#next").before("<li class='page-number'><a href='#'>"+i+"</a></li>")
-                                $(".page-number").eq(data.cur_page-1).addClass("active");
-                                $(".active").children("a").addClass("activea")
-                            };
-                            $.each(data.accList, function (i, item) {
-                                var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
-                                var isOnline = (item.isOnline == 1 ? '在线' : '离线');
-                                var content = "<tr style='text-align: center; vertical-align: middle;' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone'></td><td>" +
-                                    item.username + " </td><td>" + item.expireTime +
-                                    " </td><td>" + item.isp + " </td><td>" + item.totalcount + " </td><td>" + timeoutExec + " </td><td><span style='background: #2c3e50;color: #fff;padding: 2px 8px;border-radius:5px'>" + item.surplus+"/"+ item.totalcount+
-                                    "</span> </td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
-                                    " </td> <td class='bianji'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
-                                $(".table-nowrap").append(content)
-                            })
-                        }
-                    },
-                    error: function () {
-                        alert("加载数据失败");
-                    } //加载失败，请求错误处理 
-                });
-            };
-            //上一页按钮click事件 
-            $("#previous").click(function () {
-                if (pageIndex != 1 ) {
-                    pageIndex--;
-                    $("#lblCurent").text(pageIndex);
-                }
-                BindData();
-            });
-            //下一页按钮click事件 
-            $("#next").click(function () {
-                var pageCount = $(".page-number").index(".active");                                                                                                      
-                if(pageCount>=countpages){
-                    return;
-                }
-                if (pageIndex != pageCount) {
-                    pageIndex++;
-                }
-                BindData();
-            });
-
-
-            $(document).on("click", ".bianji", function () {
-                $.ajax({
-                    url: "/index/user/lineList",
-                    type: 'get',
-                    dataType: 'json',
-                    data: {},
-                    success: function (ret) {
-                        ret.data.linkList.forEach(function (e) {
-                            var optionsItem = document.createElement("option");
-                            optionsItem.innerHTML = e.name;
-                            optionsItem.value = e.id
-                            var selectpicker = document.querySelector(".selectpicker")
-                            selectpicker.appendChild(optionsItem);
-                        })
-
-                    },
-                    error: function (e) {
-
-                    }
-                });
-                Layer.open({
-                    type: 1,
-                    title: '信息',
-                    area: ["650px", "450px"],
-                    content: $(".propfrom"),
-                    skin: 'demo-class',
-                    success: function (layero) {
-                        $(".propfrom").removeClass("hidden")
-
-                    }
-                });
-
-            });
-            $("#toolbar").on("click", "div", function () {
-                var target = $(this).attr("class")
-                var content
-                if (target == "gouxuan") {
-                    content = $(".checkedcontent")
-                } else if (target == "staticgroup") {
-                    content = $(".staticcontent")
-                } else {
-                    content = $(".otherprop")
-                }
-                Layer.open({
-                    type: 1,
-                    title: '信息',
-                    area: ["650px", "450px"],
-                    content: content,
-                    skin: 'demo-class',
-                    success: function (layero) {
-                        content.removeClass("hidden")
-
-                    }
-                });
-            });
-
-
-
-
-        },
-        // 申请静态
-        static: function () {
-            // 城市列表
-            $.ajax({
-                url: "/index/user/lineList",
-                type: 'get',
-                dataType: 'json',
-                data: {},
-                success: function (ret) {
-                    ret.data.linkList.forEach(function (e) {
-                        var optionsItem = document.createElement("option");
-                        optionsItem.innerHTML = e.name;
-                        optionsItem.value = e.id
-                        var selectpicker = document.querySelector(".citypick")
-                        selectpicker.appendChild(optionsItem);
-                    })
-                },
-                error: function (e) {}
-            });
-            $.ajax({
-                url: "/index/user/getserverlist",
-                type: 'get',
-                dataType: 'json',
-                data: {},
-                success: function (ret) {
-                    ret.forEach(function (e) {
-                        var optionsItem = document.createElement("option");
-                        optionsItem.innerHTML = e.name;
-                        optionsItem.value = e.id
-                        var selectpicker = document.querySelector(".selectpicker")
-                        selectpicker.appendChild(optionsItem);
-                    })
-
-                },
-                error: function (e) {}
-            });
-            // 创建静态账号
-            $(document).on("click", ".staticbtn", function () {
-
-                //     for(var value of formData.values()){
-                // 	console.log(value)
-                // }
-                var param = {
-                    'name': $('[name=name]').val(),
-                    'password': $('[name= password]').val(),
-                    'accountTotal': $('[name=accountTotal]').val(),
-                    'defaultLink': $('[name=defaultLink]').val(),
-                    "expireDate": $('[name=expireDate]').val(),
-                    'isp': $('[name= isp]:checked').val(),
-                    'serve_id': $('[name=serve_id]').val(),
-                    'linkId': 9999
-
-                }
-
-                $.ajax({
-                    url: "/index/user/agentCreate",
-                    type: 'get',
-                    dataType: 'json',
-                    data: param,
-                    success: function (ret) {
-                        switch (ret.code) {
-                            case 0:
-                                Toastr.success("申请成功");
-                                setTimeout(() => {
-                                    window.location.reload()
-                                }, 1000);
-                                break;
-                            case 1:
-                                layer.msg("操作失败");
-                                break;
-                            case 2:
-                                layer.msg("代理被禁用或删除");
-                                break;
-                            case 3:
-                                layer.msg("sign计算错误或未提交");
-                                break;
-                            case 4:
-                                layer.msg("参数完整性验证");
-                                break;
-                            case 5:
-                                layer.msg("授权额度余额已用完");
-                                break;
-                            case 7 || 7:
-                                layer.msg("账号名重复");
-                                break;
-                            case 8:
-                                layer.msg("代理授权额度余额已用完");
-                                break;
-                            case 9:
-                                layer.msg("被充值账号非按次计费模式");
-                                break;
-                            case 10:
-                                layer.msg("被充值账号非包年包月模式");
-                                break;
-                            case 11:
-                                layer.msg("默认线路未指定或不在授权范围内");
-                                break;
-                            default:
-                                layer.msg("客户已存在");
-                        }
-
-
-                        // Toastr.success("申请成功");
-                        // setTimeout(() => {
-                        //     window.location.reload() 
-                        // },1000);
-
-                    },
-                    error: function (e) {}
-                });
-
-            });
-
-        },
-        staticlist: function () {
-            var pageIndex = 1;
-            var countpages
-            //AJAX方法取得数据并显示到页面上 
-            BindData();
-            function BindData() {
-                $.ajax({
-                    type: "get", //使用get方法访问后台 
-                    dataType: "json", //返回json格式的数据 
-                    url: "/index/user/agentSearchAccByCid", //要访问的后台地址 
-                    data: {
-                        "page": pageIndex,
-                        'type':1
-                    }, //要发送的数据 
-                    ajaxStart: function () {
-                        $("#loding").show();
-                    },
-                    complete: function () {
-                        $("#loding").hide();
-                    }, //AJAX请求完成时隐藏loading提示 
-                    success: function (msg) { //msg为返回的数据，在这里做数据绑定 
-                        if (msg.code == 0) {
-                            var data = msg.data;
-                            var end =data.cur_page*50;
-                            var start=end-49;
-                            countpages=data.pages;
-                            $(".count").text(data.count);
-                            $(".start").text(start);
-                            $(".end").text(end);
-                            $(".page-number").remove()
-                            $(".tabcontent").remove()
-                            for(var i=1;i<=data.pages;i++){
-                                $("#next").before("<li class='page-number'><a href='#'>"+i+"</a></li>")
-                                $(".page-number").eq(data.cur_page-1).addClass("active");
-                                $(".active").children("a").addClass("activea")
-                            };
-                            $.each(data.accList, function (i, item) {
-                                var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
-                                var isOnline = (item.isOnline == 1 ? '在线' : '离线');
-                                var isp;
-                                switch (item.isp) {
-                                    case 0:
-                                       isp="不限";
-                                        break;
-                                    case 1:
-                                        isp="联通";
-                                        break;
-                                    case 2:
-                                        isp="电信";
-                                        break;
-                                    case 3:
-                                        isp="移动";
-                                        break;
-                                }
-                                var content = "<tr style='text-align: center; vertical-align: middle;' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone'></td><td>" +
-                                    item.username + " </td><td>" + item.groupId +
-                                    " </td><td>" + item.expireTime + " </td><td><span class='text-success'>"+isp+"</span> </td><td>" + item.link + " </td><td>" + item.expireTime  +
-                                    "</td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
-                                    " </td> <td class='bianji'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
-                                $(".table-nowrap").append(content)
-                            })
-                        }
-                    },
-                    error: function () {
-                        alert("加载数据失败");
-                    } //加载失败，请求错误处理 
-                });
-            };
-            //上一页按钮click事件 
-            $("#previous").click(function () {
-                if (pageIndex != 1 ) {
-                    pageIndex--;
-                    $("#lblCurent").text(pageIndex);
-                }
-                BindData();
-            });
-            //下一页按钮click事件 
-            $("#next").click(function () {
-                var pageCount = $(".page-number").index(".active");                                                                                                      
-                if(pageCount>=countpages){
-                    return;
-                }
-                if (pageIndex != pageCount) {
-                    pageIndex++;
-                }
-                BindData();
-            });
-
-
-            $(document).on("click", ".bianji", function () {
-                $.ajax({
-                    url: "/index/user/lineList",
-                    type: 'get',
-                    dataType: 'json',
-                    data: {},
-                    success: function (ret) {
-                        ret.data.linkList.forEach(function (e) {
-                            var optionsItem = document.createElement("option");
-                            optionsItem.innerHTML = e.name;
-                            optionsItem.value = e.id
-                            var selectpicker = document.querySelector(".selectpicker")
-                            selectpicker.appendChild(optionsItem);
-                        })
-
-                    },
-                    error: function (e) {
-
-                    }
-                });
-                Layer.open({
-                    type: 1,
-                    title: '信息',
-                    area: ["650px", "450px"],
-                    content: $(".staticxiugai"),
-                    skin: 'demo-class',
-                    success: function (layero) {
-                        $(".staticxiugai").removeClass("hidden")
-
-                    }
-                });
-
-            });
-
-            $("#toolbar").on("click", "div", function () {
-                var target = $(this).attr("class")
-                var content
-                if (target == "gouxuan") {
-                    content = $(".checkedcontent")
-                } else if (target == "staticgroup") {
-                    content = $(".staticcontent")
-                } else {
-                    content = $(".otherprop")
-                }
-                Layer.open({
-                    type: 1,
-                    title: '信息',
-                    area: ["650px", "450px"],
-                    content: content,
-                    skin: 'demo-class',
-                    success: function (layero) {
-                        content.removeClass("hidden")
-
-                    }
-                });
-
-            });
         },
 
 
