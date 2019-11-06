@@ -158,7 +158,7 @@ class User extends Frontend
             if (!$result) {
                 $this->error(__($validate->getError()), null, ['token' => $this->request->token()]);
             }
-            isset($_GET['inviter'])?$additional_data['inviter'] = $_GET['inviter']:false;
+            isset($_GET['inviter'])?$additional_data['inviter'] = $_GET['inviter']:$additional_data['inviter']=0;
             if ($this->auth->register($username, $password, $email, $mobile,$additional_data)) {
                 // die;
                 $this->success(__('Sign up successful'), $url ? $url : url('user/index'));
