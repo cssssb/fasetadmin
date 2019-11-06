@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:89:"/www/wwwroot/v.zzz80.cn/fasetadmin/public/../application/index/view/user/dynamiclist.html";i:1572961550;s:77:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/layout/default.html";i:1572961550;s:74:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/common/meta.html";i:1572961550;s:77:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/common/sidenav.html";i:1572961550;s:76:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/common/script.html";i:1572961550;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:86:"C:\Users\user\Desktop\fastadmin\public/../application/index\view\user\dynamiclist.html";i:1573059099;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\layout\default.html";i:1571470719;s:71:"C:\Users\user\Desktop\fastadmin\application\index\view\common\meta.html";i:1571470719;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\common\sidenav.html";i:1571842243;s:73:"C:\Users\user\Desktop\fastadmin\application\index\view\common\script.html";i:1571470719;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -192,7 +192,7 @@
                             <div class="form-group">
                                 <label class="control-label col-xs-3 col-sm-4" style="text-align:right">可用点数:</label>
                                 <label class="control-label col-xs-8 col-sm-4" style="text-align:left"><span
-                                        style="color:#18bc9c">0</span></label>
+                                        style="color:#18bc9c"><?php echo $number; ?></span></label>
                             </div>
                             <div class="form-group layer-footer">
                                 <label class="control-label col-xs-12 col-sm-4"></label>
@@ -359,7 +359,7 @@
 
                                 <a href="javascript:;" class="btn btn-default" style="font-size:12px;color:dodgerblue;">
                                     <span class="extend">
-                                        剩余点数：<span id="money">0</span>
+                                        剩余点数：<span id="money"><?php echo $number; ?></span>
                                     </span>
                                 </a>
                             </div>

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:89:"/www/wwwroot/v.zzz80.cn/fasetadmin/public/../application/admin/view/auth/admin/index.html";i:1572961550;s:77:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/admin/view/layout/default.html";i:1572961550;s:74:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/admin/view/common/meta.html";i:1572961550;s:76:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/admin/view/common/script.html";i:1572961550;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:84:"C:\Users\user\Desktop\fastadmin\public/../application/admin\view\user\user\edit.html";i:1572958587;s:74:"C:\Users\user\Desktop\fastadmin\application\admin\view\layout\default.html";i:1571470719;s:71:"C:\Users\user\Desktop\fastadmin\application\admin\view\common\meta.html";i:1571470719;s:73:"C:\Users\user\Desktop\fastadmin\application\admin\view\common\script.html";i:1571470719;}*/ ?>
 <!DOCTYPE html>
 <html lang="<?php echo $config['language']; ?>">
     <head>
@@ -50,27 +50,42 @@
                             <!-- END RIBBON -->
                             <?php endif; ?>
                             <div class="content">
-                                <div class="panel panel-default panel-intro">
-    <?php echo build_heading(); ?>
+                                <form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
 
-    <div class="panel-body">
-        <div id="myTabContent" class="tab-content">
-            <div class="tab-pane fade active in" id="one">
-                <div class="widget-body no-padding">
-                    <div id="toolbar" class="toolbar">
-                        <?php echo build_toolbar('refresh,add,delete'); ?>
-                    </div>
-                    <table id="table" class="table table-striped table-bordered table-hover" 
-                           data-operate-edit="<?php echo $auth->check('auth/admin/edit'); ?>" 
-                           data-operate-del="<?php echo $auth->check('auth/admin/del'); ?>" 
-                           width="100%">
-                    </table>
-                </div>
-            </div>
-
+   
+    <div class="form-group">
+        <label for="c-username" class="control-label col-xs-12 col-sm-2"><?php echo __('Username'); ?>:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-username" data-rule="required" class="form-control" name="row[username]" type="text" value="<?php echo htmlentities($row['username']); ?>">
         </div>
     </div>
-</div>
+    <div class="form-group">
+        <label for="c-nickname" class="control-label col-xs-12 col-sm-2"><?php echo __('Nickname'); ?>:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-nickname" data-rule="required" class="form-control" name="row[nickname]" type="text" value="<?php echo htmlentities($row['nickname']); ?>">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-money" class="control-label col-xs-12 col-sm-2">转账点数:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-money" data-rule="required" class="form-control" name="row[money]" type="number" value="<?php echo $row['money']; ?>">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="content" class="control-label col-xs-12 col-sm-2"><?php echo __('Status'); ?>:</label>
+        <div class="col-xs-12 col-sm-8">
+            <?php echo build_radios('row[status]', ['normal'=>__('Normal'), 'hidden'=>__('Hidden')], $row['status']); ?>
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled"><?php echo __('OK'); ?></button>
+            <button type="reset" class="btn btn-default btn-embossed"><?php echo __('Reset'); ?></button>
+        </div>
+    </div>
+</form>
+
                             </div>
                         </div>
                     </div>

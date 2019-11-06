@@ -615,7 +615,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                 $('input[name="checkone"]:checked').each(function () {
                     console.log($(this).parent().next().text())
 
-                    s += $(this).parent().next().text() + ', ';
+                    s += $(this).parent().next().text();
 
                 });
                 $("#c-vcname").val(s.substring(9));
