@@ -162,15 +162,15 @@ class Admin extends Backend
             $this->token();
             $params = $this->request->post("row/a");
             if ($params) {
-                if ($params['password']) {
-                    if(!Validate::is($params['password'], '\S{6,16}')){
-                        $this->error(__("Please input correct password"));
-                    }
-                    $params['salt'] = Random::alnum();
-                    $params['password'] = md5(md5($params['password']) . $params['salt']);
-                } else {
-                    unset($params['password'], $params['salt']);
-                }
+                // if ($params['password']) {
+                //     if(!Validate::is($params['password'], '\S{6,16}')){
+                //         $this->error(__("Please input correct password"));
+                //     }
+                //     $params['salt'] = Random::alnum();
+                //     $params['password'] = md5(md5($params['password']) . $params['salt']);
+                // } else {
+                //     unset($params['password'], $params['salt']);
+                // }
                 //这里需要针对username和email做唯一验证
                 $adminValidate = \think\Loader::validate('Admin');
                 $adminValidate->rule([

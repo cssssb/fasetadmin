@@ -676,8 +676,10 @@ class User extends Frontend
         // agent_sec: 3m6710mpz6py4os28uxgmnawxkfjlwrc
         private function _httpget(){
             
-            $this->agent_id = 'wvohjijo4gdrwmswawqsrxlbptpl5rd6';
-            $this->agent_sec = '3m6710mpz6py4os28uxgmnawxkfjlwrc';
+            // $this->agent_id = 'wvohjijo4gdrwmswawqsrxlbptpl5rd6';
+            // $this->agent_sec = '3m6710mpz6py4os28uxgmnawxkfjlwrc';
+            $this->agent_id = 'u6wjww1wc32rizyido7uwwacmvlbwuue';
+            $this->agent_sec = 'of67j67lpc1hr0x3dyyae3w61fbdr11o';
             $_url = 'timestamp='.time().'&agentid='.$this->agent_id.self::$_url;
             $sign = md5($this->agent_id.$this->agent_sec.$_url.time());
             $url = $this->_server_url.$this->url.$_url.'&sign='.$sign;
