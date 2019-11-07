@@ -158,7 +158,7 @@ class User extends Frontend
             if (!$result) {
                 $this->error(__($validate->getError()), null, ['token' => $this->request->token()]);
             }
-            isset($_GET['inviter'])?$additional_data['inviter'] = $_GET['inviter']:false;
+            isset($_GET['inviter'])?$additional_data['inviter'] = $_GET['inviter']:$additional_data['inviter']=0;
             if ($this->auth->register($username, $password, $email, $mobile,$additional_data)) {
                 // die;
                 $this->success(__('Sign up successful'), $url ? $url : url('user/index'));
@@ -523,7 +523,7 @@ class User extends Frontend
         $where['user_id'] = $this->auth->id;
         $where['type'] = $_GET['amount_id'];
         if(DB::name('exchange_points')->where($where)->find()){
-        DB::name('exchange_points')->where($where)->setInc('number',$_GET['number']);}else{
+        DB::name('exchange_points')->where($where)->setInc('number',(int)$_GET['number']);}else{
             $data['user_id'] = $this->auth->id;
             $data['number'] = $_GET['number'];
             $data['type'] = $_GET['amount_id'];
@@ -687,6 +687,7 @@ class User extends Frontend
             $_url = 'timestamp='.time().'&agentid='.$this->agent_id.self::$_url;
             $sign = md5($this->agent_id.$this->agent_sec.$_url.time());
             $url = $this->_server_url.$this->url.$_url.'&sign='.$sign;
+            // echo $url;die;
             header('Content-type:application/json;charset=utf-8');
             $demo = 'http://[代理接口地址]/agent/create?agentid=aaa&count=10&cusId=2602&defaultLink=1&timestamp=1546409119&sign=4594587996bae3728047ed807c7e36dd';
             $ch = curl_init();
@@ -761,7 +762,7 @@ class User extends Frontend
         // type	否	int	创建单个账号时是否名称增加01 默认增加01 type=1时不增加01
         // timeoutExec	是	string	设置动态账号在线超时后账号状态 add 增加一个使用次数/offline 账号下线
         public function agentCreate(){
-            
+             $this->url = '/agent/create?';
             $_GET['expireDate']='2099-12-31';
             // $this->_dataFilter('name,password,linkId,defaultLink,isp');
             // unset(self::$_url);
@@ -816,6 +817,7 @@ class User extends Frontend
             //获取对应的点数
             $where['user_id'] = $this->auth->id;
             $where['type'] = $_GET['serve_id'];
+            $where['type'] = 1;
             $user_number = DB::name('exchange_points')->where($where)->find()['number'];
             //如果是创建动态
             if(isset($param['count'])){
@@ -831,7 +833,7 @@ class User extends Frontend
 
             self::$_url.='&cusId='.$this->auth->system_id;
             // echo self::$_url;
-            $this->url = '/agent/create?';
+           
             
             //todo 判断是哪个服务器 写死的如果是1为e服务器
             if($_GET['serve_id']==1){
@@ -847,6 +849,10 @@ class User extends Frontend
                 }
             }else{
                 //返回错误码
+                 $_url = 'timestamp='.time().'&agentid='.$this->agent_id.self::$_url;
+            // $sign = md5($this->agent_id.$this->agent_sec.$_url.time());
+            $url = $this->_server_url.$this->url.$_url.'&sign=';
+                $data['url'] = $url;
                 exit($this->_postjsonencode($data));
             }
             //调用充值接口
@@ -855,13 +861,14 @@ class User extends Frontend
             if(!isset($param['count'])){$data['days']=1;}
             // $this->agentRecharge($data);
             //写入点数日志
-            $this->_w_exchange_log($server_count,$user_number,$user_number-$server_count,'创建vpn账号:'.$param['name'],0,0,$_GET['serve_id'],$this->auth->id,$this->auth->nickname);
+            $this->_w_exchange_log($server_count,$user_number,$user_number-$server_count,'创建vpn账号:'.$param['name'],0,0,1,$this->auth->id,$this->auth->nickname);
+            // $this->_w_exchange_log($server_count,$user_number,$user_number-$server_count,'创建vpn账号:'.$param['name'],0,0,$_GET['serve_id'],$this->auth->id,$this->auth->nickname);
             //扣费
             DB::name('exchange_points')->where($where)->setDec('number',$price);
             unset($_GET);
             
             self::$_url = '';
-            $_GET['name']=$data['name'];
+            $_GET['name']=trim($data['name']);
             isset($data['days'])?$_GET['days'] =$data['days']:true;
             isset($data['count'])?$_GET['count'] = $data['count']:true;
             $_GET['cusId'] = $this->auth->system_id;
@@ -903,7 +910,10 @@ class User extends Frontend
         public function agentRecharge(){
             //消耗点数扣款
             $where['user_id'] = $this->auth->id;
-            $where['type'] = $_GET['serve_id'];
+            // $where['type'] = $_GET['serve_id'];
+            $where['type'] = 1;
+            DB::startTrans();
+            try {
             $user_number = DB::name('exchange_points')->where($where)->find()['number'];
             //获取服务器扣点数额
             $server_price_data = $this->_getServerList();
@@ -923,13 +933,24 @@ class User extends Frontend
             }
             //扣点数 写入日志
             DB::name('exchange_points')->where($where)->setDec('number',$server_count);
-            $this->_w_exchange_log($server_count,$user_number,$user_number-$server_count,'兑换:'.$server_name.'消耗'.$server_count.'点',0,0,$_GET['serve_id'],$this->auth->id,$this->auth->nickname);
-
-                $this->_dataFilter('name,days,count',false);
+            $this->_w_exchange_log($server_count,$user_number,$user_number-$server_count,'兑换:'.$server_name.'消耗'.$server_count.'点',0,0,1,$this->auth->id,$this->auth->nickname);
+            Db::commit();
+            $_GET['name'] = str_replace(" ","",$_GET['name']);
+            // $_GET['name'] = trim($_GET['name']);
+             $this->_dataFilter('name,days,count',false);
                 $this->url = '/agent/recharge/?';
                 self::$_url .='&cusId='.$this->auth->system_id;
                 $data = $this->_httpget();
+                // echo $this->url;
                 return $this->_postjsonencode($data);
+            // $this->_w_exchange_log($server_count,$user_number,$user_number-$server_count,'兑换:'.$server_name.'消耗'.$server_count.'点',0,0,$_GET['serve_id'],$this->auth->id,$this->auth->nickname);
+        }catch(\Exception $e){
+            Db::rollback();
+            $msg['msg']='兑换失败';
+            return $this->_postjsonencode($msg);
+        }
+        // echo $this->auth->system_id;
+               
 
         }
 
@@ -1095,7 +1116,7 @@ class User extends Frontend
         public function agentSearchAccByCid(){
             $param['page'] = $this->_dataFilter('page')['page'];
             self::$_url .= '&cusId='.$this->auth->system_id;
-            if(isset($_GET['serve_di']) && $_GET['serve_id']==1){
+            if(isset($_GET['serve_id']) && $_GET['serve_id']==1){
                 //修改访问地址
                 $this->_server_url = 'https://e.api.vpn.cn:8080';
             }
@@ -1214,7 +1235,11 @@ class User extends Frontend
             return $this->view->fetch();
         }
         public function dynamiclist(){
+            $where['user_id'] = $this->auth->id;
+            $where['type'] = 1;
+            $number = DB::name('exchange_points')->where($where)->find()['number'];
             $this->view->assign('title', '动态列表');
+            $this->view->assign('number', $number);
             return $this->view->fetch();
         }
         public function static(){
@@ -1225,4 +1250,19 @@ class User extends Frontend
             $this->view->assign('title', '静态列表');
             return $this->view->fetch();
         }
+        public function Sharepoints(){
+            $this->view->assign('title','共享账号充值');
+            return $this->view->fetch();
+        }
+        /**
+         * ================
+         * @Author:        css
+         * @Parameter:     
+         * @DataTime:      2019-11-06
+         * @Return:        
+         * @Notes:         共享账号充点
+         * @ErrorReason:   
+         * ================
+         */
+        // public function comment
 }

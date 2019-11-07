@@ -163,7 +163,7 @@ class Auth
             'loginip'   => $ip,
             'prevtime'  => $time,
             'status'    => 'normal',
-            'inviter'   => $extend['inviter'],
+            'inviter'   => $extend['inviter']?$extend['inviter']:0,
             'system_id' => $additional_data['system_id'],
             'system_name' => $additional_data['system_name']
         ]);
@@ -580,11 +580,13 @@ class Auth
     }
 
     private function _httpget(){
-        $this->agent_id = 'wvohjijo4gdrwmswawqsrxlbptpl5rd6';
-        $this->agent_sec = '3m6710mpz6py4os28uxgmnawxkfjlwrc';
+        // $this->agent_id = 'wvohjijo4gdrwmswawqsrxlbptpl5rd6';
+        // $this->agent_sec = '3m6710mpz6py4os28uxgmnawxkfjlwrc';
+        $this->agent_id = 'u6wjww1wc32rizyido7uwwacmvlbwuue';
+            $this->agent_sec = 'of67j67lpc1hr0x3dyyae3w61fbdr11o';
         $_url = 'timestamp='.time().'&agentid='.$this->agent_id.self::$_url;
         $sign = md5($this->agent_id.$this->agent_sec.$_url.time());
-        $url = 'http://b.api.vpn.cn:8080'.$this->url.$_url.'&sign='.$sign;
+        $url = 'https://e.api.vpn.cn:8080'.$this->url.$_url.'&sign='.$sign;
         header('Content-type:application/json;charset=utf-8');
         $demo = 'http://[代理接口地址]/agent/create?agentid=aaa&count=10&cusId=2602&defaultLink=1&timestamp=1546409119&sign=4594587996bae3728047ed807c7e36dd';
         $ch = curl_init();

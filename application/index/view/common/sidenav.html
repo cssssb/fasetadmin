@@ -16,6 +16,7 @@
     </ul>
     <ul class="list-group">
             <li class="list-group-heading">交易中心</li>
+            <li class="list-group-item {:$config['actionname']=='sharepoints'?'active':''}"> <a href="{:url('user/sharepoints')}"><i class="fa fa-user-o fa-fw"></i> 充值共享点数</a> </li>
             <li class="list-group-item {:$config['actionname']=='exchangepoints'?'active':''}"> <a href="{:url('user/exchangepoints')}"><i class="fa fa-user-circle fa-fw"></i> 兑换点数</a> </li>
             <li class="list-group-item {:$config['actionname']=='transaction'?'active':''}"> <a href="{:url('user/transaction')}"><i class="fa fa-user-o fa-fw"></i> 交易记录</a> </li>
     </ul>
