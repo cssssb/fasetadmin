@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:89:"C:\Users\user\Desktop\fastadmin\public/../application/index\view\user\exchangepoints.html";i:1572799408;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\layout\default.html";i:1571470719;s:71:"C:\Users\user\Desktop\fastadmin\application\index\view\common\meta.html";i:1571470719;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\common\sidenav.html";i:1571842243;s:73:"C:\Users\user\Desktop\fastadmin\application\index\view\common\script.html";i:1571470719;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:93:"/www/wwwroot/v.zzz80.cn/fasetadmin/public/../application/index/view/user/charlierecharge.html";i:1572961550;s:77:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/layout/default.html";i:1572961550;s:74:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/common/meta.html";i:1572961550;s:77:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/common/sidenav.html";i:1572961550;s:76:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/common/script.html";i:1572961550;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -156,51 +156,46 @@
 </div>
         </div>
         <div class="col-md-9">
-            <div class="panel panel-default panel-recharge">
-                <div class="panel-body">
-                    <h2 class="page-header">e服务器速度快--B服务器对联通移动支持更好--注：点数不通用 <span><small
-                                class="text-danger">余额:<?php echo $money; ?></small></span>
-                       <!-- <a href="/index/recharge/recharge.html" class="btn btn-info btn-recharge pull-right"><i
-                                 class="fa fa-cny"></i> 充值余额</a> -->
-                    </h2>
-                    <div class="row">
-                        <?php if(is_array($server_list) || $server_list instanceof \think\Collection || $server_list instanceof \think\Paginator): if( count($server_list)==0 ) : echo "" ;else: foreach($server_list as $key=>$v): ?>
-                        <div class="col-xs-6 col-md-3" style="text-align:right"><?php echo $v['name']; ?> : </div>
-                        <div class="col-xs-6 col-md-3" style="text-align:left"><?php echo $v['user_number']; ?></div>
-                        <?php endforeach; endif; else: echo "" ;endif; ?>
+            <div class="panel-body">
+                <!-- <h2 class="page-header">卡密充值                      <a href="http://www.bxfaka.com/links/20BF636CBE64306F" target="_blank" style="margin:1px;" class="btn btn-success btn-recharge pull-right"><i class="fa fa-random fa-fw"></i> 没有可点我购买卡密</a> -->
+                </h2>
+                <div class="panel-body" style="padding:0;">
+                    <div class="alert alert-warning-light">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>卡密充值联系客服qq:</br>
+                                    温馨提示:24小时自动卡密充值,请先购充值卡密后在此页面使用！
+
+                                    温馨提示:充值一般都是秒到帐的,如长时间不到联系客服QQ处理！
+
+                                    温馨提示:卡密为虚拟物品一但充值成功非平台原因不作退款处理!</p>
+                                <div class="input-group input-group-md">
+                                    <div class="icon-addon addon-md">
+                                        <input type="text" placeholder="卡密" onfocus="this.select();" value="" id="cardpass"
+                                            class="form-control input-md">
+                                    </div>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-success btn-invite inquire" id="inquire" type="button">查询</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <hr>
-                    <form id="add-form" class="form-horizontal nice-validator n-default n-bootstrap" role="form"
-                        data-toggle="validator"  action="" novalidate="novalidate">
-
-                        <div class="form-group">
-                            <label class="control-label col-xs-12 col-sm-4">选择兑换种类:</label>
-                            <div class="col-xs-12 col-sm-4">
-                                <select id="selectpicker" class="selectpicker form-control" name="row[select]" tabindex="-98" >
-                                    <option value="0" selected="selected" name="">请选择兑换种类</option>
-                                </select>
-
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-xs-12 col-sm-4">兑换数量:</label>
-                            <div class="col-xs-12 col-sm-4">
-                                <input id="num" name="row[code]" class="form-control duihuannum" type="text" value="1"> </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label class="control-label col-xs-12 col-sm-4">总价:</label>
-                            <label class="control-label col-xs-12 col-sm-4" style="text-align:left"><span
-                                    style="color:red" id="total" class="totalNum">0</span>元</label>
-                        </div>
-                        <div class="form-group layer-footer">
-                            <label class="control-label col-xs-12 col-sm-4"></label>
-                            <div class="col-xs-12 col-sm-8">
-                                <button type="button"  class="btn btn-success btn-embossed">提交</button>
-                            </div>
-                        </div>
-                    </form>
+                    <table class="table table-striped table-invite">
+                        <thead id="tabbox">
+                            <tr>
+                                <th>卡密</th>
+                                <th>单价</th>
+                                <th>总点数</th>
+                                <th>绑定时间</th>
+                                <th>操作</th>
+                            </tr>
+                            
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <div class="pager"></div>
                 </div>
             </div>
         </div>
@@ -215,8 +210,7 @@
                 <label class="control-label col-xs-12 col-sm-3"><?php echo __('New Email'); ?>:</label>
                 <div class="col-xs-12 col-sm-8">
                     <input type="text" class="form-control" id="email" name="email" value=""
-                        data-rule="required;email;remote(<?php echo url('api/validate/check_email_available'); ?>, event=changeemail, id=<?php echo $user['id']; ?>)"
-                        placeholder="<?php echo __('New email'); ?>">
+                        data-rule="required;email;remote(<?php echo url('api/validate/check_email_available'); ?>, event=changeemail, id=">
                     <span class="msg-box"></span>
                 </div>
             </div>
@@ -253,8 +247,7 @@
                 <label for="c-mobile" class="control-label col-xs-12 col-sm-3"><?php echo __('New mobile'); ?>:</label>
                 <div class="col-xs-12 col-sm-8">
                     <input type="text" class="form-control" id="mobile" name="mobile" value=""
-                        data-rule="required;mobile;remote(<?php echo url('api/validate/check_mobile_available'); ?>, event=changemobile, id=<?php echo $user['id']; ?>)"
-                        placeholder="<?php echo __('New mobile'); ?>">
+                        data-rule="required;mobile;remote(<?php echo url('api/validate/check_mobile_available'); ?>, event=changemobile, id=">
                     <span class="msg-box"></span>
                 </div>
             </div>
@@ -315,7 +308,13 @@
         margin-left: 0;
         margin-right: 0;
     }
+    .passduihuan{
+        color: #18b;
+        cursor: pointer;
+    }
 </style>
+<script>
+</script>
         </main>
 
         <footer class="footer" style="clear:both">

@@ -346,7 +346,7 @@ class User extends Frontend
      * ================
      */
     public function balancelog(){
-        $data = DB::name('rechargeablecard_log')->where('user_id='.$this->auth->id)->select();
+        $data = DB::name('rechargeablecard_log')->where('user_id='.$this->auth->id)->order('id','desc')->select();
         $this->view->assign('title', '余额日志');
         $this->view->assign('data', $data);
         $this->view->assign('money', $this->auth->money);
@@ -473,7 +473,9 @@ class User extends Frontend
             'state'=>$state,
             'amount_id'=>$amount_id,
             'user_id'=>$user_id,
-            'user_name'=>$user_name
+            'user_name'=>$user_name,
+            'c_time'=>date('Y-m-d H:i:s',time())
+
         ];
         return DB::name('exchange_log')->insert($data);
     }
@@ -556,7 +558,7 @@ class User extends Frontend
 
       public function transaction(){
         $server_list = $this->_getServerWithUser();
-        $logger = DB::name('exchange_log')->where('user_id='.$this->auth->id)->select();
+        $logger = DB::name('exchange_log')->where('user_id='.$this->auth->id)->order('id','desc')->select();
         
         foreach ($logger as &$key) {
             foreach ($server_list as $k){
@@ -823,11 +825,11 @@ class User extends Frontend
             if(isset($param['count'])){
                 $price = $param['count']*$server_price;
                 $server_count = $param['count'];
-                $price<= $user_number?true:exit($this->_postjsonencode(['msg'=>'用户点数不足']));
+                $price<= $user_number?true:exit($this->_postjsonencode(['msg'=>'用户余额不足']));
             }else{
                 $price = $param['accountTotal']*$server_price;
                 $server_count = $param['accountTotal'];
-                $price <= $user_number?true:exit($this->_postjsonencode(['msg'=>'用户点数不足']));
+                $price <= $user_number?true:exit($this->_postjsonencode(['msg'=>'用户余额不足']));
             }
 
 
@@ -925,11 +927,11 @@ class User extends Frontend
             }
             if(isset($_GET['days'])){
                 $server_count = $server_price*$_GET['days'];
-                $user_number>=$server_count?true:exit($this->_postjsonencode(['msg'=>'用户点数不足']));
+                $user_number>=$server_count?true:exit($this->_postjsonencode(['msg'=>'用户余额不足']));
             }
             if(isset($_GET['count'])){
                 $server_count = $server_price*$_GET['count'];
-                $user_number>=$server_count?true:exit($this->_postjsonencode(['msg'=>'用户点数不足']));
+                $user_number>=$server_count?true:exit($this->_postjsonencode(['msg'=>'用户余额不足']));
             }
             //扣点数 写入日志
             DB::name('exchange_points')->where($where)->setDec('number',$server_count);
@@ -1207,6 +1209,52 @@ class User extends Frontend
          * ================
          * @Author:        css
          * @Parameter:     
+         * @DataTime:      2019-11-06
+         * @Return:        
+         * @Notes:         共享账号充点
+         * @ErrorReason:   
+         * ================
+         */
+        public function commentRecharge(){
+            //判断e服务器额度够不够
+            $where['user_id'] = $this->auth->id;
+            $where['type'] = 1;
+            $user_number = DB::name('exchange_points')->where($where)->find()['number'];
+            $param = $this->_dataFilter('count');
+            if($user_number<(int)$_GET['count']){
+                return $this->_postjsonencode(['msg'=>'用户点数不足，请到兑换点数充值']);die;
+            }
+            //开启事务
+            DB::startTrans();
+            try {
+                //扣费
+                DB::name('exchange_points')->where($where)->setDec('number',(int)$_GET['count']);
+                //写入交易记录
+                $this->_w_exchange_log($_GET['count'],
+                $user_number,
+                (int)$user_number-(int)$_GET['count'],
+                '充值共享点数'.$_GET['count'].'点',
+                0,
+                0,
+                1,
+                $this->auth->id,$this->auth->nickname);
+                Db::commit();
+        }catch(\Exception $e){
+            Db::rollback();
+            $msg['msg']='兑换失败';
+            return $this->_postjsonencode($msg);die;
+        }
+            $this->url = '/agent/rechargeDynShareByCustomId?';
+            self::$_url .= '&cusId='.$this->auth->system_id;
+            $data = $this->_httpget();
+            return $this->_postjsonencode($data);
+        }
+
+
+        /**
+         * ================
+         * @Author:        css
+         * @Parameter:     
          * @DataTime:      2019-10-28
          * @Return:        
          * @Notes:         删除被拉黑的ip
@@ -1217,7 +1265,7 @@ class User extends Frontend
             $param = 'ip';
             $param = $this->_dataFilter($param,true);
             $this->url = '/agent/removeClientIpBlock?';
-            $data = $this->_httpget('&ip='.$param['ip']);
+            $data = $this->_httpget();
             return $this->_postjsonencode($data);
 
             // {
@@ -1251,15 +1299,5 @@ class User extends Frontend
             return $this->view->fetch();
         }
     
-        /**
-         * ================
-         * @Author:        css
-         * @Parameter:     
-         * @DataTime:      2019-11-06
-         * @Return:        
-         * @Notes:         共享账号充点
-         * @ErrorReason:   
-         * ================
-         */
-        // public function comment
+        
 }
