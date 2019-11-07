@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:89:"C:\Users\user\Desktop\fastadmin\public/../application/index\view\user\exchangepoints.html";i:1572799408;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\layout\default.html";i:1571470719;s:71:"C:\Users\user\Desktop\fastadmin\application\index\view\common\meta.html";i:1571470719;s:74:"C:\Users\user\Desktop\fastadmin\application\index\view\common\sidenav.html";i:1571842243;s:73:"C:\Users\user\Desktop\fastadmin\application\index\view\common\script.html";i:1571470719;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:88:"/www/wwwroot/v.zzz80.cn/fasetadmin/public/../application/index/view/user/balancelog.html";i:1572961550;s:77:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/layout/default.html";i:1572961550;s:74:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/common/meta.html";i:1572961550;s:77:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/common/sidenav.html";i:1572961550;s:76:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/common/script.html";i:1572961550;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -156,51 +156,23 @@
 </div>
         </div>
         <div class="col-md-9">
-            <div class="panel panel-default panel-recharge">
-                <div class="panel-body">
-                    <h2 class="page-header">e服务器速度快--B服务器对联通移动支持更好--注：点数不通用 <span><small
-                                class="text-danger">余额:<?php echo $money; ?></small></span>
-                       <!-- <a href="/index/recharge/recharge.html" class="btn btn-info btn-recharge pull-right"><i
-                                 class="fa fa-cny"></i> 充值余额</a> -->
-                    </h2>
-                    <div class="row">
-                        <?php if(is_array($server_list) || $server_list instanceof \think\Collection || $server_list instanceof \think\Paginator): if( count($server_list)==0 ) : echo "" ;else: foreach($server_list as $key=>$v): ?>
-                        <div class="col-xs-6 col-md-3" style="text-align:right"><?php echo $v['name']; ?> : </div>
-                        <div class="col-xs-6 col-md-3" style="text-align:left"><?php echo $v['user_number']; ?></div>
+                <div class="panel panel-default panel-recharge">
+                    <div class="panel-body">
+                        <h2 class="page-header">余额日志                        <span><small class="text-danger">余额:<?php echo $money; ?></small></span>
+                            <!-- <a href="/index/recharge/recharge.html" class="btn btn-info btn-recharge pull-right"><i class="fa fa-cny"></i> 充值余额</a> -->
+                        </h2>
+                        <?php if(is_array($data) || $data instanceof \think\Collection || $data instanceof \think\Paginator): if( count($data)==0 ) : echo "" ;else: foreach($data as $key=>$v): ?>
+                                            <div class="row">
+                            <div class="col-md-12">
+                                <h4>
+                                    <?php echo $v['describe']; ?>                            </h4>
+                                    <?php echo $v['type']==1?'<p class="text-success">':'<p class="text-danger">'; ?>余额：<?php echo $v['type']==0?'-'.$v['number']:'+'.$v['number']; ?></p>
+                                <p class="text-muted">操作时间：<?php echo $v['c_time']; ?></p>
+                            </div>
+                        </div>
+                        <hr>
                         <?php endforeach; endif; else: echo "" ;endif; ?>
                     </div>
-                    <hr>
-                    <form id="add-form" class="form-horizontal nice-validator n-default n-bootstrap" role="form"
-                        data-toggle="validator"  action="" novalidate="novalidate">
-
-                        <div class="form-group">
-                            <label class="control-label col-xs-12 col-sm-4">选择兑换种类:</label>
-                            <div class="col-xs-12 col-sm-4">
-                                <select id="selectpicker" class="selectpicker form-control" name="row[select]" tabindex="-98" >
-                                    <option value="0" selected="selected" name="">请选择兑换种类</option>
-                                </select>
-
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-xs-12 col-sm-4">兑换数量:</label>
-                            <div class="col-xs-12 col-sm-4">
-                                <input id="num" name="row[code]" class="form-control duihuannum" type="text" value="1"> </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label class="control-label col-xs-12 col-sm-4">总价:</label>
-                            <label class="control-label col-xs-12 col-sm-4" style="text-align:left"><span
-                                    style="color:red" id="total" class="totalNum">0</span>元</label>
-                        </div>
-                        <div class="form-group layer-footer">
-                            <label class="control-label col-xs-12 col-sm-4"></label>
-                            <div class="col-xs-12 col-sm-8">
-                                <button type="button"  class="btn btn-success btn-embossed">提交</button>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
@@ -214,9 +186,7 @@
             <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3"><?php echo __('New Email'); ?>:</label>
                 <div class="col-xs-12 col-sm-8">
-                    <input type="text" class="form-control" id="email" name="email" value=""
-                        data-rule="required;email;remote(<?php echo url('api/validate/check_email_available'); ?>, event=changeemail, id=<?php echo $user['id']; ?>)"
-                        placeholder="<?php echo __('New email'); ?>">
+                    <input type="text" class="form-control" id="email" name="email" value="" data-rule="required;email;remote(<?php echo url('api/validate/check_email_available'); ?>, event=changeemail, id=">
                     <span class="msg-box"></span>
                 </div>
             </div>
@@ -224,11 +194,9 @@
                 <label class="control-label col-xs-12 col-sm-3"><?php echo __('Captcha'); ?>:</label>
                 <div class="col-xs-12 col-sm-8">
                     <div class="input-group">
-                        <input type="text" name="captcha" id="email-captcha" class="form-control"
-                            data-rule="required;length(4);integer[+];remote(<?php echo url('api/validate/check_ems_correct'); ?>, event=changeemail, email:#email)" />
+                        <input type="text" name="captcha" id="email-captcha" class="form-control" data-rule="required;length(4);integer[+];remote(<?php echo url('api/validate/check_ems_correct'); ?>, event=changeemail, email:#email)" />
                         <span class="input-group-btn" style="padding:0;border:none;">
-                            <a href="javascript:;" class="btn btn-info btn-captcha" data-url="<?php echo url('api/ems/send'); ?>"
-                                data-type="email" data-event="changeemail">获取验证码</a>
+                            <a href="javascript:;" class="btn btn-info btn-captcha" data-url="<?php echo url('api/ems/send'); ?>" data-type="email" data-event="changeemail">获取验证码</a>
                         </span>
                     </div>
                     <span class="msg-box"></span>
@@ -252,9 +220,7 @@
             <div class="form-group">
                 <label for="c-mobile" class="control-label col-xs-12 col-sm-3"><?php echo __('New mobile'); ?>:</label>
                 <div class="col-xs-12 col-sm-8">
-                    <input type="text" class="form-control" id="mobile" name="mobile" value=""
-                        data-rule="required;mobile;remote(<?php echo url('api/validate/check_mobile_available'); ?>, event=changemobile, id=<?php echo $user['id']; ?>)"
-                        placeholder="<?php echo __('New mobile'); ?>">
+                    <input type="text" class="form-control" id="mobile" name="mobile" value="" data-rule="required;mobile;remote(<?php echo url('api/validate/check_mobile_available'); ?>, event=changemobile, id=">
                     <span class="msg-box"></span>
                 </div>
             </div>
@@ -262,11 +228,9 @@
                 <label for="mobile-captcha" class="control-label col-xs-12 col-sm-3"><?php echo __('Captcha'); ?>:</label>
                 <div class="col-xs-12 col-sm-8">
                     <div class="input-group">
-                        <input type="text" name="captcha" id="mobile-captcha" class="form-control"
-                            data-rule="required;length(4);integer[+];remote(<?php echo url('api/validate/check_sms_correct'); ?>, event=changemobile, mobile:#mobile)" />
+                        <input type="text" name="captcha" id="mobile-captcha" class="form-control" data-rule="required;length(4);integer[+];remote(<?php echo url('api/validate/check_sms_correct'); ?>, event=changemobile, mobile:#mobile)" />
                         <span class="input-group-btn" style="padding:0;border:none;">
-                            <a href="javascript:;" class="btn btn-info btn-captcha" data-url="<?php echo url('api/sms/send'); ?>"
-                                data-type="mobile" data-event="changemobile">获取验证码</a>
+                            <a href="javascript:;" class="btn btn-info btn-captcha" data-url="<?php echo url('api/sms/send'); ?>" data-type="mobile" data-event="changemobile">获取验证码</a>
                         </span>
                     </div>
                     <span class="msg-box"></span>
