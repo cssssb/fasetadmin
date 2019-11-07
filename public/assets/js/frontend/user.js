@@ -634,7 +634,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
 
             $(".connum").bind("input propertychange change", function (event) {
                 var num = $(".connum").val();
-                document.querySelector("#code").innerText = 10 * num
+                document.querySelector("#code").innerText = 1 * num
             });
 
             $(".staticgroup").click(function () {
