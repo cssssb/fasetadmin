@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:84:"C:\Users\user\Desktop\fastadmin\public/../application/admin\view\user\user\edit.html";i:1572958587;s:74:"C:\Users\user\Desktop\fastadmin\application\admin\view\layout\default.html";i:1571470719;s:71:"C:\Users\user\Desktop\fastadmin\application\admin\view\common\meta.html";i:1571470719;s:73:"C:\Users\user\Desktop\fastadmin\application\admin\view\common\script.html";i:1571470719;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:95:"C:\Users\Administrator\Desktop\fastAdmin\public/../application/admin\view\user\group\index.html";i:1570347773;s:83:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\layout\default.html";i:1570347773;s:80:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\common\meta.html";i:1570347773;s:82:"C:\Users\Administrator\Desktop\fastAdmin\application\admin\view\common\script.html";i:1570347773;}*/ ?>
 <!DOCTYPE html>
 <html lang="<?php echo $config['language']; ?>">
     <head>
@@ -50,41 +50,34 @@
                             <!-- END RIBBON -->
                             <?php endif; ?>
                             <div class="content">
-                                <form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+                                <div class="panel panel-default panel-intro">
+    <?php echo build_heading(); ?>
 
-   
-    <div class="form-group">
-        <label for="c-username" class="control-label col-xs-12 col-sm-2"><?php echo __('Username'); ?>:</label>
-        <div class="col-xs-12 col-sm-4">
-            <input id="c-username" data-rule="required" class="form-control" name="row[username]" type="text" value="<?php echo htmlentities($row['username']); ?>">
+    <div class="panel-body">
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="one">
+                <div class="widget-body no-padding">
+                    <div id="toolbar" class="toolbar">
+                        <?php echo build_toolbar('refresh,add,edit,del'); ?>
+                        <div class="dropdown btn-group <?php echo $auth->check('user/group/multi')?'':'hide'; ?>">
+                            <a class="btn btn-primary btn-more dropdown-toggle btn-disabled disabled" data-toggle="dropdown"><i class="fa fa-cog"></i> <?php echo __('More'); ?></a>
+                            <ul class="dropdown-menu text-left" role="menu">
+                                <li><a class="btn btn-link btn-multi btn-disabled disabled" href="javascript:;" data-params="status=normal"><i class="fa fa-eye"></i> <?php echo __('Set to normal'); ?></a></li>
+                                <li><a class="btn btn-link btn-multi btn-disabled disabled" href="javascript:;" data-params="status=hidden"><i class="fa fa-eye-slash"></i> <?php echo __('Set to hidden'); ?></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <table id="table" class="table table-striped table-bordered table-hover" 
+                           data-operate-edit="<?php echo $auth->check('user/group/edit'); ?>" 
+                           data-operate-del="<?php echo $auth->check('user/group/del'); ?>" 
+                           width="100%">
+                    </table>
+                </div>
+            </div>
+
         </div>
     </div>
-    <div class="form-group">
-        <label for="c-nickname" class="control-label col-xs-12 col-sm-2"><?php echo __('Nickname'); ?>:</label>
-        <div class="col-xs-12 col-sm-4">
-            <input id="c-nickname" data-rule="required" class="form-control" name="row[nickname]" type="text" value="<?php echo htmlentities($row['nickname']); ?>">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="c-money" class="control-label col-xs-12 col-sm-2">转账点数:</label>
-        <div class="col-xs-12 col-sm-4">
-            <input id="c-money" data-rule="required" class="form-control" name="row[money]" type="number" value="<?php echo $row['money']; ?>">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="content" class="control-label col-xs-12 col-sm-2"><?php echo __('Status'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <?php echo build_radios('row[status]', ['normal'=>__('Normal'), 'hidden'=>__('Hidden')], $row['status']); ?>
-        </div>
-    </div>
-    <div class="form-group layer-footer">
-        <label class="control-label col-xs-12 col-sm-2"></label>
-        <div class="col-xs-12 col-sm-8">
-            <button type="submit" class="btn btn-success btn-embossed disabled"><?php echo __('OK'); ?></button>
-            <button type="reset" class="btn btn-default btn-embossed"><?php echo __('Reset'); ?></button>
-        </div>
-    </div>
-</form>
+</div>
 
                             </div>
                         </div>

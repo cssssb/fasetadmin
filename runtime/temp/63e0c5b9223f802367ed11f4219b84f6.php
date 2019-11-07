@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:87:"C:\Users\user\Desktop\fastadmin\public/../application/common\view\tpl\dispatch_jump.tpl";i:1571470719;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:90:"/www/wwwroot/v.zzz80.cn/fasetadmin/public/../application/common/view/tpl/dispatch_jump.tpl";i:1572961550;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>

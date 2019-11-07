@@ -79,7 +79,7 @@ class User extends Backend
             $data = [
                 'admin_id'=>$this->auth->id,
                 'admin_name' =>$this->auth->nickname,
-                'details' =>'管理员:'.$this->auth->nickname.'给用户充值'.$_POST['row']['money'].'点,管理员余额:'.$this->auth->number-$_POST['row']['money'],
+                'details' =>'管理员:'.$this->auth->nickname.'给用户充值'.$_POST['row']['money'].'点,管理员余额:'.((int)$this->auth->number-(int)$_POST['row']['money']),
                 'c_time' =>date('Y-m-d H:i:s',time()),
                 'update_number'=>$_POST['row']['money'],
                 'have_number'=>$this->auth->number-$_POST['row']['money']
@@ -87,7 +87,6 @@ class User extends Backend
             DB::name('admin_number_log')->where('id',$this->auth->id)->insert($data);
             DB::commit();
             }catch(\Exception $e){
-                var_dump($e->getMessage());die;
                 Db::rollback();
                 $this->error('转账失败');
             }
