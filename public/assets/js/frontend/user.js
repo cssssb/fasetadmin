@@ -332,7 +332,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     'password': $('[name= password]').val(),
                     'accountTotal': $('[name=accountTotal]').val(),
                     'defaultLink': $('[name=defaultLink]').val(),
-                    'isp': l,
+                    'isp': $('[name= isp]:checked').val(),
                     'count': $('[name=count]').val(),
                     'serve_id': $('[name=serve_id]').val(),
                     'timeoutExec': $('[name=timeoutExec]:checked').val(),
@@ -452,16 +452,6 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                                 $(".active").children("a").addClass("activea")
                             };
                             $.each(data.accList, function (i, item) {
-<<<<<<< HEAD
-                                var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
-                                var isOnline = (item.isOnline == 1 ? '在线' : '离线');
-                                var content = "<tr style='text-align: center; vertical-align: middle;' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone'></td><td>" +
-                                    item.username + " </td><td>" + item.expireTime +
-                                    " </td><td>" + item.isp + " </td><td>" + item.totalcount + " </td><td>" + timeoutExec + " </td><td><span style='background: #2c3e50;color: #fff;padding: 2px 8px;border-radius:5px'>" + item.surplus+"/"+ item.totalcount+
-                                    "</span> </td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
-                                    " </td> <td class='bianji'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
-                                $(".table-nowrap").append(content)
-=======
                                 var link;
                                 var linkname
                                 $.each(item.linkList, function (index, it) {
@@ -509,11 +499,10 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                                         $(".fixed-table-body").html("<div style='padding:50px; text-align: center;width:100%'>暂无数据</div>")
                                     }
                                 }, 1000);
->>>>>>> 49fbd94291e1c10bc87b0d451621cca125f4c96a
                             })
 
                         }else{
-                            switch (ret.code) {
+                            switch (msg.code) {
                                 case 1:
                                     layer.msg("操作失败");
                                     break;
@@ -545,7 +534,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                                     layer.msg("默认线路未指定或不在授权范围内");
                                     break;
                                 case 7:
-                                    layer.msg("账号名重复");
+                                    layer.msg("帐户不存在或查询结果为空");
                             }
                         }
                     },
@@ -556,7 +545,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
             };
             //上一页按钮click事件 
             $("#previous").click(function () {
-                if (pageIndex != 1 ) {
+                if (pageIndex != 1) {
                     pageIndex--;
                     $("#lblCurent").text(pageIndex);
                 }
@@ -979,12 +968,6 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
 
         },
         staticlist: function () {
-<<<<<<< HEAD
-            var pageIndex = 1;
-            var countpages
-            //AJAX方法取得数据并显示到页面上 
-            BindData();
-=======
             var linklist = [];
             $.ajax({
                 url: "/index/user/lineList",
@@ -1003,7 +986,6 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
             //AJAX方法取得数据并显示到页面上 
             BindData();
 
->>>>>>> 49fbd94291e1c10bc87b0d451621cca125f4c96a
             function BindData() {
                 $.ajax({
                     type: "get", //使用get方法访问后台 
@@ -1011,11 +993,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     url: "/index/user/agentSearchAccByCid", //要访问的后台地址 
                     data: {
                         "page": pageIndex,
-<<<<<<< HEAD
-                        'type':1
-=======
                         'serve_id': serverid
->>>>>>> 49fbd94291e1c10bc87b0d451621cca125f4c96a
                     }, //要发送的数据 
                     ajaxStart: function () {
                         $("#loding").show();
@@ -1025,60 +1003,17 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     }, //AJAX请求完成时隐藏loading提示 
                     success: function (msg) { //msg为返回的数据，在这里做数据绑定 
                         if (msg.code == 0) {
-<<<<<<< HEAD
-                            var data = msg.data;
-                            var end =data.cur_page*50;
-                            var start=end-49;
-                            countpages=data.pages;
-=======
 
                             var data = msg.data;
 
                             var end = data.cur_page * 50;
                             var start = end - 49;
                             countpages = data.pages;
->>>>>>> 49fbd94291e1c10bc87b0d451621cca125f4c96a
                             $(".count").text(data.count);
                             $(".start").text(start);
                             $(".end").text(end);
                             $(".page-number").remove()
                             $(".tabcontent").remove()
-<<<<<<< HEAD
-                            for(var i=1;i<=data.pages;i++){
-                                $("#next").before("<li class='page-number'><a href='#'>"+i+"</a></li>")
-                                $(".page-number").eq(data.cur_page-1).addClass("active");
-                                $(".active").children("a").addClass("activea")
-                            };
-                            $.each(data.accList, function (i, item) {
-                                var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
-                                var isOnline = (item.isOnline == 1 ? '在线' : '离线');
-                                var isp;
-                                switch (item.isp) {
-                                    case 0:
-                                       isp="不限";
-                                        break;
-                                    case 1:
-                                        isp="联通";
-                                        break;
-                                    case 2:
-                                        isp="电信";
-                                        break;
-                                    case 3:
-                                        isp="移动";
-                                        break;
-                                }
-                                var content = "<tr style='text-align: center; vertical-align: middle;' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone'></td><td>" +
-                                    item.username + " </td><td>" + item.groupId +
-                                    " </td><td>" + item.expireTime + " </td><td><span class='text-success'>"+isp+"</span> </td><td>" + item.link + " </td><td>" + item.expireTime  +
-                                    "</td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
-                                    " </td> <td class='bianji'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
-                                $(".table-nowrap").append(content)
-                            })
-                        }
-                    },
-                    error: function () {
-                        alert("加载数据失败");
-=======
                             for (var i = 1; i <= data.pages; i++) {
                                 $("#next").before("<li class='page-number'><a href='#'>" + i + "</a></li>")
                                 $(".page-number").eq(data.cur_page - 1).addClass("active");
@@ -1169,7 +1104,6 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     },
                     error: function () {
                         // alert("加载数据失败");
->>>>>>> 49fbd94291e1c10bc87b0d451621cca125f4c96a
                     } //加载失败，请求错误处理 
                 });
             };
