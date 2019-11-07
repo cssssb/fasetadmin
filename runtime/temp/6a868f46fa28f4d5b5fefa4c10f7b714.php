@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:93:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\dynamiclist.html";i:1573094149;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1573106668;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:93:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\dynamiclist.html";i:1573129254;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1573106668;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -169,7 +169,7 @@
                                 <label class="control-label col-xs-3 col-sm-4" style="text-align:right">账号名称:</label>
                                 <div class="col-xs-8 col-sm-4">
                                     <input id="c-vcname" class="form-control" name="vcname" type="text" value=""
-                                        style="background: #fff">
+                                        style="background: #fff" disabled="disabled">
                                 </div>
                             </div>
                             <!-- <div class="form-group">

@@ -1298,7 +1298,6 @@ class User extends Frontend
             $this->view->assign('title', '静态列表');
             return $this->view->fetch();
         }
-<<<<<<< HEAD
         public function Sharepoints(){
             $this->view->assign('title','共享账号充值');
             return $this->view->fetch();
@@ -1314,8 +1313,4 @@ class User extends Frontend
          * ================
          */
         // public function comment
-=======
-    
-        
->>>>>>> 59d8f0fe5ddc81067cef9c988bdf69057873875a
 }

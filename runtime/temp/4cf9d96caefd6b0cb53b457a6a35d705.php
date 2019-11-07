@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:93:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\sharepoints.html";i:1573106678;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1573106668;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:93:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\sharepoints.html";i:1573129065;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1573106668;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -182,7 +182,7 @@
                             <div class="form-group">
                                 <label class="control-label col-xs-12 col-sm-4">充值点数:</label>
                                 <div class="col-xs-12 col-sm-4">
-                                    <input id="num" name="row[code]" class="form-control duihuannum" type="" value="1" onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')">  </div>
+                                    <input id="num" name="code" class="form-control duihuannumt" type="" value="1" onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')">  </div>
                             </div>
     
     

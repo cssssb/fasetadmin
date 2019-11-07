@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:89:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\dynamic.html";i:1572765794;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1571714014;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:89:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\public/../application/index\view\user\dynamic.html";i:1573129318;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\layout\default.html";i:1571646850;s:78:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\meta.html";i:1571646850;s:81:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\sidenav.html";i:1573106668;s:80:"C:\phpStudy\PHPTutorial\WWW\fasetadmin\application\index\view\common\script.html";i:1571646850;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -147,6 +147,7 @@
     </ul>
     <ul class="list-group">
             <li class="list-group-heading">交易中心</li>
+            <li class="list-group-item <?php echo $config['actionname']=='sharepoints'?'active':''; ?>"> <a href="<?php echo url('user/sharepoints'); ?>"><i class="fa fa-user-o fa-fw"></i> 充值共享点数</a> </li>
             <li class="list-group-item <?php echo $config['actionname']=='exchangepoints'?'active':''; ?>"> <a href="<?php echo url('user/exchangepoints'); ?>"><i class="fa fa-user-circle fa-fw"></i> 兑换点数</a> </li>
             <li class="list-group-item <?php echo $config['actionname']=='transaction'?'active':''; ?>"> <a href="<?php echo url('user/transaction'); ?>"><i class="fa fa-user-o fa-fw"></i> 交易记录</a> </li>
     </ul>
@@ -185,7 +186,7 @@
                                         <div class="col-xs-12 col-sm-4">
                                             <input name="password" class="form-control onlyNumAlpha" type="text" value=""> </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group hidden">
                                         <label class="control-label col-xs-12 col-sm-4">账号创建数量:</label>
                                         <div class="col-xs-12 col-sm-4">
                                             <input id="num" name="accountTotal" class="form-control onlynum" type="number" value="1">

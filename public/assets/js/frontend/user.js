@@ -190,24 +190,63 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
         // 共享点数充值
         sharepoints: function () {
             $(document).on("click", ".gongxiang", function () {
-                var passid = $("#ipaddress").val();
-                var content
+                var passid = $(".duihuannumt").val();
                 if (passid == "") {
                     content = "数量至少为1"
                 } else {
                     $.ajax({
-                        url: "/index/user/blacklistedQuery",
+                        url: "/index/user/commentRecharge",
                         type: 'get',
                         dataType: 'json',
                         data: {
-                            ip: passid
+                            count: passid
                         },
                         success: function (ret) {
-                            if (ret.message == "success" && ret.data.searchList) {
-                                var res = ret.data.searchList
-                                content = "<div>ip:" + res.remote_ip + "</div><div>创建时间：" + res.create_time + "</div><div>名称:" + res.acc + "</div><div>屏蔽时长:" + res.lot + "</div><div>原因:" + res.message + "</div>"
-
+                            if (ret.msg) {
+                                layer.msg(ret.msg);
+                            } else {
+                                switch (ret.code) {
+                                    case 0:
+                                        Toastr.success("兑换成功");
+                                        // setTimeout(() => {
+                                        //     window.location.reload()
+                                        // }, 1000);
+                                        break;
+                                    case 1:
+                                        layer.msg("操作失败");
+                                        break;
+                                    case 2:
+                                        layer.msg("代理被禁用或删除");
+                                        break;
+                                    case 3:
+                                        layer.msg("sign计算错误或未提交");
+                                        break;
+                                    case 4:
+                                        layer.msg("参数完整性验证");
+                                        break;
+                                    case 5:
+                                        layer.msg("授权额度余额已用完");
+                                        break;
+                                    case 7 || 7:
+                                        layer.msg("账号名重复");
+                                        break;
+                                    case 8:
+                                        layer.msg("代理授权额度余额已用完");
+                                        break;
+                                    case 9:
+                                        layer.msg("被充值账号非按次计费模式");
+                                        break;
+                                    case 10:
+                                        layer.msg("被充值账号非包年包月模式");
+                                        break;
+                                    case 11:
+                                        layer.msg("默认线路未指定或不在授权范围内");
+                                        break;
+                                    default:
+                                        layer.msg("客户已存在");
+                                }
                             }
+                           
                         },
                         error: function (e) {
 
@@ -520,7 +559,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
 
 
                                             }
-                                            var content = "<tr style='text-align: center; vertical-align: middle;' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone' ></td><td>" +
+                                            var content = "<tr style='text-align: center; vertical-align: middle;' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone' ></td><td name='"+havemoney+"'>" +
                                                 item.username + " </td><td>" + item.expireTime +
                                                 " </td><td>" + isp + " </td><td>" + linkname + " </td><td>" + timeoutExec + " </td><td><span style='background: #2c3e50;color: #fff;padding: 2px 8px;border-radius:5px'>" + item.surplus +
                                                 "</span> </td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
@@ -645,12 +684,15 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                 // var target = $(this).attr("class")
                 var content
                 var s
+                var num
                 content = $(".checkedcontent");
                 $('input[name="checkone"]:checked').each(function () {
                     s += $(this).parent().next().text();
+                    num += $(this).parent().next().attr("name");
 
                 });
                 $("#c-vcname").val(s.substring(9));
+                $(".havemoney").text(num.substring(9))
                 Layer.open({
                     type: 1,
                     title: '信息',
@@ -1037,67 +1079,67 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                         if (msg.code == 0) {
 
                             var data = msg.data;
-if(data.count!=0){
-    var end = data.cur_page * 50;
-    var start = end - 49;
-    countpages = data.pages;
-    $(".count").text(data.count);
-    $(".start").text(start);
-    $(".end").text(end);
-    $(".page-number").remove()
-    $(".tabcontent").remove()
-    for (var i = 1; i <= data.pages; i++) {
-        $("#next").before("<li class='page-number'><a href='#'>" + i + "</a></li>")
-        $(".page-number").eq(data.cur_page - 1).addClass("active");
-        $(".active").children("a").addClass("activea")
-    };
-    $.each(data.accList, function (i, item) {
-        var link;
-        var linkname
-        $.each(item.linkList, function (index, it) {
-            if (it.isDefault == 1) {
-                link = it.linkId
-            }
-        })
-        setTimeout(() => {
-            $.each(linklist, function (key, data) {
-                if (data.id == link) {
-                    linkname = data.name;
-                }
-            })
+                            if (data.count != 0) {
+                                var end = data.cur_page * 50;
+                                var start = end - 49;
+                                countpages = data.pages;
+                                $(".count").text(data.count);
+                                $(".start").text(start);
+                                $(".end").text(end);
+                                $(".page-number").remove()
+                                $(".tabcontent").remove()
+                                for (var i = 1; i <= data.pages; i++) {
+                                    $("#next").before("<li class='page-number'><a href='#'>" + i + "</a></li>")
+                                    $(".page-number").eq(data.cur_page - 1).addClass("active");
+                                    $(".active").children("a").addClass("activea")
+                                };
+                                $.each(data.accList, function (i, item) {
+                                    var link;
+                                    var linkname
+                                    $.each(item.linkList, function (index, it) {
+                                        if (it.isDefault == 1) {
+                                            link = it.linkId
+                                        }
+                                    })
+                                    setTimeout(() => {
+                                        $.each(linklist, function (key, data) {
+                                            if (data.id == link) {
+                                                linkname = data.name;
+                                            }
+                                        })
 
-            if (data.accType == "static") {
-                var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
-                var isOnline = (item.isOnline == 1 ? '在线' : '离线');
-                var isp
-                switch (item.isp) {
-                    case 0:
-                        isp = "不限";
-                        break;
-                    case 1:
-                        isp = "联通";
-                        break;
-                    case 2:
-                        isp = "电信";
-                        break;
-                    case 3:
-                        isp = "移动";
-                        break;
+                                        if (data.accType == "static") {
+                                            var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
+                                            var isOnline = (item.isOnline == 1 ? '在线' : '离线');
+                                            var isp
+                                            switch (item.isp) {
+                                                case 0:
+                                                    isp = "不限";
+                                                    break;
+                                                case 1:
+                                                    isp = "联通";
+                                                    break;
+                                                case 2:
+                                                    isp = "电信";
+                                                    break;
+                                                case 3:
+                                                    isp = "移动";
+                                                    break;
 
 
-                }
-                var content = "<tr style='text-align: center; vertical-align: middle;' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone'></td><td>" +
-                    item.username + " </td><td>" + item.groupId +
-                    " </td><td>" + item.expireTime + " </td><td>" + isp + " </td><td>" + linkname + " </td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
-                    " </td> <td class='bianji'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
-                $(".table-nowrap").append(content)
-            } 
-        })
-    })
-}else {
-    $(".fixed-table-body").html("<div style='padding:50px; text-align: center;width:100%;font-size:14px'>暂无数据</div>")
-}
-                           
+                                            }
+                                            var content = "<tr style='text-align: center; vertical-align: middle;' class='tabcontent'><td><input type='checkbox' name='checkone' id='checkone'></td><td>" +
+                                                item.username + " </td><td>" + item.groupId +
+                                                " </td><td>" + item.expireTime + " </td><td>" + isp + " </td><td>" + linkname + " </td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
+                                                " </td> <td class='bianji'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
+                                            $(".table-nowrap").append(content)
+                                        }
+                                    })
+                                })
+                            } else {
+                                $(".fixed-table-body").html("<div style='padding:50px; text-align: center;width:100%;font-size:14px'>暂无数据</div>")
+                            }
+
 
                         } else {
                             switch (msg.code) {
