@@ -687,7 +687,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                 var num
                 content = $(".checkedcontent");
                 $('input[name="checkone"]:checked').each(function () {
-                    s += $(this).parent().next().text();
+                    s +=","+ $(this).parent().next().text();
                     num += $(this).parent().next().attr("name");
 
                 });
