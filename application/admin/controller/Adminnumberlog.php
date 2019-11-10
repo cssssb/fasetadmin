@@ -9,20 +9,19 @@ use app\common\controller\Backend;
  *
  * @icon fa fa-circle-o
  */
-class Exchangeamount extends Backend
+class Adminnumberlog extends Backend
 {
     
     /**
-     * ExchangeAmount模型对象
-     * @var \app\admin\model\Exchangeamount
+     * AdminNumberLog模型对象
+     * @var \app\admin\model\Adminnumberlog
      */
     protected $model = null;
-    protected $noNeedLogin = ['*'];
-    protected $noNeedRight = ['*'];
+
     public function _initialize()
     {
         parent::_initialize();
-        $this->model = new \app\admin\model\Exchangeamount;
+        $this->model = new \app\admin\model\Adminnumberlog;
 
     }
     
@@ -31,5 +30,6 @@ class Exchangeamount extends Backend
      * 因此在当前控制器中可不用编写增删改查的代码,除非需要自己控制这部分逻辑
      * 需要将application/admin/library/traits/Backend.php中对应的方法复制到当前控制器,然后进行修改
      */
+    
 
 }

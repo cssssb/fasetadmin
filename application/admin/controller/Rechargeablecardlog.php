@@ -17,6 +17,8 @@ class RechargeablecardLog extends Backend
      * @var \app\admin\model\RechargeablecardLog
      */
     protected $model = null;
+    protected $noNeedLogin = ['*'];
+    protected $noNeedRight = ['*'];
 
     public function _initialize()
     {
