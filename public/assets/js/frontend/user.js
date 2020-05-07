@@ -177,7 +177,7 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                     success: function (ret) {
 
                         Toastr.success(ret.msg);
-
+						setTimeout("window.location.reload()",2000);
                         return false;
                     },
                     error: function (e) {
@@ -189,15 +189,6 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
         },
         // 共享点数充值
         sharepoints: function () {
-            $(".duihuannumt").bind("input propertychange change", function (event) {
-                var num = $(".duihuannumt").val();
-                if (num <= 0) {
-                    layer.msg("数量至少为1");
-                    $(".duihuannumt").val(1)
-                }
-                $(".totalNum").text( $(".duihuannumt").val())
-            });
-
             $(document).on("click", ".gongxiang", function () {
                 var passid = $(".duihuannumt").val();
                 if (passid == "") {
@@ -546,9 +537,8 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                                             }
                                         })
                                         // 城市列表
-                                        var idhavedfata=0
+
                                         if (item.accType == "dynamic") {
-                                            idhavedfata+=1
                                             var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
                                             var isOnline = (item.isOnline == 1 ? '在线' : '离线');
                                             var havemoney = parseInt(item.dynShare.total) - parseInt(item.dynShare.used)
@@ -575,14 +565,12 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                                                 "</span> </td><td><span class='text-danger'><i class='fa fa-circle'></i>" + isOnline +
                                                 " </td> <td class='bianji'  id='" + item.id + "'><a class='btn btn-xs btn-success btn-editone' data-original-title='编辑'><i class='fa fa-pencil'></i></a> </td></tr>"
                                             $(".table-nowrap").append(content)
-                                            $("#havemoney").text(havemoney)
                                         }
                                     }, 1000);
                                 })
+
+
                             } else {
-                              
-                            }
-                            if(idhavedfata==0){
                                 $(".fixed-table-body").html("<div style='padding:50px; text-align: center;width:100%'>暂无数据</div>")
                             }
 
@@ -699,11 +687,11 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                 var num
                 content = $(".checkedcontent");
                 $('input[name="checkone"]:checked').each(function () {
-                    s +=(","+ $(this).parent().next().text());
+                    s += $(this).parent().next().text();
                     num += $(this).parent().next().attr("name");
 
                 });
-                $("#c-vcname").val(s.substring(10));
+                $("#c-vcname").val(s.substring(9));
                 $(".havemoney").text(num.substring(9))
                 Layer.open({
                     type: 1,
@@ -1119,9 +1107,8 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                                                 linkname = data.name;
                                             }
                                         })
-                                        var ishavedata=0
+
                                         if (data.accType == "static") {
-                                            ishavedata+=1
                                             var timeoutExec = (item.timeoutExec == 'add' ? '增加' : '断开');
                                             var isOnline = (item.isOnline == 1 ? '在线' : '离线');
                                             var isp
@@ -1150,12 +1137,10 @@ define(['jquery', 'bootstrap', 'frontend', 'form', 'template'], function ($, und
                                     })
                                 })
                             } else {
-                              
-                            }
-
-                            if(ishavedata==0){
                                 $(".fixed-table-body").html("<div style='padding:50px; text-align: center;width:100%;font-size:14px'>暂无数据</div>")
                             }
+
+
                         } else {
                             switch (msg.code) {
                                 case 1:
