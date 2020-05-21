@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:93:"/www/wwwroot/v.zzz80.cn/fasetadmin/public/../application/index/view/user/charlierecharge.html";i:1577022673;s:77:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/layout/default.html";i:1577027813;s:74:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/common/meta.html";i:1577022673;s:77:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/common/sidenav.html";i:1577022673;s:76:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/common/script.html";i:1577022673;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:93:"/www/wwwroot/v.zzz80.cn/fasetadmin/public/../application/index/view/user/charlierecharge.html";i:1577022673;s:77:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/layout/default.html";i:1577027813;s:74:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/common/meta.html";i:1577022673;s:77:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/common/sidenav.html";i:1588843583;s:76:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/common/script.html";i:1577022673;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -141,7 +141,7 @@
     </ul>
     <ul class="list-group">
             <li class="list-group-heading">交易中心</li>
-            <li class="list-group-item <?php echo $config['actionname']=='sharepoints'?'active':''; ?>"> <a href="<?php echo url('user/sharepoints'); ?>"><i class="fa fa-user-o fa-fw"></i> 充值共享点数</a> </li>
+            <!--<li class="list-group-item <?php echo $config['actionname']=='sharepoints'?'active':''; ?>"> <a href="<?php echo url('user/sharepoints'); ?>"><i class="fa fa-user-o fa-fw"></i> 充值共享点数</a> </li>-->
             <li class="list-group-item <?php echo $config['actionname']=='exchangepoints'?'active':''; ?>"> <a href="<?php echo url('user/exchangepoints'); ?>"><i class="fa fa-user-circle fa-fw"></i> 兑换点数</a> </li>
             <li class="list-group-item <?php echo $config['actionname']=='transaction'?'active':''; ?>"> <a href="<?php echo url('user/transaction'); ?>"><i class="fa fa-user-o fa-fw"></i> 交易记录</a> </li>
     </ul>
@@ -150,8 +150,8 @@
             <li class="list-group-item <?php echo $config['actionname']=='mainaccountnumber'?'active':''; ?>"> <a href="<?php echo url('user/mainaccountnumber'); ?>"><i class="fa fa-user-circle fa-fw"></i> 主账号</a> </li>
             <li class="list-group-item <?php echo $config['actionname']=='dynamic'?'active':''; ?>"> <a href="<?php echo url('user/dynamic'); ?>"><i class="fa fa-user-o fa-fw"></i> 申请动态</a> </li>
             <li class="list-group-item <?php echo $config['actionname']=='dynamiclist'?'active':''; ?>"> <a href="<?php echo url('user/dynamiclist'); ?>"><i class="fa fa-user-o fa-fw"></i> 动态列表</a> </li>
-            <li class="list-group-item <?php echo $config['actionname']=='static'?'active':''; ?>"> <a href="<?php echo url('user/static'); ?>"><i class="fa fa-user-o fa-fw"></i> 申请静态</a> </li>
-            <li class="list-group-item <?php echo $config['actionname']=='staticlist'?'active':''; ?>"> <a href="<?php echo url('user/staticlist'); ?>"><i class="fa fa-user-o fa-fw"></i> 静态列表</a> </li>
+            <!--<li class="list-group-item <?php echo $config['actionname']=='static'?'active':''; ?>"> <a href="<?php echo url('user/static'); ?>"><i class="fa fa-user-o fa-fw"></i> 申请静态</a> </li>-->
+            <!--<li class="list-group-item <?php echo $config['actionname']=='staticlist'?'active':''; ?>"> <a href="<?php echo url('user/staticlist'); ?>"><i class="fa fa-user-o fa-fw"></i> 静态列表</a> </li>-->
     </ul>
     <?php echo hook('user_sidenav_after'); ?>
 </div>

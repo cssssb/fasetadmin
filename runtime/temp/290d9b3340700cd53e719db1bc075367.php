@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:88:"/www/wwwroot/v.zzz80.cn/fasetadmin/public/../application/index/view/user/balancelog.html";i:1577022673;s:77:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/layout/default.html";i:1577027813;s:74:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/common/meta.html";i:1577022673;s:77:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/common/sidenav.html";i:1588843583;s:76:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/common/script.html";i:1577022673;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:84:"/www/wwwroot/v.zzz80.cn/fasetadmin/public/../application/index/view/user/invite.html";i:1577022673;s:77:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/layout/default.html";i:1577027813;s:74:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/common/meta.html";i:1577022673;s:77:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/common/sidenav.html";i:1588843583;s:76:"/www/wwwroot/v.zzz80.cn/fasetadmin/application/index/view/common/script.html";i:1577022673;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -157,24 +157,27 @@
 </div>
         </div>
         <div class="col-md-9">
-                <div class="panel panel-default panel-recharge">
-                    <div class="panel-body">
-                        <h2 class="page-header">余额日志                        <span><small class="text-danger">余额:<?php echo $money; ?></small></span>
-                            <!-- <a href="/index/recharge/recharge.html" class="btn btn-info btn-recharge pull-right"><i class="fa fa-cny"></i> 充值余额</a> -->
-                        </h2>
-                        <?php if(is_array($data) || $data instanceof \think\Collection || $data instanceof \think\Paginator): if( count($data)==0 ) : echo "" ;else: foreach($data as $key=>$v): ?>
-                                            <div class="row">
-                            <div class="col-md-12">
-                                <h4>
-                                    <?php echo $v['describe']; ?>                            </h4>
-                                    <?php echo $v['type']==1?'<p class="text-success">':'<p class="text-danger">'; ?>余额：<?php echo $v['type']==0?'-'.$v['number']:'+'.$v['number']; ?></p>
-                                <p class="text-muted">操作时间：<?php echo $v['c_time']; ?></p>
-                            </div>
-                        </div>
-                        <hr>
-                        <?php endforeach; endif; else: echo "" ;endif; ?>
+            <div class="panel-body">
+
+                <h2 class="page-header">邀请规则如下 A邀请B，B充值兑换100点A得10点返利 <span><small
+                            class="text-danger">邀请人数:<?php echo $data['user_number']; ?></small></span>
+                </h2>
+                邀请链接： <span id="link" name="link"><span class="localurl"></span><?php echo $user_id; ?> </span><a
+                    id="linkcopy" class="btn btn-info btn-embossed copy" data-clipboard-action="copy"
+                    data-clipboard-target="#link">复制链接</a>
+                <h4 class="page-header">
+
+                </h4>
+                <?php if(is_array($data['user_data']) || $data['user_data'] instanceof \think\Collection || $data['user_data'] instanceof \think\Paginator): if( count($data['user_data'])==0 ) : echo "" ;else: foreach($data['user_data'] as $key=>$v): ?>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>
+                            <?php echo $v['nickname']; ?> </h4>
+                        <p class="text-muted">注册时间：<?php echo $v['createtime']; ?></p>
                     </div>
                 </div>
+                <hr>
+                <?php endforeach; endif; else: echo "" ;endif; ?>
             </div>
         </div>
     </div>
@@ -187,7 +190,7 @@
             <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3"><?php echo __('New Email'); ?>:</label>
                 <div class="col-xs-12 col-sm-8">
-                    <input type="text" class="form-control" id="email" name="email" value="" data-rule="required;email;remote(<?php echo url('api/validate/check_email_available'); ?>, event=changeemail, id=">
+                    <input type="text" class="form-control" id="email" name="email" value="" data-rule="required;email;remote(<?php echo url('api/validate/check_email_available'); ?>, event=changeemail, id=<?php echo $user['id']; ?>)" placeholder="<?php echo __('New email'); ?>">
                     <span class="msg-box"></span>
                 </div>
             </div>
@@ -221,7 +224,7 @@
             <div class="form-group">
                 <label for="c-mobile" class="control-label col-xs-12 col-sm-3"><?php echo __('New mobile'); ?>:</label>
                 <div class="col-xs-12 col-sm-8">
-                    <input type="text" class="form-control" id="mobile" name="mobile" value="" data-rule="required;mobile;remote(<?php echo url('api/validate/check_mobile_available'); ?>, event=changemobile, id=">
+                    <input type="text" class="form-control" id="mobile" name="mobile" value="" data-rule="required;mobile;remote(<?php echo url('api/validate/check_mobile_available'); ?>, event=changemobile, id=<?php echo $user['id']; ?>)" placeholder="<?php echo __('New mobile'); ?>">
                     <span class="msg-box"></span>
                 </div>
             </div>
